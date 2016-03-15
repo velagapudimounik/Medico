@@ -1,6 +1,9 @@
 package com.drughub.doctor;
 
+import com.drughub.doctor.Cart.CartActivity;
 import com.drughub.doctor.inventory.MyInventoryFragment;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -80,10 +83,13 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new MyInventoryFragment();
                         break;
                     case 3:
-                        fragment = new MyInventoryFragment();
+                        //fragment =
+                        Intent intent = new Intent(getBaseContext(), CartActivity.class);
+                        startActivity(intent);
                         break;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+                if(fragment != null)
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
             }
 
             @Override
