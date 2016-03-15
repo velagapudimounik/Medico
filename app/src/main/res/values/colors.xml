@@ -7,4 +7,8 @@
     <color name="main_tab_background_selected">#ff5722</color>
     <color name="main_tab_background_unselected">@color/material_blue_grey_800</color>
     <color name="main_tab_text_color">#FFFFFF</color>
+    <color name="ColorBlack">#060606</color>
+    <color name="colorWhite">#fdfbfb</color>
+    <color name="Color_grey">#f4f0f0</color>
+    <color name="Button_Background">#ffffff</color>
 </resources>
