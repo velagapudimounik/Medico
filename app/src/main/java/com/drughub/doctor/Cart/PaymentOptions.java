@@ -21,7 +21,7 @@ public class PaymentOptions extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        ((CartActivity)getActivity()).setActionBarTitle("Payment Options");
+
 
 
     }
@@ -30,6 +30,7 @@ public class PaymentOptions extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        ((CartActivity)getActivity()).setActionBarTitle("Payment Options");
 
         View view = inflater.inflate(R.layout.payment_options,container,false);
         LinearLayout cash = (LinearLayout) view.findViewById(R.id.cashon_delivery);

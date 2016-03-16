@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:background="@color/colorDecoration">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTertiary">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:background="@color/colorDecoration"
+            android:id="@+id/consultationProfilePic"
+            android:layout_weight="1"
+            android:layout_margin="10dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Patient Name | Vaccine Name"
+                android:id="@+id/consultationPatientDetails" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clinic Name | Date"
+                android:textSize="@dimen/text_tiny"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/consultationClinicDetails" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@color/colorDecoration"
+                    android:id="@+id/clinicIcon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="At Home"
+                    android:textSize="8dp"
+                    android:textColor="@color/colorPrimary"
+                    android:id="@+id/homeOrClinic" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:id="@+id/consultationProgress"
+        android:progress="50"
+        android:max="100"
+        android:layout_margin="20dp"
+        android:progressDrawable="@drawable/progress_bar"/>
+</LinearLayout>

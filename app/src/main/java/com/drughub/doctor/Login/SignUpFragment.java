@@ -55,6 +55,8 @@ public class SignUpFragment extends Fragment {
                 FragmentManager manager=getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction=manager.beginTransaction();
                 transaction.replace(R.id.container1,fragment).commit();
+
+                getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
 
         };

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@android:color/white"
+    android:paddingTop="@dimen/margin_small"
+    android:paddingBottom="@dimen/margin_small">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Biopolio"
+                android:textSize="@dimen/text_small"
+                android:id="@+id/textVaccineName" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" | "
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bharath Biotech"
+                android:textSize="@dimen/text_small"
+                android:id="@+id/textManufacturerName"
+                android:textColor="@color/colorPrimary"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <com.drughub.doctor.utils.DrughubIcon
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/icon_money"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MRP Rs450 | Our Price Rs420"
+                android:textSize="@dimen/text_small"
+                android:id="@+id/textItemCost"
+                android:layout_marginLeft="5dp" />
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantity: 1"
+            android:textSize="@dimen/text_small"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/textItemQuantity" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_weight="1">
+
+            <com.drughub.doctor.utils.DrughubIcon
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/icon_down_arrow"
+                android:textSize="@dimen/text_small"
+                android:id="@+id/textView8"
+                android:rotation="180"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2ml"
+                android:textSize="@dimen/text_small"
+                android:id="@+id/textItemSize" />
+
+            <com.drughub.doctor.utils.DrughubIcon
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/icon_down_arrow"
+                android:textSize="@dimen/text_small"
+                android:id="@+id/textView10" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/itemPurchaseBtn"
+            android:layout_weight="0"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="center" />
+
+        <com.drughub.doctor.utils.DrughubIcon
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/cartIcon"
+            android:text="@string/icon_add_to_cart"
+            android:textSize="35dp"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary"
+            android:gravity="center" />
+
+    </FrameLayout>
+
+</LinearLayout>

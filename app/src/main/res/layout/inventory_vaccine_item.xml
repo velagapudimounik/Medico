@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="70dp"
+    android:layout_height="match_parent" android:background="@drawable/inventory_vaccine_item_selector"
+    android:padding="@dimen/margin_tiny">
+
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="0dp" android:background="@drawable/inventory_vaccine_item_inner_border"
+        android:id="@+id/inventory_vaccine_item_status_view" android:layout_weight="3">
+
+        <View android:layout_width="match_parent" android:layout_height="0dp"
+            android:id="@+id/inventory_vaccine_item_status_consumed" android:background="@color/colorPrimaryDull" android:layout_weight="1"/>
+
+        <View android:layout_width="match_parent" android:layout_height="0dp"
+            android:id="@+id/inventory_vaccine_item_status_available" android:background="@color/colorPrimaryLight" android:layout_weight="1"/>
+
+        <View android:layout_width="match_parent" android:layout_height="0dp"
+            android:id="@+id/inventory_vaccine_item_status_reserve" android:background="@color/colorPrimary" android:layout_weight="1"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="Vaccine Name"
+        android:textSize="@dimen/text_tiny"
+        android:id="@+id/inventory_vaccine_name"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@android:color/white"/>
+</LinearLayout>

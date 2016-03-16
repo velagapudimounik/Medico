@@ -1,12 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorDecoration"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/vaccineSearch"
-        android:hint="@string/vaccine_search_hint"
-        android:layout_gravity="center_horizontal" />
+    <RelativeLayout android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:padding="@dimen/margin_small"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/vaccineSearch"
+            android:hint="@string/vaccine_search_hint"
+            android:textColorHint="@color/colorHint"
+            android:textColor="@color/colorText"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/edit_text_background"
+            android:singleLine="true"
+            android:paddingLeft="@dimen/margin_small"
+            android:imeOptions="actionSearch"
+            />
+
+        <com.drughub.doctor.utils.DrughubIcon
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/search_button"
+            android:text="@string/icon_search"
+            android:textSize="@dimen/text_large"
+            android:layout_marginRight="@dimen/margin_small"
+            android:textColor="@color/colorText" />
+
+    </RelativeLayout>
+
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/inventory_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/white"
+            app:tabBackground="@android:color/white"
+            app:tabIndicatorHeight="@dimen/stroke_slim"
+            app:tabTextColor="@color/colorText"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextAppearance="@style/InventoryTabTextAppearance"
+            app:tabMode="scrollable"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView" android:fillViewport="true">
+
+            <LinearLayout
+                android:orientation="vertical" android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:id="@+id/inventory_vaccines"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No Items"
+                        android:id="@+id/textInventoryNoVaccines"
+                        android:layout_gravity="center" />
+                </FrameLayout>
+
+                <LinearLayout android:orientation="horizontal" android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+                    <include layout="@layout/inventory_status_info"
+                        android:id="@+id/inventory_consumed"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <include layout="@layout/inventory_status_info"
+                        android:id="@+id/inventory_available"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/margin_slim"
+                        android:layout_marginLeft="@dimen/margin_slim" />
+
+                    <include layout="@layout/inventory_status_info"
+                        android:id="@+id/inventory_reserve"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <FrameLayout
+                       android:id="@+id/inventory_manufacturers"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
+                       app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:background="@android:color/white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No Items"
+                        android:id="@+id/textInventoryNoItemsInManufacturers"
+                        android:layout_gravity="center" />
+                </FrameLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </LinearLayout>

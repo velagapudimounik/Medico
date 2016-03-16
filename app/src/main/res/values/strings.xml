@@ -2,14 +2,90 @@
     <string name="app_name">Doctor</string>
     <string name="action_settings">Settings</string>
 
-    <!-- My Inventory -->
+    <!--Main Tabs-->
     <string name="my_inventory">My Inventory</string>
     <string name="consultations">Consultations</string>
     <string name="analytics">Analytics</string>
     <string name="more">More</string>
 
+    <!--My Inventory-->
     <string name="vaccine_search_hint">Vaccine Name</string>
+    <string name="inventory_consumed">Consumed</string>
+    <string name="inventory_available">Available</string>
+    <string name="inventory_reserve">Reserve</string>
+    <string name="add_to_cart">Add to Cart</string>
 
+    <!--Consultations-->
+    <string name="todays">Todays</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="noAppointments">No Appointments Booked</string>
+    <string name="atClinic">At Clinic</string>
+    <string name="atHome">At Home</string>
+    <string name="patientName">Patient Name</string>
+    <string name="hintChildDHCode">Enter Dh Code of Child</string>
+    <string name="textOR">OR</string>
+    <string name="hintChildName">Name of the Child</string>
+    <string name="child">Child</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="dateOfBirth">Date Of Birth</string>
+    <string name="timeOfBirth">Time Of Birth</string>
+    <string name="parent">Parent</string>
+    <string name="guardian">Guardian</string>
+    <string name="hintName">Name</string>
+    <string name="hintMobile">Mobile</string>
+    <string name="hintEmail">Email</string>
+    <string name="textAdd">Add</string>
+
+    <!-- @@@@ Drughub Icons @@@@ -->
+    <!-- @@@@ Login & Registrations Icons @@@@ -->
+    <string name="icon_facebook">\u0021</string>
+    <string name="icon_google_plus">\u0022</string>
+    <string name="icon_linkedin">\u0023</string>
+    <string name="icon_check_mark_solid">\u002A</string>
+
+    <!-- @@@@ Main Tab Icons @@@@ -->
+    <!--Place Holder-->
+    <string name="icon_my_inventory">\u0068</string>
+    <!--Place Holder-->
+    <string name="icon_consultation">\u0039</string>
+    <string name="icon_analytics">\u0070</string>
+    <!--Place Holder-->
+    <string name="icon_more">\u0046</string>
+
+    <!-- @@@@ My Inventory Icons @@@@ -->
+    <string name="icon_notification">\u0030</string>
+    <string name="icon_cart">\u0069</string>
+    <string name="icon_search">\u0052</string>
+    <string name="icon_money">\u003C</string>
+    <!--Place Holder-->
+    <string name="icon_up_arrow">\u0073</string>
+    <string name="icon_down_arrow">\u0073</string>
+    <string name="icon_add_to_cart">\u006A</string>
+    <!--Place Holder-->
+    <string name="icon_close">\u0045</string>
+
+    <!-- @@@@ Cart Icons @@@@ -->
+    <string name="icon_image">\u003E</string>
+    <string name="icon_vial">\u0068</string>
+    <string name="icon_dustbin">\u0050</string>
+    <string name="icon_add_items">\u002C</string>
+    <!--Place Holder-->
+    <string name="icon_vaccine">\u0068</string>
+    <string name="icon_rupee">\u006B</string>
+    <string name="icon_location">\u003A</string>
+    <string name="icon_check_mark_stroke">\u004F</string>
+    <!--Place Holder-->
+    <string name="icon_right_arrow">\u0046</string>
+
+    <!-- @@@@ Consultation Icons @@@@ -->
+    <string name="icon_add_consultation">\u006A</string>
+    <string name="icon_profile_pic">\u002B</string>
+    <string name="icon_delete_consultation">\u0045</string>
+    <string name="icon_home">\u0036</string>
+    <string name="icon_clinic">\u0037</string>
+    <string name="icon_calendar">\u007D</string>
+    
     <!-- string for login & registration -->
     <string name="Password">Password</string>
     <string name="Forgot_Password">Forgot Passsword?</string>
@@ -37,13 +113,7 @@
     <string name="ForgotPassword">Forgot Password</string>
     <string name="title_activity_main2">Main2Activity</string>
 
-    <!-- drughub icons -->
-    <string name="otp_font_icon">4</string>
-    <string name="facebook_icon">!</string>
-    <string name="googleplus_icon">"</string>
-    <string name="linkdein_icon">#</string>
-
-    <!-- Cart -->
+     <!-- Cart -->
     <string name="cart_button">Place Order</string>
     <string name="custom_dialog_no">No</string>
     <string name="custom_dialog_yes">Yes</string>

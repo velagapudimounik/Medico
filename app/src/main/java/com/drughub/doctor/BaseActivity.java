@@ -1,25 +1,31 @@
 package com.drughub.doctor;
 
-import android.app.Activity;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.ActionMenuItemView;
-import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.drughub.doctor.utils.DrughubIcon;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaseActivity extends AppCompatActivity {
 
     private ActionBar mActionBar;
     private TextView mTitleText;
+    private Toolbar mToolbar;
+    private List<View> actionBtns = new ArrayList<>();
 
     @Override
     public void setContentView(int layoutResID)
@@ -29,9 +35,9 @@ public class BaseActivity extends AppCompatActivity {
         getLayoutInflater().inflate(layoutResID, activityContainer, true);
         super.setContentView(fullView);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        mTitleText = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        mTitleText = (TextView) mToolbar.findViewById(R.id.toolbar_title);
 
         mActionBar = getSupportActionBar();
         if(mActionBar != null) {
@@ -46,6 +52,7 @@ public class BaseActivity extends AppCompatActivity {
                 new FragmentManager.OnBackStackChangedListener() {
                     public void onBackStackChanged() {
                         int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
+                        //getSupportFragmentManager().pop
                         setBackButton(backStackCount != 0);
                     }
                 });
@@ -74,6 +81,58 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onActionButtonClicked(int drughubIconRes)
+    {
+
+    }
+
+    public View addActionButton(int drughubIconRes)
+    {
+        DrughubIcon actionBtn = new DrughubIcon(this);
+        actionBtn.setText(getString(drughubIconRes));
+        actionBtn.setTextColor(ContextCompat.getColor(this, R.color.colorTertiary));
+        actionBtn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 25);
+        actionBtn.setTag(drughubIconRes);
+
+        Toolbar.LayoutParams params = new Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.RIGHT;
+        actionBtn.setLayoutParams(params);
+
+        int pixels = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
+        actionBtn.setPadding(0, 0, pixels, 0);
+
+        mToolbar.addView(actionBtn);
+        actionBtns.add(actionBtn);
+
+        actionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onActionButtonClicked((int) v.getTag());
+            }
+        });
+
+        return actionBtn;
+    }
+
+    public void removeActionButton(int drughubIconRes)
+    {
+        View v = mToolbar.findViewWithTag(drughubIconRes);
+        if(v != null)
+        {
+            mToolbar.removeView(v);
+            actionBtns.remove(v);
+        }
+    }
+
+    public void clearActionButtons()
+    {
+        for(View v:actionBtns) {
+            mToolbar.removeView(v);
+        }
+
+        actionBtns.clear();
     }
 }
 

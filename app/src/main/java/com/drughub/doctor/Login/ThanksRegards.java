@@ -37,6 +37,7 @@ public class ThanksRegards extends Fragment {
             android.support.v4.app.FragmentManager manager = getActivity().getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.container1,fragment).commit();
+                getActivity().getSupportFragmentManager().popBackStack(null, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
         });
         return view;

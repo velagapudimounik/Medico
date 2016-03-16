@@ -43,7 +43,7 @@ public class LoginPage extends Fragment {
                     Intent loginintent = new Intent(getActivity(), MainActivity.class);
                     startActivity(loginintent);
                 } else if (view == view.findViewById(R.id.signupbutton)) {
-                    getFragmentManager().beginTransaction().replace(R.id.container1, new SignUpFragment()).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.container1, new SignUpFragment()).addToBackStack(null).commit();
 
                 } else if (view == view.findViewById(R.id.Forgotpasswordtextview)) {
                     getFragmentManager().beginTransaction().replace(R.id.container1, new ForgotPasswordFragment()).addToBackStack(null).commit();

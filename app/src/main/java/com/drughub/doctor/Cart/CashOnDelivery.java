@@ -23,12 +23,14 @@ public class CashOnDelivery extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        ((CartActivity)getActivity()).setActionBarTitle("Cash On Delivery");
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        ((CartActivity)getActivity()).setActionBarTitle("Cash On Delivery");
 
       View view = inflater.inflate(R.layout.cash_on_delivery,container,false);
         Button confrim = (Button) view.findViewById(R.id.confirm_order);

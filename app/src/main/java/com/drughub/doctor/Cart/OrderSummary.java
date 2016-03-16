@@ -29,12 +29,14 @@ public class OrderSummary extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((CartActivity)getActivity()).setActionBarTitle("Order Summary");
+
 
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((CartActivity)getActivity()).setActionBarTitle("Order Summary");
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.order_summary,container,false);
 

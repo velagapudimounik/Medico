@@ -42,14 +42,13 @@ public class CartListFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        getActivity().setTitle("Cart");
 
         final View view = inflater.inflate(R.layout.cart_item_list,container,false);
 
        /* TextView toolbar_text = (TextView) view.findViewById(R.id.toolbar_title);
         toolbar_text.setText("Cart");
 */
-
-
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.hasFixedSize();
