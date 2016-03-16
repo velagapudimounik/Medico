@@ -2,6 +2,7 @@
     <string name="app_name">Doctor</string>
     <string name="action_settings">Settings</string>
 
+    <!-- My Inventory -->
     <string name="my_inventory">My Inventory</string>
     <string name="consultations">Consultations</string>
     <string name="analytics">Analytics</string>
@@ -41,4 +42,24 @@
     <string name="facebook_icon">!</string>
     <string name="googleplus_icon">"</string>
     <string name="linkdein_icon">#</string>
+
+    <!-- Cart -->
+    <string name="cart_button">Place Order</string>
+    <string name="custom_dialog_no">No</string>
+    <string name="custom_dialog_yes">Yes</string>
+    <string name="order_summary_btn">Confirm Order</string>
+
+    <string name="payment_option_button">S</string>
+    <string name="rupee">T</string>
+    <string name="cart_place_order">Place Order</string>
+    <string name="change_address_button">Ok</string>
+    <string name="confirm_order">has been placed sucessfully</string>
+    <string name="change_address">Change Shipping Address</string>
+
+    <string name="total_items">Total Items</string>
+    <string name="total">Total</string>
+    <string name="discount">Discount</string>
+    <string name="coupon_discount">Coupon Discount</string>
+    <string name="vat_cst">VAT/CST</string>
+    <string name="grand_total">Grand Total</string>
 </resources>
