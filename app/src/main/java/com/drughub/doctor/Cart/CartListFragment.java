@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
 
 
@@ -43,6 +44,7 @@ public class CartListFragment extends Fragment{
                              Bundle savedInstanceState) {
 
         getActivity().setTitle("Cart");
+        ((BaseActivity)getActivity()).setBackButton(true);
 
         final View view = inflater.inflate(R.layout.cart_item_list,container,false);
 

@@ -61,7 +61,11 @@ public class VaccineListFragment extends Fragment
         VaccineListAdapter mAdapter = new VaccineListAdapter(mDataset, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.inventory_manufacturers, new VaccineMfrListFragment()).commit();
+        Fragment fragment = new VaccineMfrListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("name", "Item0");
+        fragment.setArguments(bundle);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.inventory_manufacturers, fragment).commit();
     }
 
     public static class VaccineListAdapter extends RecyclerView.Adapter<VaccineListAdapter.ViewHolder>
@@ -98,7 +102,12 @@ public class VaccineListFragment extends Fragment
                         MyInventoryFragment fragment = (MyInventoryFragment) sContext.getSupportFragmentManager().findFragmentById(R.id.container);
                         fragment.setInventoryInfo(itemData.consumed, itemData.available, itemData.reserve);
 
-                        sContext.getSupportFragmentManager().beginTransaction().replace(R.id.inventory_manufacturers, new VaccineMfrListFragment()).commit();
+                        Fragment mfrList = new VaccineMfrListFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("name", textView.getText().toString());
+                        mfrList.setArguments(bundle);
+
+                        sContext.getSupportFragmentManager().beginTransaction().replace(R.id.inventory_manufacturers, mfrList).commit();
                     }
                 });
                 textView = (TextView) v.findViewById(R.id.inventory_vaccine_name);

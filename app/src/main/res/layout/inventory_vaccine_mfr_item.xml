@@ -51,13 +51,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/icon_money"
                 android:textColor="@color/colorPrimary"
-                android:textSize="25dp"/>
+                android:textSize="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MRP Rs450 | Our Price Rs420"
-                android:textSize="@dimen/text_small"
+                android:text="MRP \u20B9 450 | Our Price \u20B9 420"
+                android:textSize="13dp"
                 android:id="@+id/textItemCost"
                 android:layout_marginLeft="5dp" />
 

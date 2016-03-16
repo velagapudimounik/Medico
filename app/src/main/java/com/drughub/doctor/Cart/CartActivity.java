@@ -21,7 +21,7 @@ public class CartActivity extends BaseActivity {
         setContentView(R.layout.cart_container);
         setActionBarTitle("Cart");
 
-        setBackButton(true);
+
 
 
         if(value)

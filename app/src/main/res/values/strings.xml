@@ -77,6 +77,7 @@
     <string name="icon_check_mark_stroke">\u004F</string>
     <!--Place Holder-->
     <string name="icon_right_arrow">\u0046</string>
+    <string name="icon_dollar">\u003C</string>
 
     <!-- @@@@ Consultation Icons @@@@ -->
     <string name="icon_add_consultation">\u006A</string>
@@ -85,6 +86,8 @@
     <string name="icon_home">\u0036</string>
     <string name="icon_clinic">\u0037</string>
     <string name="icon_calendar">\u007D</string>
+
+    <string name="rupeeSymbol">\u20B9</string>
     
     <!-- string for login & registration -->
     <string name="Password">Password</string>

@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.drughub.doctor.R;
 import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 class VaccineMfrItem
@@ -29,10 +31,14 @@ class VaccineMfrItem
     }
 }
 
-public class VaccineMfrListFragment extends Fragment {RecyclerView mRecyclerView;
+public class VaccineMfrListFragment extends Fragment {
+    RecyclerView mRecyclerView;
+    String mVaccineName;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mVaccineName = getArguments().getString("name");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_inventory_vaccine_mfr_list, container, false);
     }
@@ -56,7 +62,7 @@ public class VaccineMfrListFragment extends Fragment {RecyclerView mRecyclerView
             mDataset.add(item);
         }
 
-        VaccineMfrListAdapter mAdapter = new VaccineMfrListAdapter(mDataset, getActivity());
+        VaccineMfrListAdapter mAdapter = new VaccineMfrListAdapter(mDataset, getActivity(), mVaccineName);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -64,8 +70,10 @@ public class VaccineMfrListFragment extends Fragment {RecyclerView mRecyclerView
     {
         private ArrayList<VaccineMfrItem> mDataSet;
         static FragmentActivity sContext;
+        String mVaccineName;
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
+            TextView vaccineName;
             private final TextView textView;
             private View mItemView;
             private View mPurchaseBtn;
@@ -85,6 +93,7 @@ public class VaccineMfrListFragment extends Fragment {RecyclerView mRecyclerView
                 });
 
                 textView = (TextView) v.findViewById(R.id.textManufacturerName);
+                vaccineName = (TextView) v.findViewById(R.id.textVaccineName);
                 mPurchaseBtn = v.findViewById(R.id.itemPurchaseBtn);
 
                 mPurchaseBtn.setOnClickListener(new View.OnClickListener() {
@@ -122,16 +131,18 @@ public class VaccineMfrListFragment extends Fragment {RecyclerView mRecyclerView
                 mItemView.setSelected(selected);
             }
 
-            public void setItemDetails(VaccineMfrItem item)
+            public void setItemDetails(VaccineMfrItem item, String vaccineNameText)
             {
                 textView.setText(item.manufacturerName);
+                vaccineName.setText(vaccineNameText);
             }
         }
 
-        public VaccineMfrListAdapter(ArrayList<VaccineMfrItem> dataSet, FragmentActivity context)
+        public VaccineMfrListAdapter(ArrayList<VaccineMfrItem> dataSet, FragmentActivity context, String vaccineName)
         {
             mDataSet = dataSet;
             sContext = context;
+            mVaccineName = vaccineName;
         }
 
         @Override
@@ -148,7 +159,7 @@ public class VaccineMfrListFragment extends Fragment {RecyclerView mRecyclerView
         {
             // Get element from your dataset at this position and replace the contents of the view
             // with that element
-            viewHolder.setItemDetails(mDataSet.get(position));
+            viewHolder.setItemDetails(mDataSet.get(position), mVaccineName);
         }
 
         @Override

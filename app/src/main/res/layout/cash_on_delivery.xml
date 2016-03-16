@@ -137,7 +137,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="$"
+                                android:text="@string/rupeeSymbol"
                                 android:textColor="@color/colorPrimary"
 
                                 android:layout_gravity="right"/>
@@ -145,7 +145,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="$"
+                                android:text="@string/rupeeSymbol"
                                 android:textColor="@color/colorPrimary"
 
                                 android:layout_gravity="right"/>
@@ -154,19 +154,19 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/colorPrimary"
-                                android:text="$"
+                                android:text="@string/rupeeSymbol"
                                 android:layout_gravity="right"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/colorPrimary"
-                                android:text="$"
+                                android:text="@string/rupeeSymbol"
                                 android:layout_gravity="right"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="$"
+                                android:text="@string/rupeeSymbol"
                                 android:textColor="@color/colorPrimary"
                                 android:layout_gravity="right"/>
 
@@ -257,7 +257,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$"
+                            android:text="@string/rupeeSymbol"
                             android:textColor="@color/colorPrimary"
                             android:layout_marginLeft="30dp"
                             />

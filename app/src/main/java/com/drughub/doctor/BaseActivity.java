@@ -52,7 +52,6 @@ public class BaseActivity extends AppCompatActivity {
                 new FragmentManager.OnBackStackChangedListener() {
                     public void onBackStackChanged() {
                         int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
-                        //getSupportFragmentManager().pop
                         setBackButton(backStackCount != 0);
                     }
                 });

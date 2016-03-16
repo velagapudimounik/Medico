@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
 
 
@@ -24,6 +25,7 @@ public class CartEmpty extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        ((BaseActivity)getActivity()).setBackButton(true);
         return inflater.inflate(R.layout.cart_empty,container,false);
     }
 

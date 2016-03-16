@@ -46,32 +46,33 @@ public class MainActivity extends BaseActivity
     private void initTabControl() {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.my_inventory)));//setIcon(R.drawable.ic_action_pickup);
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.consultations)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.analytics)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.more)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.my_inventory)).setIcon(R.drawable.ic_vaccine));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.consultations)).setIcon(R.drawable.ic_consultations));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.analytics)).setIcon(R.drawable.ic_analytics));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.more)).setIcon(R.drawable.ic_more));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
-                clearActionButtons();
+
 
                 Fragment fragment = null;
                 switch (tab.getPosition()) {
                     case 0:
+                        clearActionButtons();
                         fragment = new MyInventoryFragment();
                         addActionButton(R.string.icon_cart);
                         addActionButton(R.string.icon_notification);
                         break;
                     case 1:
-                        fragment = new ConsultationFragment();
-                        addActionButton(R.string.icon_notification);
+                        //fragment = new MyInventoryFragment();
+                        //addActionButton(R.string.icon_notification);
                         break;
                     case 2:
-                        fragment = new ConsultationFragment();
+                        //fragment = new MyInventoryFragment();
                         break;
                     case 3:
-                        fragment = new ConsultationFragment();
+                        //fragment = new MyInventoryFragment();
                         break;
                 }
                 if(fragment != null)
