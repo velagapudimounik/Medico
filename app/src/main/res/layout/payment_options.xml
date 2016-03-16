@@ -50,15 +50,15 @@
                         />
 
 
-                    <TextView
+                    <com.drughub.doctor.utils.DrughubIcon
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$  "
+                        android:text="@string/icon_rupee"
                         android:textSize="15dp"
                         android:textColor="@color/colorPrimary"
                         android:layout_marginTop="10dp"
                         android:gravity="center_horizontal"
-                        android:layout_gravity="center"
+                        android:layout_gravity="bottom"
                         android:layout_marginLeft="30dp"
                         />
 
@@ -128,8 +128,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:gravity="center_vertical"
+
                 android:background="@color/main_tab_text_color"
                 >
 
@@ -143,17 +144,14 @@
                     />
 
 
-                <TextView
+                <com.drughub.doctor.utils.DrughubIcon
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/orange_wallet"
                     android:background="@color/main_tab_text_color"
-                    android:layout_gravity="bottom"
-                    android:gravity="bottom"
                     android:layout_marginRight="15dp"
-                    android:padding="5dp"
-                    android:text=">"
-                    android:textSize="25dp"
+                    android:text="@string/icon_right_arrow"
+                    android:textSize="30dp"
                     android:textColor="@color/colorPrimary"
                     />
 
@@ -165,7 +163,7 @@
                 />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:gravity="center_vertical"
                 android:background="@color/main_tab_text_color"
                 >
@@ -179,16 +177,16 @@
 
                     />
 
-                <TextView
+                <com.drughub.doctor.utils.DrughubIcon
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+
                     android:layout_marginRight="15dp"
                     android:layout_gravity="bottom"
                     android:id="@+id/credit_card"
                     android:background="@color/main_tab_text_color"
-                    android:text=">"
-                    android:textSize="25dp"
+                    android:text="@string/icon_right_arrow"
+                    android:textSize="30dp"
                     android:textColor="@color/colorPrimary"
                     />
             </LinearLayout>
@@ -199,7 +197,7 @@
                 />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:gravity="center_vertical"
                 android:background="@color/main_tab_text_color"
                 >
@@ -212,16 +210,15 @@
                     android:text="Net Banking"
 
                     />
-                <TextView
+                <com.drughub.doctor.utils.DrughubIcon
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
                     android:id="@+id/net_banking"
                     android:background="@color/main_tab_text_color"
-                    android:text=">"
+                    android:text="@string/icon_right_arrow"
                     android:layout_gravity="bottom"
-                    android:padding="5dp"
-                    android:textSize="25dp"
+                    android:textSize="30dp"
                     android:textColor="@color/colorPrimary"
                     />
             </LinearLayout>
@@ -232,7 +229,7 @@
                 />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:gravity="center_vertical"
                 android:id="@+id/cashon_delivery"
                 android:background="@color/main_tab_text_color"
@@ -247,16 +244,15 @@
                     android:text="Cash On Delivery"
 
                     />
-                <TextView
+                <com.drughub.doctor.utils.DrughubIcon
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/cash_on_delivery"
                     android:layout_gravity="bottom"
                     android:background="@color/main_tab_text_color"
-                    android:text=">"
-                    android:padding="5dp"
+                    android:text="@string/icon_right_arrow"
                     android:layout_marginRight="15dp"
-                    android:textSize="25dp"
+                    android:textSize="30dp"
                     android:textColor="@color/colorPrimary"
                     />
             </LinearLayout>
