@@ -34,13 +34,17 @@
 
                android:gravity="center_horizontal">
 
-               <ImageView
-                   android:layout_width="40dp"
-                   android:layout_height="40dp"
+               <com.drughub.doctor.utils.DrughubIcon
+                   android:layout_width="60dp"
+                   android:layout_height="wrap_content"
                    android:src="@drawable/download"
+                   android:text="@string/icon_image"
                    android:layout_marginTop="10dp"
                    android:layout_marginLeft="20dp"
                    android:layout_marginBottom="10dp"
+                   android:background="@color/colorDecoration"
+                   android:textSize="50dp"
+                   android:textAlignment="center"
                    />
 
                <LinearLayout
@@ -99,7 +103,8 @@
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:gravity="center_horizontal">
+               android:gravity="center_horizontal"
+               android:layout_marginLeft="20dp">
 
                <com.drughub.doctor.utils.DrughubIcon
                    android:layout_width="wrap_content"
@@ -116,7 +121,7 @@
                    android:text="1.5ML"
                    android:layout_marginTop="10dp"
 
-                   android:layout_marginLeft="5dp"
+
                    android:textSize="18dp"/>
 
                <com.drughub.doctor.utils.DrughubIcon
@@ -126,7 +131,7 @@
                    android:textSize="25dp"
                    android:textColor="@color/colorPrimary"
                    android:text="@string/icon_dollar"
-                   android:layout_marginLeft="20dp"
+                   android:layout_marginLeft="10dp"
                    />
 
                <TextView
@@ -135,7 +140,7 @@
                    android:text="$ 500"
 
                    android:layout_marginTop="10dp"
-                   android:layout_marginLeft="5dp"
+
                    android:textSize="18dp"/>
 
 
@@ -144,7 +149,7 @@
                    android:layout_height="wrap_content"
                    android:text="QTY : "
                    android:layout_marginTop="10dp"
-                   android:layout_marginLeft="20dp"
+                   android:layout_marginLeft="10dp"
                    android:textColor="@color/colorPrimary"
                    android:textSize="20dp"/>
 
