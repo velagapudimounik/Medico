@@ -3,99 +3,111 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="@color/Color_grey">
+    android:background="@color/colorDecorationLight">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="@dimen/margin_large">
+
 
     <EditText
-        android:layout_width="280dp"
-        android:id="@+id/namesignup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/edit_text_background"
+        android:id="@+id/nameSignup"
         android:layout_marginTop="20dp"
-        android:hint="@string/Name"/>
+        android:hint="@string/Name"
+        style="@style/EditTextStyle"/>
 
     <EditText
-        android:layout_width="280dp"
+        android:layout_width="match_parent"
         android:id="@+id/mobilesignup"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/edit_text_height"
         android:background="@drawable/edit_text_background"
         android:layout_marginTop="20dp"
         android:hint="@string/Mobile"
-        android:inputType="phone"/>
+        android:inputType="phone"
+        style="@style/EditTextStyle"/>
+
     <EditText
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edit_text_height"
         android:id="@+id/emailsignup"
         android:background="@drawable/edit_text_background"
         android:layout_marginTop="20dp"
         android:hint="@string/Email"
-        android:inputType="textEmailAddress"/>
+        android:inputType="textEmailAddress"
+        style="@style/EditTextStyle"/>
+
     <EditText
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edit_text_height"
         android:background="@drawable/edit_text_background"
         android:id="@+id/passwordsignup"
         android:layout_marginTop="20dp"
         android:hint="@string/password"
         android:inputType="textPassword"
-        />
+        style="@style/EditTextStyle"/>
+
     <Button
-        android:layout_width="180dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:text="@string/Register"
         android:id="@+id/registerbutton"
-        android:textColor="@color/colorWhite"
-        android:layout_marginTop="15dp"
-        />
+        android:layout_marginTop="25dp"
+        style="@style/ButtonStyle"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/VerifyOTP"
         android:id="@+id/otptextview"
         android:textStyle="bold"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="35dp"/>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        >
+        android:layout_marginTop="10dp">
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/OTPEdittext"
             android:ems="6"
-            android:inputType="number"
-            />
+            android:inputType="number"/>
+
         <com.drughub.doctor.utils.DrughubIcon
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imagesignup"
-            android:textSize="30dp"
-           android:textColor="@color/colorPrimary"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimary"
             android:text="@string/icon_check_mark_solid"
-            android:layout_toRightOf="@+id/OTPEdittext"/>
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/OTPEdittext"
+            android:layout_alignEnd="@+id/OTPEdittext" />
+
     </RelativeLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/resend"
         android:text="@string/Resend"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="15dp" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"/>
 
-    <View
-        android:layout_width="55dp"
-        android:id="@+id/signupline"
-        android:layout_height="1dp"
-        android:background="@color/colorPrimaryDark"/>
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

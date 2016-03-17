@@ -90,23 +90,23 @@
     <string name="rupeeSymbol">\u20B9</string>
     
     <!-- string for login & registration -->
-    <string name="Password">Password</string>
-    <string name="Forgot_Password">Forgot Passsword?</string>
+    <string name="hintPassword">Password</string>
+    <string name="Forgot_Password"><u>Forgot Passsword?</u></string>
     <string name="LoginButton">Login</string>
     <string name="SignUpButton">SignUp</string>
     <string name="LoginUsing">Or Login Using</string>
-    <string name="Facebook">Facebook</string>
-    <string name="EmailorMobile">Email | Mobile</string>
-    <string name="Googleplus">Google+</string>
-    <string name="Linkdein">Linkdein</string>
+    <string name="txtFacebook">Facebook</string>
+    <string name="hintEmailOrMobile">Email | Mobile</string>
+    <string name="txtGooglePlus">Google+</string>
+    <string name="txtLinkedIn">Linkdein</string>
     <string name="Name">Name</string>
     <string name="Mobile">Mobile</string>
     <string name="Email">Email</string>
     <string name="password">Password</string>
     <string name="Register">Register</string>
-    <string name="VerifyOTP">Verify OTP</string>
-    <string name="Resend">Resend</string>
-    <string name="reset">Please enter your registered E-mail-ID
+    <string name="VerifyOTP"><u>Verify OTP</u></string>
+    <string name="Resend"><u>Resend</u></string>
+    <string name="resetPasswordText">Please enter your registered E-mail-ID
                 for a password reset link</string>
     <string name="submit">Submit</string>
     <string name="Thank_you">Thank you for your request.A password reset link has been sent to your email address.</string>

@@ -4,7 +4,6 @@ package com.drughub.doctor.Login;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.drughub.doctor.MainActivity;
 import com.drughub.doctor.R;
 public class SignUpFragment extends Fragment {
     TextView titleSignup=null;
@@ -35,7 +33,7 @@ public class SignUpFragment extends Fragment {
         final View view = inflater.inflate(R.layout.signup, container, false);
         getActivity().setTitle("SignUP");
        // getActivity().setTitle("  SignUp");
-        EditText name = (EditText) view.findViewById(R.id.namesignup);
+        EditText name = (EditText) view.findViewById(R.id.nameSignup);
         EditText email = (EditText) view.findViewById(R.id.emailsignup);
         EditText mobile = (EditText) view.findViewById(R.id.mobilesignup);
         EditText password = (EditText) view.findViewById(R.id.passwordsignup);

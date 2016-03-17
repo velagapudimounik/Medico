@@ -33,4 +33,9 @@
     <dimen name="stroke_tiny">2dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="edit_text_height">40dp</dimen>
+    <dimen name="edit_text_width">200dp</dimen>
+    <dimen name="button_height">40dp</dimen>
+    <dimen name="button_width">200dp</dimen>
 </resources>

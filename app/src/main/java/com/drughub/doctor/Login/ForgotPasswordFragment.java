@@ -1,13 +1,7 @@
 package com.drughub.doctor.Login;
 
-import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +26,13 @@ public class ForgotPasswordFragment extends Fragment {
         final View view=inflater.inflate(R.layout.forgotpassword, container, false);
 
         TextView text=(TextView)view.findViewById(R.id.reset);
-        EditText email=(EditText)view.findViewById(R.id.emailforforgot);
-        Button btn=(Button)view.findViewById(R.id.submitbutton);
+        EditText email=(EditText)view.findViewById(R.id.emailForForgot);
+        Button btn=(Button)view.findViewById(R.id.submitButton);
         // Inflate the layout for this fragment
         View.OnClickListener listener=new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (view==view.findViewById(R.id.submitbutton)){
+                if (view==view.findViewById(R.id.submitButton)){
                     fragment=new ThanksRegards();
                 }
 
@@ -47,7 +41,7 @@ public class ForgotPasswordFragment extends Fragment {
         };
 
 
-        Button btn1 = (Button)view.findViewById(R.id.submitbutton);
+        Button btn1 = (Button)view.findViewById(R.id.submitButton);
         btn1.setOnClickListener(listener);
         return view;
     }

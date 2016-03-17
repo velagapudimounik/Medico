@@ -17,6 +17,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res',
+//                            'src/main/res/layouts/first',
+//                            'src/main/res/layouts/second',
+                    ]
+        }
+    }
 }
 
 dependencies {
@@ -27,6 +37,4 @@ dependencies {
     compile 'com.android.support:support-v4:23.2.0'
     compile 'com.android.support:recyclerview-v7:23.2.0'
     compile 'com.android.support:cardview-v7:23.2.0'
-
-
 }

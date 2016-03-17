@@ -7,5 +7,5 @@ android:shape="rectangle" android:padding="@dimen/margin_small">
     android:bottomLeftRadius="@dimen/radius_tiny"
     android:topLeftRadius="@dimen/radius_tiny"
     android:topRightRadius="@dimen/radius_tiny"/>
-<stroke android:width="@dimen/stroke_slim" android:color="@color/colorDecoration"/>
+<!--<stroke android:width="@dimen/stroke_slim" android:color="@color/colorDecoration"/>-->
 </shape>
