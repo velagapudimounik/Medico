@@ -69,6 +69,7 @@
     <string name="icon_image">\u003E</string>
     <string name="icon_vial">\u0068</string>
     <string name="icon_dustbin">\u0050</string>
+    <string name="icon_dollor">\u003C</string>
     <string name="icon_add_items">\u002C</string>
     <!--Place Holder-->
     <string name="icon_vaccine">\u0068</string>
@@ -135,4 +136,43 @@
     <string name="coupon_discount">Coupon Discount</string>
     <string name="vat_cst">VAT/CST</string>
     <string name="grand_total">Grand Total</string>
+    <string name="total_ordered_vaccines">Total Vaccines Ordered</string>
+    <string name="order_details">Order Details</string>
+    <string name="shipping_address">Shipping Address</string>
+    <string name="order_status">Order Status</string>
+
+
+
+    <!-- More -->
+
+    <string name="myhome">My Home</string>
+    <string name="myprofile">My Profile</string>
+    <string name="mycalender">My Calender</string>
+    <string name="myorders">My Orders</string>
+    <string name="patientrecords">Patient Records</string>
+    <string name="orangeconnect">Orange Connect</string>
+    <string name="orangewallet">Orange Wallet</string>
+    <string name="about_info">About</string>
+
+
+
+    <!-- More Icons @@@ -->
+
+    <string name="my_home">\u0036</string>
+    <string name="my_profile">\u0047</string>
+    <string name="my_calender">\u007D</string>
+    <string name="my_orders">\u006E</string>
+    <string name="patient_records">\u006D</string>
+    <string name="orange_connect">\u006F</string>
+    <string name="orange_wallet">\u0034</string>
+    <string name="about">\u004C</string>
+
+
+
+    <!-- My Order Icon -->
+    <string name="right_arrow">\u0046</string>
+    <string name="empty_cart">\u0069</string>
+    <string name="order_injuction">\u0077</string>
+
+
 </resources>

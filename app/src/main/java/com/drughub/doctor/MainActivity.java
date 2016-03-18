@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity
             public void onTabSelected(TabLayout.Tab tab) {
 
 
-
+                setActionBarVisibility(true);
                 Fragment fragment = null;
                 switch (tab.getPosition()) {
                     case 0:
@@ -72,7 +72,8 @@ public class MainActivity extends BaseActivity
                         //fragment = new MyInventoryFragment();
                         break;
                     case 3:
-                        //fragment = new MyInventoryFragment();
+                        fragment = new MoreFragment();
+                        //setActionBarVisibility(false);
                         break;
                 }
                 if(fragment != null)
