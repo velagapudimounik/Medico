@@ -133,5 +133,20 @@ public class BaseActivity extends AppCompatActivity {
 
         actionBtns.clear();
     }
+
+
+    public void setActionBarVisibility(boolean visibility)
+    {
+        if(visibility)
+        {
+            mToolbar.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            mToolbar.setVisibility(View.GONE);
+        }
+
+
+    }
 }
 
