@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorDecorationLight"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/availability"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/margin_medium"
+            android:paddingTop="@dimen/margin_medium"
+            android:text="@string/availability"
+            android:textColor="@drawable/consultation_tabs_color"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/margin_slim"
+            android:layout_marginRight="@dimen/margin_slim" />
+
+        <RadioButton
+            android:id="@+id/booked"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            android:text="@string/booked"
+            android:textColor="@drawable/consultation_tabs_color"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/margin_slim" />
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@android:color/white"
+        android:layout_marginTop="35dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/view" />
+
+    <com.drughub.doctor.utils.DrughubIcon
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/icon_add_consultation"
+        android:textSize="65dp"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/addCalendar"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/my_calendar_container"
+        android:layout_below="@+id/view"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/noAppointments"
+            android:textColor="@color/colorPrimary" />
+
+    </FrameLayout>
+
+</RelativeLayout>

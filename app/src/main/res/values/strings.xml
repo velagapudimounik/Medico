@@ -18,6 +18,8 @@
     <!--Consultations-->
     <string name="todays">Todays</string>
     <string name="upcoming">Upcoming</string>
+    <string name="missed">Missed</string>
+    <string name="administered">Administered</string>
     <string name="noAppointments">No Appointments Booked</string>
     <string name="atClinic">At Clinic</string>
     <string name="atHome">At Home</string>
@@ -46,7 +48,7 @@
 
     <!-- @@@@ Main Tab Icons @@@@ -->
     <!--Place Holder-->
-    <string name="icon_my_inventory">\u0068</string>
+    <string name="icon_my_inventory">\u001E</string>
     <!--Place Holder-->
     <string name="icon_consultation">\u0039</string>
     <string name="icon_analytics">\u0070</string>
@@ -58,8 +60,6 @@
     <string name="icon_cart">\u0069</string>
     <string name="icon_search">\u0052</string>
     <string name="icon_money">\u003C</string>
-    <!--Place Holder-->
-    <string name="icon_up_arrow">\u0073</string>
     <string name="icon_down_arrow">\u0073</string>
     <string name="icon_add_to_cart">\u006A</string>
     <!--Place Holder-->
@@ -72,16 +72,14 @@
     <string name="icon_dollor">\u003C</string>
     <string name="icon_add_items">\u002C</string>
     <!--Place Holder-->
-    <string name="icon_vaccine">\u0068</string>
+    <string name="icon_vaccine">\u001E</string>
     <string name="icon_rupee">\u006B</string>
     <string name="icon_location">\u003A</string>
     <string name="icon_check_mark_stroke">\u004F</string>
-    <!--Place Holder-->
-    <string name="icon_right_arrow">\u0046</string>
     <string name="icon_dollar">\u003C</string>
 
     <!-- @@@@ Consultation Icons @@@@ -->
-    <string name="icon_add_consultation">\u006A</string>
+    <string name="icon_add_consultation">\u002C</string>
     <string name="icon_profile_pic">\u002B</string>
     <string name="icon_delete_consultation">\u0045</string>
     <string name="icon_home">\u0036</string>
@@ -92,14 +90,12 @@
     
     <!-- string for login & registration -->
     <string name="hintPassword">Password</string>
-    <string name="Forgot_Password"><u>Forgot Passsword?</u></string>
-    <string name="LoginButton">Login</string>
-    <string name="SignUpButton">SignUp</string>
+    <string name="Forgot_Password"><u>Forgot Password?</u></string>
     <string name="LoginUsing">Or Login Using</string>
     <string name="txtFacebook">Facebook</string>
-    <string name="hintEmailOrMobile">Email | Mobile</string>
+    <string name="hintEmailOrMobile">Email | Mobile No.</string>
     <string name="txtGooglePlus">Google+</string>
-    <string name="txtLinkedIn">Linkdein</string>
+    <string name="txtLinkedIn">Linkedin</string>
     <string name="Name">Name</string>
     <string name="Mobile">Mobile</string>
     <string name="Email">Email</string>
@@ -107,14 +103,13 @@
     <string name="Register">Register</string>
     <string name="VerifyOTP"><u>Verify OTP</u></string>
     <string name="Resend"><u>Resend</u></string>
-    <string name="resetPasswordText">Please enter your registered E-mail-ID
-                for a password reset link</string>
+    <string name="resetPasswordText">Please enter your registered E-mail-ID for a password reset link.</string>
     <string name="submit">Submit</string>
-    <string name="Thank_you">Thank you for your request.A password reset link has been sent to your email address.</string>
+    <string name="Thank_you">Thank you for your request.\nA password reset link has been sent to your email address.</string>
     <string name="OK">OK</string>
-    <string name="Login">Login</string>
-    <string name="SignUp">Signup</string>
-    <string name="ForgotPassword">Forgot Password</string>
+    <string name="login">Login</string>
+    <string name="signup">Signup</string>
+    <string name="forgotPassword">Forgot Password</string>
     <string name="title_activity_main2">Main2Activity</string>
 
      <!-- Cart -->
@@ -160,8 +155,8 @@
 
     <string name="my_home">\u0036</string>
     <string name="my_profile">\u0047</string>
-    <string name="my_calender">\u007D</string>
-    <string name="my_orders">\u006E</string>
+    <string name="icon_my_calender">\u007D</string>
+    <string name="icon_my_orders">\u006E</string>
     <string name="patient_records">\u006D</string>
     <string name="orange_connect">\u006F</string>
     <string name="orange_wallet">\u0034</string>
@@ -175,4 +170,15 @@
     <string name="order_injuction">\u0077</string>
 
 
+
+    <!--My Calendar-->
+    <string name="my_calendar">My Calendar</string>
+    <string name="availability">Availability</string>
+    <string name="booked">Booked</string>
+    <string name="hintLocation">Location</string>
+    <string name="hintDateOrPatient">Date | Patient Name</string>
+    <string name="icon_settings">\u0044</string>
+    <string name="icon_edit">\u0051</string>
+    <string name="hintDate">DD/MM/YYYY</string>
+    <string name="hintTime">HH:MM</string>
 </resources>

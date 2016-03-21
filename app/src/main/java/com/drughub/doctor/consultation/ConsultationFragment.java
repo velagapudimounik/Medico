@@ -2,20 +2,31 @@ package com.drughub.doctor.consultation;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.TestActivity;
+import com.drughub.doctor.utils.CustomDialog;
 
 public class ConsultationFragment extends Fragment {
     @Override
@@ -32,26 +43,21 @@ public class ConsultationFragment extends Fragment {
 
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.consultationListContainer, new ConsultationListFragment()).commit();
 
-        TextView addBtn = (TextView) view.findViewById(R.id.addConsultationBtn);
+        final TextView addBtn = (TextView) view.findViewById(R.id.addConsultationBtn);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                final Dialog dialog = new Dialog(getActivity(), R.style.DialogTheme);
-//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                dialog.setContentView(R.layout.add_consultation_db);
-//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0x88000000));
-//
-//                View addBtn = dialog.findViewById(R.id.addConsultationBtn);
-//                addBtn.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        dialog.dismiss();
-//                    }
-//                });
-//                dialog.show();
+            ((BaseActivity)getActivity()).setBackButton(true);
+            final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)getActivity(), R.layout.add_consultation_db,
+                    Gravity.BOTTOM, true, false, true);
 
-                Intent intent = new Intent(getContext(), AddConsultationActivity.class);
-                startActivity(intent);
+            View addBtn = dialog.findViewById(R.id.addConsultationBtn);
+            addBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
             }
         });
     }

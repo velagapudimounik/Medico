@@ -9,14 +9,15 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.app.Dialog;
 
+import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.utils.CustomDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,37 +49,28 @@ public class OrderSummary extends Fragment {
             @Override
             public void onClick(View v) {
 
-                 final Dialog dialog = new Dialog(getContext());
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                 dialog.setContentView(R.layout.change_shipping_address);
+            final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)getContext(), R.layout.change_shipping_address,
+                    Gravity.BOTTOM, true, true, false);
 
-               //dialog.setTitle("Change Shipping Address");
+            Spinner spinner = (Spinner) dialog.findViewById(R.id.change_address);
 
+            List<String> categories = new ArrayList<>();
+            categories.add("My Address");
+            categories.add("Sandeep");
+            categories.add("Dr.sandeep");
 
-                Window window = dialog.getWindow();
-                window.setGravity(Gravity.BOTTOM);
+            ArrayAdapter<String> data = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1 ,categories);
+            data.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                Spinner spinner = (Spinner) dialog.findViewById(R.id.change_address);
+            spinner.setAdapter(data);
 
-                List<String> categories = new ArrayList<>();
-                categories.add("My Address");
-                categories.add("Sandeep");
-                categories.add("Dr.sandeep");
-
-                ArrayAdapter<String> data = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1 ,categories);
-                data.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                spinner.setAdapter(data);
-
-                Button change_address = (Button) dialog.findViewById(R.id.change_address_btn);
-                change_address.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-
+            Button change_address = (Button) dialog.findViewById(R.id.change_address_btn);
+            change_address.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
             }
         });
 

@@ -1,6 +1,6 @@
 package com.drughub.doctor.consultation;
 
-import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -9,14 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.drughub.doctor.R;
-import com.drughub.doctor.inventory.VaccineMfrListFragment;
-import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
 
@@ -51,7 +46,7 @@ public class ConsultationListFragment extends Fragment
         mRecyclerView = (RecyclerView) view.findViewById(R.id.consultation_list);
         mRecyclerView.setHasFixedSize(true);
 
-        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
+        //mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -87,7 +82,7 @@ public class ConsultationListFragment extends Fragment
                     @Override
                     public void onClick(View v)
                     {
-
+                        sContext.startActivity(new Intent(sContext, PatientVaccineScheduleActivity.class));
                     }
                 });
 

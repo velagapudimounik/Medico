@@ -36,6 +36,7 @@ public class BaseActivity extends AppCompatActivity {
         super.setContentView(fullView);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(mToolbar);
         mTitleText = (TextView) mToolbar.findViewById(R.id.toolbar_title);
 
@@ -134,6 +135,11 @@ public class BaseActivity extends AppCompatActivity {
         actionBtns.clear();
     }
 
+    public int getActionBarHeight()
+    {
+        return  mToolbar.getHeight();
+    }
+
 
     public void setActionBarVisibility(boolean visibility)
     {
@@ -145,8 +151,6 @@ public class BaseActivity extends AppCompatActivity {
         {
             mToolbar.setVisibility(View.GONE);
         }
-
-
     }
 }
 

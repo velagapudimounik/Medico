@@ -31,8 +31,8 @@ public class SignUpFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.signup, container, false);
-        getActivity().setTitle("SignUP");
-       // getActivity().setTitle("  SignUp");
+        getActivity().setTitle(getResources().getString(R.string.signup));
+
         EditText name = (EditText) view.findViewById(R.id.nameSignup);
         EditText email = (EditText) view.findViewById(R.id.emailsignup);
         EditText mobile = (EditText) view.findViewById(R.id.mobilesignup);

@@ -6,6 +6,6 @@
         android:width="@dimen/stroke_slim"
         android:height="@dimen/stroke_slim" />
 
-    <solid android:color="@color/colorDecoration" />
+    <solid android:color="@color/colorDecorationLight" />
 
 </shape>

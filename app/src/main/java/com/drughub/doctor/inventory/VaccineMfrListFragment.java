@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.utils.CustomDialog;
 import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
 import org.w3c.dom.Text;
@@ -100,9 +104,16 @@ public class VaccineMfrListFragment extends Fragment {
                     @Override
                     public void onClick(View v)
                     {
-                        final Dialog dialog = new Dialog(sContext);
-                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                        dialog.setContentView(R.layout.dialog_add_to_cart);
+                        final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)sContext, R.layout.dialog_add_to_cart,
+                                Gravity.CENTER, true, false, true);
+
+//                        String first = "This word is ";
+//                        String next = "<font color='#EE0000'>red</font>";
+//                        t.setText(Html.fromHtml(first + next));
+                        //"Vaccine name | <font color='#ff5722'>Manufacturer</font>"
+                        TextView textView = (TextView)dialog.findViewById(R.id.add_to_cart_db_title);
+                        textView.setText(Html.fromHtml("Vaccine name | <font color='#ff5722'>Manufacturer</font>"));
+
                         Spinner dropdown = (Spinner)dialog.findViewById(R.id.add_to_cart_db_quantity_ropDown);
                         String[] items = new String[]{"0.5ML", "1ML", "2ML"};
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(sContext, android.R.layout.simple_spinner_dropdown_item, items);
@@ -121,7 +132,6 @@ public class VaccineMfrListFragment extends Fragment {
                                 dialog.dismiss();
                             }
                         });
-                        dialog.show();
                     }
                 });
             }

@@ -20,7 +20,7 @@
             android:textColorHint="@color/colorHint"
             android:textColor="@color/colorText"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/edit_text_background"
+            android:background="@drawable/round_rect_fill_white"
             android:singleLine="true"
             android:paddingLeft="@dimen/margin_small"
             android:imeOptions="actionSearch"

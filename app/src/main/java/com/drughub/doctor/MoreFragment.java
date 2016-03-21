@@ -11,9 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.drughub.doctor.MyOrders.MyOrderActivityAdapter;
-import com.drughub.doctor.MyOrders.MyOrderContainer;
-
+import com.drughub.doctor.mycalendar.MyCalendarActivity;
 
 public class MoreFragment extends Fragment {
 
@@ -36,8 +34,17 @@ public class MoreFragment extends Fragment {
         my_orders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MyOrderContainer.class);
-               // startActivity(intent);
+                //Intent intent = new Intent(getContext(), MyOrderContainer.class);
+                // startActivity(intent);
+            }
+        });
+
+        View my_calendar = view.findViewById(R.id.my_calender);
+        my_calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MyCalendarActivity.class);
+                startActivity(intent);
             }
         });
 

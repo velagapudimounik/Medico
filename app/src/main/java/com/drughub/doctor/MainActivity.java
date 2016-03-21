@@ -59,14 +59,15 @@ public class MainActivity extends BaseActivity
                 Fragment fragment = null;
                 switch (tab.getPosition()) {
                     case 0:
-                        clearActionButtons();
                         fragment = new MyInventoryFragment();
+                        clearActionButtons();
                         addActionButton(R.string.icon_cart);
                         addActionButton(R.string.icon_notification);
                         break;
                     case 1:
-                        //fragment = new MyInventoryFragment();
-                        //addActionButton(R.string.icon_notification);
+                        fragment = new ConsultationFragment();
+                        clearActionButtons();
+                        addActionButton(R.string.icon_notification);
                         break;
                     case 2:
                         //fragment = new MyInventoryFragment();

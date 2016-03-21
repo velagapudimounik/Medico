@@ -18,16 +18,13 @@ public class LoginPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login_layout, container, false);
-        getActivity().setTitle("Login");
+        getActivity().setTitle(getResources().getString(R.string.login));
 
         final EditText editTextName = (EditText) view.findViewById(R.id.userNameTextField);
         final EditText editTextassword = (EditText) view.findViewById(R.id.passwordTextField);
         final TextView forgotpasswordtextview = (TextView) view.findViewById(R.id.forgotPasswordTextView);
         final Button login = (Button) view.findViewById(R.id.loginButton);
         final Button signup = (Button) view.findViewById(R.id.signUpButton);
-        final Button fbbutton = (Button) view.findViewById(R.id.facebookButton);
-        final Button gpbutton = (Button) view.findViewById(R.id.googlePlusButton);
-        final Button lkbutton = (Button) view.findViewById(R.id.linkedInButton);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -52,10 +49,6 @@ public class LoginPage extends Fragment {
         btn3.setOnClickListener(listener);
         Button btn4 = (Button) view.findViewById(R.id.facebookButton);
         btn4.setOnClickListener(listener);
-        Button btn5 = (Button) view.findViewById(R.id.googlePlusButton);
-        btn1.setOnClickListener(listener);
-        Button btn6 = (Button) view.findViewById(R.id.linkedInButton);
-        btn2.setOnClickListener(listener);
         return view;
     }
 }

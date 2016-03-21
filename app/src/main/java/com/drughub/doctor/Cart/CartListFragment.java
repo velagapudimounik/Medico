@@ -3,22 +3,14 @@ package com.drughub.doctor.Cart;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.app.Dialog;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;

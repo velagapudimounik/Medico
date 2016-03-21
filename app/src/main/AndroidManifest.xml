@@ -7,7 +7,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
+
         <activity
             android:name=".Login.SplashActivity"
             android:label="@string/app_name">
@@ -17,9 +19,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login.LoginActivity" android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".Login.LoginActivity"/>
+
         <activity android:name=".MainActivity"/>
+
         <activity android:name=".Cart.CartActivity"/>
+
+        <activity android:name=".consultation.PatientVaccineScheduleActivity"/>
+
+        <activity android:name=".consultation.AvailableInventoryActivity"/>
+
+        <activity android:name=".mycalendar.MyCalendarActivity"/>
+
+        <activity android:name=".TestActivity" android:theme="@style/AppTheme.Transparent"/>
+
     </application>
 
 </manifest>

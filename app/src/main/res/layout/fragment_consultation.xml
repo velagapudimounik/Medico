@@ -1,69 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="5dp">
 
-
-    <FrameLayout
+   <RadioGroup
+        android:id="@+id/toggle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorDecoration"
+        android:orientation="horizontal">
 
-        <RadioGroup
-            android:id="@+id/toggle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/colorDecoration"
-            android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/todaysConsultations"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/margin_medium"
+            android:paddingTop="@dimen/margin_medium"
+            android:text="@string/todays"
+            android:textColor="@drawable/consultation_tabs_color"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/margin_slim"
+            android:layout_marginRight="@dimen/margin_slim" />
 
-            <RadioButton
-                android:id="@+id/todaysConsultations"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"
-                android:button="@null"
-                android:checked="true"
-                android:gravity="center"
-                android:paddingBottom="@dimen/margin_medium"
-                android:paddingTop="@dimen/margin_medium"
-                android:text="@string/todays"
-                android:textColor="@drawable/consultation_tabs_color"
-                android:layout_weight="1"
-                android:layout_marginBottom="@dimen/margin_slim"
-                android:layout_marginRight="@dimen/margin_slim" />
+        <RadioButton
+            android:id="@+id/upcomingConsultations"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            android:text="@string/upcoming"
+            android:textColor="@drawable/consultation_tabs_color"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/margin_slim" />
+    </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/upcomingConsultations"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"
-                android:button="@null"
-                android:checked="false"
-                android:gravity="center"
-                android:text="@string/upcoming"
-                android:textColor="@drawable/consultation_tabs_color"
-                android:layout_weight="1"
-                android:layout_marginBottom="@dimen/margin_slim" />
-        </RadioGroup>
+    <View
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@android:color/white"
+        android:layout_marginTop="35dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/view" />
 
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text=""
-            android:textSize="50dp"
-            android:background="@color/colorPrimary"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/addConsultationBtn"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="7dp" />
-    </FrameLayout>
+    <com.drughub.doctor.utils.DrughubIcon
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/icon_add_consultation"
+        android:textSize="65dp"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/addConsultationBtn"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/consultationListContainer">
-
+        android:id="@+id/consultationListContainer"
+        android:layout_below="@+id/view"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -71,6 +73,7 @@
             android:layout_gravity="center"
             android:text="@string/noAppointments"
             android:textColor="@color/colorPrimary" />
+
     </FrameLayout>
 
-</LinearLayout>
+</RelativeLayout>

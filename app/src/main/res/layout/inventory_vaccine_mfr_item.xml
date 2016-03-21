@@ -108,22 +108,20 @@
         android:layout_weight="1">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:id="@+id/itemPurchaseBtn"
-            android:layout_weight="0"
             android:background="@color/colorPrimary"
             android:layout_gravity="center" />
 
         <com.drughub.doctor.utils.DrughubIcon
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/cartIcon"
             android:text="@string/icon_add_to_cart"
-            android:textSize="35dp"
+            android:textSize="30dp"
             android:textColor="@android:color/white"
             android:layout_gravity="center"
-            android:background="@color/colorPrimary"
             android:gravity="center" />
 
     </FrameLayout>

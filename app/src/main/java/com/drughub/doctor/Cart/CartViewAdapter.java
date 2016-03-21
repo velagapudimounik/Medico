@@ -1,21 +1,18 @@
 package com.drughub.doctor.Cart;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.app.Dialog;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.utils.CustomDialog;
 
 
 public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.childinfo> {
@@ -41,16 +38,10 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.childi
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = new Dialog(view.getContext());
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.custom_dailog);
+                final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity)view.getContext(), "Are You Sure ? \n You Want to remove vaccine from cart.", "No", "Yes");
 
-                dialog.getWindow().setGravity(Gravity.CENTER_HORIZONTAL);
-                TextView dialog_txt = (TextView) dialog.findViewById(R.id.dialog_txt);
-                dialog_txt.setText("Are You Sure ? \n You Want to remove vaccine from cart.");
-
-                Button dialog_yes = (Button) dialog.findViewById(R.id.dialog_yes);
-                Button dialog_no = (Button) dialog.findViewById(R.id.dialog_no);
+                Button dialog_yes = (Button) dialog.findViewById(R.id.dialogYesBtn);
+                Button dialog_no = (Button) dialog.findViewById(R.id.dialogNoBtn);
 
                 dialog_no.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -58,7 +49,6 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.childi
                         dialog.dismiss();
                     }
                 });
-
 
                 dialog_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -69,9 +59,6 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.childi
 
                     }
                 });
-                dialog.show();
-
-
             }
         });
 
