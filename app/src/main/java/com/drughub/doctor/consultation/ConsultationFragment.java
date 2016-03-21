@@ -25,7 +25,6 @@ import android.widget.TextView;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
-import com.drughub.doctor.TestActivity;
 import com.drughub.doctor.utils.CustomDialog;
 
 public class ConsultationFragment extends Fragment {

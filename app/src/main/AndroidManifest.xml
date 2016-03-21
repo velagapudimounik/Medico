@@ -32,8 +32,6 @@
 
         <activity android:name=".mycalendar.MyCalendarActivity"/>
 
-        <activity android:name=".TestActivity" android:theme="@style/AppTheme.Transparent"/>
-
     </application>
 
 </manifest>
