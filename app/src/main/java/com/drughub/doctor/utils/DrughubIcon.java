@@ -3,6 +3,7 @@ package com.drughub.doctor.utils;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -32,12 +33,11 @@ public class DrughubIcon extends TextView {
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        ViewGroup.LayoutParams params = getLayoutParams();
-        float textSize = getTextSize();
-        params.height = (int)textSize;
-        setLayoutParams(params);
+    public void setLayoutParams(ViewGroup.LayoutParams params) {
+        if(params != null) {
+            float textSize = getTextSize();
+            params.height = (int) textSize;
+        }
+        super.setLayoutParams(params);
     }
 }
