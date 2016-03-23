@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.drughub.doctor.MyOrders.MyOrderContainer;
 import com.drughub.doctor.mycalendar.MyCalendarActivity;
+import com.drughub.doctor.patient_record.PatientRecordActivity;
 
 public class MoreFragment extends Fragment {
 
@@ -32,6 +33,7 @@ public class MoreFragment extends Fragment {
         View view = inflater.inflate(R.layout.more,container,false);
 
         LinearLayout my_orders = (LinearLayout) view.findViewById(R.id.my_orders);
+        LinearLayout patient_records = (LinearLayout) view.findViewById(R.id.patient_records);
         my_orders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +41,14 @@ public class MoreFragment extends Fragment {
                   startActivity(intent);
             }
         });
+
+        patient_records.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), PatientRecordActivity.class));
+            }
+        });
+
 
         View my_calendar = view.findViewById(R.id.my_calender);
         my_calendar.setOnClickListener(new View.OnClickListener() {

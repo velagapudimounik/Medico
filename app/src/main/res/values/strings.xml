@@ -182,4 +182,16 @@
     <string name="icon_edit">\u0051</string>
     <string name="hintDate">DD/MM/YYYY</string>
     <string name="hintTime">HH:MM</string>
+
+    <!--Patient Records-->
+    <string name="icon_test_urine">\u0057</string>
+    <string name="icon_test_blood">\u0058</string>
+    <string name="icon_test_radiological">\u0059</string>
+    <string name="icon_op">\u0053</string>
+    <string name="icon_diagnostic">\u0054</string>
+    <string name="icon_hospitalization">\u0055</string>
+    <string name="icon_vaccination">\u0056</string>
+    <string name="icon_download">\u0071</string>
+    <string name="icon_fav">\u0072</string>
+
 </resources>

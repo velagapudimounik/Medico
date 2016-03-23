@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorTertiary"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:background="@drawable/fill_circle_light_grey" />
+
+            <com.drughub.doctor.utils.DrughubIcon
+                android:id="@+id/clinicIcon1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/icon_profile_pic"
+                android:textColor="@color/colorDecoration"
+                android:textSize="25dp" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/linearLayout"
+        android:layout_toRightOf="@+id/linearLayout"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/patient_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_medium"
+            android:text="Amar" />
+
+        <TextView
+            android:id="@+id/patient_dob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="D.O.B : 24th Nov 1998"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_small" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/records_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="16"
+            android:textColor="@color/colorTertiary"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Records"
+            android:textColor="@color/colorTertiary"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+
