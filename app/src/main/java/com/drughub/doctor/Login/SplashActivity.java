@@ -17,13 +17,12 @@ public class SplashActivity extends AppCompatActivity {
         new SplasTask().execute();
 
     }
-    public class SplasTask extends AsyncTask<Void, Void, Boolean> {
 
+    public class SplasTask extends AsyncTask<Void, Void, Boolean> {
 
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
             try {
                 Thread.sleep(SPLASH_WAIT_TIME);
             } catch (InterruptedException e) {
