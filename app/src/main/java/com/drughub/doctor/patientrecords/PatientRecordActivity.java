@@ -24,11 +24,11 @@ public class PatientRecordActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), BookmarkedActivity.class));
-
             }
         });
+        PatientRecordFragment fragment = new PatientRecordFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.activity_content, fragment).commit();
 
-        changeFragment(new PatientRecordFragment());
     }
 
     public void changeFragment(Fragment fragment) {
