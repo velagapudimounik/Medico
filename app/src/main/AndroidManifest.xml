@@ -25,6 +25,8 @@
         <activity android:name=".MainActivity"/>
 
         <activity android:name=".Cart.CartActivity"/>
+        <activity android:name=".MyOrders.MyOrderContainer"/>
+
 
         <activity android:name=".consultation.PatientVaccineScheduleActivity"/>
 

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+
+                card_view:cardCornerRadius="4dp"
+                card_view:cardBackgroundColor="@color/main_tab_text_color"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+
+                        >
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            >
+
+                            <View
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/icon_background"
+                                />
+
+                            <com.drughub.doctor.utils.DrughubIcon
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/download"
+                                android:text="@string/icon_image"
+                                android:textSize="30dp"
+                                android:textAlignment="center"
+                                android:layout_gravity="center" />
+
+
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Biopolio 2ml vaccine"
+                                android:textStyle="bold"
+                                android:layout_marginTop="10dp"
+                                android:textSize="15dp"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Bharath Biotech"
+                                android:textColor="@color/colorPrimary"
+
+                                android:textSize="12dp"
+
+                                />
+                        </LinearLayout>
+
+
+
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:background="#57393838"/>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="45dp"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_alignParentLeft="true">
+
+                            <com.drughub.doctor.utils.DrughubIcon
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/icon_vial"
+                                android:textSize="25dp"
+                                android:textColor="@color/colorPrimary"
+
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2ML"
+                                android:id="@+id/vaccine_qty"
+
+                                android:textColor="@color/colorDecoration"
+
+                                android:textSize="18dp"/>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true">
+
+
+                            <com.drughub.doctor.utils.DrughubIcon
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:textSize="25dp"
+                                android:textColor="@color/colorPrimary"
+                                android:text="@string/icon_dollar"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="$ 500"
+                                android:id="@+id/dollors"
+                                android:textColor="@color/colorDecoration"
+
+                                android:textSize="18dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:orientation="horizontal"
+                            android:layout_marginRight="20dp"
+                            android:layout_alignParentRight="true">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Qty : "
+                                android:textAllCaps="false"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="20dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="25dp"
+                                android:text="01"
+                                android:id="@+id/quantity"
+                                android:gravity="center"
+                                android:textSize="18dp"
+                                android:textColor="@color/colorSecondary"
+                                />
+
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+
+            </android.support.v7.widget.CardView>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>
