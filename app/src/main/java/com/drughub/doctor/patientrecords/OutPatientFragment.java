@@ -1,20 +1,58 @@
-package com.drughub.doctor.patient_record;
+package com.drughub.doctor.patientrecords;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
 
-/**
- * Created by Deepak on 3/22/2016.
- */
-public class OutPatientAdapter extends RecyclerView.Adapter<OutPatientAdapter.DataObjectHolder> {
+public class OutPatientFragment extends Fragment {
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        getActivity().setTitle(getResources().getString(R.string.outpatientPrescription));
+        ((BaseActivity) getActivity()).setBackButton(true);
+
+        final View view = inflater.inflate(R.layout.patient_record_fragment, container, false);
+
+        EditText editText = (EditText) view.findViewById(R.id.patientRecordSearch);
+        editText.setHint(getResources().getString(R.string.doctorSearch));
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.patient_records_list);
+        recyclerView.hasFixedSize();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
+
+
+        ArrayList<OutPatientPrescription> outPatientPrescriptions = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            outPatientPrescriptions.add(new OutPatientPrescription("Amar " + i, "Fever", "Suriya Nursing Home", "Date : 24th Oct 2015"));
+        }
+
+        OutPatientAdapter adapter = new OutPatientAdapter(getActivity(), outPatientPrescriptions);
+        recyclerView.setAdapter(adapter);
+
+        return view;
+    }
+
+}
+
+class OutPatientAdapter extends RecyclerView.Adapter<OutPatientAdapter.DataObjectHolder> {
     Context context;
     ArrayList<OutPatientPrescription> outPatientPrescriptions;
 

@@ -1,8 +1,5 @@
-package com.drughub.doctor.patient_record;
+package com.drughub.doctor.patientrecords;
 
-/**
- * Created by Deepak on 3/22/2016.
- */
 public class OutPatientPrescription {
     private String name;
     private String disease;

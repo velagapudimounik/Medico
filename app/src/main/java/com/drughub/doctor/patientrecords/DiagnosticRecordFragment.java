@@ -1,4 +1,4 @@
-package com.drughub.doctor.patient_record;
+package com.drughub.doctor.patientrecords;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,12 +16,10 @@ import android.widget.RadioGroup;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
 
-/**
- * Created by Deepak on 3/22/2016.
- */
 public class DiagnosticRecordFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
 
 
@@ -29,10 +27,10 @@ public class DiagnosticRecordFragment extends Fragment implements CompoundButton
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        getActivity().setTitle("Diagnostic Reports");
+        getActivity().setTitle(getResources().getString(R.string.diagnostic_report));
         ((BaseActivity) getActivity()).setBackButton(true);
 
-        final View view = inflater.inflate(R.layout.fragment_patient_record, container, false);
+        final View view = inflater.inflate(R.layout.patient_record_fragment, container, false);
 
         FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.testTabs);
         RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup1);
@@ -53,11 +51,12 @@ public class DiagnosticRecordFragment extends Fragment implements CompoundButton
 
 
         EditText editText = (EditText) view.findViewById(R.id.patientRecordSearch);
-        editText.setHint("Diagnostic Centre | Test Name | Clinic");
+        editText.setHint(getResources().getString(R.string.hintDiagnosticSearch));
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.patient_records_list);
         recyclerView.hasFixedSize();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
 
 
         ArrayList<OutPatientPrescription> outPatientPrescriptions = new ArrayList<>();
@@ -95,3 +94,4 @@ public class DiagnosticRecordFragment extends Fragment implements CompoundButton
 
     }
 }
+

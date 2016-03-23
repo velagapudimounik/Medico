@@ -1,4 +1,4 @@
-package com.drughub.doctor.patient_record;
+package com.drughub.doctor.patientrecords;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,9 +11,7 @@ import android.widget.RelativeLayout;
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
 
-/**
- * Created by Deepak on 3/22/2016.
- */
+
 public class DetailPatientRecordFragment extends Fragment implements View.OnClickListener {
 
     RelativeLayout vaccinationLayout, outpatientLayout, diagnosticLayout, hospitalizationLayout;
@@ -21,10 +19,10 @@ public class DetailPatientRecordFragment extends Fragment implements View.OnClic
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Patient Records");
+        getActivity().setTitle(getResources().getString(R.string.patientrecords));
         ((BaseActivity) getActivity()).setBackButton(true);
 
-        final View view = inflater.inflate(R.layout.fragment_patient_details, container, false);
+        final View view = inflater.inflate(R.layout.patient_record_details_fragment, container, false);
 
         vaccinationLayout = (RelativeLayout) view.findViewById(R.id.vaccinationLayout);
         outpatientLayout = (RelativeLayout) view.findViewById(R.id.outpatientLayout);

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.drughub.doctor.MyOrders.MyOrderContainer;
 import com.drughub.doctor.mycalendar.MyCalendarActivity;
-import com.drughub.doctor.patient_record.PatientRecordActivity;
+import com.drughub.doctor.patientrecords.PatientRecordActivity;
 
 public class MoreFragment extends Fragment {
 

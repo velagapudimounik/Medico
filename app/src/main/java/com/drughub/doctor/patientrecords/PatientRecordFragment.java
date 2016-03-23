@@ -1,20 +1,54 @@
-package com.drughub.doctor.patient_record;
+package com.drughub.doctor.patientrecords;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
 
-/**
- * Created by Deepak on 3/22/2016.
- */
-public class PatientRecordsAdapter extends RecyclerView.Adapter<PatientRecordsAdapter.DataObjectHolder> {
+public class PatientRecordFragment extends Fragment {
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getActivity().setTitle(getResources().getString(R.string.patientrecords));
+        ((BaseActivity) getActivity()).setBackButton(true);
+
+        final View view = inflater.inflate(R.layout.patient_record_fragment, container, false);
+
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.patient_records_list);
+        recyclerView.hasFixedSize();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
+
+        ArrayList<PatientRecord> patientRecords = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            patientRecords.add(new PatientRecord("Amar " + i, "D.O.B : 24th Nov 1998", "16"));
+        }
+
+        PatientRecordsAdapter adapter = new PatientRecordsAdapter(getActivity(), patientRecords);
+        recyclerView.setAdapter(adapter);
+
+
+        return view;
+
+    }
+}
+
+class PatientRecordsAdapter extends RecyclerView.Adapter<PatientRecordsAdapter.DataObjectHolder> {
     Context context;
     ArrayList<PatientRecord> patientRecords;
 
@@ -58,7 +92,7 @@ public class PatientRecordsAdapter extends RecyclerView.Adapter<PatientRecordsAd
 
         @Override
         public void onClick(View v) {
-            PatientRecordActivity activity = (PatientRecordActivity)context;
+            PatientRecordActivity activity = (PatientRecordActivity) context;
             activity.changeFragment(new DetailPatientRecordFragment());
         }
     }

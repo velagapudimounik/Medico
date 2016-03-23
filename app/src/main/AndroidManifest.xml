@@ -35,7 +35,10 @@
         <activity android:name=".mycalendar.MyCalendarActivity" />
 
         <activity
-            android:name=".patient_record.PatientRecordActivity"
+            android:name=".patientrecords.PatientRecordActivity"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".patientrecords.BookmarkedActivity"
             android:windowSoftInputMode="adjustNothing" />
 
     </application>

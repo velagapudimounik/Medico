@@ -87,7 +87,7 @@
     <string name="icon_calendar">\u007D</string>
 
     <string name="rupeeSymbol">\u20B9</string>
-    
+
     <!-- string for login & registration -->
     <string name="hintPassword">Password</string>
     <string name="Forgot_Password"><u>Forgot Password?</u></string>
@@ -112,7 +112,7 @@
     <string name="forgotPassword">Forgot Password</string>
     <string name="title_activity_main2">Main2Activity</string>
 
-     <!-- Cart -->
+    <!-- Cart -->
     <string name="cart_button">Place Order</string>
     <string name="custom_dialog_no">No</string>
     <string name="custom_dialog_yes">Yes</string>
@@ -150,7 +150,6 @@
     <string name="about_info">About</string>
 
 
-
     <!-- More Icons @@@ -->
 
     <string name="my_home">\u0036</string>
@@ -164,12 +163,10 @@
     <string name="logout">\u004D</string>
 
 
-
     <!-- My Order Icon -->
     <string name="right_arrow">\u0046</string>
     <string name="empty_cart">\u0069</string>
     <string name="order_injuction">\u0077</string>
-
 
 
     <!--My Calendar-->
@@ -193,5 +190,18 @@
     <string name="icon_vaccination">\u0056</string>
     <string name="icon_download">\u0071</string>
     <string name="icon_fav">\u0072</string>
+    <string name="icon_plus">\u005A</string>
+    <string name="icon_bookmark">\u003D</string>
+    <string name="outpatientPrescription">Out Patient Prescription</string>
+    <string name="diagnostic_report">Diagnostic Report</string>
+    <string name="hintDiagnosticSearch">Diagnostic Centre | Test Name | Clinic</string>
+    <string name="doctorSearch">Docter Name | Clinic</string>
+    <string name="doctorName">Dr. Name</string>
+    <string name="hintHospitalOrClinic">Hospital/Clinic</string>
+    <string name="bookmark">Bookmarked</string>
+    <string name="bookmarkSearch">Patient Name | D.O.B | Mobile</string>
+    <string-array name="typesOfRecords">
+        <item>Type Of Record</item>
+    </string-array>
 
 </resources>

@@ -1,4 +1,4 @@
-package com.drughub.doctor.patient_record;
+package com.drughub.doctor.patientrecords;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,18 +13,15 @@ import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
 import com.drughub.doctor.utils.DrughubIcon;
 
-/**
- * Created by Deepak on 3/22/2016.
- */
 public class ImageFragment extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("Out Patient Prescription");
+        getActivity().setTitle(getResources().getString(R.string.outpatientPrescription));
         ((BaseActivity) getActivity()).setBackButton(true);
 
-        final View view = inflater.inflate(R.layout.fragment_imagescreen, container, false);
+        final View view = inflater.inflate(R.layout.patient_record_imagescreen_fragment, container, false);
         ImageView iv = (ImageView) view.findViewById(R.id.imageView);
         DrughubIcon download = (DrughubIcon) view.findViewById(R.id.download);
         DrughubIcon favorite = (DrughubIcon) view.findViewById(R.id.favorite);
