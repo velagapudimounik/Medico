@@ -15,7 +15,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.utils.CustomDialog;
 
 
 public class OrderInformationList extends Fragment {
@@ -46,16 +48,8 @@ public class OrderInformationList extends Fragment {
         cancel_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog dialog = new Dialog(getContext());
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.custom_dailog);
-                TextView dialog_txt = (TextView) dialog.findViewById(R.id.dialog_txt);
-                TextView dialog_txt2 = (TextView) dialog.findViewById(R.id.dialog_txt2);
 
-                dialog_txt.setText(" Are you Sure? ");
-                dialog_txt2.setText(" You want to Cancel Order #014899. ");
-
-
+                final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity)getContext(), "Are you Sure?\nYou want to Cancel Order #014899.", "No", "Yes");
 
                 Button dialog_no = (Button) dialog.findViewById(R.id.dialog_no);
                 dialog_no.setOnClickListener(new View.OnClickListener() {

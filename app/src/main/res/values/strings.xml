@@ -47,8 +47,7 @@
     <string name="icon_check_mark_solid">\u002A</string>
 
     <!-- @@@@ Main Tab Icons @@@@ -->
-    <!--Place Holder-->
-    <string name="icon_my_inventory">\u001E</string>
+    <string name="icon_my_inventory">\u007E</string>
     <!--Place Holder-->
     <string name="icon_consultation">\u0039</string>
     <string name="icon_analytics">\u0070</string>
@@ -71,8 +70,7 @@
     <string name="icon_dustbin">\u0050</string>
     <string name="icon_dollor">\u003C</string>
     <string name="icon_add_items">\u002C</string>
-    <!--Place Holder-->
-    <string name="icon_vaccine">\u0068</string>
+    <string name="icon_vaccine">\u007E</string>
     <string name="icon_rupee">\u006B</string>
     <string name="icon_location">\u003A</string>
     <string name="icon_check_mark_stroke">\u004F</string>
@@ -175,7 +173,7 @@
     <string name="booked">Booked</string>
     <string name="hintLocation">Location</string>
     <string name="hintDateOrPatient">Date | Patient Name</string>
-    <string name="icon_settings">\u0044</string>
+    <string name="icon_settings">\u007F</string>
     <string name="icon_edit">\u0051</string>
     <string name="hintDate">DD/MM/YYYY</string>
     <string name="hintTime">HH:MM</string>
