@@ -2,12 +2,16 @@ package com.drughub.doctor.inventory;
 
 
 import android.app.Dialog;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,6 +83,7 @@ public class VaccineMfrListFragment extends Fragment {
         public static class ViewHolder extends RecyclerView.ViewHolder {
             TextView vaccineName;
             private final TextView textView;
+            TextView itemCostDetails;
             private View mItemView;
             private View mPurchaseBtn;
 
@@ -98,6 +103,8 @@ public class VaccineMfrListFragment extends Fragment {
 
                 textView = (TextView) v.findViewById(R.id.textManufacturerName);
                 vaccineName = (TextView) v.findViewById(R.id.textVaccineName);
+                itemCostDetails = (TextView) v.findViewById(R.id.textItemCost);
+
                 mPurchaseBtn = v.findViewById(R.id.itemPurchaseBtn);
 
                 mPurchaseBtn.setOnClickListener(new View.OnClickListener() {
@@ -107,10 +114,6 @@ public class VaccineMfrListFragment extends Fragment {
                         final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)sContext, R.layout.dialog_add_to_cart,
                                 Gravity.CENTER, true, false, true);
 
-//                        String first = "This word is ";
-//                        String next = "<font color='#EE0000'>red</font>";
-//                        t.setText(Html.fromHtml(first + next));
-                        //"Vaccine name | <font color='#ff5722'>Manufacturer</font>"
                         TextView textView = (TextView)dialog.findViewById(R.id.add_to_cart_db_title);
                         textView.setText(Html.fromHtml("Vaccine name | <font color='#ff5722'>Manufacturer</font>"));
 
@@ -145,6 +148,10 @@ public class VaccineMfrListFragment extends Fragment {
             {
                 textView.setText(item.manufacturerName);
                 vaccineName.setText(vaccineNameText);
+
+                itemCostDetails.setText(itemCostDetails.getText(), TextView.BufferType.SPANNABLE);
+                Spannable spannable = (Spannable) itemCostDetails.getText();
+                spannable.setSpan(new StrikethroughSpan(), 6, 9, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
 

@@ -36,6 +36,14 @@
         <item name="android:paddingLeft">15dp</item>
     </style>
 
+    <style name="EditTextStyleTransparent" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/edit_text_background</item>
+        <item name="android:height">@dimen/edit_text_height</item>
+        <item name="android:textColorHint">@color/colorHint</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">15dp</item>
+    </style>
+
     <style name="ButtonStyle" parent="android:Widget.Button">
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColor">@color/colorTertiary</item>
@@ -67,7 +75,6 @@
         <item name="android:height">@dimen/check_box_height</item>
         <item name="android:gravity">center</item>
     </style>
-
 
     <style name="AppTheme.PopupOverlay" parent="Theme.AppCompat.Light.DarkActionBar"/>
 

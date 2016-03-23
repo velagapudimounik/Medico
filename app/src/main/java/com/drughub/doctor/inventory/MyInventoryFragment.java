@@ -76,7 +76,7 @@ public class MyInventoryFragment extends Fragment
         inventoryStatusTitle.setText(title);
 
         TextView inventoryStatusCount = (TextView) view.findViewById(R.id.inventory_status_count);
-        inventoryStatusCount.setText(String.valueOf(count));
+        inventoryStatusCount.setText(String.format("%02d", count));
 
         View inventoryStatusColor = view.findViewById(R.id.inventory_status_color);
 
@@ -101,6 +101,6 @@ public class MyInventoryFragment extends Fragment
     public void setInventoryInfo(View view, int count)
     {
         TextView inventoryStatusCount = (TextView) view.findViewById(R.id.inventory_status_count);
-        inventoryStatusCount.setText(String.valueOf(count));
+        inventoryStatusCount.setText(String.format("%02d", count));
     }
 }

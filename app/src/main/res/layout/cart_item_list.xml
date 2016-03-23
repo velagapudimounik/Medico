@@ -1,65 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="match_parent"
+    android:background="@color/colorDecorationLight">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/recycler_view"
-                android:layout_marginBottom="20dp"
-                android:layout_gravity="center_horizontal">
-
-            </android.support.v7.widget.RecyclerView>
+                android:padding="3dp"/>
 
             <com.drughub.doctor.utils.DrughubIcon
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
                 android:textSize="70dp"
                 android:text="@string/icon_add_items"
-                android:gravity="center_horizontal" />
-
-
+                android:gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
 
             <Button
-                android:layout_width="250dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/cart_place_order"
-                android:textAllCaps="false"
                 android:id="@+id/place"
-                android:textStyle="normal"
-                android:textColor="@color/main_tab_text_color"
-                android:background="@color/colorPrimary"
-                android:textSize="15dp"/>
-
-
+                android:textSize="15dp"
+                style="@style/ButtonStyle"
+                android:layout_marginBottom="20dp"/>
 
         </LinearLayout>
 
-
-
     </ScrollView>
-
-
-
-
 
 </LinearLayout>

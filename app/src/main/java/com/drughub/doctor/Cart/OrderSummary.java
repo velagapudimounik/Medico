@@ -56,8 +56,8 @@ public class OrderSummary extends Fragment {
 
             List<String> categories = new ArrayList<>();
             categories.add("My Address");
-            categories.add("Sandeep");
-            categories.add("Dr.sandeep");
+            categories.add("Clinic1 | Address");
+            categories.add("Clinic2 | Address");
 
             ArrayAdapter<String> data = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1 ,categories);
             data.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

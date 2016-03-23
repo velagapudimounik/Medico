@@ -41,6 +41,7 @@ public class MyCalendarActivity extends BaseActivity {
 
         setTitle(getString(R.string.my_calendar));
         setBackButton(true);
+        addActionButton(R.string.icon_notification);
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
@@ -68,7 +69,9 @@ public class MyCalendarActivity extends BaseActivity {
 
                 Spinner dropdown = (Spinner)dialog.findViewById(R.id.addressSelection);
                 String[] items = new String[]{"Clinic Name 1 | Location", "Clinic Name 2 | Location", "Clinic Name 3 | Location"};
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(MyCalendarActivity.this, android.R.layout.simple_spinner_dropdown_item, items);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(MyCalendarActivity.this, android.R.layout.simple_list_item_1, items);
+
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 dropdown.setAdapter(adapter);
 
                 initNumberPicker((NumberPicker) dialog.findViewById(R.id.hourPickerFrom), CLOCK_PICKER.HOURS);

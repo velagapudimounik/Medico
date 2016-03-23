@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bharath Biotech"
-                android:textSize="@dimen/text_small"
+                android:textSize="12sp"
                 android:id="@+id/textManufacturerName"
                 android:textColor="@color/colorPrimary"/>
         </LinearLayout>
@@ -99,7 +99,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/icon_down_arrow"
                 android:textSize="@dimen/text_small"
-                android:id="@+id/textView10" />
+                android:id="@+id/textView10"
+                android:textColor="@color/colorPrimary"/>
     </LinearLayout>
 
     <FrameLayout

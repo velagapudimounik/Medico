@@ -23,7 +23,7 @@
             <View
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:background="@drawable/fill_round_rect_grey"
+                android:background="@drawable/fill_round_rect_light_grey"
                 android:layout_gravity="center" />
 
             <com.drughub.doctor.utils.DrughubIcon

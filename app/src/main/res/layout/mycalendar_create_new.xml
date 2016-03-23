@@ -15,11 +15,14 @@
 
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/addressSelection"
         android:textSize="13sp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/round_rect_fill_white"/>
+        android:background="@drawable/round_rect_fill_white"
+        android:spinnerMode="dropdown"
+        android:dropDownVerticalOffset="37dp"
+        android:popupBackground="@drawable/round_rect_fill_white"/>
 
     <LinearLayout
         android:orientation="horizontal"

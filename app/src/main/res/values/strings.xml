@@ -72,7 +72,7 @@
     <string name="icon_dollor">\u003C</string>
     <string name="icon_add_items">\u002C</string>
     <!--Place Holder-->
-    <string name="icon_vaccine">\u001E</string>
+    <string name="icon_vaccine">\u0068</string>
     <string name="icon_rupee">\u006B</string>
     <string name="icon_location">\u003A</string>
     <string name="icon_check_mark_stroke">\u004F</string>
@@ -122,7 +122,7 @@
     <string name="rupee">T</string>
     <string name="cart_place_order">Place Order</string>
     <string name="change_address_button">Ok</string>
-    <string name="confirm_order">has been placed sucessfully</string>
+    <string name="confirm_order">has been placed successfully</string>
     <string name="change_address">Change Shipping Address</string>
 
     <string name="total_items">Total Items</string>
@@ -135,7 +135,7 @@
     <string name="order_details">Order Details</string>
     <string name="shipping_address">Shipping Address</string>
     <string name="order_status">Order Status</string>
-
+    <string name="edit"><u>Edit</u></string>
 
 
     <!-- More -->

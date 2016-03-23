@@ -3,180 +3,183 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
-
+    android:padding="2dp">
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
-
-        card_view:cardCornerRadius="4dp"
-        card_view:cardBackgroundColor="@color/main_tab_text_color"
-
-        >
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="@color/colorTertiary"
+        card_view:cardElevation="0dp">
 
        <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:orientation="vertical"
+           android:gravity="center"
+           android:padding="1dp">
 
-
-           android:gravity="center_horizontal">
-
-
-           <LinearLayout
+           <RelativeLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:orientation="horizontal"
+               android:gravity="center_vertical">
 
-               android:gravity="center_horizontal">
-
-               <com.drughub.doctor.utils.DrughubIcon
-                   android:layout_width="60dp"
+               <FrameLayout
+                   android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:src="@drawable/download"
-                   android:text="@string/icon_image"
-                   android:layout_marginTop="10dp"
-                   android:layout_marginLeft="20dp"
-                   android:layout_marginBottom="10dp"
-                   android:background="@color/colorDecoration"
-                   android:textSize="50dp"
-                   android:textAlignment="center"
-                   />
+                   android:padding="5dp"
+                   android:layout_alignParentLeft="true"
+                   android:id="@+id/frameLayout">
+
+                   <View
+                       android:layout_width="40dp"
+                       android:layout_height="40dp"
+                       android:background="@drawable/fill_round_rect_light_grey"/>
+
+                   <com.drughub.doctor.utils.DrughubIcon
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/icon_image"
+                       android:textSize="20dp"
+                       android:textColor="@color/colorTextLight"
+                       android:layout_gravity="center"/>
+
+               </FrameLayout>
 
                <LinearLayout
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:orientation="vertical"
-                   >
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="Biopolio 2ml Vaccine"
-                       android:layout_marginLeft="20dp"
-                       android:layout_marginTop="10dp"
-                       />
+                   android:layout_centerVertical="true"
+                   android:layout_marginLeft="10dp"
+                   android:layout_toLeftOf="@+id/frameLayout2"
+                   android:layout_toRightOf="@+id/frameLayout">
 
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="Bharath BioTech"
+                       android:text="Biopolio 2ml Vaccine"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Bharath Biotech"
                        android:textColor="@color/colorPrimary"
-                       android:layout_marginLeft="20dp"
-                       android:layout_marginTop="5dp"
-                       />
+                       android:textSize="12sp"/>
+
                </LinearLayout>
 
-
-               <com.drughub.doctor.utils.DrughubIcon
-                   android:layout_width="70dp"
-                   android:layout_height="50dp"
-                   android:id="@+id/delete"
-                   android:layout_marginLeft="40dp"
-                   android:layout_marginTop="10dp"
+               <FrameLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:padding="5dp"
                    android:layout_marginRight="10dp"
-                   android:text="@string/icon_dustbin"
-                   android:textSize="35dp"
-                   android:textAlignment="center"
-                   android:fontFamily="drughub"
-                   android:textColor="@color/main_tab_text_color"
-                   android:layout_gravity="center_vertical"
-                   android:gravity="center_horizontal"
-                   android:background="#5d5c5c"
-                   android:layout_marginBottom="10dp"
-                   />
+                   android:id="@+id/frameLayout2">
 
+                   <View
+                       android:layout_width="60dp"
+                       android:layout_height="40dp"
+                       android:background="@drawable/fill_round_rect_dark_grey"/>
 
-           </LinearLayout>
+                   <com.drughub.doctor.utils.DrughubIcon
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/icon_dustbin"
+                       android:textSize="25dp"
+                       android:textColor="@color/colorTertiary"
+                       android:layout_gravity="center"
+                       android:id="@+id/delete"/>
+
+               </FrameLayout>
+
+           </RelativeLayout>
 
            <View
                android:layout_width="match_parent"
                android:layout_height="1dp"
-               android:layout_marginLeft="5dp"
-               android:layout_marginRight="10dp"
-               android:background="#57393838"/>
+               android:background="@color/colorDecorationLight"
+               android:layout_marginBottom="5dp"/>
 
-
-           <LinearLayout
+           <RelativeLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:gravity="center_horizontal"
-               android:layout_marginLeft="20dp">
+               android:gravity="center_vertical"
+               android:paddingLeft="40dp">
+
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentLeft="true"
+                   android:gravity="center">
 
                <com.drughub.doctor.utils.DrughubIcon
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="@string/icon_vial"
-                   android:textSize="25dp"
-                   android:textColor="@color/colorPrimary"
-                   android:layout_marginLeft="40dp"
-                   android:layout_marginTop="10dp" />
+                   android:textSize="30dp"
+                   android:textColor="@color/colorPrimary"/>
 
                <TextView
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="1.5ML"
-                   android:layout_marginTop="10dp"
+                   android:textSize="15dp"/>
 
+               </LinearLayout>
 
-                   android:textSize="18dp"/>
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:gravity="center">
 
                <com.drughub.doctor.utils.DrughubIcon
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:layout_marginTop="10dp"
                    android:textSize="25dp"
                    android:textColor="@color/colorPrimary"
                    android:text="@string/icon_dollar"
-                   android:layout_marginLeft="10dp"
-                   />
+                   android:layout_marginRight="5dp"/>
 
                <TextView
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="$ 500"
+                   android:text="\u20B9 500"
+                   android:textSize="15dp"/>
 
-                   android:layout_marginTop="10dp"
+               </LinearLayout>
 
-                   android:textSize="18dp"/>
-
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginRight="15dp"
+                   android:gravity="center">
 
                <TextView
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="QTY : "
-                   android:layout_marginTop="10dp"
-                   android:layout_marginLeft="10dp"
-                   android:textColor="@color/colorPrimary"
-                   android:textSize="20dp"/>
+                   android:text="Qty : "
+                   android:textSize="15dp"
+                   android:textColor="@color/colorPrimary"/>
 
                <TextView
-                   android:layout_width="70dp"
+                   android:layout_width="60dp"
                    android:layout_height="25dp"
                    android:text="01"
+                   android:textSize="15dp"
                    android:gravity="center"
-                   android:layout_marginTop="10dp"
-                   android:layout_marginRight="20dp"
-                   android:background="@color/colorAccent"/>
+                   android:background="@color/colorDecorationLight"
+                   android:layout_gravity="right" />
 
+               </LinearLayout>
 
-           </LinearLayout>
-
+           </RelativeLayout>
 
        </LinearLayout>
 
-
-
-</android.support.v7.widget.CardView>
-
-
-
-
-
-
-
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

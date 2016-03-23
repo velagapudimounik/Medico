@@ -1,59 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:gravity="center_horizontal">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_address"
+        android:textColor="@color/colorTertiary"
+        android:textSize="18dp"
+        android:layout_marginTop="20dp"/>
 
-    <LinearLayout
+    <Spinner
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:background="#be161616"
-        >
+        android:layout_height="40dp"
+        android:id="@+id/change_address"
+        android:background="@drawable/round_rect_fill_white"
+        android:layout_marginTop="20dp"
+        android:spinnerMode="dropdown"
+        android:dropDownVerticalOffset="37dp"
+        android:popupBackground="@drawable/round_rect_fill_white"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/change_address"
-            android:textColor="@color/main_tab_text_color"
-            android:layout_gravity="center"
-            android:textSize="18dp"
-            android:layout_marginTop="20dp"/>
-
-            <Spinner
-
-                android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:id="@+id/change_address"
-                android:background="@color/colorAccent"
-
-                android:layout_marginTop="20dp"
-                android:gravity="center_horizontal">
-        </Spinner>
-
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:text="@string/change_address_button"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@color/colorPrimary"
-            android:id="@+id/change_address_btn"
-            android:textAllCaps="false"
-            android:textColor="@color/main_tab_text_color"
-
-            />
-
-
-
-
-    </LinearLayout>
-
-
-
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_address_button"
+        android:layout_margin="20dp"
+        android:id="@+id/change_address_btn"
+        style="@style/ButtonStyle"/>
 
 </LinearLayout>

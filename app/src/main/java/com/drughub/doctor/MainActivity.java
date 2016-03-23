@@ -1,6 +1,7 @@
 package com.drughub.doctor;
 
 import com.drughub.doctor.Cart.CartActivity;
+import com.drughub.doctor.analytics.AnalyticsFragment;
 import com.drughub.doctor.consultation.ConsultationFragment;
 import com.drughub.doctor.inventory.MyInventoryFragment;
 
@@ -54,23 +55,22 @@ public class MainActivity extends BaseActivity
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
-
+                clearActionButtons();
                 setActionBarVisibility(true);
+
                 Fragment fragment = null;
                 switch (tab.getPosition()) {
                     case 0:
                         fragment = new MyInventoryFragment();
-                        clearActionButtons();
                         addActionButton(R.string.icon_cart);
                         addActionButton(R.string.icon_notification);
                         break;
                     case 1:
                         fragment = new ConsultationFragment();
-                        clearActionButtons();
                         addActionButton(R.string.icon_notification);
                         break;
                     case 2:
-                        //fragment = new MyInventoryFragment();
+                        fragment = new AnalyticsFragment();
                         break;
                     case 3:
                         fragment = new MoreFragment();
