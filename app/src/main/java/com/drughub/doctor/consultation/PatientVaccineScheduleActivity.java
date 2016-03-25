@@ -37,7 +37,7 @@ public class PatientVaccineScheduleActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.consultation_patient_vaccine_schedule);
 
-        setTitle("Patient Name");//getString(R.string.consultations));
+        setTitle(getString(R.string.patientvaccineactivitytitle));//getString(R.string.consultations));
         setBackButton(true);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.patient_vaccine_schedule_list);

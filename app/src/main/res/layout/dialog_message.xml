@@ -34,7 +34,7 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Done"
+            android:text="@string/dialog_message_done"
             android:id="@+id/dialogOkBtn"
             android:layout_margin="10dp"
             style="@style/ButtonStyle"

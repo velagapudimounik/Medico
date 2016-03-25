@@ -22,7 +22,7 @@ public class ForgotPasswordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getActivity().setTitle("   Forgot Password  ");
+        getActivity().setTitle(getString(R.string.forgotPassword));
         final View view=inflater.inflate(R.layout.login_forgotpassword, container, false);
 
         TextView text=(TextView)view.findViewById(R.id.reset);

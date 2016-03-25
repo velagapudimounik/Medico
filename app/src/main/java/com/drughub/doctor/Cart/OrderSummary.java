@@ -36,7 +36,7 @@ public class OrderSummary extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((CartActivity)getActivity()).setActionBarTitle("Order Summary");
+        ((CartActivity)getActivity()).setActionBarTitle(getString(R.string.order_summary_title));
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.cart_order_summary,container,false);

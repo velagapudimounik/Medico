@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="Available Inventory"
+        android:text="@string/available_inventory"
         android:textSize="20dp"
         android:background="@color/colorDecoration"
         android:layout_gravity="center_horizontal"

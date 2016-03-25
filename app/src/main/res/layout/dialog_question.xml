@@ -35,7 +35,7 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="No"
+            android:text="@string/custom_dialog_no"
             android:id="@+id/dialogNoBtn"
             android:layout_marginRight="10dp"
             style="@style/ButtonStyle"
@@ -45,7 +45,7 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Yes"
+            android:text="@string/custom_dialog_yes"
             android:id="@+id/dialogYesBtn"
             style="@style/ButtonStyle"
             android:layout_weight="1" />

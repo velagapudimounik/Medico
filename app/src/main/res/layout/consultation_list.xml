@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/consultationSearch"
-            android:hint="Patient Name"
+            android:hint="@string/patient_name"
             android:textColorHint="@color/colorHint"
             android:textColor="@color/colorText"
             android:layout_gravity="center_horizontal"

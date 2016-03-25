@@ -40,7 +40,7 @@ public class OrderInformationList extends Fragment {
         OrderInformationChildView orderInformationChildView = new OrderInformationChildView(this.getActivity());
         recyclerView.setAdapter(orderInformationChildView);
 
-        ((MyOrderContainer)getActivity()).setActionBarTitle("Order Information");
+        ((MyOrderContainer)getActivity()).setActionBarTitle(getString(R.string.order_information_title));
 
         cancel_order.setOnClickListener(new View.OnClickListener() {
             @Override

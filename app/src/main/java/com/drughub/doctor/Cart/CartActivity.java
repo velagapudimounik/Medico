@@ -19,7 +19,7 @@ public class CartActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cart_container);
-        setActionBarTitle("Cart");
+        setActionBarTitle(getString(R.string.cart_title));
 
 
 

@@ -196,7 +196,7 @@
                 <com.drughub.doctor.utils.DrughubIcon
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/patient_records"
+                    android:text="@string/icon_patient_records"
                     android:textSize="25dp"
                     android:textColor="@color/colorDecoration"
                     android:foregroundGravity="center_vertical" />
@@ -258,7 +258,7 @@
                 <com.drughub.doctor.utils.DrughubIcon
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/orange_wallet"
+                    android:text="@string/icon_orange_wallet"
                     android:textSize="25dp"
                     android:textColor="@color/colorDecoration"
                     android:foregroundGravity="center_vertical" />
@@ -313,7 +313,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Share this app"
+                android:text="@string/share_app"
                 android:textColor="@color/colorDecoration"
                 android:gravity="center"
                 android:layout_marginTop="20dp"
@@ -324,7 +324,7 @@
                   android:layout_height="30dp"
                   android:gravity="center"
                   android:layout_margin="10dp"
-                  android:text="Logout"
+                  android:text="@string/logout_button"
                   android:id="@+id/logoutBtn"
                   style="@style/ButtonStyle"/>
 

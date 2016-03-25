@@ -118,7 +118,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/round_rect_fill_grey"
-            android:hint="Patient Name | D.O.B"
+            android:hint="@string/patient_namedob"
             android:imeOptions="actionSearch"
             android:paddingLeft="@dimen/margin_small"
             android:singleLine="true"

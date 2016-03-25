@@ -14,6 +14,15 @@
     <string name="inventory_available">Available</string>
     <string name="inventory_reserve">Reserve</string>
     <string name="add_to_cart">Add to Cart</string>
+    <string name="my_inventory_no_items">No Items</string>
+    <string name="inventory_items_consumed">Consumed</string>
+    <string name="availableInventorytitle">Disease Name</string>
+    <string name="patientvaccineactivitytitle">Patient Name</string>
+    <string name="hep_b">HEP-B</string>
+    <string name="dpt">DPT</string>
+    <string name="polio">POLIO</string>
+    <string name="bcg">BCG</string>
+
 
     <!--Consultations-->
     <string name="todays">Todays</string>
@@ -38,6 +47,14 @@
     <string name="hintMobile">Mobile</string>
     <string name="hintEmail">Email</string>
     <string name="textAdd">Add</string>
+    <string name="available_inventory">Available Inventory</string>
+    <string name="vaccinate">Vaccinate</string>
+    <string name="patient_name">Patient Name</string>
+    <string name="inventory">Inventory</string>
+    <string name="dialog_message_done">Done</string>
+
+
+
 
     <!-- @@@@ Drughub Icons @@@@ -->
     <!-- @@@@ Login & Registrations Icons @@@@ -->
@@ -84,6 +101,7 @@
     <string name="icon_clinic">\u0037</string>
     <string name="icon_calendar">\u007D</string>
 
+
     <string name="rupeeSymbol">\u20B9</string>
 
     <!-- string for login & registration -->
@@ -114,11 +132,11 @@
     <string name="cart_button">Place Order</string>
     <string name="custom_dialog_no">No</string>
     <string name="custom_dialog_yes">Yes</string>
-    <string name="order_summary_btn">Confirm Order</string>
+    <string name="order_summary_button">Confirm Order</string>
 
     <string name="payment_option_button">S</string>
     <string name="rupee">T</string>
-    <string name="cart_place_order">Place Order</string>
+    <string name="cart_place_order_button">Place Order</string>
     <string name="change_address_button">Ok</string>
     <string name="confirm_order">has been placed successfully</string>
     <string name="change_address">Change Shipping Address</string>
@@ -134,6 +152,17 @@
     <string name="shipping_address">Shipping Address</string>
     <string name="order_status">Order Status</string>
     <string name="edit"><u>Edit</u></string>
+    <string name="cart_you_pay">You Pay</string>
+    <string name="payment_options">Payment Options</string>
+    <string name="orange_wallet">Orange Wallet</string>
+    <string name="credit_debit_card">Credit/Debit Card</string>
+    <string name="net_banking">Net Banking</string>
+    <string name="cash_on_delivery">Cash On Delivery</string>
+    <string name="cart_empty">Your Cart is Empty</string>
+    <string name="cart_title">Cart</string>
+    <string name="cash_on_delivery_title">Cash On Delivery</string>
+    <string name="order_summary_title">Order Summary</string>
+    <string name="payment_options_title">Payment Options</string>
 
 
     <!-- More -->
@@ -146,7 +175,8 @@
     <string name="orangeconnect">Orange Connect</string>
     <string name="orangewallet">Orange Wallet</string>
     <string name="about_info">About</string>
-
+    <string name="share_app">Share this app</string>
+    <string name="logout_button">Logout</string>
 
     <!-- More Icons @@@ -->
 
@@ -154,9 +184,9 @@
     <string name="my_profile">\u0047</string>
     <string name="icon_my_calender">\u007D</string>
     <string name="icon_my_orders">\u006E</string>
-    <string name="patient_records">\u006D</string>
+    <string name="icon_patient_records">\u006D</string>
     <string name="orange_connect">\u006F</string>
-    <string name="orange_wallet">\u0034</string>
+    <string name="icon_orange_wallet">\u0034</string>
     <string name="about">\u004C</string>
     <string name="logout">\u004D</string>
 
@@ -165,6 +195,24 @@
     <string name="right_arrow">\u0046</string>
     <string name="empty_cart">\u0069</string>
     <string name="order_injuction">\u0077</string>
+
+
+
+
+    <!-- My Order -->
+    <string name="order_id">Order ID :</string>
+    <string name="my_order_status">Order Status :</string>
+    <string name="order_date">Order Date :</string>
+    <string name="payment_method">Payment Method :</string>
+    <string name="shipping_method">Shipping Method :</string>
+    <string name="approval">Approval</string>
+    <string name="shipping">Shipping</string>
+    <string name="processing">Processing</string>
+    <string name="delivered">Delivered</string>
+    <string name="cancel_order_button">Cancel Order</string>
+    <string name="my_order_title">My Orders</string>
+    <string name="order_information_title">Order Information</string>
+
 
 
     <!--My Calendar-->
@@ -177,6 +225,15 @@
     <string name="icon_edit">\u0051</string>
     <string name="hintDate">DD/MM/YYYY</string>
     <string name="hintTime">HH:MM</string>
+    <string name="non_working_days">Non-Working Days</string>
+    <string name="monday">Mon</string>
+    <string name="tuesday">Tue</string>
+    <string name="wednesday">Wed</string>
+    <string name="thursday">Thu</string>
+    <string name="friday">Fri</string>
+    <string name="saturday">Sat</string>
+    <string name="sunday">Sun</string>
+    <string name="add_button">Add</string>
 
     <!--Patient Records-->
     <string name="icon_test_urine">\u0057</string>
@@ -198,6 +255,15 @@
     <string name="hintHospitalOrClinic">Hospital/Clinic</string>
     <string name="bookmark">Bookmarked</string>
     <string name="bookmarkSearch">Patient Name | D.O.B | Mobile</string>
+    <string name="patient_records">Records</string>
+    <string name="out_patient_prescriptions">Out Patient Prescriptions</string>
+    <string name="diagnostic_reports">Diagnostic Reports</string>
+    <string name="hospitalization_reports">Hospitalization Reports</string>
+    <string name="vaccination_reports">Vaccination Reports</string>
+    <string name="patient_namedob">Patient Name | D.O.B</string>
+
+
+
     <string-array name="typesOfRecords">
         <item>Type Of Record</item>
     </string-array>

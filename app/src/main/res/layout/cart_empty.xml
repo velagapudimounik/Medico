@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your Cart is Empty"
+        android:text="@string/cart_empty"
         android:textColor="@color/colorPrimary"
         android:gravity="center"/>
 

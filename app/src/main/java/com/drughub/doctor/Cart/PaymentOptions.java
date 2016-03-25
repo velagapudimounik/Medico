@@ -30,7 +30,7 @@ public class PaymentOptions extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        ((CartActivity)getActivity()).setActionBarTitle("Payment Options");
+        ((CartActivity)getActivity()).setActionBarTitle(getString(R.string.payment_options_title));
 
         View view = inflater.inflate(R.layout.cart_payment_options,container,false);
         LinearLayout cash = (LinearLayout) view.findViewById(R.id.cashon_delivery);

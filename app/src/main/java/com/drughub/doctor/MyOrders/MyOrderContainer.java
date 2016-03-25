@@ -19,7 +19,7 @@ public class MyOrderContainer extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myorders_containter);
 
-        setActionBarTitle("My Orders");
+        setActionBarTitle(getString(R.string.my_order_title));
         setActionBarVisibility(true);
 
         if(value)

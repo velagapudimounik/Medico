@@ -39,7 +39,7 @@ public class AvailableInventoryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.consultation_available_inventory);
 
-        setTitle("Disease Name");
+        setTitle(getString(R.string.availableInventorytitle));
         setBackButton(true);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.available_inventory_list);

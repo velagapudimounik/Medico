@@ -35,7 +35,7 @@ public class CartListFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        getActivity().setTitle("Cart");
+        getActivity().setTitle(getString(R.string.cart_title));
         ((BaseActivity)getActivity()).setBackButton(true);
 
         final View view = inflater.inflate(R.layout.cart_item_list,container,false);

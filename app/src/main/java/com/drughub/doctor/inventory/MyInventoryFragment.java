@@ -36,11 +36,11 @@ public class MyInventoryFragment extends Fragment
     private void initInventoryTabs(View view) {
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.inventory_tabs);
 
-        tabLayout.addTab(tabLayout.newTab().setText("HEP-B"));
-        tabLayout.addTab(tabLayout.newTab().setText("DPT"));
-        tabLayout.addTab(tabLayout.newTab().setText("POLIO"));
-        tabLayout.addTab(tabLayout.newTab().setText("HEP-B"));
-        tabLayout.addTab(tabLayout.newTab().setText("BCG"));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.hep_b)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.dpt)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.polio)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.hep_b)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.bcg)));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

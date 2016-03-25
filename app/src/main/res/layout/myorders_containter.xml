@@ -7,6 +7,4 @@
     android:id="@+id/order_container"
     android:background="@color/colorDecorationLight">
 
-
-
 </LinearLayout>

@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/op_count"
                     android:layout_centerHorizontal="true"
-                    android:text="Out Patient Prescriptions"
+                    android:text="@string/out_patient_prescriptions"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_small" />
 
@@ -152,7 +152,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/diagnostic_count"
                     android:layout_centerHorizontal="true"
-                    android:text="Diagnostic Reports"
+                    android:text="@string/diagnostic_reports"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_small" />
 
@@ -207,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/hospitalization_count"
                     android:layout_centerHorizontal="true"
-                    android:text="Hospitalization Reports"
+                    android:text="@string/hospitalization_reports"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_small" />
 
@@ -252,7 +252,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/vaccine_count"
                     android:layout_centerHorizontal="true"
-                    android:text="Vaccination Reports"
+                    android:text="@string/vaccination_reports"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_small" />
 
