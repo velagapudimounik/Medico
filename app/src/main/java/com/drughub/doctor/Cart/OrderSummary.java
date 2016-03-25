@@ -39,7 +39,7 @@ public class OrderSummary extends Fragment {
         ((CartActivity)getActivity()).setActionBarTitle("Order Summary");
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.order_summary,container,false);
+        View view = inflater.inflate(R.layout.cart_order_summary,container,false);
 
 
        final TextView edit = (TextView) view.findViewById(R.id.edit);
@@ -49,7 +49,7 @@ public class OrderSummary extends Fragment {
             @Override
             public void onClick(View v) {
 
-            final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)getContext(), R.layout.change_shipping_address,
+            final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)getContext(), R.layout.cart_change_shipping_address,
                     Gravity.BOTTOM, true, true, false);
 
             Spinner spinner = (Spinner) dialog.findViewById(R.id.change_address);

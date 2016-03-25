@@ -38,7 +38,7 @@ public class VaccineListFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inventory_vaccine_list, container, false);
+        return inflater.inflate(R.layout.inventory_vaccine_list, container, false);
     }
 
     @Override
@@ -119,7 +119,7 @@ public class VaccineListFragment extends Fragment
             public void setItemSelected(boolean selected)
             {
                 itemView.setSelected(selected);
-                textView.setTextColor(ContextCompat.getColor(sContext, selected?R.color.colorPrimary :R.color.colorTertiary));
+                textView.setTextColor(ContextCompat.getColor(sContext, selected?R.color.colorPrimary :R.color.colorWhite));
             }
 
             public void setItemDetails(ItemVaccine item)

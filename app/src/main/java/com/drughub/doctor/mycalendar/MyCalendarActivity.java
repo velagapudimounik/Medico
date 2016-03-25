@@ -70,7 +70,6 @@ public class MyCalendarActivity extends BaseActivity {
                 Spinner dropdown = (Spinner)dialog.findViewById(R.id.addressSelection);
                 String[] items = new String[]{"Clinic Name 1 | Location", "Clinic Name 2 | Location", "Clinic Name 3 | Location"};
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(MyCalendarActivity.this, android.R.layout.simple_list_item_1, items);
-
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 dropdown.setAdapter(adapter);
 

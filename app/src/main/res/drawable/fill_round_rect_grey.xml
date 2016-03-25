@@ -5,6 +5,5 @@
 
     <corners android:radius="@dimen/radius_tiny"/>
     <solid android:color="@color/colorDecoration"/>
-    <size android:width="120dp" android:height="120dp"/>
 
 </shape>

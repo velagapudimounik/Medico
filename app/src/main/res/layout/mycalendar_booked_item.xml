@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorTertiary"
+    android:background="@color/colorWhite"
     android:gravity="center"
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
@@ -100,7 +100,7 @@
             <View
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/draw_circle"
+                android:background="@drawable/draw_circle_grey"
                 android:layout_gravity="center" />
 
             <com.drughub.doctor.utils.DrughubIcon

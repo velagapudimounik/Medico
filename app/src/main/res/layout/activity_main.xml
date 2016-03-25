@@ -22,7 +22,7 @@
         android:background="@color/colorSecondary"
         app:tabBackground="@drawable/main_tab_background"
         app:tabIndicatorHeight="0dp"
-        app:tabSelectedTextColor="@color/colorTertiary"
+        app:tabSelectedTextColor="@color/colorWhite"
         app:tabTextAppearance="@style/MainTabTextAppearance"/>
 
 </RelativeLayout>

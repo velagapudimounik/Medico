@@ -44,7 +44,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/icon_vaccine"
                         android:textSize="25sp"
-                        android:textColor="@color/colorTertiary"
+                        android:textColor="@color/colorWhite"
                         android:layout_gravity="center"/>
 
                 </FrameLayout>
@@ -326,7 +326,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/icon_location"
                         android:textSize="25sp"
-                        android:textColor="@color/colorTertiary"
+                        android:textColor="@color/colorWhite"
                         android:layout_gravity="center"/>
 
                 </FrameLayout>

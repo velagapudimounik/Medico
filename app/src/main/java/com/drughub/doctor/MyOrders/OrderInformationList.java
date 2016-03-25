@@ -7,13 +7,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.app.Dialog;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
@@ -31,7 +28,7 @@ public class OrderInformationList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.order_information,container,false);
+        View view = inflater.inflate(R.layout.myorders_order_information,container,false);
         Button cancel_order = (Button) view.findViewById(R.id.cancel_order);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.orders_list);
@@ -51,7 +48,7 @@ public class OrderInformationList extends Fragment {
 
                 final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity)getContext(), "Are you Sure?\nYou want to Cancel Order #014899.", "No", "Yes");
 
-                Button dialog_no = (Button) dialog.findViewById(R.id.dialog_no);
+                Button dialog_no = (Button) dialog.findViewById(R.id.dialogNoBtn);
                 dialog_no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -59,7 +56,7 @@ public class OrderInformationList extends Fragment {
                     }
                 });
 
-                Button dialog_yes = (Button) dialog.findViewById(R.id.dialog_yes);
+                Button dialog_yes = (Button) dialog.findViewById(R.id.dialogYesBtn);
                 dialog_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

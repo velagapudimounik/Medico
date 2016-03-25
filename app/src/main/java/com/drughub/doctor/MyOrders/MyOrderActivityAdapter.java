@@ -30,10 +30,8 @@ public class MyOrderActivityAdapter extends RecyclerView.Adapter<MyOrderActivity
     @Override
     public infodata onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.myorder_child_view,parent,false);
-        infodata data = new infodata(view);
-
-        return data;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.myorders_child_view,parent,false);
+        return new infodata(view);
     }
 
     @Override

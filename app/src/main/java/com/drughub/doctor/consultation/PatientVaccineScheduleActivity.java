@@ -2,7 +2,6 @@ package com.drughub.doctor.consultation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,7 +35,7 @@ public class PatientVaccineScheduleActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.patient_vaccine_schedule);
+        setContentView(R.layout.consultation_patient_vaccine_schedule);
 
         setTitle("Patient Name");//getString(R.string.consultations));
         setBackButton(true);
@@ -113,7 +112,7 @@ public class PatientVaccineScheduleActivity extends BaseActivity {
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
             // Create a new view.
             View v = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.patient_vaccine_schedule_item, viewGroup, false);
+                    .inflate(R.layout.consultation_patient_vaccine_schedule_item, viewGroup, false);
 
             return new ViewHolder(v);
         }

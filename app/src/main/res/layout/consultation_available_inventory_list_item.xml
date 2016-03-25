@@ -5,13 +5,19 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.CardView
-        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_margin="4dp"
         card_view:cardElevation="0dp">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:padding="10dp">
 
@@ -21,25 +27,44 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/linearLayout2"
+                android:layout_toLeftOf="@+id/temperature"
                 android:layout_alignParentLeft="true">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hepatitis B3 | Cycle-1"
-                    android:id="@+id/diseaseDetails"
+                    android:text="Biovac-B"
+                    android:id="@+id/vaccineName"
                     android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="24 Feb 2016 to 28 Feb 2016"
-                    android:textColor="@color/colorTextLight"
-                    android:id="@+id/scheduleDetails"
+                    android:text="Sku ID: 1234567890"
+                    android:textColor="@color/colorPrimary"
+                    android:id="@+id/skuID"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bio E"
+                    android:textColor="@color/colorPrimary"
+                    android:id="@+id/mfrName"
                     android:textSize="13sp"/>
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3\u00B0C"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/temperature"
+                android:layout_toLeftOf="@+id/linearLayout2"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:padding="10dp"/>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -56,20 +81,36 @@
                     android:layout_height="wrap_content"
                     android:text="@string/icon_vaccine"
                     android:textSize="30dp"
-                    android:textColor="@color/colorTertiary"
+                    android:textColor="@color/colorWhite"
                     android:id="@+id/textView4" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Inventory"
+                    android:text="Vaccinate"
                     android:textSize="10dp"
-                    android:textColor="@color/colorTertiary"
-                    android:id="@+id/textView5" />
+                    android:textColor="@color/colorWhite"
+                    android:id="@+id/textVaccinate" />
 
             </LinearLayout>
 
         </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDecoration"
+            android:layout_margin="3dp"/>
+
+        <com.drughub.doctor.utils.DrughubIcon
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_down_arrow"
+            android:textSize="25sp"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/textView2" />
+
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 

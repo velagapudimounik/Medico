@@ -121,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                android:background="@color/main_tab_text_color">
+                android:background="@color/colorWhite">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -152,7 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                android:background="@color/colorTertiary">
+                android:background="@color/colorWhite">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -183,7 +183,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                android:background="@color/colorTertiary">
+                android:background="@color/colorWhite">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -215,7 +215,7 @@
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
                 android:id="@+id/cashon_delivery"
-                android:background="@color/colorTertiary"
+                android:background="@color/colorWhite"
                 >
 
                 <TextView
@@ -274,7 +274,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/icon_location"
                     android:textSize="25dp"
-                    android:textColor="@color/colorTertiary"
+                    android:textColor="@color/colorWhite"
                     android:layout_gravity="center"/>
 
             </FrameLayout>

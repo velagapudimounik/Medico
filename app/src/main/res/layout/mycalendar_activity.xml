@@ -25,7 +25,7 @@
             android:paddingBottom="@dimen/margin_medium"
             android:paddingTop="@dimen/margin_medium"
             android:text="@string/availability"
-            android:textColor="@drawable/consultation_tabs_color"
+            android:textColor="@drawable/tabs_text_selector_grey_orange"
             android:layout_weight="1"
             android:layout_marginBottom="@dimen/margin_slim"
             android:layout_marginRight="@dimen/margin_slim" />
@@ -39,7 +39,7 @@
             android:checked="false"
             android:gravity="center"
             android:text="@string/booked"
-            android:textColor="@drawable/consultation_tabs_color"
+            android:textColor="@drawable/tabs_text_selector_grey_orange"
             android:layout_weight="1"
             android:layout_marginBottom="@dimen/margin_slim" />
 

@@ -2,15 +2,12 @@ package com.drughub.doctor.consultation;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -40,7 +37,7 @@ public class AvailableInventoryActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.available_inventory);
+        setContentView(R.layout.consultation_available_inventory);
 
         setTitle("Disease Name");
         setBackButton(true);
@@ -122,7 +119,7 @@ public class AvailableInventoryActivity extends BaseActivity {
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
             // Create a new view.
             View v = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.available_inventory_list_item, viewGroup, false);
+                    .inflate(R.layout.consultation_available_inventory_list_item, viewGroup, false);
 
             return new ViewHolder(v);
         }

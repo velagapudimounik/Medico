@@ -23,7 +23,7 @@ public class ForgotPasswordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getActivity().setTitle("   Forgot Password  ");
-        final View view=inflater.inflate(R.layout.forgotpassword, container, false);
+        final View view=inflater.inflate(R.layout.login_forgotpassword, container, false);
 
         TextView text=(TextView)view.findViewById(R.id.reset);
         EditText email=(EditText)view.findViewById(R.id.emailForForgot);

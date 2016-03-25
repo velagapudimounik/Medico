@@ -8,13 +8,15 @@
     android:gravity="center"
     android:background="@drawable/round_rect_fill_white">
 
-    <com.drughub.doctor.utils.DrughubIcon
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/icon_close"
-        android:textSize="@dimen/text_large"
+        android:text="X"
+        android:textSize="@dimen/text_small"
         android:id="@+id/add_to_cart_db_close_btn"
         android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:paddingRight="5dp"
         android:layout_alignParentRight="true" />
 
     <LinearLayout
@@ -43,15 +45,37 @@
             android:layout_margin="@dimen/margin_tiny"
             android:gravity="center_vertical">
 
-            <Spinner
+            <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="@dimen/button_height_small"
-                android:id="@+id/add_to_cart_db_quantity_ropDown"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginRight="@dimen/margin_small"
-                android:spinnerMode="dropdown"
-                android:background="@drawable/round_rect_fill_grey"
-                android:paddingLeft="10dp"/>
+                android:layout_marginRight="@dimen/margin_small">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:id="@+id/add_to_cart_db_quantity_ropDown"
+                    android:spinnerMode="dropdown"
+                    android:background="@drawable/round_rect_fill_grey"
+                    android:dropDownVerticalOffset="33dp"
+                    android:popupBackground="@drawable/round_rect_fill_grey"/>
+
+                <View
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/fill_round_rect_grey"
+                    android:layout_gravity="center_vertical|right"/>
+
+                <com.drughub.doctor.utils.DrughubIcon
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_down_arrow"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorTextDark"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical|right"/>
+
+            </FrameLayout>
 
             <TextView
                 android:layout_width="0dp"
@@ -61,7 +85,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_rect_fill_grey"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/margin_large" />
+                android:paddingLeft="@dimen/margin_small" />
 
         </LinearLayout>
 

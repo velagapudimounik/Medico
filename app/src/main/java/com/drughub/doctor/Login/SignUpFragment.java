@@ -30,7 +30,7 @@ public class SignUpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.signup, container, false);
+        final View view = inflater.inflate(R.layout.login_signup, container, false);
         getActivity().setTitle(getResources().getString(R.string.signup));
 
         EditText name = (EditText) view.findViewById(R.id.nameSignup);

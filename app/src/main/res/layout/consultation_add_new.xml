@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textOR"
-                android:textColor="@color/colorTertiary"
+                android:textColor="@color/colorWhite"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp" />
 
@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/child"
-                android:textColor="@color/colorTertiary"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_medium"/>
 
             <RadioGroup
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/male"
                     android:textSize="@dimen/text_medium"
-                    android:textColor="@color/colorTertiary"
+                    android:textColor="@color/colorWhite"
                     android:id="@+id/radioButton"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp" />
@@ -94,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/female"
-                    android:textColor="@color/colorTertiary"
+                    android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_medium"
                     android:id="@+id/radioButton2" />
             </RadioGroup>
@@ -117,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/dateOfBirth"
-                    android:textColor="@color/colorTertiary"
+                    android:textColor="@color/colorWhite"
                     android:layout_weight="0" />
 
                 <EditText
@@ -140,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/timeOfBirth"
-                    android:textColor="@color/colorTertiary"
+                    android:textColor="@color/colorWhite"
                     android:layout_weight="0" />
 
                 <EditText
@@ -165,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/parent"
                 android:textSize="@dimen/text_medium"
-                android:textColor="@color/colorTertiary"
+                android:textColor="@color/colorWhite"
                 android:id="@+id/parentBtn"
                 android:layout_marginRight="10dp" />
 
@@ -174,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/guardian"
                 android:textSize="@dimen/text_medium"
-                android:textColor="@color/colorTertiary"
+                android:textColor="@color/colorWhite"
                 android:id="@+id/gaurdianBtn" />
         </RadioGroup>
 

@@ -32,7 +32,7 @@ public class PaymentOptions extends Fragment {
 
         ((CartActivity)getActivity()).setActionBarTitle("Payment Options");
 
-        View view = inflater.inflate(R.layout.payment_options,container,false);
+        View view = inflater.inflate(R.layout.cart_payment_options,container,false);
         LinearLayout cash = (LinearLayout) view.findViewById(R.id.cashon_delivery);
         cash.setOnClickListener(new View.OnClickListener() {
             @Override

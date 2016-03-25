@@ -3,10 +3,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content" android:background="@color/colorDecorationLight">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDecoration"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorTertiary"
+        android:background="@color/colorWhite"
         android:gravity="center">
 
         <LinearLayout
@@ -83,7 +88,7 @@
                 <View
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/draw_circle"
+                    android:background="@drawable/draw_circle_grey"
                     android:layout_gravity="center" />
 
                 <com.drughub.doctor.utils.DrughubIcon
@@ -112,13 +117,63 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:id="@+id/consultationProgress"
-        android:progress="50"
-        android:max="100"
-        android:layout_margin="20dp"
-        android:progressDrawable="@drawable/progress_bar"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="9dp"
+                android:id="@+id/consultationProgress"
+                android:progress="50"
+                android:max="100"
+                android:layout_gravity="center"
+                android:layout_margin="7dp"
+                android:progressDrawable="@drawable/progress_bar"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorDecorationDark"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/progressMarker"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="05"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/progressText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                android:layout_gravity="right"
+                android:id="@+id/progressMaxText" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

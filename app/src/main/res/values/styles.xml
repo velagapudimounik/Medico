@@ -26,7 +26,7 @@
     </style>
 
     <style name="DBTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/colorTertiary</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
     <style name="EditTextStyle" parent="android:Widget.EditText">
@@ -37,7 +37,7 @@
     </style>
 
     <style name="EditTextStyleTransparent" parent="android:Widget.EditText">
-        <item name="android:background">@drawable/edit_text_background</item>
+        <item name="android:background">@drawable/underline_light_grey</item>
         <item name="android:height">@dimen/edit_text_height</item>
         <item name="android:textColorHint">@color/colorHint</item>
         <item name="android:gravity">center_vertical</item>
@@ -46,7 +46,7 @@
 
     <style name="ButtonStyle" parent="android:Widget.Button">
         <item name="android:background">@color/colorPrimary</item>
-        <item name="android:textColor">@color/colorTertiary</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:height">@dimen/button_height</item>
         <item name="android:width">@dimen/button_width</item>
         <item name="android:paddingLeft">30dp</item>
@@ -55,11 +55,11 @@
     </style>
 
     <style name="RadioButtonStyle" parent="android:Widget.CompoundButton.RadioButton">
-        <item name="android:textColor">@color/colorTertiary</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
     <style name="SocialButtonStyle" parent="android:Widget.Button">
-        <item name="android:background">@drawable/button_black_border</item>
+        <item name="android:background">@drawable/fill_round_rect_light_grey_border_grey</item>
         <item name="android:textColor">@color/colorTextLight</item>
         <item name="android:height">@dimen/button_height</item>
         <item name="android:width">@dimen/button_width</item>
@@ -69,8 +69,8 @@
     </style>
 
     <style name="CheckBoxStyle" parent="android:Widget.CompoundButton.CheckBox">
-        <item name="android:background">@drawable/check_box_background</item>
-        <item name="android:textColor">@drawable/check_box_text_color</item>
+        <item name="android:background">@drawable/background_selector_white_orange</item>
+        <item name="android:textColor">@drawable/text_selector_grey_white</item>
         <item name="android:textSize">13sp</item>
         <item name="android:height">@dimen/check_box_height</item>
         <item name="android:gravity">center</item>

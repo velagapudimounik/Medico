@@ -17,7 +17,7 @@ public class ThanksRegards extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.thankyou, container, false);
+        View view = inflater.inflate(R.layout.login_password_reset_success, container, false);
         getActivity().setTitle(getResources().getString(R.string.forgotPassword));
 
         Button btnok = (Button) view.findViewById(R.id.okButton);

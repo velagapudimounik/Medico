@@ -22,10 +22,8 @@ public class OrderInformationChildView extends RecyclerView.Adapter<OrderInforma
     @Override
     public childdata onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_information_child_view,parent,false);
-        childdata data = new childdata(view);
-
-        return data;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.myorders_order_information_child_view,parent,false);
+        return new childdata(view);
     }
 
     @Override

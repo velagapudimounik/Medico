@@ -10,19 +10,40 @@
         android:layout_height="wrap_content"
         android:text="Create New Calendar"
         android:textSize="17sp"
-        android:textColor="@color/colorTertiary"
+        android:textColor="@color/colorWhite"
         android:layout_marginBottom="15dp"/>
 
-    <Spinner
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/addressSelection"
-        android:textSize="13sp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/round_rect_fill_white"
-        android:spinnerMode="dropdown"
-        android:dropDownVerticalOffset="37dp"
-        android:popupBackground="@drawable/round_rect_fill_white"/>
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/addressSelection"
+            android:textSize="13sp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/round_rect_fill_white"
+            android:spinnerMode="dropdown"
+            android:dropDownVerticalOffset="37dp"
+            android:popupBackground="@drawable/round_rect_fill_white"/>
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/fill_round_rect_light_grey"
+            android:layout_gravity="center_vertical|right"/>
+
+        <com.drughub.doctor.utils.DrughubIcon
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_down_arrow"
+            android:textSize="20sp"
+            android:textColor="@color/colorTextDark"
+            android:gravity="center"
+            android:layout_gravity="center_vertical|right"/>
+
+    </FrameLayout>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -199,7 +220,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="|"
-            android:textColor="@color/colorTertiary"/>
+            android:textColor="@color/colorWhite"/>
 
         <NumberPicker
             android:layout_width="30dp"
@@ -211,7 +232,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="to"
-            android:textColor="@color/colorTertiary"
+            android:textColor="@color/colorWhite"
             android:padding="10dp"/>
 
         <NumberPicker
@@ -230,7 +251,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="|"
-            android:textColor="@color/colorTertiary"/>
+            android:textColor="@color/colorWhite"/>
 
         <NumberPicker
             android:layout_width="30dp"

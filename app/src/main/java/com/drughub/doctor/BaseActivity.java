@@ -84,7 +84,7 @@ public class BaseActivity extends AppCompatActivity {
     public View addActionButton(int drughubIconRes) {
         DrughubIcon actionBtn = new DrughubIcon(this);
         actionBtn.setText(getString(drughubIconRes));
-        actionBtn.setTextColor(ContextCompat.getColor(this, R.color.colorTertiary));
+        actionBtn.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         actionBtn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 25);
         actionBtn.setTag(drughubIconRes);
 

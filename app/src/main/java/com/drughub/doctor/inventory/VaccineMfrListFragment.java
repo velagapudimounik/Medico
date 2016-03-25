@@ -2,7 +2,6 @@ package com.drughub.doctor.inventory;
 
 
 import android.app.Dialog;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,7 +15,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,8 +23,6 @@ import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
 import com.drughub.doctor.utils.CustomDialog;
 import com.drughub.doctor.utils.SimpleDividerItemDecoration;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -48,7 +44,7 @@ public class VaccineMfrListFragment extends Fragment {
                              Bundle savedInstanceState) {
         mVaccineName = getArguments().getString("name");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inventory_vaccine_mfr_list, container, false);
+        return inflater.inflate(R.layout.inventory_vaccine_mfr_list, container, false);
     }
 
     @Override
@@ -111,7 +107,7 @@ public class VaccineMfrListFragment extends Fragment {
                     @Override
                     public void onClick(View v)
                     {
-                        final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)sContext, R.layout.dialog_add_to_cart,
+                        final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)sContext, R.layout.inventory_add_to_cart_dialog,
                                 Gravity.CENTER, true, false, true);
 
                         TextView textView = (TextView)dialog.findViewById(R.id.add_to_cart_db_title);
@@ -119,7 +115,8 @@ public class VaccineMfrListFragment extends Fragment {
 
                         Spinner dropdown = (Spinner)dialog.findViewById(R.id.add_to_cart_db_quantity_ropDown);
                         String[] items = new String[]{"0.5ML", "1ML", "2ML"};
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(sContext, android.R.layout.simple_spinner_dropdown_item, items);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(sContext, android.R.layout.simple_list_item_1, items);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         dropdown.setAdapter(adapter);
                         View closeBtn = dialog.findViewById(R.id.add_to_cart_db_close_btn);
                         closeBtn.setOnClickListener(new View.OnClickListener() {
