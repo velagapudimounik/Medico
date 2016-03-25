@@ -39,4 +39,10 @@ public class DrughubIcon extends TextView {
         }
         super.setLayoutParams(params);
     }
+
+    public static Typeface getsDrughubIcons(Context context) {
+        if(sDrughubIcons==null)
+            sDrughubIcons = Typeface.createFromAsset(context.getAssets(), "fonts/drughub-mobile-doctor.ttf");
+        return sDrughubIcons;
+    }
 }

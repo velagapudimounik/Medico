@@ -1,6 +1,308 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_small">
+
+    <RadioGroup
+        android:id="@+id/analyticsGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/icon_consumption_s"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_xhuge" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/icon_fmp_us"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_xhuge" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/icon_profitability_us"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_xhuge" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/icon_coldhub_us"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_xhuge" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/consumption"
+            android:textColor="@color/colorDecoration"
+            android:textSize="@dimen/text_teen" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/fmp"
+            android:textColor="@color/colorDecoration"
+            android:textSize="@dimen/text_teen" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/profitability"
+            android:textColor="@color/colorDecoration"
+            android:textSize="@dimen/text_teen" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/coldhub"
+            android:textColor="@color/colorDecoration"
+            android:textSize="@dimen/text_teen" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_small"
+        android:background="@drawable/rect_orange"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/restLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_small"
+                android:text="@string/consumption"
+                android:textColor="@color/colorDecoration"
+                android:textSize="@dimen/text_teen" />
+
+            <RadioGroup
+                android:id="@+id/forecastGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:background="@drawable/rect_orange"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioWeekly"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/fill_rect_orange"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_small"
+                    android:text="Weekly"
+                    android:textColor="@color/colorWhite" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary" />
+
+                <RadioButton
+                    android:id="@+id/radioMonthly"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_small"
+                    android:text="Monthly"
+                    android:textColor="@color/colorDecoration" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary" />
+
+                <RadioButton
+                    android:id="@+id/radioYearly"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_small"
+                    android:text="Yearly"
+                    android:textColor="@color/colorDecoration" />
+
+
+            </RadioGroup>
+
+
+            <TextView
+                android:id="@+id/forecast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_small"
+                android:text="@string/forecast"
+                android:textColor="@color/colorPrimary" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/coldhubLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/margin_small"
+                    android:paddingTop="@dimen/margin_small"
+                    android:text="@string/coldhub"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_teen" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/margin_small"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="@dimen/margin_small"
+                    android:text="@string/monitoring"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_teen" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/coldhubDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="22-06-2015"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_teen" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/margin_small"
+                    android:paddingTop="@dimen/margin_small"
+                    android:text="@string/minTemp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_teen" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/margin_small"
+                    android:paddingLeft="@dimen/margin_small"
+                    android:paddingTop="@dimen/margin_small"
+                    android:text="2\u00B0"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_teen" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/margin_small"
+                    android:text="@string/maxTemp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_teen" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/margin_small"
+                    android:paddingLeft="@dimen/margin_small"
+                    android:text="5\u00B0"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_teen" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/margin_small"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/timeSchedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/margin_small"
+            android:text="22-06-2015 to 22-07-2015"
+            android:textColor="@color/colorDecoration"
+            android:textSize="@dimen/text_tiny" />
+
+    </LinearLayout>
 
 </LinearLayout>

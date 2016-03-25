@@ -201,5 +201,28 @@
     <string-array name="typesOfRecords">
         <item>Type Of Record</item>
     </string-array>
+    
+    <!-- Analytics -->
+    <!-- us : unSelected, s : Selected-->
+    <string name="icon_consumption_us">\u0078</string>
+    <string name="icon_fmp_us">\u0079</string>  <!--fast moving products-->
+    <string name="icon_profitability_us">\u007A</string>
+    <string name="icon_coldhub_us">\u007B</string>
+
+    <string name="icon_consumption_s">\u0074</string>
+    <string name="icon_fmp_s">\u0075</string>  <!--fast moving products-->
+    <string name="icon_profitability_s">\u0076</string>
+    <string name="icon_coldhub_s">\u0077</string>
+
+    <string name="consumption">Consumption</string>
+    <string name="fmp">Fast-Moving products</string>
+    <string name="profitability">Profitability</string>
+    <string name="coldhub">coldhub</string>
+    <string name="forecast"><u>Forecast</u></string>
+    <string name="monitoring">Monitoring</string>
+    <string name="minTemp">Min Temp</string>
+    <string name="maxTemp">Max Temp</string>
+
+    <string name="degrees">\u00B0</string>
 
 </resources>
