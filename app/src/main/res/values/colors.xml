@@ -17,6 +17,7 @@
     <color name="colorDecorationLight">#ededed</color>
     <color name="colorDecoration">#b7b7b7</color>
     <color name="colorDecorationDark">#878787</color>
+    <color name="Color_grey">#e7e6e6</color>
 
     <color name="colorWhite">#ffffff</color>
     <color name="ColorBlack">#000000</color>
