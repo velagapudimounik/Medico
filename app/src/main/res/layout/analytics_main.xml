@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="@dimen/margin_small">
 
@@ -302,6 +303,13 @@
             android:text="22-06-2015 to 22-07-2015"
             android:textColor="@color/colorDecoration"
             android:textSize="@dimen/text_tiny" />
+
+        <com.jjoe64.graphview.helper.GraphViewXML
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:seriesData="0=5;2=5;3=0;4=2"
+            app:seriesType="line"
+            app:seriesColor="#ee0000"/>
 
     </LinearLayout>
 

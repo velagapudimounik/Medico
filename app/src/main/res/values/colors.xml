@@ -19,13 +19,7 @@
     <color name="colorDecorationDark">#878787</color>
 
     <color name="colorWhite">#ffffff</color>
-
-    <!-- TODO: Remove these color -->
-    <color name="main_tab_text_color">#FFFFFF</color>
-    <color name="ColorBlack">#060606</color>
-    <color name="Color_grey">#f4f0f0</color>
-    <color name="Button_Background">#ffffff</color>
-
+    <color name="ColorBlack">#000000</color>
     <color name="translucent_background">#DD000000</color>
-    #99000000
+
 </resources>

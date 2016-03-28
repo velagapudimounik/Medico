@@ -40,6 +40,7 @@
         android:id="@+id/consultation_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/margin_small" />
+        android:layout_marginBottom="@dimen/margin_small"
+        android:background="@color/colorWhite"/>
 
 </LinearLayout>

@@ -46,7 +46,7 @@ public class OrderInformationList extends Fragment {
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity)getContext(), "Are you Sure?\nYou want to Cancel Order #014899.", "No", "Yes");
+                final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity)getContext(), "Are you Sure?\nYou want to Cancel Order #014899.");
 
                 Button dialog_no = (Button) dialog.findViewById(R.id.dialogNoBtn);
                 dialog_no.setOnClickListener(new View.OnClickListener() {

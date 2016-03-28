@@ -72,6 +72,8 @@ public class AvailableInventoryActivity extends BaseActivity {
         public static class ViewHolder extends RecyclerView.ViewHolder {
             private final TextView vaccineName;
             private View mItemView;
+            View expandBtn;
+            View moreInfo;
 
             public ViewHolder(View v)
             {
@@ -96,6 +98,24 @@ public class AvailableInventoryActivity extends BaseActivity {
                 });
 
                 vaccineName = (TextView) v.findViewById(R.id.vaccineName);
+                expandBtn = v.findViewById(R.id.expandBtn);
+                v.setOnClickListener(new View.OnClickListener() {
+                     @Override
+                     public void onClick(View v) {
+                         if(moreInfo.getVisibility() != View.VISIBLE)
+                         {
+                             moreInfo.setVisibility(View.VISIBLE);
+                             expandBtn.setRotation(180);
+                         }
+                         else
+                         {
+                             moreInfo.setVisibility(View.GONE);
+                             expandBtn.setRotation(0);
+                         }
+                     }
+                });
+
+                moreInfo = v.findViewById(R.id.moreInfo);
             }
 
             public void setItemSelected(boolean selected)
@@ -106,6 +126,9 @@ public class AvailableInventoryActivity extends BaseActivity {
             public void setItemDetails(AvailableInventoryItem item)
             {
                 vaccineName.setText(item.vaccineName);
+
+                moreInfo.setVisibility(View.GONE);
+                expandBtn.setRotation(0);
             }
         }
 

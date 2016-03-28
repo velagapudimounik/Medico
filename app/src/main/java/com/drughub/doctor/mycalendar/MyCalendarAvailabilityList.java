@@ -1,5 +1,6 @@
 package com.drughub.doctor.mycalendar;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,8 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
+import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
 import com.drughub.doctor.consultation.PatientVaccineScheduleActivity;
+import com.drughub.doctor.utils.CustomDialog;
 import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -60,7 +65,7 @@ public class MyCalendarAvailabilityList extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    public static class AvailabilityListAdapter extends RecyclerView.Adapter<AvailabilityListAdapter.ViewHolder>
+    public static class AvailabilityListAdapter extends RecyclerSwipeAdapter<AvailabilityListAdapter.ViewHolder>
     {
         private ArrayList<ItemAvailability> mDataSet;
         static FragmentActivity sContext;
@@ -68,6 +73,10 @@ public class MyCalendarAvailabilityList extends Fragment {
         public static class ViewHolder extends RecyclerView.ViewHolder {
             private final TextView textView;
             private View mItemView;
+            SwipeLayout swipeLayout;
+            View rescheduleBtn;
+            View deleteBtn;
+            View settingsBtn;
 
             public ViewHolder(View v)
             {
@@ -77,13 +86,23 @@ public class MyCalendarAvailabilityList extends Fragment {
 
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v)
-                    {
-
+                    public void onClick(View v) {
+                        swipeLayout.close(true);
                     }
                 });
 
                 textView = (TextView) v.findViewById(R.id.clinicDetails);
+                swipeLayout = (SwipeLayout) v.findViewById(R.id.swipe);
+                swipeLayout.setSwipeEnabled(false);
+                settingsBtn = v.findViewById(R.id.settingsBtn);
+                settingsBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        swipeLayout.open(true);
+                    }
+                });
+                rescheduleBtn = v.findViewById(R.id.reschedule);
+                deleteBtn = v.findViewById(R.id.deleteCalendar);
             }
 
             public void setItemSelected(boolean selected)
@@ -113,17 +132,53 @@ public class MyCalendarAvailabilityList extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, final int position)
+        public void onBindViewHolder(final ViewHolder viewHolder, final int position)
         {
             // Get element from your dataset at this position and replace the contents of the view
             // with that element
             viewHolder.setItemDetails(mDataSet.get(position));
+
+            viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity) sContext, sContext.getResources().getString(R.string.deleteCalendarMessage));
+
+                    View noBtn = dialog.findViewById(R.id.dialogNoBtn);
+                    noBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    View yesBtn = dialog.findViewById(R.id.dialogYesBtn);
+                    yesBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                            mItemManger.removeShownLayouts(viewHolder.swipeLayout);
+                            mDataSet.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, mDataSet.size());
+                            mItemManger.closeAllItems();
+                        }
+                    });
+                }
+            });
+
+
+            mItemManger.bindView(viewHolder.itemView, position);
         }
 
         @Override
         public int getItemCount()
         {
             return mDataSet.size();
+        }
+
+        @Override
+        public int getSwipeLayoutResourceId(int position) {
+            return R.id.swipe;
         }
     }
 }

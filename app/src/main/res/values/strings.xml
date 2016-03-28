@@ -52,7 +52,7 @@
     <string name="patient_name">Patient Name</string>
     <string name="inventory">Inventory</string>
     <string name="dialog_message_done">Done</string>
-
+    <string name="dialogDeleteConsultation">Are you Sure?\nYou want to cancel todays appointment.</string>
 
 
 
@@ -307,6 +307,10 @@
     <string name="saturday">Sat</string>
     <string name="sunday">Sun</string>
     <string name="add_button">Add</string>
+    <string name="deleteCalendarMessage">Are you Sure?\nYou want to delete calendar entry.</string>
+    <string name="deleteAppointmentMessage">Are you Sure?\nYou want to cancel booked appointment.</string>
+
+    <string name="icon_reschedule">\u0033</string>
 
     <!--Patient Records-->
     <string name="icon_test_urine">\u0057</string>

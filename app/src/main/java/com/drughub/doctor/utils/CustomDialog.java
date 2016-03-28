@@ -52,6 +52,11 @@ public class CustomDialog
         return dialog;
     }
 
+    public static Dialog showMessageDialog(BaseActivity activity, String messageTxt)
+    {
+        return showMessageDialog(activity, messageTxt, "Ok");
+    }
+
     public static Dialog showMessageDialog(BaseActivity activity, String messageTxt, String okBtnTxt)
     {
         Dialog dialog = showCustomDialog(activity, R.layout.dialog_message, Gravity.CENTER, true, false, true);
@@ -62,6 +67,11 @@ public class CustomDialog
         okBtn.setText(okBtnTxt);
 
         return dialog;
+    }
+
+    public static Dialog showQuestionDialog(BaseActivity activity, String questionTxt)
+    {
+        return showQuestionDialog(activity, questionTxt, "No", "Yes");
     }
 
     public static Dialog showQuestionDialog(BaseActivity activity, String questionTxt, String noBtnTxt, String yesBtnTxt)
