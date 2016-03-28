@@ -28,7 +28,7 @@
                 android:button="@null"
                 android:checked="true"
                 android:paddingLeft="30dp"
-                android:text="Urine Tests"
+                android:text="@string/urine_test"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_tiny" />
 
@@ -40,7 +40,7 @@
                 android:background="@drawable/radiobutton_selector"
                 android:button="@null"
                 android:paddingLeft="30dp"
-                android:text="Blood Tests"
+                android:text="@string/blood_test"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_tiny" />
 
@@ -53,7 +53,7 @@
                 android:button="@null"
                 android:paddingLeft="30dp"
                 android:singleLine="true"
-                android:text="Radiological Tests"
+                android:text="@string/radiological_test"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_tiny" />
         </RadioGroup>

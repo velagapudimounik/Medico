@@ -15,6 +15,8 @@ import android.widget.Button;
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
 import com.drughub.doctor.utils.CustomDialog;
+import com.drughub.doctor.utils.StringUtils;
+
 
 
 public class OrderInformationList extends Fragment {
@@ -46,7 +48,10 @@ public class OrderInformationList extends Fragment {
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity)getContext(), "Are you Sure?\nYou want to Cancel Order #014899.");
+
+                String value = "#1223311";
+
+                final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity) getContext(), StringUtils.findAndReplace(getString(R.string.orderinfo_dialog_message), "{Order ID}", value));
 
                 Button dialog_no = (Button) dialog.findViewById(R.id.dialogNoBtn);
                 dialog_no.setOnClickListener(new View.OnClickListener() {

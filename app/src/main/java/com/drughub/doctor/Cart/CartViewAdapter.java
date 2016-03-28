@@ -2,6 +2,7 @@ package com.drughub.doctor.Cart;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.childi
 
     Fragment fragment = null;
     Context cart_context;
+
 
     CartViewAdapter(Context context)
     {
@@ -38,7 +40,7 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.childi
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity)view.getContext(), "Are You Sure ?\nYou want to remove vaccine from cart.");
+                final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity)view.getContext(), cart_context.getResources().getString(R.string.deleteCartmessage));
 
                 Button dialog_yes = (Button) dialog.findViewById(R.id.dialogYesBtn);
                 Button dialog_no = (Button) dialog.findViewById(R.id.dialogNoBtn);

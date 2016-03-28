@@ -143,7 +143,7 @@
                     android:checked="true"
                     android:gravity="center"
                     android:padding="@dimen/margin_small"
-                    android:text="Weekly"
+                    android:text="@string/weekly"
                     android:textColor="@color/colorWhite" />
 
                 <View
@@ -159,7 +159,7 @@
                     android:button="@null"
                     android:gravity="center"
                     android:padding="@dimen/margin_small"
-                    android:text="Monthly"
+                    android:text="@string/monthly"
                     android:textColor="@color/colorDecoration" />
 
                 <View
@@ -175,7 +175,7 @@
                     android:button="@null"
                     android:gravity="center"
                     android:padding="@dimen/margin_small"
-                    android:text="Yearly"
+                    android:text="@string/yearly"
                     android:textColor="@color/colorDecoration" />
 
 

@@ -57,7 +57,7 @@ public class CustomDialog
 
     public static Dialog showMessageDialog(BaseActivity activity, String messageTxt)
     {
-        return showMessageDialog(activity, messageTxt, "Ok");
+        return showMessageDialog(activity, messageTxt, activity.getResources().getString(R.string.custom_dialog_default_message));
     }
 
     public static Dialog showMessageDialog(BaseActivity activity, String messageTxt, String okBtnTxt)
@@ -74,7 +74,7 @@ public class CustomDialog
 
     public static Dialog showQuestionDialog(BaseActivity activity, String questionTxt)
     {
-        return showQuestionDialog(activity, questionTxt, "No", "Yes");
+        return showQuestionDialog(activity, questionTxt, activity.getResources().getString(R.string.custom_dialog_no_message), activity.getResources().getString(R.string.custom_dialog_yes_message));
     }
 
     public static Dialog showQuestionDialog(BaseActivity activity, String questionTxt, String noBtnTxt, String yesBtnTxt)

@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
 import com.drughub.doctor.utils.CustomDialog;
+import com.drughub.doctor.utils.StringUtils;
+
 
 import java.util.ArrayList;
 
@@ -85,8 +87,12 @@ public class AvailableInventoryActivity extends BaseActivity {
                     @Override
                     public void onClick(View v)
                     {
+
+
+                        String value = "4";
+
                     final Dialog dialog = CustomDialog.showMessageDialog((BaseActivity)sContext,
-                            "Administering Vaccine at Temp 3\u00B0C", "Done");
+                            StringUtils.findAndReplace(sContext.getResources().getString(R.string.temperature), "{temp}", value), "Done");
                     Button okBtn = (Button)dialog.findViewById(R.id.dialogOkBtn);
                     okBtn.setOnClickListener(new View.OnClickListener() {
                         @Override

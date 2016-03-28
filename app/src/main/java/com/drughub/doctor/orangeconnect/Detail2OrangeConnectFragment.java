@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.drughub.doctor.R;
+import com.drughub.doctor.utils.StringUtils;
+
 
 import java.util.ArrayList;
 
@@ -29,8 +31,10 @@ public class Detail2OrangeConnectFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         ArrayList<OrangeConnect> orangeConnects = new ArrayList<>();
 
+        String temp = "4";
+
         for (int i = 0; i < 10; i++) {
-            orangeConnects.add(new OrangeConnect("Hepatitis B3", "24 Nov 1998", "Administered at 3\u00B0C"));
+            orangeConnects.add(new OrangeConnect("Hepatitis B3", "24 Nov 1998", StringUtils.findAndReplace(getString(R.string.orange_connect_temperature), "{temp}", temp)));
         }
 
         Detail2OrangeConnectAdapter adapter = new Detail2OrangeConnectAdapter(getActivity(), orangeConnects);

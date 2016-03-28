@@ -23,7 +23,7 @@ public class MyProfileActivityFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("My Profile");
+        getActivity().setTitle(getString(R.string.my_profile_title));
         final View view=inflater.inflate(R.layout.myprofile_activity_layout, container, false);
         final DrughubIcon editicon=(DrughubIcon)view.findViewById(R.id.Editicon);
         //editicon.setOnClickListener(this);

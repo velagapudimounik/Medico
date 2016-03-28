@@ -12,6 +12,8 @@ import android.widget.Button;
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
 import com.drughub.doctor.utils.CustomDialog;
+import com.drughub.doctor.utils.StringUtils;
+
 
 
 public class CashOnDelivery extends Fragment {
@@ -39,7 +41,9 @@ public class CashOnDelivery extends Fragment {
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = CustomDialog.showMessageDialog((BaseActivity)getActivity(), "Order ID : 205455\nhas been placed successfully.");
+
+                String value = "12345678";
+                final Dialog dialog = CustomDialog.showMessageDialog((BaseActivity)getActivity(), StringUtils.findAndReplace(getString(R.string.placedOrder_id_message), "{OrderID}", value));
 
                 Button confirm_btn = (Button) dialog.findViewById(R.id.dialogOkBtn);
                 confirm_btn.setOnClickListener(new View.OnClickListener() {
