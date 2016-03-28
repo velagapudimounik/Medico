@@ -53,7 +53,7 @@
             android:id="@+id/patient_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_medium"
+            android:textSize="@dimen/text_small"
             android:text="Amar" />
 
         <TextView
@@ -62,13 +62,13 @@
             android:layout_height="wrap_content"
             android:text="D.O.B : 24th Nov 1998"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/text_small" />
+            android:textSize="@dimen/text_teen" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_margin="10dp"
@@ -83,14 +83,14 @@
             android:layout_height="wrap_content"
             android:text="16"
             android:textColor="@color/colorWhite"
-            android:textSize="26sp" />
+            android:textSize="22sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/patient_records"
             android:textColor="@color/colorWhite"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
     </LinearLayout>
 

@@ -1,9 +1,14 @@
 package com.drughub.doctor.patientrecords;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
@@ -34,12 +39,58 @@ public class BookmarkedActivity extends BaseActivity {
             patientRecords.add(new PatientRecord("Amar " + i, "D.O.B : 24th Nov 1998", "16"));
         }
 
-        PatientRecordsAdapter adapter = new PatientRecordsAdapter(this, patientRecords);
+        BookmarksAdapter adapter = new BookmarksAdapter(this, patientRecords);
         recyclerView.setAdapter(adapter);
-
     }
 }
 
+class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.DataObjectHolder> {
+    Context context;
+    ArrayList<PatientRecord> patientRecords;
+
+    public BookmarksAdapter(Context context, ArrayList<PatientRecord> patientRecords) {
+        this.context = context;
+        this.patientRecords = patientRecords;
+    }
+
+    @Override
+    public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_patient_record, parent, false);
+
+        DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
+        return dataObjectHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(DataObjectHolder holder, int position) {
+        PatientRecord patientRecord = patientRecords.get(position);
+        holder.name.setText(patientRecord.getName());
+        holder.dob.setText(patientRecord.getDob());
+        holder.records.setText(patientRecord.getRecords());
+    }
+
+    @Override
+    public int getItemCount() {
+        return patientRecords.size();
+    }
+
+    public class DataObjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView name, dob, records;
+
+        public DataObjectHolder(View itemView) {
+            super(itemView);
+            name = (TextView) itemView.findViewById(R.id.patient_name);
+            dob = (TextView) itemView.findViewById(R.id.patient_dob);
+            records = (TextView) itemView.findViewById(R.id.records_count);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+        }
+    }
+}
 
 
 
