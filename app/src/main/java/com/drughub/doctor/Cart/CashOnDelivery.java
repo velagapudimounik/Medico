@@ -39,7 +39,7 @@ public class CashOnDelivery extends Fragment {
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = CustomDialog.showMessageDialog((BaseActivity)getActivity(), "Order ID : 205455\nhas been placed successfully.", "ok");
+                final Dialog dialog = CustomDialog.showMessageDialog((BaseActivity)getActivity(), "Order ID : 205455\nhas been placed successfully.");
 
                 Button confirm_btn = (Button) dialog.findViewById(R.id.dialogOkBtn);
                 confirm_btn.setOnClickListener(new View.OnClickListener() {

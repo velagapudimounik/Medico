@@ -38,7 +38,7 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.childi
             @Override
             public void onClick(View v) {
 
-                final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity)view.getContext(), "Are You Sure ?\nYou want to remove vaccine from cart.", "No", "Yes");
+                final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity)view.getContext(), "Are You Sure ?\nYou want to remove vaccine from cart.");
 
                 Button dialog_yes = (Button) dialog.findViewById(R.id.dialogYesBtn);
                 Button dialog_no = (Button) dialog.findViewById(R.id.dialogNoBtn);

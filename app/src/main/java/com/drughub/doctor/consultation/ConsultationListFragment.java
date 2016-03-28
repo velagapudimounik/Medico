@@ -1,17 +1,23 @@
 package com.drughub.doctor.consultation;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
+import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.utils.CustomDialog;
 
 import java.util.ArrayList;
 
@@ -63,7 +69,7 @@ public class ConsultationListFragment extends Fragment
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    public static class ConsultationListAdapter extends RecyclerView.Adapter<ConsultationListAdapter.ViewHolder>
+    public static class ConsultationListAdapter extends RecyclerSwipeAdapter<ConsultationListAdapter.ViewHolder>
     {
         private ArrayList<ItemConsultation> mDataSet;
         static FragmentActivity sContext;
@@ -71,22 +77,35 @@ public class ConsultationListFragment extends Fragment
         public static class ViewHolder extends RecyclerView.ViewHolder {
             private final TextView textView;
             private View mItemView;
+            SwipeLayout swipeLayout;
+            View deleteBtn;
 
             public ViewHolder(View v)
             {
                 super(v);
-
                 mItemView = v;
 
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v)
-                    {
+                    public void onClick(View v) {
                         sContext.startActivity(new Intent(sContext, PatientVaccineScheduleActivity.class));
                     }
                 });
 
                 textView = (TextView) v.findViewById(R.id.consultationPatientDetails);
+
+
+                View view = v.findViewById(R.id.consultationItem);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sContext.startActivity(new Intent(sContext, PatientVaccineScheduleActivity.class));
+                    }
+                });
+
+                swipeLayout = (SwipeLayout) v.findViewById(R.id.swipe);
+
+                deleteBtn = v.findViewById(R.id.deleteConsultation);
             }
 
             public void setItemSelected(boolean selected)
@@ -116,17 +135,60 @@ public class ConsultationListFragment extends Fragment
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, final int position)
+        public void onBindViewHolder(final ViewHolder viewHolder, final int position)
         {
             // Get element from your dataset at this position and replace the contents of the view
             // with that element
             viewHolder.setItemDetails(mDataSet.get(position));
+
+//            viewHolder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                }
+//            });
+
+            viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity) sContext, sContext.getResources().getString(R.string.dialogDeleteConsultation));
+
+                    View noBtn = dialog.findViewById(R.id.dialogNoBtn);
+                    noBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+
+
+                        }
+                    });
+
+                    View yesBtn = dialog.findViewById(R.id.dialogYesBtn);
+                    yesBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                            mItemManger.removeShownLayouts(viewHolder.swipeLayout);
+                            mDataSet.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, mDataSet.size());
+                            mItemManger.closeAllItems();
+                        }
+                    });
+                }
+            });
+
+            mItemManger.bindView(viewHolder.itemView, position);
         }
 
         @Override
         public int getItemCount()
         {
             return mDataSet.size();
+        }
+
+        @Override
+        public int getSwipeLayoutResourceId(int position) {
+            return R.id.swipe;
         }
     }
 }

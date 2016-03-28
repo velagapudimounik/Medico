@@ -102,13 +102,20 @@
             android:background="@color/colorDecoration"
             android:layout_margin="3dp"/>
 
+        <View android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/colorPrimary"
+            android:layout_margin="3dp"
+            android:visibility="gone"
+            android:id="@+id/moreInfo"/>
+
         <com.drughub.doctor.utils.DrughubIcon
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/icon_down_arrow"
             android:textSize="25sp"
             android:textColor="@color/colorPrimary"
-            android:id="@+id/textView2" />
+            android:id="@+id/expandBtn" />
 
         </LinearLayout>
 

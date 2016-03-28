@@ -115,6 +115,35 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center" />
         </LinearLayout>
+
+
+        <com.daimajia.swipe.SwipeLayout
+            android:id="@+id/swipe"
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <FrameLayout
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary">
+
+                <com.drughub.doctor.utils.DrughubIcon
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_close"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_large"
+                    android:layout_gravity="center"
+                    android:id="@+id/deleteConsultation"/>
+
+            </FrameLayout>
+
+            <View android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/consultationItem"/>
+
+        </com.daimajia.swipe.SwipeLayout>
+
     </RelativeLayout>
 
     <LinearLayout

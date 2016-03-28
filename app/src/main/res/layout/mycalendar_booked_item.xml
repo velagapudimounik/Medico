@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
@@ -8,8 +12,7 @@
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
@@ -18,29 +21,23 @@
         android:layout_centerVertical="true"
         android:id="@+id/linearLayout">
 
-        <FrameLayout
+        <View
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/fill_circle_light_grey"
+            android:layout_gravity="center" />
+
+        <com.drughub.doctor.utils.DrughubIcon
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="@string/icon_profile_pic"
+            android:textSize="25dp"
+            android:textColor="@color/colorDecoration"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/imageIcon" />
 
-            <View
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/fill_circle_light_grey"
-                android:layout_gravity="center" />
-
-            <com.drughub.doctor.utils.DrughubIcon
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/icon_profile_pic"
-                android:textSize="25dp"
-                android:textColor="@color/colorDecoration"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:id="@+id/imageIcon" />
-
-        </FrameLayout>
-
-    </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:orientation="vertical"
@@ -83,8 +80,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -93,28 +89,51 @@
         android:layout_centerVertical="true"
         android:id="@+id/linearLayout3">
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <View
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/draw_circle_grey"
+            android:layout_gravity="center"
+            android:id="@+id/settingsBtn"/>
 
-            <View
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/draw_circle_grey"
-                android:layout_gravity="center" />
+        <com.drughub.doctor.utils.DrughubIcon
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_settings"
+            android:textSize="17dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+    </FrameLayout>
+
+</RelativeLayout>
+
+    <com.daimajia.swipe.SwipeLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="85dp">
+
+        <FrameLayout
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary">
 
             <com.drughub.doctor.utils.DrughubIcon
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/icon_settings"
-                android:textSize="17dp"
-                android:textColor="@color/colorPrimary"
+                android:text="@string/icon_close"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_large"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:id="@+id/clinicIcon" />
+                android:id="@+id/deleteBooking"/>
 
         </FrameLayout>
 
-    </LinearLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/bookedItem"/>
 
-</RelativeLayout>
+    </com.daimajia.swipe.SwipeLayout>
+
+</FrameLayout>
