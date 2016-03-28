@@ -38,6 +38,7 @@ public class MoreFragment extends Fragment {
         LinearLayout my_orders = (LinearLayout) view.findViewById(R.id.my_orders);
         LinearLayout patient_records = (LinearLayout) view.findViewById(R.id.patient_records);
         LinearLayout orangeConnect = (LinearLayout) view.findViewById(R.id.orange_connect);
+        LinearLayout about = (LinearLayout) view.findViewById(R.id.about);
         my_orders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +57,12 @@ public class MoreFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), OrangeConnectActivity.class));
+            }
+        });
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), AboutActivity.class));
             }
         });
 

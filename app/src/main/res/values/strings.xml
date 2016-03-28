@@ -55,7 +55,6 @@
     <string name="dialogDeleteConsultation">Are you Sure?\nYou want to cancel todays appointment.</string>
 
 
-
     <!-- @@@@ Drughub Icons @@@@ -->
     <!-- @@@@ Login & Registrations Icons @@@@ -->
     <string name="icon_facebook">\u0021</string>
@@ -271,7 +270,6 @@
     <string name="Change_textView">change</string>
 
 
-
     <!-- My Order -->
     <string name="order_id">Order ID :</string>
     <string name="my_order_status">Order Status :</string>
@@ -285,7 +283,6 @@
     <string name="cancel_order_button">Cancel Order</string>
     <string name="my_order_title">My Orders</string>
     <string name="order_information_title">Order Information</string>
-
 
 
     <!--My Calendar-->
@@ -340,20 +337,21 @@
     <string name="patient_namedob">Patient Name | D.O.B</string>
 
 
-
     <string-array name="typesOfRecords">
         <item>Type Of Record</item>
     </string-array>
-    
+
     <!-- Analytics -->
     <!-- us : unSelected, s : Selected-->
     <string name="icon_consumption_us">\u0078</string>
-    <string name="icon_fmp_us">\u0079</string>  <!--fast moving products-->
+    <string name="icon_fmp_us">\u0079</string>
+    <!--fast moving products-->
     <string name="icon_profitability_us">\u007A</string>
     <string name="icon_coldhub_us">\u007B</string>
 
     <string name="icon_consumption_s">\u0074</string>
-    <string name="icon_fmp_s">\u0075</string>  <!--fast moving products-->
+    <string name="icon_fmp_s">\u0075</string>
+    <!--fast moving products-->
     <string name="icon_profitability_s">\u0076</string>
     <string name="icon_coldhub_s">\u0077</string>
 
@@ -367,5 +365,9 @@
     <string name="maxTemp">Max Temp</string>
 
     <string name="degrees">\u00B0</string>
+    <string name="about_drughub">Vachub helps doctors do business better by leveraging our industry-wide experience, deep technology expertise, comprehensive portfolio of services and vertically aligned business model. Our dedicated emerging technologies \'Centers of Excellence\' enable us to harness the latest technology for delivering business capability to our clients.</string>
+    <string name="privacy">Privacy Policy</string>
+    <string name="terms">Terms of Use</string>
+    <string name="drughub_link"><u>www.drughub.in</u></string>
 
 </resources>

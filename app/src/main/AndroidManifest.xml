@@ -43,6 +43,7 @@
             android:windowSoftInputMode="adjustNothing" />
 
         <activity android:name=".orangeconnect.OrangeConnectActivity" />
+        <activity android:name=".AboutActivity" />
 
     </application>
 
