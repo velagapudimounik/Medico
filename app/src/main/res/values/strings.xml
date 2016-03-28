@@ -183,7 +183,7 @@
     <string name="orangeconnect">Orange Connect</string>
     <string name="orangewallet">Orange Wallet</string>
     <string name="about_info">About</string>
-    <string name="share_app">Share this app</string>
+    <string name="share_app"><u>Share this app</u></string>
     <string name="logout_button">Logout</string>
 
     <!-- More Icons @@@ -->
@@ -369,5 +369,6 @@
     <string name="privacy">Privacy Policy</string>
     <string name="terms">Terms of Use</string>
     <string name="drughub_link"><u>www.drughub.in</u></string>
+    <string name="send_to">Share this app</string>
 
 </resources>

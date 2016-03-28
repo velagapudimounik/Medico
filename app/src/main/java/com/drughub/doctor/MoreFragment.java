@@ -1,7 +1,6 @@
 package com.drughub.doctor;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +15,7 @@ import com.drughub.doctor.MyProfile.MyProfile_Activity;
 import com.drughub.doctor.mycalendar.MyCalendarActivity;
 import com.drughub.doctor.orangeconnect.OrangeConnectActivity;
 import com.drughub.doctor.patientrecords.PatientRecordActivity;
+import com.drughub.doctor.utils.CustomDialog;
 
 public class MoreFragment extends Fragment {
 
@@ -39,6 +39,26 @@ public class MoreFragment extends Fragment {
         LinearLayout patient_records = (LinearLayout) view.findViewById(R.id.patient_records);
         LinearLayout orangeConnect = (LinearLayout) view.findViewById(R.id.orange_connect);
         LinearLayout about = (LinearLayout) view.findViewById(R.id.about);
+        LinearLayout my_home = (LinearLayout) view.findViewById(R.id.my_home);
+        my_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomDialog.showRatingDialog((BaseActivity) getActivity()).show();
+            }
+        });
+
+        TextView shareApp = (TextView) view.findViewById(R.id.shareapp);
+        shareApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                        "Doctor App: https://play.google.com/store/apps/details?id=" + getActivity().getPackageName());
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, getResources().getString(R.string.send_to)));
+            }
+        });
+
         my_orders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,9 +103,6 @@ public class MoreFragment extends Fragment {
                 startActivity(intent1);
             }
         });
-
-        TextView share = (TextView) view.findViewById(R.id.shareapp);
-        share.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         return view;
 
