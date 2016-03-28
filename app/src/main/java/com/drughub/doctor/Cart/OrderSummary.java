@@ -55,7 +55,7 @@ public class OrderSummary extends Fragment {
             Spinner spinner = (Spinner) dialog.findViewById(R.id.change_address);
 
             List<String> categories = new ArrayList<>();
-            categories.add("My Address");
+            categories.add(getString(R.string.order_summary_itemlist));
             categories.add("Clinic1 | Address");
             categories.add("Clinic2 | Address");
 

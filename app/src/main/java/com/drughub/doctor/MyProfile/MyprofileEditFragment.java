@@ -17,7 +17,7 @@ public class MyprofileEditFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("My Profile");
+        getActivity().setTitle(getString(R.string.my_profile_title));
        final View view= inflater.inflate(R.layout.myprofile_edit_fragment,container,false);
         View.OnClickListener listener=new View.OnClickListener() {
             @Override

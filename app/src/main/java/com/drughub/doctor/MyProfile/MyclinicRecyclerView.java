@@ -23,7 +23,7 @@ public class MyclinicRecyclerView extends android.support.v4.app.Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle("My Profile");
+        getActivity().setTitle(getString(R.string.my_profile_title));
         final View view = inflater.inflate(R.layout.myprofile_myclinic_fragment, container, false);
         mRecyclerView=(RecyclerView)view.findViewById(R.id.myclinic_recyclerview);
         recycleradapter adapter=new recycleradapter(this.getActivity());

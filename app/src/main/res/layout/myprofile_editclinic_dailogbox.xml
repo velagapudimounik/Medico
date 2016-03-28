@@ -228,7 +228,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:button="@null"
-                    android:text="Mon"
+                    android:text="@string/Monday_text"
                     android:id="@+id/monday"
                     android:layout_margin="@dimen/margin_baby"
                     style="@style/CheckBoxStyle"/>
@@ -238,7 +238,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:button="@null"
-                    android:text="Tue"
+                    android:text="@string/Tuesday_text"
                     android:id="@+id/tuesday"
                     android:layout_margin="@dimen/margin_baby"
                     style="@style/CheckBoxStyle"/>
@@ -248,7 +248,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:button="@null"
-                    android:text="Wed"
+                    android:text="@string/Wednesday_text"
                     android:id="@+id/wednesday"
                     android:layout_margin="@dimen/margin_baby"
                     style="@style/CheckBoxStyle"/>
@@ -258,7 +258,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:button="@null"
-                    android:text="Thu"
+                    android:text="@string/Thursday_text"
                     android:id="@+id/thursday"
                     android:layout_margin="@dimen/margin_baby"
                     style="@style/CheckBoxStyle"/>
@@ -268,7 +268,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:button="@null"
-                    android:text="Fri"
+                    android:text="@string/Friday_text"
                     android:id="@+id/friday"
                     android:layout_margin="@dimen/margin_baby"
                     style="@style/CheckBoxStyle"/>
@@ -278,7 +278,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:button="@null"
-                    android:text="Sat"
+                    android:text="@string/Saturday_text"
                     android:id="@+id/saturday"
                     android:layout_margin="@dimen/margin_baby"
                     style="@style/CheckBoxStyle"/>
@@ -288,7 +288,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:button="@null"
-                    android:text="Sun"
+                    android:text="@string/Sunday_text"
                     android:id="@+id/sunday"
                     android:layout_margin="@dimen/margin_baby"
                     style="@style/CheckBoxStyle"/>

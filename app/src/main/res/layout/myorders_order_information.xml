@@ -225,7 +225,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Grand Total"
+                            android:text="@string/grand_total"
                             android:gravity="right"
                             android:paddingLeft="10dp"/>
 
@@ -581,8 +581,9 @@
 
 
                         <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="5dp"
                             android:background="@drawable/fill_circle_orange"/>
 
                         <View
@@ -598,8 +599,9 @@
                             android:layout_gravity="center">
 
                             <View
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+
                                 android:background="@drawable/fill_circle_orange"/>
                             <com.drughub.doctor.utils.DrughubIcon
                                 android:layout_width="match_parent"
@@ -621,8 +623,8 @@
                             android:layout_weight="1"
                             android:background="@color/colorDecoration"/>
                         <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:layout_gravity="center"
                             android:background="@drawable/fill_circle_grey"/>
 
@@ -633,8 +635,8 @@
                             android:layout_weight="1"
                             android:background="@color/colorDecoration"/>
                         <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:layout_gravity="center"
                             android:background="@drawable/fill_circle_grey"/>
 
@@ -670,7 +672,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="(10:00 AM)"
-                                android:textSize="12sp"
+                                android:textSize="10sp"
                                 android:textColor="@color/colorPrimary"
                                 />
                             <TextView
@@ -701,7 +703,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="(11:50 AM)"
-                                android:textSize="12sp"
+                                android:textSize="10sp"
                                 android:textColor="@color/colorPrimary"
                                 />
 
