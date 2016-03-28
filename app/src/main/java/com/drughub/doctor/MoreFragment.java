@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.drughub.doctor.MyOrders.MyOrderContainer;
+import com.drughub.doctor.MyProfile.MyProfile_Activity;
 import com.drughub.doctor.mycalendar.MyCalendarActivity;
 import com.drughub.doctor.patientrecords.PatientRecordActivity;
 
@@ -56,6 +57,14 @@ public class MoreFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), MyCalendarActivity.class);
                 startActivity(intent);
+            }
+        });
+        View myprofile=view.findViewById(R.id.my_profile);
+        myprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1=new Intent(getActivity(), MyProfile_Activity.class);
+                startActivity(intent1);
             }
         });
 

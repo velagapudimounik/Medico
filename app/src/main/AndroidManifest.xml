@@ -21,6 +21,7 @@
         </activity>
 
         <activity android:name=".Login.LoginActivity" />
+        <activity android:name=".MyProfile.MyProfile_Activity"/>
 
         <activity android:name=".MainActivity" />
 
