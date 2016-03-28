@@ -27,7 +27,8 @@ public class PatientRecordActivity extends BaseActivity {
             }
         });
         PatientRecordFragment fragment = new PatientRecordFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.activity_content, fragment).commit();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.activity_content, fragment).commit();
+        changeFragment(fragment);
 
     }
 

@@ -14,16 +14,18 @@ import android.widget.TextView;
 import com.drughub.doctor.MyOrders.MyOrderContainer;
 import com.drughub.doctor.MyProfile.MyProfile_Activity;
 import com.drughub.doctor.mycalendar.MyCalendarActivity;
+import com.drughub.doctor.orangeconnect.OrangeConnectActivity;
 import com.drughub.doctor.patientrecords.PatientRecordActivity;
 
 public class MoreFragment extends Fragment {
 
 
     Fragment fragment = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((BaseActivity)getActivity()).setActionBarVisibility(false);
+        ((BaseActivity) getActivity()).setActionBarVisibility(false);
 
     }
 
@@ -31,15 +33,16 @@ public class MoreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.more,container,false);
+        View view = inflater.inflate(R.layout.more, container, false);
 
         LinearLayout my_orders = (LinearLayout) view.findViewById(R.id.my_orders);
         LinearLayout patient_records = (LinearLayout) view.findViewById(R.id.patient_records);
+        LinearLayout orangeConnect = (LinearLayout) view.findViewById(R.id.orange_connect);
         my_orders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                  Intent intent = new Intent(getContext(), MyOrderContainer.class);
-                  startActivity(intent);
+                Intent intent = new Intent(getContext(), MyOrderContainer.class);
+                startActivity(intent);
             }
         });
 
@@ -47,6 +50,12 @@ public class MoreFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), PatientRecordActivity.class));
+            }
+        });
+        orangeConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), OrangeConnectActivity.class));
             }
         });
 
@@ -59,11 +68,11 @@ public class MoreFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        View myprofile=view.findViewById(R.id.my_profile);
+        View myprofile = view.findViewById(R.id.my_profile);
         myprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1=new Intent(getActivity(), MyProfile_Activity.class);
+                Intent intent1 = new Intent(getActivity(), MyProfile_Activity.class);
                 startActivity(intent1);
             }
         });
@@ -72,7 +81,6 @@ public class MoreFragment extends Fragment {
         share.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         return view;
-
 
 
     }

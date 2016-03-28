@@ -69,7 +69,11 @@ public class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                super.onBackPressed();
+                if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+                    finish();
+                } else {
+                    super.onBackPressed();
+                }
                 return true;
             }
         }

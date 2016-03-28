@@ -21,7 +21,7 @@
         </activity>
 
         <activity android:name=".Login.LoginActivity" />
-        <activity android:name=".MyProfile.MyProfile_Activity"/>
+        <activity android:name=".MyProfile.MyProfile_Activity" />
 
         <activity android:name=".MainActivity" />
 
@@ -41,6 +41,8 @@
         <activity
             android:name=".patientrecords.BookmarkedActivity"
             android:windowSoftInputMode="adjustNothing" />
+
+        <activity android:name=".orangeconnect.OrangeConnectActivity" />
 
     </application>
 
