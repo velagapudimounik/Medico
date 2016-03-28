@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.drughub.doctor.BaseActivity;
@@ -71,8 +72,10 @@ class OutPatientDetailsAdapter extends RecyclerView.Adapter<OutPatientDetailsAda
     public void onBindViewHolder(DataObjectHolder holder, int position) {
         String imageUrl = imageUrls.get(position);
         if (imageUrl.equalsIgnoreCase("dummy")) {
-            holder.image.setImageResource(R.drawable.plus);
+            holder.plusIocn.setVisibility(View.VISIBLE);
+            holder.image.setVisibility(View.GONE);
         } else {
+            holder.plusIocn.setVisibility(View.GONE);
             holder.image.setImageResource(R.drawable.mahesh);
         }
     }
@@ -84,19 +87,23 @@ class OutPatientDetailsAdapter extends RecyclerView.Adapter<OutPatientDetailsAda
 
     public class DataObjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView image;
+        FrameLayout plusIocn;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.imageView);
+            plusIocn = (FrameLayout) itemView.findViewById(R.id.icon_plus);
             itemView.setOnClickListener(this);
+            plusIocn.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            if (imageUrls.get(getPosition()).equalsIgnoreCase("dummy")) {
+            if(v.getId() == R.id.icon_plus){
                 final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity) context, R.layout.patient_record_upload_dialog,
                         Gravity.CENTER, true, false, true);
-            } else {
+
+            }    else {
                 PatientRecordActivity activity = (PatientRecordActivity) context;
                 Bundle mBundle = new Bundle();
                 mBundle.putString("image_url", imageUrls.get(getPosition()));
