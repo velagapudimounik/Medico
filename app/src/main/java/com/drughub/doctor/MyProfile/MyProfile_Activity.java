@@ -21,10 +21,11 @@ public class MyProfile_Activity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myprofileactivity_layout);
         final Button myclinicbutton=(Button)findViewById(R.id.Myclinic_button);
+        setBackButton(true);
         fragment=new MyProfileActivityFragment();
         FragmentManager manager=getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
-        transaction.replace(R.id.containeractivity, fragment).addToBackStack(null).commit();
+        transaction.replace(R.id.containeractivity, fragment).commit();
     }/*
     private void initTabControl(){
         TabLayout tabLayout=(TabLayout)findViewById(R.id.TabLayout);

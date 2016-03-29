@@ -56,7 +56,7 @@ public class MyProfileActivityFragment extends Fragment {
         righticon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).commit();
                 righticon.setVisibility(View.INVISIBLE);
                 editicon.setVisibility(View.VISIBLE);
                 addimageIcon.setVisibility(View.INVISIBLE);
@@ -68,7 +68,7 @@ public class MyProfileActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 clickCount = true;
-                getFragmentManager().beginTransaction().replace(R.id.container2, new MyprofileEditFragment()).addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().replace(R.id.container2, new MyprofileEditFragment()).commit();
                 myprofile.setChecked(true);
                 changepassword.setChecked(false);
                 myclinic.setChecked(false);
@@ -85,10 +85,10 @@ public class MyProfileActivityFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.Myprofilebutton) {
-                    getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).addToBackStack(null).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).commit();
                     if (clickCount == true) {
                         Toast.makeText(getContext(), "Edit", Toast.LENGTH_SHORT).show();
-                        getFragmentManager().beginTransaction().replace(R.id.container2, new MyprofileEditFragment()).addToBackStack(null).commit();
+                        getFragmentManager().beginTransaction().replace(R.id.container2, new MyprofileEditFragment()).commit();
                     }
                     clickCount = false;
                 } else if (checkedId == R.id.Myclinic_button) {
@@ -97,14 +97,14 @@ public class MyProfileActivityFragment extends Fragment {
                     addimageIcon.setVisibility(View.INVISIBLE);
                     emptyimageview.setVisibility(View.VISIBLE);
                     editicon.setVisibility(View.VISIBLE);
-                    getFragmentManager().beginTransaction().replace(R.id.container2, new MyclinicRecyclerView()).addToBackStack(null).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.container2, new MyclinicRecyclerView()).commit();
                 } else if (checkedId == R.id.changepasswordbutton) {
                     myprofile.setChecked(false);
                     righticon.setVisibility(View.INVISIBLE);
                     addimageIcon.setVisibility(View.INVISIBLE);
                     emptyimageview.setVisibility(View.VISIBLE);
                     editicon.setVisibility(View.VISIBLE);
-                    getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileChangePasswordFragment()).addToBackStack(null).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileChangePasswordFragment()).commit();
                 }
             }
         });
@@ -119,6 +119,7 @@ public class MyProfileActivityFragment extends Fragment {
         myprofile.setChecked(true);
 
     }
+
 
 }
 
