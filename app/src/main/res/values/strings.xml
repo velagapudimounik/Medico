@@ -53,7 +53,7 @@
     <string name="textAdd">Add</string>
     <string name="available_inventory">Available Inventory</string>
     <string name="vaccinate">Vaccinate</string>
-    <string name="patient_name">Patient Name</string>
+    <string name="hintPatientName">Patient Name</string>
     <string name="inventory">Inventory</string>
     <string name="dialog_message_done">Done</string>
     <string name="dialogDeleteConsultation">Are you Sure?\nYou want to cancel todays appointment.</string>

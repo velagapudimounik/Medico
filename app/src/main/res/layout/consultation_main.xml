@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
     android:background="@color/colorWhite">
 
    <RadioGroup
-        android:id="@+id/toggle"
+        android:id="@+id/radioGroupConsultation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -61,20 +60,77 @@
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true" />
 
-    <FrameLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/consultationListContainer"
-        android:layout_below="@+id/view"
-        android:layout_marginTop="10dp">
+        android:id="@+id/noAppointments"
+        android:gravity="center"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/noAppointments"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="@dimen/margin_large"/>
 
-    </FrameLayout>
+        <com.drughub.doctor.utils.DrughubIcon
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_vaccine"
+            android:textSize="75dp"
+            android:gravity="center"
+            android:textColor="@color/colorDecoration"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="@dimen/margin_small"
+        android:paddingRight="@dimen/margin_small"
+        android:layout_below="@+id/view"
+        android:id="@+id/editLayout"
+        android:layout_marginTop="@dimen/margin_large">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/consultationSearch"
+            android:hint="@string/hintPatientName"
+            android:textColorHint="@color/colorHint"
+            android:textColor="@color/colorText"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/round_rect_fill_grey"
+            android:singleLine="true"
+            android:paddingLeft="@dimen/margin_small"
+            android:imeOptions="actionSearch" />
+
+        <com.drughub.doctor.utils.DrughubIcon
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/consultationSearchBtn"
+            android:text="@string/icon_search"
+            android:textSize="25sp"
+            android:layout_alignParentEnd="false"
+            android:layout_marginRight="@dimen/margin_small"
+            android:textColor="@color/colorText" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/consultation_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin_tiny"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:background="@color/colorWhite"
+        android:layout_below="@+id/editLayout"/>
 
 </RelativeLayout>
