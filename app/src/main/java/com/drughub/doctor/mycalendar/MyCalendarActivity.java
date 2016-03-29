@@ -1,29 +1,24 @@
 package com.drughub.doctor.mycalendar;
 
 import android.app.Dialog;
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.NumberPicker;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.drughub.doctor.BaseActivity;
+import com.drughub.doctor.Notification.NotificationActivity;
 import com.drughub.doctor.R;
 import com.drughub.doctor.utils.CustomDialog;
 
 import java.lang.reflect.Field;
-import java.util.Formatter;
 
 enum CLOCK_PICKER
 {
@@ -33,6 +28,14 @@ enum CLOCK_PICKER
 }
 
 public class MyCalendarActivity extends BaseActivity {
+
+    @Override
+    public void onActionButtonClicked(int drughubIconsRes) {
+        super.onActionButtonClicked(drughubIconsRes);
+
+        Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

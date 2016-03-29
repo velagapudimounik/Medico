@@ -35,6 +35,18 @@
 
         <activity android:name=".mycalendar.MyCalendarActivity" />
 
+        <activity android:name=".OrangeWallet.OrangeWalletActivity" />
+
+        <activity android:name=".OrangeWallet.SaveCard" />
+
+        <activity  android:name=".Vaccschedule.VaccActivity" />
+
+        <activity android:name=".Notification.NotificationActivity"/>
+
+        <activity android:name=".Notification.NotificationsettingActivity"/>
+
+
+
         <activity
             android:name=".patientrecords.PatientRecordActivity"
             android:windowSoftInputMode="adjustNothing" />

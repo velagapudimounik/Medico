@@ -1,14 +1,15 @@
 package com.drughub.doctor;
 
-import com.drughub.doctor.Cart.CartActivity;
-import com.drughub.doctor.analytics.AnalyticsFragment;
-import com.drughub.doctor.consultation.ConsultationFragment;
-import com.drughub.doctor.inventory.MyInventoryFragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+
+import com.drughub.doctor.Cart.CartActivity;
+import com.drughub.doctor.Notification.NotificationActivity;
+import com.drughub.doctor.analytics.AnalyticsFragment;
+import com.drughub.doctor.consultation.ConsultationFragment;
+import com.drughub.doctor.inventory.MyInventoryFragment;
 
 public class MainActivity extends BaseActivity
 {
@@ -40,6 +41,7 @@ public class MainActivity extends BaseActivity
 
             case R.string.icon_notification:
                 //show notifications
+                startActivity( new Intent(getBaseContext(), NotificationActivity.class));
                 break;
         }
     }

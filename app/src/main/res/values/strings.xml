@@ -172,7 +172,56 @@
     <string name="placedOrder_id_message">Order ID : {OrderID}\nhas been placed successfully.</string>
     <string name="order_summary_itemlist">My Address</string>
 
+    <!--vacc schedule -->
+    <string name="Vacc_name">DIPTHERIA</string>
+    <string name="Vacc_schedule_date">17 Mar 2016 to 21 Mar 2016</string>
+    <string name="vacc_button">Done</string>
+    <string name="Vacc_schedule">Vaccination schedule</string>
+    <string name="Vacc_schedule_time">You have an Appointment today at 1.00 to 2.00 PM</string>
 
+    <!--vacc icon -->
+    <string name="icon_vacc">\u004c</string>
+    <string name="icon_setting">\u0044</string>
+
+
+
+    <!--notification -->
+
+    <string name="notify_order">Orders Notification</string>
+    <string name="notify_security">Security Notification</string>
+    <string name="notify_Transaction">Transaction Notification</string>
+    <string name="notify_Vachub">Vachub Notification</string>
+    <string name="notify_Reminder">Reminder Notification</string>
+    <string name="notify_Promotional">Promotional Notification</string>
+
+
+    <!--Orange wallet-->
+    <string name="balance_wallet">Wallet Balance:</string>
+    <string name="hint_amount">Amount</string>
+    <string name="Orange_points">Orange Points</string>
+    <string name="Money_add">Add money</string>
+    <string name="coupon">Coupons</string>
+    <string name="buttonwallet">Redeem</string>
+    <string name="card_save">Saved card</string>
+    <string name="card_add">Add card</string>
+    <string name="Add_wallet">Add</string>
+    <string name="hint_orangecode">Enter orange code</string>
+    <string name="offers">Available offers</string>
+    <string name="code">GET CODE</string>
+    <string name="Exp_date">Expiry Date</string>
+    <string name="Cards">We accept Debit and Credit cards</string>
+    <string name="hint_card_name">Name on the card</string>
+    <string name="hint_month">MM</string>
+    <string name="hint_year">YYYY</string>
+
+
+
+
+    <!--Orange wallet icon-->
+    <string name="icon_coin">\u003c</string>
+    <string name="icon_card">\u0062</string>
+    <string name="icon_delete">\u0050</string>
+    <string name="icon_apply">\u004f</string>
 
 
 
