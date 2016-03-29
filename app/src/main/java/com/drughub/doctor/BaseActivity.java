@@ -69,7 +69,7 @@ public class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+                if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
                     finish();
                 } else {
                     super.onBackPressed();
@@ -144,7 +144,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
             finish();
         } else {
             super.onBackPressed();
