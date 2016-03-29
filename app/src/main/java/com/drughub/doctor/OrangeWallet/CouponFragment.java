@@ -28,7 +28,7 @@ public class CouponFragment  extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        CouponOfferAdapter adapter = new CouponOfferAdapter(this.getActivity());
+        CouponofferAdapter adapter = new CouponofferAdapter(this.getActivity());
         recyclerView.setAdapter(adapter);
         return view;
     }

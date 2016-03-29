@@ -31,7 +31,7 @@ public class SaveCard extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        SavedCardsAdpter savedcardsAdpter = new SavedCardsAdpter(this);
+        SavedcardsAdpter savedcardsAdpter = new SavedcardsAdpter(this);
         recyclerView.setAdapter(savedcardsAdpter);
 
 
