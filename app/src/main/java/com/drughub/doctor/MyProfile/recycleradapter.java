@@ -66,4 +66,5 @@ public class recycleradapter extends RecyclerView.Adapter<recycleradapter.Recycl
 
         }
     }
+
 }

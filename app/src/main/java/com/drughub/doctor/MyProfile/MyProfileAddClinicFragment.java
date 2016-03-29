@@ -22,4 +22,9 @@ public class MyProfileAddClinicFragment extends Fragment {
         return inflater.inflate(R.layout.myprofile_addclinic_dailogbox,container,false);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().setTitle("My Profile");
+    }
 }

@@ -43,4 +43,5 @@ public class MyclinicRecyclerView extends android.support.v4.app.Fragment {
     return view;
 
     }
+
 }

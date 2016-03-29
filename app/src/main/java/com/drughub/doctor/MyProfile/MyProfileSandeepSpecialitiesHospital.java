@@ -18,4 +18,10 @@ public class MyProfileSandeepSpecialitiesHospital extends Fragment {
         getActivity().setTitle("Sandeep Clinic");
         return inflater.inflate(R.layout.myprofile_sandeepspecialities_fragment,container,false);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().setTitle("My Profile");
+    }
 }
