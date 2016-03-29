@@ -177,6 +177,7 @@
 
 
 
+
     <!-- myprofile icons-->
     <string name="Image_icon">\u003E</string>
     <string name="Viewicon">\u0046</string>
@@ -216,6 +217,7 @@
     <string name="right_arrow">\u0046</string>
     <string name="empty_cart">\u0069</string>
     <string name="order_injuction">\u0077</string>
+    <string name="icon_order_status">\u0020</string>
 
     <!-- MyProfile Strings -->
     <string name="Doctor_sandeep_titlename">Dr.Sandeep</string>

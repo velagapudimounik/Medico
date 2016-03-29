@@ -246,6 +246,7 @@
                         <View
                             android:layout_height="1dp"
                             android:layout_span="4"
+                            android:layout_marginLeft="30dp"
                             android:background="@color/colorDecorationLight"/>
 
                     </TableRow>
@@ -292,6 +293,7 @@
                         <View
                             android:layout_height="1dp"
                             android:layout_span="4"
+                            android:layout_marginLeft="30dp"
                             android:background="@color/colorDecorationLight"/>
 
                     </TableRow>
