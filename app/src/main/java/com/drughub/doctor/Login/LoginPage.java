@@ -1,5 +1,6 @@
 package com.drughub.doctor.Login;
 
+import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ public class LoginPage extends Fragment {
 
         final EditText editTextName = (EditText) view.findViewById(R.id.userNameTextField);
         final EditText editTextassword = (EditText) view.findViewById(R.id.passwordTextField);
+        editTextassword.setTypeface(Typeface.DEFAULT);
+
         final TextView forgotpasswordtextview = (TextView) view.findViewById(R.id.forgotPasswordTextView);
         final Button login = (Button) view.findViewById(R.id.loginButton);
         final Button signup = (Button) view.findViewById(R.id.signUpButton);

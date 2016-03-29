@@ -1,6 +1,7 @@
 package com.drughub.doctor.Login;
 
 
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -37,6 +38,7 @@ public class SignUpFragment extends Fragment {
         EditText email = (EditText) view.findViewById(R.id.emailsignup);
         EditText mobile = (EditText) view.findViewById(R.id.mobilesignup);
         EditText password = (EditText) view.findViewById(R.id.passwordsignup);
+        password.setTypeface(Typeface.DEFAULT);
         Button register = (Button) view.findViewById(R.id.registerbutton);
         TextView otp = (TextView) view.findViewById(R.id.otptextview);
         EditText otpinput = (EditText) view.findViewById(R.id.OTPEdittext);
