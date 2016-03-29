@@ -20,13 +20,11 @@ public class MyProfile_Activity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myprofileactivity_layout);
-        //initTabControl();
-        //setTitle("My Profile");
         final Button myclinicbutton=(Button)findViewById(R.id.Myclinic_button);
         fragment=new MyProfileActivityFragment();
         FragmentManager manager=getSupportFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
-        transaction.replace(R.id.containeractivity, fragment).commit();
+        transaction.replace(R.id.containeractivity, fragment).addToBackStack(null).commit();
     }/*
     private void initTabControl(){
         TabLayout tabLayout=(TabLayout)findViewById(R.id.TabLayout);
@@ -34,4 +32,5 @@ public class MyProfile_Activity extends BaseActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Change Passwoord"));
         tabLayout.addTab(tabLayout.newTab().setText("My Clinics"));
     }*/
+
 }
