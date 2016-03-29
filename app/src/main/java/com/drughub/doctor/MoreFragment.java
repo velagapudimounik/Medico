@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.drughub.doctor.MyOrders.MyOrderContainer;
 import com.drughub.doctor.MyProfile.MyProfile_Activity;
+import com.drughub.doctor.OrangeWallet.OrangeWalletActivity;
 import com.drughub.doctor.mycalendar.MyCalendarActivity;
 import com.drughub.doctor.orangeconnect.OrangeConnectActivity;
 import com.drughub.doctor.patientrecords.PatientRecordActivity;
@@ -83,6 +84,16 @@ public class MoreFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), AboutActivity.class));
+            }
+        });
+
+        View orangewallet = view.findViewById(R.id.orange_wallet);
+        orangewallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(getContext(), OrangeWalletActivity.class);
+                startActivity(intent);
+
             }
         });
 
