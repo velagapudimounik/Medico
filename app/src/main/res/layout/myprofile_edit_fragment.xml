@@ -66,9 +66,10 @@
             </LinearLayout>
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/edit_text_height"
             android:hint="@string/hintYearsOfExperience"
             android:background="@color/colorWhite"
+            android:inputType="number"
             android:layout_marginTop="20dp"
             android:textColorHint="@color/Color_grey"
             />
@@ -100,9 +101,10 @@
                 android:background="@color/Color_grey"/>
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_text_height"
                 android:background="@color/colorWhite"
                 android:layout_marginTop="20dp"
+                android:inputType="textEmailAddress"
                 android:hint="@string/hintEmailId"
                 android:textColorHint="@color/Color_grey"/>
             <View
@@ -111,9 +113,10 @@
                 android:background="@color/Color_grey"/>
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_text_height"
                 android:layout_marginTop="20dp"
                 android:hint="@string/hintMobile"
+                android:inputType="phone"
                 android:textColorHint="@color/Color_grey"
                 android:background="@color/colorWhite"/>
             <View
