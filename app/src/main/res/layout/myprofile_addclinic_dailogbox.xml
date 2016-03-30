@@ -267,6 +267,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/consultationAtHomeText"
                 android:textSize="15dp"
+                style="@style/check_box_style"
+                android:paddingLeft="10dp"
                 android:textColor="@color/colorTextLight"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"/>

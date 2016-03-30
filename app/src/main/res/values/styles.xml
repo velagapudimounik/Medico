@@ -84,5 +84,11 @@
         <item name="android:background">@null</item>
     </style>
 
+    <style name="check_box_style" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/custom_check_box</item>
+        <item name="android:background">@null</item>
+    </style>
+
+
 
 </resources>
