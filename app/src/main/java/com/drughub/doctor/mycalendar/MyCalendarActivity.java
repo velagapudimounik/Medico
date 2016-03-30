@@ -1,17 +1,24 @@
 package com.drughub.doctor.mycalendar;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.Notification.NotificationActivity;
@@ -28,7 +35,8 @@ enum CLOCK_PICKER
 }
 
 public class MyCalendarActivity extends BaseActivity {
-
+    final  String[] spinnervalues={"Clinic Name1 |","Clinic Name2 |","Clinic Name3 |","My Address"};
+    final  String[] spinneraddress={" Address1"," Address2"," Address3",""};
     @Override
     public void onActionButtonClicked(int drughubIconsRes) {
         super.onActionButtonClicked(drughubIconsRes);
@@ -70,12 +78,11 @@ public class MyCalendarActivity extends BaseActivity {
                 final Dialog dialog = CustomDialog.showCustomDialog(MyCalendarActivity.this, R.layout.mycalendar_create_new,
                         Gravity.BOTTOM, true, true, false);
 
-                Spinner dropdown = (Spinner)dialog.findViewById(R.id.addressSelection);
-                String[] items = new String[]{"Clinic Name 1 | Location", "Clinic Name 2 | Location", "Clinic Name 3 | Location"};
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(MyCalendarActivity.this, android.R.layout.simple_list_item_1, items);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                dropdown.setAdapter(adapter);
+                Spinner myspinner = (Spinner)dialog.findViewById(R.id.addressSelection);
 
+
+                myspinner.setAdapter(new CustomAdapter(getApplicationContext(),spinnervalues));
+                myspinner.setSelection(myspinner.getCount());
                 initNumberPicker((NumberPicker) dialog.findViewById(R.id.hourPickerFrom), CLOCK_PICKER.HOURS);
                 initNumberPicker((NumberPicker)dialog.findViewById(R.id.minutePickerFrom), CLOCK_PICKER.MINUTES);
                 initNumberPicker((NumberPicker)dialog.findViewById(R.id.dayPickerFrom), CLOCK_PICKER.MERIDIEM);
@@ -166,4 +173,53 @@ public class MyCalendarActivity extends BaseActivity {
         return false;
     }
 
+    private class CustomAdapter extends ArrayAdapter<String> {
+        private int position;
+        private View convertView;
+        private ViewGroup parent;
+        private Context context;
+
+        public CustomAdapter(Context context,  String[] objects) {
+            super(context, R.layout.custom_spinner, objects);
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = getLayoutInflater();
+            View mySpinner = inflater.inflate(R.layout.custom_spinner, null);
+            TextView clinicname = (TextView) mySpinner.findViewById(R.id.string1);
+            clinicname.setText(spinnervalues[position]);
+            TextView Address = (TextView) mySpinner.findViewById(R.id.string2);
+            Address.setText(spinneraddress[position]);
+            return mySpinner;
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater= (getLayoutInflater());
+            View mySpinner=inflater.inflate(R.layout.custom_spinner, null);
+            TextView clinicname=(TextView)mySpinner.findViewById(R.id.string1);
+            clinicname.setText(spinnervalues[position]);
+            TextView Address=(TextView)mySpinner.findViewById(R.id.string2);
+            Address.setText(spinneraddress[position]);
+            if(getCount() == spinnervalues.length-1)
+            {
+
+                clinicname.setTextColor(Color.LTGRAY);
+                // clinicname.setHint(spinneraddress[position]);
+                //((TextView) mySpinner.findViewById(R.id.string1)).setHint(spinneraddress[position-1]);
+            }
+
+
+
+
+            return  mySpinner;
+        }
+        @Override
+        public int getCount() {
+            //int count=getCount();
+            //System.out.println(count+"count");
+            return super.getCount()-1; // you dont display last item. It is used as hint.
+        }
+
+    }
 }

@@ -1,81 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    android:padding="10dp">
 
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        >
-    <View
-        android:layout_width="53dp"
-        android:layout_height="51dp"
-        android:layout_gravity="center"
-        android:background="@drawable/myclinic_circle"/>
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/myclinic_circle"
+        android:id="@+id/frameLayout3">
 
         <com.drughub.doctor.utils.DrughubIcon
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|center_vertical"
-            android:gravity="center"
+            android:layout_gravity="center"
             android:text="@string/icon_image"
             android:textSize="20dp"
-            android:textColor="@color/colorDecorationDark"
-            android:id="@+id/imageicon"
-            android:layout_marginBottom="0dp"
-            android:layout_marginLeft="20dp" />
+            android:textColor="@color/colorDecorationDark"/>
+
     </FrameLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="15dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/hospitalname"
-        android:textSize="17dp"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:layout_marginLeft="90dp"
-        android:text="@string/hospitalName"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hospitalAddress"
-        android:textColor="@color/colorPrimary"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:layout_marginLeft="90dp"
-        android:id="@+id/hospitaladdress" />
-    </LinearLayout>
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:layout_gravity="end"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp">
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/frameLayout4"
+        android:layout_toRightOf="@+id/frameLayout3"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
-        <View
-            android:layout_width="37dp"
-            android:layout_height="37dp"
-            android:background="@drawable/draw_circle_grey"
-           android:layout_gravity="center"
-            android:id="@+id/view2" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hospitalName"
+            android:textSize="15sp"
+            android:text="Hospital Name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hospital Address"
+            android:textColor="@color/colorPrimary"
+            android:textSize="13sp"
+            android:id="@+id/hospitalAddress" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/draw_circle_grey"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/frameLayout4">
 
         <com.drughub.doctor.utils.DrughubIcon
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/icon_view"
-        android:rotation="270"
-        android:textSize="20dp"
-        android:id="@+id/viewicon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/icon_view"
+            android:rotation="270"
+            android:textSize="20dp"
+            android:id="@+id/viewIcon"
             android:layout_gravity="center"
-        android:textColor="@color/colorPrimary" />
-
+            android:textColor="@color/colorPrimary" />
 
     </FrameLayout>
-</android.support.v7.widget.CardView>
+
+</RelativeLayout>

@@ -1,5 +1,7 @@
 package com.drughub.doctor.Cart;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.app.Dialog;
 
@@ -26,7 +29,8 @@ import java.util.List;
 public class OrderSummary extends Fragment {
 
     Fragment fragment = null;
-
+    final  String[] spinnervalues={"Clinic Name1 |","Clinic Name2 |","Clinic Name3 |","My Address"};
+    final  String[] spinneraddress={" Address1"," Address2"," Address3",""};
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,17 +56,9 @@ public class OrderSummary extends Fragment {
             final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)getContext(), R.layout.cart_change_shipping_address,
                     Gravity.BOTTOM, true, true, false);
 
-            Spinner spinner = (Spinner) dialog.findViewById(R.id.change_address);
-
-            List<String> categories = new ArrayList<>();
-            categories.add(getString(R.string.order_summary_itemlist));
-            categories.add("Clinic1 | Address");
-            categories.add("Clinic2 | Address");
-
-            ArrayAdapter<String> data = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1 ,categories);
-            data.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            spinner.setAdapter(data);
+            Spinner myspinner = (Spinner) dialog.findViewById(R.id.change_address);
+                myspinner.setAdapter(new CustomAdapter(getActivity().getApplicationContext(),spinnervalues));
+                myspinner.setSelection(myspinner.getCount());
 
             Button change_address = (Button) dialog.findViewById(R.id.change_address_btn);
             change_address.setOnClickListener(new View.OnClickListener() {
@@ -95,5 +91,53 @@ public class OrderSummary extends Fragment {
     }
 
 
+    private class CustomAdapter  extends ArrayAdapter<String> {
+        private int position;
+        private View convertView;
+        private ViewGroup parent;
+        private Context context;
 
+        public CustomAdapter(Context context,  String[] objects) {
+            super(context, R.layout.custom_spinner, objects);
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater =getLayoutInflater(null);
+            View mySpinner = inflater.inflate(R.layout.custom_spinner, null);
+            TextView clinicname = (TextView) mySpinner.findViewById(R.id.string1);
+            clinicname.setText(spinnervalues[position]);
+            TextView Address = (TextView) mySpinner.findViewById(R.id.string2);
+            Address.setText(spinneraddress[position]);
+            return mySpinner;
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater=getLayoutInflater(null);
+            View mySpinner=inflater.inflate(R.layout.custom_spinner, null);
+            TextView clinicname=(TextView)mySpinner.findViewById(R.id.string1);
+            clinicname.setText(spinnervalues[position]);
+            TextView Address=(TextView)mySpinner.findViewById(R.id.string2);
+            Address.setText(spinneraddress[position]);
+            if(getCount() == spinnervalues.length-1)
+            {
+
+                clinicname.setTextColor(Color.LTGRAY);
+                // clinicname.setHint(spinneraddress[position]);
+                //((TextView) mySpinner.findViewById(R.id.string1)).setHint(spinneraddress[position-1]);
+            }
+
+
+
+
+            return  mySpinner;
+        }
+        @Override
+        public int getCount() {
+            //int count=getCount();
+            //System.out.println(count+"count");
+            return super.getCount()-1; // you dont display last item. It is used as hint.
+        }
+
+    }
 }

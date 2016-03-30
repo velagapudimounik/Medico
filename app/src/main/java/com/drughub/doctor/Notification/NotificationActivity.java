@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
-import com.drughub.doctor.Vaccschedule.VaccActivity;
 
 
 public class NotificationActivity extends BaseActivity {

@@ -21,7 +21,6 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
-import com.drughub.doctor.Vaccschedule.VaccActivity;
 import com.drughub.doctor.utils.CustomDialog;
 
 import java.util.ArrayList;
@@ -74,7 +73,7 @@ public class ConsultationFragment extends Fragment {
                 addBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(getActivity(), VaccActivity.class));
+                        startActivity(new Intent(getActivity(), VaccinationSchedule.class));
                         dialog.dismiss();
                     }
                 });
