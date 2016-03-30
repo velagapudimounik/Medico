@@ -33,7 +33,7 @@ public class CashOnDelivery extends Fragment {
 
         ((CartActivity)getActivity()).setActionBarTitle(getString(R.string.cash_on_delivery_title));
 
-      View view = inflater.inflate(R.layout.cash_on_delivery,container,false);
+      View view = inflater.inflate(R.layout.cart_cash_on_delivery,container,false);
         Button confrim = (Button) view.findViewById(R.id.confirm_order);
 
 

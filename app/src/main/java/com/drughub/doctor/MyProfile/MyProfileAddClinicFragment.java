@@ -18,7 +18,7 @@ public class MyProfileAddClinicFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle(getString(R.string.add_clinic_title));
+        getActivity().setTitle(getString(R.string.addClinic));
         return inflater.inflate(R.layout.myprofile_addclinic_dailogbox,container,false);
     }
 

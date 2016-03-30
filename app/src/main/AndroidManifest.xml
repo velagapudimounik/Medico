@@ -21,9 +21,10 @@
         </activity>
 
         <activity android:name=".Login.LoginActivity" />
-        <activity android:name=".MyProfile.MyProfile_Activity" />
+        <activity android:name=".MyProfile.MyProfileActivity" />
 
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustNothing"/>
 
         <activity android:name=".Cart.CartActivity" />
         <activity android:name=".MyOrders.MyOrderContainer" />

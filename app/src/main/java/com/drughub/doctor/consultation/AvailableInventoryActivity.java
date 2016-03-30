@@ -41,7 +41,7 @@ public class AvailableInventoryActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.consultation_available_inventory);
 
-        setTitle(getString(R.string.availableInventorytitle));
+        setTitle("Disease Name");
         setBackButton(true);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.available_inventory_list);
@@ -62,8 +62,6 @@ public class AvailableInventoryActivity extends BaseActivity {
 
         AvailableInventoryListAdapter mAdapter = new AvailableInventoryListAdapter(mDataSet, this);
         mRecyclerView.setAdapter(mAdapter);
-
-
     }
 
     public static class AvailableInventoryListAdapter extends RecyclerView.Adapter<AvailableInventoryListAdapter.ViewHolder>
@@ -83,42 +81,38 @@ public class AvailableInventoryActivity extends BaseActivity {
 
                 mItemView = v;
 
-                v.setOnClickListener(new View.OnClickListener() {
+                View vaccinateBtn = v.findViewById(R.id.vaccinateBtn);
+                vaccinateBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v)
                     {
-
-
                         String value = "4";
 
-                    final Dialog dialog = CustomDialog.showMessageDialog((BaseActivity)sContext,
-                            StringUtils.findAndReplace(sContext.getResources().getString(R.string.temperature), "{temp}", value), "Done");
-                    Button okBtn = (Button)dialog.findViewById(R.id.dialogOkBtn);
-                    okBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
+                        final Dialog dialog = CustomDialog.showMessageDialog((BaseActivity)sContext,
+                                StringUtils.findAndReplace(sContext.getResources().getString(R.string.temperature), "{temp}", value), "Done");
+                        Button okBtn = (Button)dialog.findViewById(R.id.dialogOkBtn);
+                        okBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
                     }
                 });
 
                 vaccineName = (TextView) v.findViewById(R.id.vaccineName);
                 expandBtn = v.findViewById(R.id.expandBtn);
-                v.setOnClickListener(new View.OnClickListener() {
-                     @Override
-                     public void onClick(View v) {
-                         if(moreInfo.getVisibility() != View.VISIBLE)
-                         {
-                             moreInfo.setVisibility(View.VISIBLE);
-                             expandBtn.setRotation(180);
-                         }
-                         else
-                         {
-                             moreInfo.setVisibility(View.GONE);
-                             expandBtn.setRotation(0);
-                         }
-                     }
+                expandBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (moreInfo.getVisibility() != View.VISIBLE) {
+                            moreInfo.setVisibility(View.VISIBLE);
+                            expandBtn.setRotation(180);
+                        } else {
+                            moreInfo.setVisibility(View.GONE);
+                            expandBtn.setRotation(0);
+                        }
+                    }
                 });
 
                 moreInfo = v.findViewById(R.id.moreInfo);

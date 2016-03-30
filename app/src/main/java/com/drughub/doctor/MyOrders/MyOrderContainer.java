@@ -19,7 +19,7 @@ public class MyOrderContainer extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myorders_containter);
 
-        setActionBarTitle(getString(R.string.my_order_title));
+        setActionBarTitle(getString(R.string.my_orders));
         setBackButton(true);
         setActionBarVisibility(true);
 

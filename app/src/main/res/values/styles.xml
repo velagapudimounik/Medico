@@ -26,15 +26,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="DBTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/colorWhite</item>
-    </style>
-
     <style name="EditTextStyle" parent="android:Widget.EditText">
         <item name="android:background">@drawable/round_rect_fill_white</item>
         <item name="android:height">@dimen/edit_text_height</item>
         <item name="android:textColorHint">@color/colorHint</item>
-        <item name="android:paddingLeft">15dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/margin_medium</item>
     </style>
 
     <style name="EditTextStyleTransparent" parent="android:Widget.EditText">
@@ -42,7 +39,7 @@
         <item name="android:height">@dimen/edit_text_height</item>
         <item name="android:textColorHint">@color/colorHint</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingLeft">@dimen/margin_small</item>
     </style>
 
     <style name="EditTextStyleTransparent2" parent="android:Widget.EditText">
@@ -60,10 +57,6 @@
         <item name="android:paddingLeft">30dp</item>
         <item name="android:paddingRight">30dp</item>
         <item name="android:textStyle">normal</item>
-    </style>
-
-    <style name="RadioButtonStyle" parent="android:Widget.CompoundButton.RadioButton">
-        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
     <style name="SocialButtonStyle" parent="android:Widget.Button">
@@ -85,16 +78,5 @@
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="Theme.AppCompat.Light.DarkActionBar"/>
-
-    <style name="MainTabTextAppearance">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">8dp</item>
-        <item name="android:textStyle">normal</item>
-    </style>
-
-    <style name="InventoryTabTextAppearance">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">10dp</item>
-    </style>
 
 </resources>

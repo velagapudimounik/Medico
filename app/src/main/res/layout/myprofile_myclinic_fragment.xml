@@ -6,7 +6,7 @@
         android:layout_height="50dp"
         android:id="@+id/addclinic_button"
         android:background="@color/colorPrimary"
-        android:text="@string/Addclinic_button"
+        android:text="@string/addClinic"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite" />
 

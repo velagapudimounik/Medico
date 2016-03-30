@@ -60,10 +60,9 @@ class PatientRecordsAdapter extends RecyclerView.Adapter<PatientRecordsAdapter.D
     @Override
     public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_patient_record, parent, false);
+                .inflate(R.layout.patient_record_item, parent, false);
 
-        DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
-        return dataObjectHolder;
+        return new DataObjectHolder(view);
     }
 
     @Override

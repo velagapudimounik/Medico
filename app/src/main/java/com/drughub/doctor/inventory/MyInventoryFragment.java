@@ -4,12 +4,13 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
 
 public class MyInventoryFragment extends Fragment
@@ -18,38 +19,69 @@ public class MyInventoryFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_inventory, container, false);
+        return inflater.inflate(R.layout.inventory_main, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
         getActivity().setTitle(getString(R.string.my_inventory));
-
         initInventoryTabs(view);
-
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.inventory_vaccines, new VaccineListFragment()).commit();
-
         initInventoryInfo(view, 0, 0, 0);
     }
 
-    private void initInventoryTabs(View view) {
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.inventory_tabs);
+    private TabLayout.Tab addTab(TabLayout tabLayout, String text)
+    {
+        TabLayout.Tab tab = tabLayout.newTab();
+        tab.setCustomView(R.layout.inventory_disease_tab);
 
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.hep_b)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.dpt)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.polio)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.hep_b)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.bcg)));
+        View view = tab.getCustomView();
+        TextView tabName = (TextView)view.findViewById(R.id.tabName);
+        tabName.setText(text);
+
+        tabLayout.addTab(tab);
+
+        return tab;
+    }
+
+    private void selectTab(TabLayout.Tab tab)
+    {
+        View view = tab.getCustomView();
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams)view.getLayoutParams();
+        lp.setMargins(0, 0, 1, 0);
+        view.setLayoutParams(lp);
+
+        TextView tabName = (TextView)view.findViewById(R.id.tabName);
+        tabName.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.inventory_vaccines, new VaccineListFragment()).commit();
+    }
+
+    private void initInventoryTabs(View view) {
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.inventory_disease_tabs);
+
+        String diseases[] = {"HEP-B", "DPT", "POLIO", "BCG", "HEP-B", "DPT", "POLIO", "BCG"};
+        for(int i=0; i<diseases.length; i++)
+            addTab(tabLayout, diseases[i]);
+
+        selectTab(tabLayout.getTabAt(0));
+
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Fragment fragment = new VaccineListFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.inventory_vaccines, fragment).commit();
+                selectTab(tab);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                View view = tab.getCustomView();
+                LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams)view.getLayoutParams();
+                int pixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics());
+                lp.setMargins(0, 0, 1, pixels);
+                view.setLayoutParams(lp);
+
+                TextView tabName = (TextView)view.findViewById(R.id.tabName);
+                tabName.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorText));
             }
 
             @Override

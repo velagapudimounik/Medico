@@ -1,40 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:weightSum="1"
-
-
-   >
-
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/colorDecoration">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:id="@+id/recycler"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
-
-    </android.support.v7.widget.RecyclerView>
-
-   <RelativeLayout
-       android:layout_width="match_parent"
-       android:layout_height="70dp"
-       android:layout_marginTop="10dp"
-       android:background="@color/colorDecoration">
+        android:background="@color/colorWhite"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/vacc_button"
-        android:id="@+id/btnvacc"
-        android:background="@color/colorPrimary"
-        android:textColor="#ffffff"
-        style="@style/ButtonStyle"
-        android:layout_centerInParent="true"/>
-
-       />
-   </RelativeLayout>
-
+        android:id="@+id/doneBtn"
+        android:layout_margin="20dp"
+        style="@style/ButtonStyle"/>
 
 </LinearLayout>
 

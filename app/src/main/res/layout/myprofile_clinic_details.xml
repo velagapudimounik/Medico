@@ -6,80 +6,88 @@
     android:paddingLeft="13dp"
     android:paddingRight="13dp"
     android:paddingTop="5dp">
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/myprofile_editclinic_edittext1"
-    android:textColor="@color/colorPrimary"
-    android:textStyle="bold"
-    android:textSize="18dp"
-    android:padding="10dp"
-    android:height="50dp"
-    android:background="@color/colorWhite" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/Color_grey"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/myprofile_clinic_address"
+        android:text="Clinic Name"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:textSize="18sp"
         android:padding="10dp"
-        android:background="@color/colorWhite"
-        android:textSize="14dp"/>
+        android:background="@color/colorWhite" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/Color_grey"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Clinic Address and Mobile Number"
+        android:padding="10dp"
+        android:background="@color/colorWhite"
+        android:textSize="14sp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/Color_grey"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/colorWhite"
         android:padding="10dp"
-        android:layout_marginBottom="10dp"
-        android:minHeight="50dp">
+        android:layout_marginBottom="10dp">
+
         <com.drughub.doctor.utils.DrughubIcon
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/icon_thumb"
             android:textSize="20dp"
             android:textColor="@color/colorPrimary" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/myprofile_clinic_rating"
-        android:textSize="15dp"
-        android:layout_marginLeft="10dp"
-        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="89%"
+            android:textSize="15dp"
+            android:layout_marginLeft="5dp"/>
+
         <com.drughub.doctor.utils.DrughubIcon
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/icon_dollar"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:textColor="@color/colorPrimary"
             android:textSize="20dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/rupeeSymbol"
             android:textSize="15dp"
             android:layout_marginLeft="5dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/myprofile_editclinic_rupees"
+            android:text="400"
             android:textSize="15dp"
             android:layout_marginLeft="5dp"/>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
         android:weightSum="1">
-    <FrameLayout
+
+        <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <View
@@ -208,4 +216,5 @@
         </FrameLayout>
 
     </LinearLayout>
+
 </LinearLayout>

@@ -20,7 +20,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="58dp"
-            android:background="@drawable/textiew_border"
+            android:background="@drawable/draw_rect_orange"
             android:orientation="vertical"
 
 

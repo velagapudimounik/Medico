@@ -10,8 +10,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.drughub.doctor.Login.LoginActivity;
 import com.drughub.doctor.MyOrders.MyOrderContainer;
-import com.drughub.doctor.MyProfile.MyProfile_Activity;
+import com.drughub.doctor.MyProfile.MyProfileActivity;
 import com.drughub.doctor.OrangeWallet.OrangeWalletActivity;
 import com.drughub.doctor.mycalendar.MyCalendarActivity;
 import com.drughub.doctor.orangeconnect.OrangeConnectActivity;
@@ -22,13 +23,6 @@ public class MoreFragment extends Fragment {
 
 
     Fragment fragment = null;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ((BaseActivity) getActivity()).setActionBarVisibility(false);
-
-    }
 
     @Nullable
     @Override
@@ -74,12 +68,14 @@ public class MoreFragment extends Fragment {
                 startActivity(new Intent(getContext(), PatientRecordActivity.class));
             }
         });
+
         orangeConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), OrangeConnectActivity.class));
             }
         });
+
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,33 +87,36 @@ public class MoreFragment extends Fragment {
         orangewallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(getContext(), OrangeWalletActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getContext(), OrangeWalletActivity.class));
 
             }
         });
-
 
         View my_calendar = view.findViewById(R.id.my_calender);
         my_calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MyCalendarActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getContext(), MyCalendarActivity.class));
             }
         });
+
         View myprofile = view.findViewById(R.id.my_profile);
         myprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(getActivity(), MyProfile_Activity.class);
-                startActivity(intent1);
+                startActivity(new Intent(getActivity(), MyProfileActivity.class));
+            }
+        });
+
+        View logoutBtn = view.findViewById(R.id.logoutBtn);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                getActivity().finish();
             }
         });
 
         return view;
-
-
     }
-
 }

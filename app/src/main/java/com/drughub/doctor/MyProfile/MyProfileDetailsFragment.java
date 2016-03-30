@@ -14,7 +14,6 @@ public class MyProfileDetailsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle(getString(R.string.my_profile_title));
-        return inflater.inflate(R.layout.myprofiledetailsfragment,container,false);
+        return inflater.inflate(R.layout.myprofile_details_fragment,container,false);
     }
 }

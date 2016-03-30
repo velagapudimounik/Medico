@@ -31,7 +31,7 @@
         <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/Designation_hint"
+        android:hint="@string/hintDesignation"
         android:background="@color/colorWhite"
         android:textColorHint="@color/Color_grey"
             android:layout_weight="0.41" />
@@ -39,7 +39,7 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/Specialization_hint"
+                    android:hint="@string/hintSpecialization"
                     android:background="@color/colorWhite"
                     android:layout_marginLeft="50dp"
                     android:paddingLeft="15dp"
@@ -67,7 +67,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/YearsofExperience_hint"
+            android:hint="@string/hintYearsOfExperience"
             android:background="@color/colorWhite"
             android:layout_marginTop="20dp"
             android:textColorHint="@color/Color_grey"
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="@string/Clinic_name_hint"
+                android:hint="@string/hintClinicName"
                 android:textColorHint="@color/Color_grey"
                 android:background="@color/colorWhite"/>
             <View
@@ -90,7 +90,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/Adress_hint"
+                android:hint="@string/hintAddress"
                 android:layout_marginTop="20dp"
                 android:textColorHint="@color/Color_grey"
                 android:background="@color/colorWhite"/>
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 android:layout_marginTop="20dp"
-                android:hint="@string/EmailID_hint"
+                android:hint="@string/hintEmailId"
                 android:textColorHint="@color/Color_grey"/>
             <View
                 android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="@string/Mobile_hint"
+                android:hint="@string/hintMobile"
                 android:textColorHint="@color/Color_grey"
                 android:background="@color/colorWhite"/>
             <View
@@ -123,7 +123,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Update_button"
+                android:text="@string/update"
                 style="@style/ButtonStyle"
                 android:id="@+id/UpdateButton"
                 android:layout_marginTop="15dp"

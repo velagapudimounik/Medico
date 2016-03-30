@@ -63,7 +63,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/Clinic_name_hint"
+        android:hint="@string/hintClinicName"
         style="@style/EditTextStyle"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -72,7 +72,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/Adress_hint"
+        android:hint="@string/hintAddress"
         style="@style/EditTextStyle"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -81,7 +81,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:hint="@string/Mobile_hint"
+        android:hint="@string/hintMobile"
         android:layout_marginLeft="20dp"
         android:inputType="phone"
         style="@style/EditTextStyle"
@@ -90,7 +90,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:hint="@string/ConsultationFee_hint"
+        android:hint="@string/hintConsultationFee"
         style="@style/EditTextStyle"
         android:inputType="numberDecimal"
         android:layout_marginLeft="20dp"
@@ -99,7 +99,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:hint="@string/ClinicTimings_hint"
+        android:hint="@string/hintClinicTimings"
         android:inputType="time"
         style="@style/EditTextStyle"
         android:layout_marginLeft="20dp"
@@ -115,7 +115,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/From_hint"
+        android:text="@string/textFrom"
         android:id="@+id/FromTextview"
         android:layout_marginRight="90dp"
         android:textColor="@color/Color_grey"
@@ -124,7 +124,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/To_hint"
+            android:text="@string/textTo"
             android:id="@+id/Totextview"
             android:textColor="@color/Color_grey"
             android:textSize="12dp"
@@ -140,7 +140,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:hint="@string/Date_hint"
+        android:hint="@string/hintDate"
         android:id="@+id/FromDateBox"
         android:inputType="date"
         android:layout_marginRight="10dp"
@@ -151,7 +151,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:hint="@string/Date_hint"
+        android:hint="@string/hintDate"
         android:textSize="12dp"
         android:inputType="date"
         style="@style/EditTextStyle"
@@ -161,7 +161,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Nonworkingdays_hint"
+        android:text="@string/nonWorkingDays"
         android:textColor="@color/Color_grey"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
@@ -261,7 +261,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Consulataionathometext"
+        android:text="@string/consultationAtHomeText"
         android:textSize="15dp"
         android:textColor="@color/Color_grey"
         />
@@ -269,7 +269,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Add_button"
+                android:text="@string/textAdd"
                 android:id="@+id/addButton"
                 style="@style/ButtonStyle"
                 android:layout_gravity="center"

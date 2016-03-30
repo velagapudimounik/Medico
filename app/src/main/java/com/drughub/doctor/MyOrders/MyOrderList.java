@@ -23,7 +23,7 @@ public class MyOrderList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        getActivity().setTitle(getString(R.string.my_order_title));
+        getActivity().setTitle(getString(R.string.my_orders));
 
         View view = inflater.inflate(R.layout.myorders_list,container,false);
 

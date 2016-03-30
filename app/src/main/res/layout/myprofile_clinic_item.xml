@@ -42,11 +42,11 @@
         android:textSize="17dp"
         android:textAppearance="?attr/textAppearanceListItem"
         android:layout_marginLeft="90dp"
-        android:text="@string/Hospitalname"/>
+        android:text="@string/hospitalName"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/HospitalAdress"
+        android:text="@string/hospitalAddress"
         android:textColor="@color/colorPrimary"
         android:textAppearance="?attr/textAppearanceListItem"
         android:layout_marginLeft="90dp"
@@ -62,7 +62,7 @@
         <View
             android:layout_width="37dp"
             android:layout_height="37dp"
-            android:background="@drawable/white_circle"
+            android:background="@drawable/draw_circle_grey"
            android:layout_gravity="center"
             android:id="@+id/view2" />
 

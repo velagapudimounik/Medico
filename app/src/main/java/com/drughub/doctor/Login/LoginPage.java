@@ -18,40 +18,36 @@ public class LoginPage extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.login_layout, container, false);
+
         getActivity().setTitle(getResources().getString(R.string.login));
 
-        final EditText editTextName = (EditText) view.findViewById(R.id.userNameTextField);
-        final EditText editTextassword = (EditText) view.findViewById(R.id.passwordTextField);
-        editTextassword.setTypeface(Typeface.DEFAULT);
+        EditText editTextPassword = (EditText) view.findViewById(R.id.passwordTextField);
+        editTextPassword.setTypeface(Typeface.DEFAULT);
 
-        final TextView forgotpasswordtextview = (TextView) view.findViewById(R.id.forgotPasswordTextView);
-        final Button login = (Button) view.findViewById(R.id.loginButton);
-        final Button signup = (Button) view.findViewById(R.id.signUpButton);
+        final TextView forgotPasswordTextView = (TextView) view.findViewById(R.id.forgotPasswordTextView);
+        final Button loginButton = (Button) view.findViewById(R.id.loginButton);
+        final Button signUpButton = (Button) view.findViewById(R.id.signUpButton);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (view==view.findViewById(R.id.loginButton)){
-                    Intent loginintent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(loginintent);
-                } else if (view == view.findViewById(R.id.signUpButton)) {
+                if (view == loginButton){
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    getActivity().finish();
+                } else if (view == signUpButton) {
                     getFragmentManager().beginTransaction().replace(R.id.container1, new SignUpFragment()).addToBackStack(null).commit();
-
-                } else if (view == view.findViewById(R.id.forgotPasswordTextView)) {
+                } else if (view == forgotPasswordTextView) {
                     getFragmentManager().beginTransaction().replace(R.id.container1, new ForgotPasswordFragment()).addToBackStack(null).commit();
                 }
             }
         };
-        Button btn1 = (Button) view.findViewById(R.id.loginButton);
-        btn1.setOnClickListener(listener);
-        Button btn2 = (Button) view.findViewById(R.id.signUpButton);
-        btn2.setOnClickListener(listener);
-        TextView btn3 = (TextView) view.findViewById(R.id.forgotPasswordTextView);
-        btn3.setOnClickListener(listener);
-        Button btn4 = (Button) view.findViewById(R.id.facebookButton);
-        btn4.setOnClickListener(listener);
+
+        loginButton.setOnClickListener(listener);
+        signUpButton.setOnClickListener(listener);
+        forgotPasswordTextView.setOnClickListener(listener);
+
         return view;
     }
 }

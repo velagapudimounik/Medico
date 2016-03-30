@@ -46,7 +46,6 @@
     <string name="parent">Parent</string>
     <string name="guardian">Guardian</string>
     <string name="hintName">Name</string>
-    <string name="hintMobile">Mobile</string>
     <string name="hintEmail">Email</string>
     <string name="textAdd">Add</string>
     <string name="available_inventory">Available Inventory</string>
@@ -179,8 +178,6 @@
 
     <!--vacc icon -->
     <string name="icon_vacc">\u004c</string>
-    <string name="icon_setting">\u0044</string>
-
 
     <!--notification -->
 
@@ -232,8 +229,6 @@
 
     <!-- More -->
     <string name="myhome">My Home</string>
-    <string name="myprofile">My Profile</string>
-    <string name="mycalender">My Calender</string>
     <string name="myorders">My Orders</string>
     <string name="patientrecords">Patient Records</string>
     <string name="orangeconnect">Orange Connect</string>
@@ -244,7 +239,7 @@
 
     <!-- More Icons @@@ -->
     <string name="my_home">\u0036</string>
-    <string name="my_profile">\u0047</string>
+    <string name="icon_my_profile">\u0047</string>
     <string name="icon_my_calender">\u007D</string>
     <string name="icon_my_orders">\u006E</string>
     <string name="icon_patient_records">\u006D</string>
@@ -253,7 +248,6 @@
     <string name="about">\u004C</string>
     <string name="logout">\u004D</string>
 
-
     <!-- My Order Icon -->
     <string name="right_arrow">\u0046</string>
     <string name="empty_cart">\u0069</string>
@@ -261,48 +255,27 @@
     <string name="icon_order_status">\u0020</string>
 
     <!-- MyProfile Strings -->
-    <string name="Doctor_sandeep_titlename">Dr.Sandeep</string>
-    <string name="Doctor_sandeep_Employeeid">DH78989</string>
-    <string name="DoctorSandeep_Email">sandeep@drughub.in</string>
-    <string name="Edit_icon">Q</string>
-    <string name="Doctor_name">Dr.Sandeep</string>
-    <string name="Doctor_Qualification">MD.DCH," "Pediatritian</string>
-    <string name="Doctor_Experience">10 years</string>
-    <string name="Doctor_Address_Line1">2/435/A1," "Banjara Hills," "Beside NKM Grand Hotel</string>
-    <string name="Doctor_Address_Line2">Hyderabad," "500036</string>
-    <string name="Doctor_email">sandeep@drughub.in</string>
-    <string name="Doctor_MobileNumber">+91 8565665556</string>
-    <string name="MY_PROFILE_BUTTON">My Profile</string>
-    <string name="CHANGE_PASSWORD_BUTTON">  "  "Change \nPassword</string>
-    <string name="MY_CLINIC_BUTTON">My Clinics</string>
-    <string name="Designation_hint">Designation </string>
-    <string name="Specialization_hint">Specialization</string>
-    <string name="YearsofExperience_hint">Years of Experience</string>
-    <string name="Clinic_name_hint">Clinic Name</string>
-    <string name="Adress_hint">Address</string>
-    <string name="EmailID_hint">E-Mail ID</string>
-    <string name="Mobile_hint">Mobile</string>
-    <string name="Update_button">Update</string>
-    <string name="Currrent_Password">Current Password</string>
-    <string name="New_password">New Password</string>
-    <string name="Confirm_Password">Confirm Passowrd</string>
-    <string name="Addclinic_button">Add Clinic</string>
-    <string name="sandeepclinic_for_recyclerview">Sandeep Clinic</string>
-    <string name="clinic_address_for_recyclerview">Banjara Hills," "Road no-2</string>
-    <string name="Harshaclinic_for_recycleriew">Harsha Hospitals</string>
-    <string name="HarshaHospital_address_for_recyclerview">Somajiguda," "2nd Floor</string>
-    <string name="Hospitalname">Hospital Name</string>
-    <string name="HospitalAdress">Hospital Address</string>
-    <string name="Delete_message">Are you Sure?</string>
-    <string name="Delete_message2">You want to remove Clinic</string>
-    <string name="yes_button">Yes</string>
-    <string name="No_button">No</string>
-    <string name="ConsultationFee_hint">Consulation Fee</string>
-    <string name="ClinicTimings_hint">Clinic Timings</string>
-    <string name="From_hint">From</string>
-    <string name="To_hint">To</string>
-    <string name="Date_hint">DD/MM/YYYY</string>
-    <string name="Nonworkingdays_hint">Non-Working Days</string>
+    <string name="iconEdit">Q</string>
+    <string name="myProfile">My Profile</string>
+    <string name="changePassword">Change Password</string>
+    <string name="myClinic">My Clinics</string>
+    <string name="hintDesignation">Designation</string>
+    <string name="hintSpecialization">Specialization</string>
+    <string name="hintYearsOfExperience">Years of Experience</string>
+    <string name="hintClinicName">Clinic Name</string>
+    <string name="hintAddress">Address</string>
+    <string name="hintEmailId">E-Mail ID</string>
+    <string name="hintMobile">Mobile</string>
+    <string name="update">Update</string>
+    <string name="currentPassword">Current Password</string>
+    <string name="newPassword">New Password</string>
+    <string name="confirmPassword">Confirm Passowrd</string>
+    <string name="addClinic">Add Clinic</string>
+    <string name="hospitalName">Hospital Name</string>
+    <string name="hospitalAddress">Hospital Address</string>
+    <string name="deleteClinicMessage">Are you Sure?\nYou want to remove Clinic</string>
+    <string name="hintConsultationFee">Consultation Fee</string>
+    <string name="hintClinicTimings">Clinic Timings</string>
     <string name="Monday_text">Mon</string>
     <string name="Tuesday_text">Tue</string>
     <string name="Wednesday_text">Wed</string>
@@ -310,23 +283,9 @@
     <string name="Friday_text">Fri</string>
     <string name="Saturday_text">Sat</string>
     <string name="Sunday_text">Sun</string>
-    <string name="Consulataionathometext">Consultation at Home</string>
-    <string name="Add_button">Add</string>
-    <string name="myprofile_editclinic_edittext1">Sandeep Specialities</string>
-    <string name="myprofile_editclinic_edittext2">Banjara Hills," "Rd.No:1," "Near City Center,Hyderabad </string>
-    <string name="myprofile_editclinic_edittext3">98489 12345</string>
-    <string name="myprofile_editclinic_edittext4">400 INR</string>
-    <string name="myprofile_editclinic_edittext5">10:00-AM-9:00PM</string>
-    <string name="myprofile_editclinic_edittext6">10/01/2016</string>
-    <string name="myprofile_editclinic_edittext7">11/01/2017</string>
-    <string name="myprofile_editclinic_savebutton">Save</string>
-    <string name="myprofile_editclinic_rupees">400</string>
-    <string name="myprofile_clinic_address">Banjara Hills," "Rd.No:1," "Near City Center," "Hyderabad.Mobile Number:98489 12345</string>
-    <string name="myprofile_clinic_rating">89%</string>
-    <string name="Myprofile_noclinics">No Clinics Added</string>
-    <string name="Change_textView">change</string>
-    <string name="my_profile_title">My Profile</string>
-    <string name="add_clinic_title">Add Clinic</string>
+    <string name="consultationAtHomeText">Consultation at Home</string>
+    <string name="noClinicsAdded">No Clinics Added</string>
+    <string name="txtChange">change</string>
 
 
     <!-- My Order -->
@@ -340,7 +299,7 @@
     <string name="processing">Processing</string>
     <string name="delivered">Delivered</string>
     <string name="cancel_order_button">Cancel Order</string>
-    <string name="my_order_title">My Orders</string>
+    <string name="my_orders">My Orders</string>
     <string name="order_information_title">Order Information</string>
     <string name="no_orders_available">No Orders Available</string>
     <string name="orderinfo_dialog_message">"Are you Sure?\nYou want to Cancel Order {Order ID}."</string>
@@ -356,13 +315,12 @@
     <string name="icon_edit">\u0051</string>
     <string name="hintDate">DD/MM/YYYY</string>
     <string name="hintTime">HH:MM</string>
-    <string name="non_working_days">Non-Working Days</string>
-    <string name="add_button">Add</string>
+    <string name="nonWorkingDays">Non-Working Days</string>
     <string name="deleteCalendarMessage">Are you Sure?\nYou want to delete calendar entry.</string>
     <string name="deleteAppointmentMessage">Are you Sure?\nYou want to cancel booked appointment.</string>
     <string name="create_new_calendar">Create New Calendar</string>
-    <string name="from">From</string>
-    <string name="to">To</string>
+    <string name="textFrom">From</string>
+    <string name="textTo">To</string>
 
     <string name="icon_reschedule">\u0033</string>
 

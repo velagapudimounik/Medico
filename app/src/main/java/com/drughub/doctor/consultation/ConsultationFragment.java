@@ -19,6 +19,7 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.Vaccschedule.VaccActivity;
 import com.drughub.doctor.utils.CustomDialog;
 
 import java.util.ArrayList;
@@ -51,23 +52,22 @@ public class ConsultationFragment extends Fragment {
     {
         getActivity().setTitle(getString(R.string.consultations));
 
-        //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.consultationListContainer, new ConsultationListFragment()).commit();
-
         final TextView addBtn = (TextView) view.findViewById(R.id.addConsultationBtn);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            ((BaseActivity)getActivity()).setBackButton(true);
-            final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)getActivity(), R.layout.consultation_add_new,
-                    Gravity.BOTTOM, true, false, true);
+                //((BaseActivity)getActivity()).setBackButton(true);
+                final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)getActivity(), R.layout.consultation_add_new,
+                        Gravity.BOTTOM, true, false, true);
 
-            View addBtn = dialog.findViewById(R.id.addConsultationBtn);
-            addBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
+                View addBtn = dialog.findViewById(R.id.addConsultationBtn);
+                addBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(getActivity(), VaccActivity.class));
+                        dialog.dismiss();
+                    }
+                });
             }
         });
 
@@ -122,7 +122,7 @@ public class ConsultationFragment extends Fragment {
                 mLayoutManager.scrollToPosition(0);
                 mAdapter.swap(dataSet);
 
-                if(dataSet.size() == 0) {
+                if(dataSet == null || dataSet.size() == 0) {
                     noAppointments.setVisibility(View.VISIBLE);
                     editLayout.setVisibility(View.GONE);
                     mRecyclerView.setVisibility(View.GONE);

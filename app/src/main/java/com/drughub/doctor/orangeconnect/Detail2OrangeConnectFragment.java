@@ -56,7 +56,7 @@ class Detail2OrangeConnectAdapter extends RecyclerView.Adapter<Detail2OrangeConn
     @Override
     public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_detail2_orange_connect, parent, false);
+                .inflate(R.layout.orange_connect_patient_report_item, parent, false);
 
         return new DataObjectHolder(view);
     }

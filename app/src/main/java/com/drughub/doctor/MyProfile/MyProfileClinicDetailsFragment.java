@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 
 import com.drughub.doctor.R;
 
-public class MyProfileSandeepSpecialitiesHospital extends Fragment {
+public class MyProfileClinicDetailsFragment extends Fragment {
     @Nullable
     @Override
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("Sandeep Clinic");
-        return inflater.inflate(R.layout.myprofile_sandeepspecialities_fragment,container,false);
+        return inflater.inflate(R.layout.myprofile_clinic_details,container,false);
     }
 
     @Override

@@ -601,8 +601,8 @@
                             <View
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-
                                 android:background="@drawable/fill_circle_secondarydark"/>
+
                             <com.drughub.doctor.utils.DrughubIcon
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

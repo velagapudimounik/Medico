@@ -64,7 +64,7 @@ class OutPatientAdapter extends RecyclerView.Adapter<OutPatientAdapter.DataObjec
     @Override
     public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_out_patient, parent, false);
+                .inflate(R.layout.patient_record_out_patient_item, parent, false);
         return new DataObjectHolder(view);
     }
 

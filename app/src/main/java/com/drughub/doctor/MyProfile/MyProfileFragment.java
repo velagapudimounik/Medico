@@ -15,12 +15,9 @@ import android.widget.Toast;
 import com.drughub.doctor.R;
 import com.drughub.doctor.utils.DrughubIcon;
 
-//import de.hdodenhof.circleimageview.CircleImageView;
+public class MyProfileFragment extends Fragment {
 
-public class MyProfileActivityFragment extends Fragment {
     RadioButton myprofile;
-    RadioButton changepassword;
-    RadioButton myclinic;
     RadioGroup profile_radiogroup;
     FrameLayout emptyimageview;
     FrameLayout addimageIcon;
@@ -36,9 +33,9 @@ public class MyProfileActivityFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle(getString(R.string.my_profile_title));
-        final View view = inflater.inflate(R.layout.myprofile_activity_layout, container, false);
-        profile_radiogroup = (RadioGroup) view.findViewById(R.id.myprofileradiogroup);
+        getActivity().setTitle(getString(R.string.myProfile));
+        final View view = inflater.inflate(R.layout.myprofile_main, container, false);
+        profile_radiogroup = (RadioGroup) view.findViewById(R.id.myProfileRadiogroup);
         editicon = (DrughubIcon) view.findViewById(R.id.Editicon);
         //editicon.setOnClickListener(this);
         righticon = (DrughubIcon) view.findViewById(R.id.rightmark);
@@ -48,7 +45,7 @@ public class MyProfileActivityFragment extends Fragment {
         //addimageIcon.setOnClickListener(this);
         //final CircleImageView profileimage=(CircleImageView)view.findViewById(R.id.image_profile);
         emptyimageview = (FrameLayout) view.findViewById(R.id.emptyimage);
-        myprofile = (RadioButton) view.findViewById(R.id.Myprofilebutton);
+        myprofile = (RadioButton) view.findViewById(R.id.myProfileButton);
         final RadioButton changepassword = (RadioButton) view.findViewById(R.id.changepasswordbutton);
         final RadioButton myclinic = (RadioButton) view.findViewById(R.id.Myclinic_button);
         getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).commit();
@@ -84,9 +81,9 @@ public class MyProfileActivityFragment extends Fragment {
         profile_radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.Myprofilebutton) {
+                if (checkedId == R.id.myProfileButton) {
                     getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).commit();
-                    if (clickCount == true) {
+                    if (clickCount) {
                         Toast.makeText(getContext(), "Edit", Toast.LENGTH_SHORT).show();
                         getFragmentManager().beginTransaction().replace(R.id.container2, new MyprofileEditFragment()).commit();
                     }
@@ -97,7 +94,7 @@ public class MyProfileActivityFragment extends Fragment {
                     addimageIcon.setVisibility(View.INVISIBLE);
                     emptyimageview.setVisibility(View.VISIBLE);
                     editicon.setVisibility(View.VISIBLE);
-                    getFragmentManager().beginTransaction().replace(R.id.container2, new MyclinicRecyclerView()).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.container2, new MyClinicsFragment()).commit();
                 } else if (checkedId == R.id.changepasswordbutton) {
                     myprofile.setChecked(false);
                     righticon.setVisibility(View.INVISIBLE);
@@ -119,30 +116,4 @@ public class MyProfileActivityFragment extends Fragment {
         myprofile.setChecked(true);
 
     }
-
-
 }
-
-/* private void Changetextmethod() {
-                changetext.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        changetext.setVisibility(View.INVISIBLE);
-                        profileimage.setVisibility(View.INVISIBLE);
-                        addimageIcon.setVisibility(View.VISIBLE);
-                        addimagemethod();
-                    }
-                });
-            }*/
-/*
-            private void addimagemethod() {
-                addimageIcon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v1) {
-                        if (v1 == addimageIcon) {
-                            addimageIcon.setVisibility(View.INVISIBLE);
-                            emptyimageview.setVisibility(View.VISIBLE);
-                        }
-                    }
-                });
-            }*/

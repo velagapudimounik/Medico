@@ -8,23 +8,17 @@
     android:focusableInTouchMode="true">
 
     <RelativeLayout android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:padding="@dimen/margin_small"
-        >
+        android:layout_height="65dp"
+        android:padding="@dimen/margin_small">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/vaccineSearch"
             android:hint="@string/vaccine_search_hint"
-            android:textColorHint="@color/colorHint"
-            android:textColor="@color/colorText"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/round_rect_fill_white"
             android:singleLine="true"
-            android:paddingLeft="@dimen/margin_small"
             android:imeOptions="actionSearch"
-            />
+            style="@style/EditTextStyle"/>
 
         <com.drughub.doctor.utils.DrughubIcon
             android:layout_width="wrap_content"
@@ -33,32 +27,21 @@
             android:layout_centerVertical="true"
             android:id="@+id/search_button"
             android:text="@string/icon_search"
-            android:textSize="@dimen/text_large"
+            android:textSize="25sp"
             android:layout_marginRight="@dimen/margin_small"
-            android:textColor="@color/colorText" />
+            android:textColor="@color/colorTextLight" />
 
     </RelativeLayout>
 
-    <LinearLayout android:orientation="vertical" android:layout_width="match_parent"
+    <RelativeLayout android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/inventory_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@android:color/white"
-            app:tabBackground="@android:color/white"
-            app:tabIndicatorHeight="@dimen/stroke_slim"
-            app:tabTextColor="@color/colorText"
-            app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabTextAppearance="@style/InventoryTabTextAppearance"
-            app:tabMode="scrollable"/>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/scrollView" android:fillViewport="true">
+            android:id="@+id/scrollView"
+            android:layout_marginTop="45dp"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:orientation="vertical" android:layout_width="match_parent"
@@ -76,6 +59,7 @@
                         android:text="@string/my_inventory_no_items"
                         android:id="@+id/textInventoryNoVaccines"
                         android:layout_gravity="center" />
+
                 </FrameLayout>
 
                 <LinearLayout android:orientation="horizontal" android:layout_width="match_parent"
@@ -104,10 +88,10 @@
                 </LinearLayout>
 
                 <FrameLayout
-                       android:id="@+id/inventory_manufacturers"
-                       android:layout_width="match_parent"
-                       android:layout_height="match_parent"
-                       app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:id="@+id/inventory_manufacturers"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     android:background="@android:color/white">
 
                     <TextView
@@ -116,8 +100,22 @@
                         android:text="@string/my_inventory_no_items"
                         android:id="@+id/textInventoryNoItemsInManufacturers"
                         android:layout_gravity="center" />
+
                 </FrameLayout>
+
             </LinearLayout>
+
         </ScrollView>
-    </LinearLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/inventory_disease_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="scrollable"
+            app:tabPaddingStart="0dp"
+            app:tabPaddingEnd="0dp"/>
+
+    </RelativeLayout>
+
 </LinearLayout>
