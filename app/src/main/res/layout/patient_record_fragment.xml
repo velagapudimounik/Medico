@@ -10,7 +10,7 @@
         android:id="@+id/testTabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <RadioGroup
             android:id="@+id/radioGroup1"
@@ -52,7 +52,6 @@
                 android:background="@drawable/radiobutton_selector"
                 android:button="@null"
                 android:paddingLeft="30dp"
-                android:singleLine="true"
                 android:text="@string/radiological_test"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_tiny" />
