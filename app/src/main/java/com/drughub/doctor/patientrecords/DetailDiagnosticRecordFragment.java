@@ -20,13 +20,15 @@ import com.drughub.doctor.utils.CustomDialog;
 
 import java.util.ArrayList;
 
-public class DetailOutPatientRecordFragment extends Fragment {
+public class DetailDiagnosticRecordFragment extends Fragment {
+    String title;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle(getResources().getString(R.string.outpatientPrescription));
         ((BaseActivity) getActivity()).setBackButton(true);
+        title = getArguments().getString("title");
+        getActivity().setTitle(title);
 
         final View view = inflater.inflate(R.layout.patient_record_out_patient_details_fragment, container, false);
 
@@ -43,22 +45,23 @@ public class DetailOutPatientRecordFragment extends Fragment {
         }
         image_urls.add("dummy");
 
-        OutPatientDetailsAdapter adapter = new OutPatientDetailsAdapter(getActivity(), image_urls);
+        DiagnosticDetailsAdapter adapter = new DiagnosticDetailsAdapter(getActivity(), image_urls, title);
         recyclerView.setAdapter(adapter);
-
 
         return view;
 
     }
 }
 
-class OutPatientDetailsAdapter extends RecyclerView.Adapter<OutPatientDetailsAdapter.DataObjectHolder> {
+class DiagnosticDetailsAdapter extends RecyclerView.Adapter<DiagnosticDetailsAdapter.DataObjectHolder> {
     Context context;
     ArrayList<String> imageUrls;
+    String title;
 
-    public OutPatientDetailsAdapter(Context context, ArrayList<String> imageUrls) {
+    public DiagnosticDetailsAdapter(Context context, ArrayList<String> imageUrls, String title) {
         this.context = context;
         this.imageUrls = imageUrls;
+        this.title = title;
     }
 
     @Override
@@ -99,15 +102,15 @@ class OutPatientDetailsAdapter extends RecyclerView.Adapter<OutPatientDetailsAda
 
         @Override
         public void onClick(View v) {
-            if(v.getId() == R.id.icon_plus){
+            if (v.getId() == R.id.icon_plus) {
                 final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity) context, R.layout.patient_record_upload_dialog,
                         Gravity.CENTER, true, false, true);
 
-            }    else {
+            } else {
                 PatientRecordActivity activity = (PatientRecordActivity) context;
                 Bundle mBundle = new Bundle();
                 mBundle.putString("image_url", imageUrls.get(getPosition()));
-                mBundle.putString("title", context.getString(R.string.outpatientPrescription));
+                mBundle.putString("title", title);
                 ImageFragment fragment = new ImageFragment();
                 fragment.setArguments(mBundle);
                 activity.changeFragment(fragment);

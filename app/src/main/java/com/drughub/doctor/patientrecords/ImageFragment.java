@@ -18,9 +18,9 @@ public class ImageFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle(getResources().getString(R.string.outpatientPrescription));
         ((BaseActivity) getActivity()).setBackButton(true);
 
+        getActivity().setTitle(getArguments().getString("title"));
         final View view = inflater.inflate(R.layout.patient_record_imagescreen_fragment, container, false);
         ImageView iv = (ImageView) view.findViewById(R.id.imageView);
         DrughubIcon download = (DrughubIcon) view.findViewById(R.id.download);

@@ -44,13 +44,13 @@ public class DetailPatientRecordFragment extends Fragment implements View.OnClic
 
         switch (v.getId()) {
             case R.id.vaccinationLayout:
-//                changeFragment(new PatientRecordFragment());
+                changeFragment(new VaccinationRecordFragment());
                 break;
             case R.id.outpatientLayout:
                 changeFragment(new OutPatientFragment());
                 break;
             case R.id.hospitalizationLayout:
-//                changeFragment(new PatientRecordFragment());
+                changeFragment(new HospitalizationRecordFragment());
                 break;
             case R.id.diagnosticLayout:
                 changeFragment(new DiagnosticRecordFragment());
