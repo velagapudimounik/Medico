@@ -35,6 +35,7 @@
             <View
                 android:layout_width="100dp"
                 android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
                 android:background="@android:color/white"/>
 
             <TextView
@@ -48,6 +49,7 @@
             <View
                 android:layout_width="100dp"
                 android:layout_height="1dp"
+                android:layout_marginRight="20dp"
                 android:background="@android:color/white"/>
 
         </LinearLayout>
@@ -83,18 +85,25 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/male"
+                    android:layout_marginLeft="10dp"
                     android:textSize="@dimen/text_medium"
+                    android:text="@string/male"
+                    android:layout_marginRight="10dp"
                     android:textColor="@color/colorWhite"
                     android:id="@+id/radioButton"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp" />
+                    android:paddingLeft="5dp"
+                    style="@style/radio_button_style"
+                    android:checked="true"
+
+                     />
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/female"
+                    android:paddingLeft="5dp"
                     android:textColor="@color/colorWhite"
+                    style="@style/radio_button_style"
                     android:textSize="@dimen/text_medium"
                     android:id="@+id/radioButton2" />
             </RadioGroup>
@@ -132,7 +141,7 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal">
 
@@ -143,17 +152,41 @@
                     android:textColor="@color/colorWhite"
                     android:layout_weight="0" />
 
-                <EditText
+                <RelativeLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/timeOfBirth"
-                    android:hint="@string/hintTime"
-                    android:layout_margin="10dp"
-                    style = "@style/EditTextStyle"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    >
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/timeOfBirth"
+                        android:hint="@string/hintTime"
+                        style = "@style/EditTextStyle"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/time_extension" />
+
+                    <Spinner
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:id="@+id/time_extension"
+                        android:background="@drawable/round_rect_fill_white"
+                        android:spinnerMode="dropdown"
+                        android:popupBackground="@drawable/round_rect_fill_white"
+                        android:layout_alignParentRight="true" />
+
+                </RelativeLayout>
             </LinearLayout>
+
+
+
         </LinearLayout>
 
-        <RadioGroup
+               <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -167,6 +200,9 @@
                 android:textSize="@dimen/text_medium"
                 android:textColor="@color/colorWhite"
                 android:id="@+id/parentBtn"
+                android:paddingLeft="5dp"
+                android:checked="true"
+                style="@style/radio_button_style"
                 android:layout_marginRight="10dp" />
 
             <RadioButton
@@ -175,6 +211,8 @@
                 android:text="@string/guardian"
                 android:textSize="@dimen/text_medium"
                 android:textColor="@color/colorWhite"
+                style="@style/radio_button_style"
+                android:paddingLeft="5dp"
                 android:id="@+id/gaurdianBtn" />
         </RadioGroup>
 

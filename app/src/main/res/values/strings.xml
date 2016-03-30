@@ -54,6 +54,8 @@
     <string name="inventory">Inventory</string>
     <string name="dialog_message_done">Done</string>
     <string name="dialogDeleteConsultation">Are you Sure?\nYou want to cancel todays appointment.</string>
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
 
 
     <!-- @@@@ Drughub Icons @@@@ -->

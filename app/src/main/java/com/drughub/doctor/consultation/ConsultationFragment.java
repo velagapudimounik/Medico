@@ -11,8 +11,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
@@ -59,6 +61,14 @@ public class ConsultationFragment extends Fragment {
                 //((BaseActivity)getActivity()).setBackButton(true);
                 final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)getActivity(), R.layout.consultation_add_new,
                         Gravity.BOTTOM, true, false, true);
+                Spinner time_dropdown = (Spinner)dialog.findViewById(R.id.time_extension);
+                String[] time_items = new String[]{getString(R.string.am), getString(R.string.pm)};
+                ArrayAdapter<String> time_adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, time_items);
+                time_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                time_dropdown.setAdapter(time_adapter);
+
+
+
 
                 View addBtn = dialog.findViewById(R.id.addConsultationBtn);
                 addBtn.setOnClickListener(new View.OnClickListener() {
