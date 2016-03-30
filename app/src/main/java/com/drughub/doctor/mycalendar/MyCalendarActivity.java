@@ -36,7 +36,7 @@ enum CLOCK_PICKER
 
 public class MyCalendarActivity extends BaseActivity {
     final  String[] spinnervalues={"Clinic Name1 |","Clinic Name2 |","Clinic Name3 |","My Address"};
-    final  String[] spinneraddress={" Address1"," Address2"," Address3",""};
+    final  String[] spinneraddress={"Address1","Address2","Address3",""};
     @Override
     public void onActionButtonClicked(int drughubIconsRes) {
         super.onActionButtonClicked(drughubIconsRes);
@@ -201,12 +201,9 @@ public class MyCalendarActivity extends BaseActivity {
             clinicname.setText(spinnervalues[position]);
             TextView Address=(TextView)mySpinner.findViewById(R.id.string2);
             Address.setText(spinneraddress[position]);
-            if(getCount() == spinnervalues.length-1)
+            if(getCount() == position)
             {
-
                 clinicname.setTextColor(Color.LTGRAY);
-                // clinicname.setHint(spinneraddress[position]);
-                //((TextView) mySpinner.findViewById(R.id.string1)).setHint(spinneraddress[position-1]);
             }
 
 
