@@ -131,7 +131,6 @@
             android:hint="@string/hint_card_name"
             android:inputType="textNoSuggestions"
             style="@style/EditTextStyleTransparent2"
-            android:textColor="@color/colorDecorationLight"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="15dp"
@@ -182,7 +181,6 @@
                 android:hint="@string/hint_year"
                 android:inputType="number"
                 android:gravity="center"
-                android:textColor="@color/colorDecoration"
                 android:textSize="13dp" />
 
         </LinearLayout>
