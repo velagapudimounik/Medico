@@ -48,8 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/linearLayout"
-        android:layout_toRightOf="@+id/linearLayout"
         android:layout_toLeftOf="@+id/arrowicon"
+        android:layout_toRightOf="@+id/linearLayout"
         android:layout_toStartOf="@+id/arrowicon"
         android:orientation="vertical">
 
@@ -69,18 +69,26 @@
             android:textSize="@dimen/text_tiny" />
     </LinearLayout>
 
-
-    <com.drughub.doctor.utils.DrughubIcon
+    <RelativeLayout
         android:id="@+id/arrowicon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_margin="10dp"
-        android:text="@string/right_arrow"
-        android:textColor="@color/colorPrimary"
-        android:textSize="40sp" />
+        android:background="@drawable/draw_circle_grey">
+
+        <com.drughub.doctor.utils.DrughubIcon
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:rotation="270"
+            android:text="@string/icon_down_arrow"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
 
 
 </RelativeLayout>
