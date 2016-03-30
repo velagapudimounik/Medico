@@ -51,7 +51,7 @@
                 android:spinnerMode="dropdown" />
             <RelativeLayout
                 android:layout_alignParentRight="true"
-                android:background="@color/colorText"
+                android:background="@color/colorDecoration"
                 android:layout_width="@dimen/button_height_small"
                 android:layout_height="@dimen/button_height_small">
 
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="@string/icon_down_arrow"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/colorText"
                     android:textSize="@dimen/text_small" />
 
 
