@@ -405,6 +405,7 @@
     <string name="terms">Terms of Use</string>
     <string name="drughub_link"><u>www.drughub.in</u></string>
     <string name="send_to">Share this app</string>
+    <string name="battery">Battery</string>
     <string-array name="ranges">
         <item>16</item>
         <item>25</item>
