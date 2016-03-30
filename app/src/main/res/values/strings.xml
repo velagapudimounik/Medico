@@ -26,8 +26,6 @@
     <string name="temperature">Administering Vaccine at Temp {temp}°C</string>
 
 
-
-
     <!--Consultations-->
     <string name="todays">Todays</string>
     <string name="upcoming">Upcoming</string>
@@ -184,7 +182,6 @@
     <string name="icon_setting">\u0044</string>
 
 
-
     <!--notification -->
 
     <string name="notify_order">Orders Notification</string>
@@ -215,16 +212,11 @@
     <string name="hint_year">YYYY</string>
 
 
-
-
     <!--Orange wallet icon-->
     <string name="icon_coin">\u003c</string>
     <string name="icon_card">\u0062</string>
     <string name="icon_delete">\u0050</string>
     <string name="icon_apply">\u004f</string>
-
-
-
 
 
     <!-- myprofile icons-->
@@ -411,10 +403,6 @@
     <string name="custom_dialog_yes_message">Yes</string>
 
 
-
-
-
-
     <string name="weekly">Weekly</string>
     <string name="monthly">Monthly</string>
     <string name="yearly">Yearly</string>
@@ -439,7 +427,7 @@
     <string name="icon_coldhub_s">\u0077</string>
 
     <string name="consumption">Consumption</string>
-    <string name="fmp">Fast-Moving products</string>
+    <string name="fmp">Fast-Moving Products</string>
     <string name="profitability">Profitability</string>
     <string name="coldhub">coldhub</string>
     <string name="forecast"><u>Forecast</u></string>
@@ -453,5 +441,18 @@
     <string name="terms">Terms of Use</string>
     <string name="drughub_link"><u>www.drughub.in</u></string>
     <string name="send_to">Share this app</string>
+    <string-array name="ranges">
+        <item>16</item>
+        <item>25</item>
+        <item>40</item>
+        <item>100</item>
+    </string-array>
+
+    <string-array name="rangeColors">
+        <item>#E7202B</item>
+        <item>#E86F21</item>
+        <item>#E8E721</item>
+        <item>#1BCA21</item>
+    </string-array>
 
 </resources>

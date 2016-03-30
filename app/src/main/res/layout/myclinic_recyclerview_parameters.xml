@@ -24,7 +24,7 @@
             android:layout_gravity="left|center_vertical"
             android:gravity="center"
             android:text="@string/icon_image"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:textColor="@color/colorDecorationDark"
             android:id="@+id/imageicon"
             android:layout_marginBottom="0dp"

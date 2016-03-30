@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:gauge="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="@dimen/margin_small">
 
@@ -10,7 +11,6 @@
         android:id="@+id/analyticsGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
         android:orientation="horizontal">
 
         <RadioButton
@@ -99,12 +99,12 @@
             android:text="@string/coldhub"
             android:textColor="@color/colorDecoration"
             android:textSize="@dimen/text_teen" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_small"
         android:background="@drawable/rect_orange"
         android:orientation="vertical">
 
@@ -120,7 +120,7 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_small"
+                android:paddingTop="@dimen/margin_small"
                 android:text="@string/consumption"
                 android:textColor="@color/colorDecoration"
                 android:textSize="@dimen/text_teen" />
@@ -186,7 +186,7 @@
                 android:id="@+id/forecast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin_small"
+                android:paddingTop="@dimen/margin_tiny"
                 android:text="@string/forecast"
                 android:textColor="@color/colorPrimary" />
 
@@ -209,8 +209,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/margin_small"
-                    android:paddingTop="@dimen/margin_small"
+                    android:paddingBottom="@dimen/margin_tiny"
+                    android:paddingTop="@dimen/margin_tiny"
                     android:text="@string/coldhub"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_teen" />
@@ -218,9 +218,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/margin_small"
+                    android:paddingBottom="@dimen/margin_tiny"
                     android:paddingLeft="4dp"
-                    android:paddingTop="@dimen/margin_small"
+                    android:paddingTop="@dimen/margin_tiny"
                     android:text="@string/monitoring"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_teen" />
@@ -244,8 +244,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/margin_small"
-                    android:paddingTop="@dimen/margin_small"
+                    android:paddingBottom="@dimen/margin_tiny"
+                    android:paddingTop="@dimen/margin_tiny"
                     android:text="@string/minTemp"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_teen" />
@@ -253,9 +253,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/margin_small"
+                    android:paddingBottom="@dimen/margin_tiny"
                     android:paddingLeft="@dimen/margin_small"
-                    android:paddingTop="@dimen/margin_small"
+                    android:paddingTop="@dimen/margin_tiny"
                     android:text="2\u00B0"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_teen" />
@@ -271,7 +271,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/margin_small"
+                    android:paddingBottom="@dimen/margin_tiny"
                     android:text="@string/maxTemp"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_teen" />
@@ -279,7 +279,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/margin_small"
+                    android:paddingBottom="@dimen/margin_tiny"
                     android:paddingLeft="@dimen/margin_small"
                     android:text="5\u00B0"
                     android:textColor="@color/colorText"
@@ -291,7 +291,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="@dimen/margin_small"
+            android:layout_margin="@dimen/margin_tiny"
             android:background="@color/colorPrimary" />
 
         <TextView
@@ -299,17 +299,146 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="@dimen/margin_small"
+            android:padding="@dimen/margin_tiny"
             android:text="22-06-2015 to 22-07-2015"
             android:textColor="@color/colorDecoration"
             android:textSize="@dimen/text_tiny" />
 
-        <com.jjoe64.graphview.helper.GraphViewXML
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:seriesData="0=5;2=5;3=0;4=2"
-            app:seriesType="line"
-            app:seriesColor="#ee0000"/>
+            android:visibility="visible" />
+
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:id="@+id/chart_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <ScrollView
+            android:id="@+id/pie_chart_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="Temperature"
+                            android:textColor="@color/colorPrimary" />
+
+                        <com.drughub.doctor.utils.GaugeView
+                            android:id="@+id/chart_pie1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            gauge:needleHeight="0.30"
+                            gauge:needleWidth="0.039"
+                            gauge:scaleEndValue="100"
+                            gauge:scaleStartValue="0"
+                            gauge:showNeedle="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="@dimen/margin_huge"
+                            android:text="2\u00B0"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/brightness"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="Brightness"
+                            android:textColor="@color/colorPrimary" />
+
+                        <com.drughub.doctor.utils.GaugeView
+                            android:id="@+id/chart_pie2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            gauge:needleHeight="0.30"
+                            gauge:needleWidth="0.039"
+                            gauge:scaleEndValue="100"
+                            gauge:scaleStartValue="0"
+                            gauge:showNeedle="true" />
+
+                        <TextView
+                            android:id="@+id/brightness_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="@dimen/margin_huge"
+                            android:text="Dark"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_huge"
+                    android:layout_marginRight="@dimen/margin_huge"
+                    android:layout_marginTop="-10dp">
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:max="100"
+                        android:progress="78"
+                        android:progressDrawable="@drawable/progress_bar_charts" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:text="78%"
+                        android:textColor="@color/colorWhite" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 
