@@ -37,14 +37,36 @@
         android:paddingTop="@dimen/margin_large">
 
 
-        <Spinner
-            android:id="@+id/add_to_cart_db_quantity_ropDown"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height_small"
-            android:background="@drawable/round_rect_fill_grey"
-            android:paddingLeft="10dp"
-            android:entries="@array/typesOfRecords"
-            android:spinnerMode="dropdown" />
+            android:layout_height="@dimen/button_height_small">
+
+            <Spinner
+                android:id="@+id/add_to_cart_db_quantity_ropDown"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height_small"
+                android:background="@drawable/round_rect_fill_grey"
+                android:entries="@array/typesOfRecords"
+                android:paddingLeft="10dp"
+                android:spinnerMode="dropdown" />
+            <RelativeLayout
+                android:layout_alignParentRight="true"
+                android:background="@color/colorText"
+                android:layout_width="@dimen/button_height_small"
+                android:layout_height="@dimen/button_height_small">
+
+                <com.drughub.doctor.utils.DrughubIcon
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/icon_down_arrow"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_small" />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
 
         <EditText
             style="@style/EditTextStyle"

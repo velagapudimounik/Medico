@@ -409,6 +409,10 @@
 
 
     <string-array name="typesOfRecords">
+        <item>Out Patient Record</item>
+        <item>Diagnostic Report</item>
+        <item>Hospitalization Report</item>
+        <item>Vaccination Report</item>
         <item>Type Of Record</item>
     </string-array>
 

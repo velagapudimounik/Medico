@@ -16,8 +16,8 @@ public class OrangeConnectActivity extends BaseActivity {
         setBackButton(true);
         setTitle(getResources().getString(R.string.orangeconnect));
         OrangeConnectFragment fragment = new OrangeConnectFragment();
-        changeFragment(fragment);
-//        getSupportFragmentManager().beginTransaction().replace(R.id.activity_content, fragment).commit();
+//        changeFragment(fragment);
+        getSupportFragmentManager().beginTransaction().replace(R.id.activity_content, fragment).commit();
 
     }
 
