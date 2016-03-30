@@ -1,4 +1,4 @@
-package com.drughub.doctor.Vaccschedule;
+package com.drughub.doctor.consultation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,12 +8,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.Notification.NotificationActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
-public class VaccActivity extends BaseActivity {
+public class VaccinationSchedule extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,8 +31,10 @@ public class VaccActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        VaccAdapter vaccAdapter = new VaccAdapter(this);
-        recyclerView.setAdapter(vaccAdapter);
+        VaccinationScheduleAdapter adapter = new VaccinationScheduleAdapter(this);
+        recyclerView.setAdapter(adapter);
+
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
 
         View doneBtn = findViewById(R.id.doneBtn);
         doneBtn.setOnClickListener(new View.OnClickListener() {
@@ -49,22 +55,22 @@ public class VaccActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    public class VaccAdapter extends RecyclerView.Adapter<VaccAdapter.adptrinfo> {
+    public class VaccinationScheduleAdapter extends RecyclerSwipeAdapter<VaccinationScheduleAdapter.ViewHolder> {
 
         Context context;
 
-        VaccAdapter(Context l_context) {
-            this.context = l_context;
+        VaccinationScheduleAdapter(Context context) {
+            this.context = context;
         }
 
         @Override
-        public adptrinfo onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.vaccination_schedule_item, parent, false);
-            return new adptrinfo(v);
+            return new ViewHolder(v);
         }
 
         @Override
-        public void onBindViewHolder(adptrinfo holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, int position) {
         }
 
         @Override
@@ -72,10 +78,19 @@ public class VaccActivity extends BaseActivity {
             return 5;
         }
 
+        @Override
+        public int getSwipeLayoutResourceId(int position) {
+            return R.id.swipe;
+        }
 
-        public class adptrinfo extends RecyclerView.ViewHolder {
-            public adptrinfo(View itemView) {
-                super(itemView);
+        public class ViewHolder extends RecyclerView.ViewHolder {
+
+            SwipeLayout swipeLayout;
+
+            public ViewHolder(View v)
+            {
+                super(v);
+                swipeLayout = (SwipeLayout) v.findViewById(R.id.swipe);
             }
         }
     }

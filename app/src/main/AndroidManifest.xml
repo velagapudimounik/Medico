@@ -40,7 +40,7 @@
 
         <activity android:name=".OrangeWallet.SaveCard" />
 
-        <activity  android:name=".Vaccschedule.VaccActivity" />
+        <activity  android:name=".consultation.VaccinationSchedule" />
 
         <activity android:name=".Notification.NotificationActivity"/>
 

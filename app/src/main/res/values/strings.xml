@@ -170,19 +170,12 @@
     <string name="deleteCartmessage">Are You Sure ?\nYou want to remove vaccine from cart.</string>
     <string name="placedOrder_id_message">Order ID : {OrderID}\nhas been placed successfully.</string>
     <string name="order_summary_itemlist">My Address</string>
-
-    <!--vacc schedule -->
-    <string name="Vacc_name">DIPTHERIA</string>
-    <string name="Vacc_schedule_date">17 Mar 2016 to 21 Mar 2016</string>
-    <string name="vacc_button">Done</string>
-    <string name="Vacc_schedule">Vaccination schedule</string>
-    <string name="Vacc_schedule_time">You have an Appointment today at 1.00 to 2.00 PM</string>
+    <string name="textDone">Done</string>
 
     <!--vacc icon -->
     <string name="icon_vacc">\u004c</string>
 
     <!--notification -->
-
     <string name="notify_order">Orders Notification</string>
     <string name="notify_security">Security Notification</string>
     <string name="notify_Transaction">Transaction Notification</string>
@@ -273,8 +266,6 @@
     <string name="newPassword">New Password</string>
     <string name="confirmPassword">Confirm Passowrd</string>
     <string name="addClinic">Add Clinic</string>
-    <string name="hospitalName">Hospital Name</string>
-    <string name="hospitalAddress">Hospital Address</string>
     <string name="deleteClinicMessage">Are you Sure?\nYou want to remove Clinic</string>
     <string name="hintConsultationFee">Consultation Fee</string>
     <string name="hintClinicTimings">Clinic Timings</string>

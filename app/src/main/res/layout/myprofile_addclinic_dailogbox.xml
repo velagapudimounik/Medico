@@ -5,174 +5,188 @@
     android:background="@color/cardview_dark_background"
     android:gravity="center"
     android:layout_height="match_parent">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="15dp"
-            android:layout_height="match_parent">
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="40dp">
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        <View
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:background="@color/colorDecorationDark"/>
-
-            <com.drughub.doctor.utils.DrughubIcon
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/icon_image"
-                android:textSize="25dp"
-                android:textColor="@color/colorDecoration"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:id="@+id/imageIcon" />
-        </FrameLayout>
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp">
-        <View
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:background="@color/colorDecorationDark"/>
-
-        <com.drughub.doctor.utils.DrughubIcon
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Plusicon"
-            android:textSize="25dp"
-            android:textColor="@color/colorDecoration"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:id="@+id/plusIcon" />
-       </FrameLayout>
-    </LinearLayout>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hintClinicName"
-        style="@style/EditTextStyle"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-         />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hintAddress"
-        style="@style/EditTextStyle"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:hint="@string/hintMobile"
-        android:layout_marginLeft="20dp"
-        android:inputType="phone"
-        style="@style/EditTextStyle"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:hint="@string/hintConsultationFee"
-        style="@style/EditTextStyle"
-        android:inputType="numberDecimal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:hint="@string/hintClinicTimings"
-        android:inputType="time"
-        style="@style/EditTextStyle"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:weightSum="1">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textFrom"
-        android:id="@+id/FromTextview"
-        android:layout_marginRight="90dp"
-        android:textColor="@color/Color_grey"
-        android:textSize="12dp"
-         />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/textTo"
-            android:id="@+id/Totextview"
-            android:textColor="@color/Color_grey"
-            android:textSize="12dp"
-            />
-    </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                android:gravity="center">
+                android:layout_marginLeft="20dp">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:hint="@string/hintDate"
-        android:id="@+id/FromDateBox"
-        android:inputType="date"
-        android:layout_marginRight="10dp"
-        android:textSize="12dp"
-        style="@style/EditTextStyle"
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-        />
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:hint="@string/hintDate"
-        android:textSize="12dp"
-        android:inputType="date"
-        style="@style/EditTextStyle"
-        />
+                    <View
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:background="@color/colorDecorationDark"/>
+
+                    <com.drughub.doctor.utils.DrughubIcon
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/icon_image"
+                        android:textSize="25dp"
+                        android:textColor="@color/colorDecoration"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:id="@+id/imageIcon" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp">
+
+                    <View
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:background="@color/colorDecorationDark"/>
+
+                    <com.drughub.doctor.utils.DrughubIcon
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Plusicon"
+                        android:textSize="25dp"
+                        android:textColor="@color/colorDecoration"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:id="@+id/plusIcon" />
+
+               </FrameLayout>
+
             </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nonWorkingDays"
-        android:textColor="@color/Color_grey"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:textSize="12dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hintClinicName"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="10dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hintAddress"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="10dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:hint="@string/hintMobile"
+                android:inputType="phone"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="10dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:hint="@string/hintConsultationFee"
+                style="@style/EditTextStyle"
+                android:inputType="numberDecimal"
+                android:layout_marginTop="10dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:hint="@string/hintClinicTimings"
+                android:inputType="time"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="10dp"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textFrom"
+                        android:textSize="13sp"
+                        android:textColor="@color/colorTextLight"
+                        android:layout_marginBottom="10dp"
+                        android:id="@+id/textView3"/>
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:inputType="date"
+                        android:hint="@string/hintDate"
+                        android:textSize="13sp"
+                        android:ems="10"
+                        android:id="@+id/editText"
+                        style="@style/EditTextStyle"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textTo"
+                        android:textSize="13sp"
+                        android:textColor="@color/colorTextLight"
+                        android:id="@+id/textView6"
+                        android:layout_marginBottom="10dp"/>
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/edit_text_height"
+                        android:inputType="date"
+                        android:hint="@string/hintDate"
+                        android:textSize="13sp"
+                        android:ems="10"
+                        android:id="@+id/editText2"
+                        style="@style/EditTextStyle"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nonWorkingDays"
+                android:textColor="@color/colorTextLight"
+                android:textSize="12dp"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginTop="5dp"
                 android:gravity="center">
 
@@ -247,25 +261,16 @@
                     style="@style/CheckBoxStyle"/>
 
             </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/consultationAtHomeText"
-        android:textSize="15dp"
-        android:textColor="@color/Color_grey"
-        />
-    </LinearLayout>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/consultationAtHomeText"
+                android:textSize="15dp"
+                android:textColor="@color/colorTextLight"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
