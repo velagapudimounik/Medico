@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Clinic Address"
             android:textColor="@color/colorPrimary"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:id="@+id/string2"/>
