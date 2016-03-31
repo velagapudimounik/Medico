@@ -1,51 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:gravity="center"
     android:layout_margin="10dp"
-    android:background="@drawable/round_rect_fill_white">
+    android:background="@drawable/round_rect_fill_white"
+    android:gravity="center"
+    android:orientation="vertical">
 
     <TextView
+        android:id="@+id/dialogQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="How would you rate your drughub experience?"
-        android:textSize="@dimen/text_medium"
-        android:textColor="@color/colorText"
-        android:id="@+id/dialogQuestion"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:padding="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"/>
+        android:text="How would you rate your drughub experience?"
+        android:textColor="@color/colorText"
+        android:textSize="@dimen/text_medium" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorDecoration"/>
+        android:background="@color/colorDecoration" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:weightSum="2"
-        android:padding="10dp">
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:weightSum="2">
 
         <RatingBar
+            android:id="@+id/ratingbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ratingbar"
+            android:layout_weight="1"
             android:numStars="5"
-            android:layout_weight="1" />
+            android:progressDrawable="@drawable/rating_drawable" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/submit"
             android:id="@+id/submit"
             style="@style/ButtonStyle"
-            android:layout_weight="1" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/submit" />
 
     </LinearLayout>
 

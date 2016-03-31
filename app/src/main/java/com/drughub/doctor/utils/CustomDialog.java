@@ -2,11 +2,8 @@ package com.drughub.doctor.utils;
 
 
 import android.app.Dialog;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.LayerDrawable;
-import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -95,8 +92,11 @@ public class CustomDialog
         final Dialog dialog = showCustomDialog(activity, R.layout.dialog_rateapp, Gravity.CENTER, true, false, true);
 
         RatingBar ratingBar = (RatingBar)dialog.findViewById(R.id.ratingbar);
-        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(activity.getApplicationContext(), R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+
+//        Drawable drawable = ratingBar.getProgressDrawable();
+//        drawable.setColorFilter(ContextCompat.getColor(activity.getApplicationContext(), R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+//        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+//        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(activity.getApplicationContext(), R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
         Button submit = (Button)dialog.findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
