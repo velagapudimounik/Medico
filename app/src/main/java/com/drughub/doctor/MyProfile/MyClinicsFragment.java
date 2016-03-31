@@ -35,7 +35,6 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-
         mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
 
         View.OnClickListener listener=new View.OnClickListener() {
