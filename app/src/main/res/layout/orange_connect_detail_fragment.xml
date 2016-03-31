@@ -45,14 +45,15 @@
         android:layout_marginTop="@dimen/margin_small"
         android:background="@color/colorWhite"
         android:gravity="center"
-        android:padding="@dimen/margin_small"
+        android:padding="@dimen/margin_medium"
         android:text="@string/administered"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_teen"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/orange_connect_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_small" />
+        android:layout_margin="3dp" />
 
 </LinearLayout>

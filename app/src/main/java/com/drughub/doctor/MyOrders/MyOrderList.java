@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.drughub.doctor.R;
+import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
 
 public class MyOrderList extends Fragment {
@@ -31,6 +32,8 @@ public class MyOrderList extends Fragment {
         itemlist.hasFixedSize();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
         itemlist.setLayoutManager(linearLayoutManager);
+
+        itemlist.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
 
         MyOrderActivityAdapter adapter = new MyOrderActivityAdapter(this.getActivity());
         itemlist.setAdapter(adapter);

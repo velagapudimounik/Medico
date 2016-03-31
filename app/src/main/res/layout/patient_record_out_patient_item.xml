@@ -1,64 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
-    android:gravity="center">
+    android:padding="10dp">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <FrameLayout
+        android:id="@+id/userIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:background="@drawable/fill_circle_light_grey"
+        android:visibility="visible">
 
-        <FrameLayout
-            android:id="@+id/userIcon"
+        <com.drughub.doctor.utils.DrughubIcon
+            android:id="@+id/clinicIcon1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/icon_profile_pic"
+            android:textColor="@color/colorDecoration"
+            android:textSize="30sp" />
 
-            <View
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_gravity="center"
-                android:background="@drawable/fill_circle_light_grey" />
-
-            <com.drughub.doctor.utils.DrughubIcon
-                android:id="@+id/clinicIcon1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/icon_profile_pic"
-                android:textColor="@color/colorDecoration"
-                android:textSize="25sp" />
-
-        </FrameLayout>
-
-    </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/linearLayout"
-        android:layout_toLeftOf="@+id/arrowicon"
-        android:layout_toRightOf="@+id/linearLayout"
-        android:layout_toStartOf="@+id/arrowicon"
-        android:orientation="vertical">
+        android:layout_toEndOf="@+id/userIcon"
+        android:layout_toRightOf="@+id/userIcon"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
 
         <TextView
             android:id="@+id/patient_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Amar"
-            android:textSize="@dimen/text_medium" />
+            android:textSize="@dimen/text_small"
+            android:layout_marginBottom="5dp"/>
 
         <TextView
             android:id="@+id/patient_dob"
@@ -67,6 +53,7 @@
             android:text="D.O.B : 24th Nov 1998"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_tiny" />
+
     </LinearLayout>
 
     <RelativeLayout
@@ -76,7 +63,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_margin="10dp"
         android:background="@drawable/draw_circle_grey">
 
         <com.drughub.doctor.utils.DrughubIcon
@@ -89,7 +75,6 @@
             android:textSize="20sp" />
 
     </RelativeLayout>
-
 
 </RelativeLayout>
 

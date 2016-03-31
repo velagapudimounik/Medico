@@ -3,136 +3,98 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:orientation="vertical">
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/Name"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorWhite"
-        android:textColorHint="@color/Color_grey"/>
-            <View
+
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/Color_grey"/>
+                android:layout_height="wrap_content"
+                android:hint="@string/Name"
+                android:layout_marginTop="10dp"
+                style="@style/EditTextStyleTransparent1"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
-        <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/hintDesignation"
-        android:background="@color/colorWhite"
-        android:textColorHint="@color/Color_grey"
-            android:layout_weight="0.41" />
+                android:layout_marginTop="10dp">
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hintDesignation"
+                    android:layout_weight="1"
+                    style="@style/EditTextStyleTransparent1" />
+
+                <EditText
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/hintSpecialization"
-                    android:background="@color/colorWhite"
-                    android:layout_marginLeft="50dp"
-                    android:paddingLeft="15dp"
-                    android:textColorHint="@color/Color_grey"
-                    android:layout_weight="0.53" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    style="@style/EditTextStyleTransparent1" />
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="1">
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="0.45"
-                    android:background="@color/Color_grey"/>
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:layout_weight="0.47"
-                    android:background="@color/Color_grey"/>
-            </LinearLayout>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edit_text_height"
-            android:hint="@string/hintYearsOfExperience"
-            android:background="@color/colorWhite"
-            android:inputType="number"
-            android:layout_marginTop="20dp"
-            android:textColorHint="@color/Color_grey"
-            />
-            <View
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/Color_grey"/>
+                android:layout_height="@dimen/edit_text_height"
+                android:hint="@string/hintYearsOfExperience"
+                android:inputType="number"
+                android:layout_marginTop="10dp"
+                style="@style/EditTextStyleTransparent1"/>
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:hint="@string/hintClinicName"
-                android:textColorHint="@color/Color_grey"
-                android:background="@color/colorWhite"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/Color_grey"/>
+                style="@style/EditTextStyleTransparent1"/>
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hintAddress"
-                android:layout_marginTop="20dp"
-                android:textColorHint="@color/Color_grey"
-                android:background="@color/colorWhite"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/Color_grey"/>
+                android:layout_marginTop="10dp"
+                style="@style/EditTextStyleTransparent1"/>
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edit_text_height"
-                android:background="@color/colorWhite"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:inputType="textEmailAddress"
                 android:hint="@string/hintEmailId"
-                android:textColorHint="@color/Color_grey"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/Color_grey"/>
+                style="@style/EditTextStyleTransparent1"/>
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edit_text_height"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:hint="@string/hintMobile"
                 android:inputType="phone"
-                android:textColorHint="@color/Color_grey"
-                android:background="@color/colorWhite"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/Color_grey"/>
+                style="@style/EditTextStyleTransparent1"/>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/update"
                 style="@style/ButtonStyle"
                 android:id="@+id/UpdateButton"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="15dp"/>
+
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

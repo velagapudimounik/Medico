@@ -47,7 +47,6 @@ public class OrderSummary extends Fragment {
 
         final TextView edit = (TextView) view.findViewById(R.id.edit);
         Button confirm_order = (Button) view.findViewById(R.id.confirm_order);
-        edit.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

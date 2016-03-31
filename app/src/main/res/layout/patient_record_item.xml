@@ -1,60 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
-    android:gravity="center">
+    android:padding="10dp">
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:background="@drawable/fill_circle_light_grey">
 
-        <FrameLayout
+        <com.drughub.doctor.utils.DrughubIcon
+            android:id="@+id/clinicIcon1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/icon_profile_pic"
+            android:textColor="@color/colorDecoration"
+            android:textSize="35dp" />
 
-            <View
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_gravity="center"
-                android:background="@drawable/fill_circle_light_grey" />
-
-            <com.drughub.doctor.utils.DrughubIcon
-                android:id="@+id/clinicIcon1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/icon_profile_pic"
-                android:textColor="@color/colorDecoration"
-                android:textSize="25dp" />
-
-        </FrameLayout>
-
-    </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/linearLayout"
+        android:orientation="vertical"
         android:layout_toRightOf="@+id/linearLayout"
-        android:orientation="vertical">
+        android:layout_toEndOf="@+id/linearLayout"
+        android:layout_toLeftOf="@+id/linearLayout2"
+        android:layout_toStartOf="@+id/linearLayout2"
+        android:layout_margin="10dp">
 
         <TextView
             android:id="@+id/patient_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_small"
-            android:text="Amar" />
+            android:text="Amar"
+            android:layout_marginBottom="5dp"/>
 
         <TextView
             android:id="@+id/patient_dob"
@@ -67,12 +56,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_margin="10dp"
-        android:padding="10dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:orientation="vertical">
@@ -93,7 +81,6 @@
             android:textSize="10sp" />
 
     </LinearLayout>
-
 
 </RelativeLayout>
 

@@ -42,6 +42,15 @@
         <item name="android:paddingLeft">@dimen/margin_small</item>
     </style>
 
+    <style name="EditTextStyleTransparent1" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/underline_light_grey</item>
+        <item name="android:height">@dimen/edit_text_height</item>
+        <item name="android:textColorHint">@color/colorDecorationLight</item>
+        <item name="android:paddingLeft">@dimen/margin_tiny</item>
+        <item name="android:paddingBottom">@dimen/margin_tiny</item>
+        <item name="android:gravity">bottom</item>
+    </style>
+
     <style name="EditTextStyleTransparent2" parent="android:Widget.EditText">
         <item name="android:background">@drawable/underline_grey</item>
         <item name="android:height">@dimen/edit_text_height</item>

@@ -29,7 +29,8 @@
                 android:textSize="70dp"
                 android:text="@string/icon_add_items"
                 android:gravity="center_horizontal"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
 
             <Button
                 android:layout_width="wrap_content"

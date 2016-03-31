@@ -15,14 +15,7 @@
     <string name="inventory_reserve">Reserve</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="my_inventory_no_items">No Items</string>
-    <string name="inventory_items_consumed">Consumed</string>
-    <string name="availableInventorytitle">Disease Name</string>
-    <string name="patientvaccineactivitytitle">Patient Name</string>
-    <string name="hep_b">HEP-B</string>
-    <string name="dpt">DPT</string>
-    <string name="polio">POLIO</string>
-    <string name="bcg">BCG</string>
-    <string name="cross_symbol">X</string>
+    <string name="cross_symbol">\u00D7</string>
     <string name="temperature">Administering Vaccine at Temp {temp}°C</string>
 
 

@@ -1,135 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal">
+    android:padding="10dp"
+    android:background="@color/colorWhite">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_gravity="right">
+        android:orientation="vertical"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/frameLayout5"
+        android:layout_toStartOf="@+id/frameLayout5">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
-            android:gravity="left">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="left">
+                android:text="@string/order_id"
+                android:textSize="16sp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:gravity="center_horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/order_id"
-                        android:textSize="18dp"
-
-                        android:layout_gravity="left" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="#014899d"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="18dp"
-
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/my_order_status"
-
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Processing "
-                        android:layout_marginLeft="5dp"
-                        android:textColor="#7a00ff00"
-                        />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/order_date"
-                        android:textColor="@color/colorPrimary"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="15 Oct 2015 "
-                        android:layout_marginLeft="5dp"
-                        android:textColor="@color/colorPrimary"
-                        />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="right">
-
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
-
-                    <View
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/fill_circle_white_with_background"/>
-                    <com.drughub.doctor.utils.DrughubIcon
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/orange_wallet"
-                        android:text="@string/icon_down_arrow"
-                        android:rotation="270"
-                        android:textSize="18dp"
-                        android:layout_gravity="center"
-                        android:textColor="@color/colorPrimary"/>
-
-
-
-                </FrameLayout>
-
-
-
-
-                </LinearLayout>
+                android:text="#014899d"
+                android:layout_marginLeft="5dp"
+                android:textSize="16sp"/>
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_order_status"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Processing "
+                android:layout_marginLeft="5dp"
+                android:textColor="#7a00ff00"/>
 
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_date"
+                android:textColor="@color/colorPrimary"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15 Oct 2015 "
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/colorPrimary"/>
 
-</LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/fill_circle_white_with_background"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/frameLayout5">
+
+        <com.drughub.doctor.utils.DrughubIcon
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/orange_wallet"
+            android:text="@string/icon_down_arrow"
+            android:rotation="270"
+            android:textSize="18dp"
+            android:layout_gravity="center"
+            android:textColor="@color/colorPrimary"/>
+
+    </FrameLayout>
+
+</RelativeLayout>

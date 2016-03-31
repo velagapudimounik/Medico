@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.drughub.doctor.R;
+import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 import com.drughub.doctor.utils.StringUtils;
 
 
@@ -39,6 +40,8 @@ public class Detail2OrangeConnectFragment extends Fragment {
 
         Detail2OrangeConnectAdapter adapter = new Detail2OrangeConnectAdapter(getActivity(), orangeConnects);
         recyclerView.setAdapter(adapter);
+
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
 
         return view;
     }
@@ -72,13 +75,14 @@ class Detail2OrangeConnectAdapter extends RecyclerView.Adapter<Detail2OrangeConn
     }
 
     public class DataObjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView report, content;
+        TextView report;
+        View content;
         RelativeLayout layout;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
             report = (TextView) itemView.findViewById(R.id.report);
-            content = (TextView) itemView.findViewById(R.id.content);
+            content = itemView.findViewById(R.id.content);
             layout = (RelativeLayout) itemView.findViewById(R.id.rel);
             layout.setOnClickListener(this);
         }
