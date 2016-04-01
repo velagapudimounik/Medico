@@ -1,21 +1,29 @@
 package com.drughub.doctor.consultation;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.widget.TimePicker;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
@@ -24,6 +32,7 @@ import com.drughub.doctor.R;
 import com.drughub.doctor.utils.CustomDialog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 class ItemConsultation
 {
@@ -40,7 +49,10 @@ class ItemConsultation
     }
 }
 
-public class ConsultationFragment extends Fragment {
+public class ConsultationFragment extends DialogFragment {
+
+    EditText datePicker , timePicker;
+    int day = -1,month = -1,year = -1,hour = -1,minute = -1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,13 +72,68 @@ public class ConsultationFragment extends Fragment {
                 //((BaseActivity)getActivity()).setBackButton(true);
                 final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)getActivity(), R.layout.consultation_add_new,
                         Gravity.BOTTOM, true, false, true);
-                Spinner time_dropdown = (Spinner)dialog.findViewById(R.id.time_extension);
+                final Spinner time_dropdown = (Spinner)dialog.findViewById(R.id.time_extension);
                 String[] time_items = new String[]{getString(R.string.am), getString(R.string.pm)};
                 ArrayAdapter<String> time_adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, time_items);
                 time_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 time_dropdown.setAdapter(time_adapter);
 
 
+                datePicker = (EditText) dialog.findViewById(R.id.dateOfBirth);
+                timePicker = (EditText) dialog.findViewById(R.id.timeOfBirth);
+                datePicker.setKeyListener(null);
+                timePicker.setKeyListener(null);
+
+
+
+                datePicker.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener()
+                        {
+                            @Override
+                            public void onDateSet(DatePicker view, int local_year, int monthOfYear, int dayOfMonth) {
+                                datePicker.setText(String.format("%02d", dayOfMonth) + "/" + String.format("%02d", (monthOfYear+1)) + "/" + local_year);
+                                datePicker.setTextColor(Color.GRAY);
+                                day = dayOfMonth;
+                                month = monthOfYear;
+                                year = local_year;
+                            }
+                        };
+                        CustomDialog.showDatePicker((BaseActivity)getActivity(),onDateSetListener,day,month,year);
+
+                    }
+                });
+
+                timePicker.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+
+                                TimePickerDialog.OnTimeSetListener  onTimeSetListener =   new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int local_minute) {
+                                if( hourOfDay > 12)
+                                {
+                                    timePicker.setText(String.format("%02d", (hourOfDay-12)) + ":" + String.format("%02d", local_minute) );
+                                    time_dropdown.setSelection(1);
+                                }
+                                else {
+                                    timePicker.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", local_minute));
+                                    time_dropdown.setSelection(0);
+                                }
+
+                                minute = local_minute;
+                                hour = hourOfDay;
+                                timePicker.setTextColor(Color.GRAY);
+
+                            }
+                        };
+                        CustomDialog.showtimePicker((BaseActivity) getActivity(), onTimeSetListener, hour, minute);
+
+                    }
+                });
 
 
                 View addBtn = dialog.findViewById(R.id.addConsultationBtn);

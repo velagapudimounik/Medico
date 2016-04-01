@@ -74,7 +74,7 @@
                 android:hint="@string/hintDate"
                 android:textSize="13sp"
                 android:ems="10"
-                android:id="@+id/editText"
+                android:id="@+id/from_date_picker"
                 style="@style/EditTextStyle"/>
 
         </LinearLayout>
@@ -103,7 +103,7 @@
                 android:hint="@string/hintDate"
                 android:textSize="13sp"
                 android:ems="10"
-                android:id="@+id/editText2"
+                android:id="@+id/to_date_picker"
                 style="@style/EditTextStyle"/>
 
         </LinearLayout>

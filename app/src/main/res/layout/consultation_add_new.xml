@@ -172,7 +172,7 @@
                         android:layout_toLeftOf="@+id/time_extension" />
 
                     <Spinner
-                        android:layout_width="40dp"
+                        android:layout_width="50dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="5dp"
                         android:paddingLeft="0dp"

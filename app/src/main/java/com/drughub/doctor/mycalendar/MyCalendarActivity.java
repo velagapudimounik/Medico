@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioGroup;
@@ -19,6 +20,8 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.DatePickerDialog;
+import android.widget.DatePicker;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.Notification.NotificationActivity;
@@ -26,6 +29,7 @@ import com.drughub.doctor.R;
 import com.drughub.doctor.utils.CustomDialog;
 
 import java.lang.reflect.Field;
+import java.util.Calendar;
 
 enum CLOCK_PICKER
 {
@@ -35,8 +39,13 @@ enum CLOCK_PICKER
 }
 
 public class MyCalendarActivity extends BaseActivity {
+
     final  String[] spinnervalues={"Clinic Name1 |","Clinic Name2 |","Clinic Name3 |","My Address"};
     final  String[] spinneraddress={"Address1","Address2","Address3",""};
+
+    int from_day = -1,from_month = -1,from_year =  -1;
+    int to_day = -1,to_month = -1,to_year =  -1;
+    EditText from_date_picker_edt , to_date_picker_edt;
     @Override
     public void onActionButtonClicked(int drughubIconsRes) {
         super.onActionButtonClicked(drughubIconsRes);
@@ -55,7 +64,6 @@ public class MyCalendarActivity extends BaseActivity {
         addActionButton(R.string.icon_notification);
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -78,17 +86,60 @@ public class MyCalendarActivity extends BaseActivity {
                 final Dialog dialog = CustomDialog.showCustomDialog(MyCalendarActivity.this, R.layout.mycalendar_create_new,
                         Gravity.BOTTOM, true, true, false);
 
-                Spinner myspinner = (Spinner)dialog.findViewById(R.id.addressSelection);
+                Spinner myspinner = (Spinner) dialog.findViewById(R.id.addressSelection);
+                from_date_picker_edt = (EditText) dialog.findViewById(R.id.from_date_picker);
+                to_date_picker_edt = (EditText) dialog.findViewById(R.id.to_date_picker);
+                from_date_picker_edt.setKeyListener(null);
+                to_date_picker_edt.setKeyListener(null);
+
+                from_date_picker_edt.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+                        DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int local_year, int monthOfYear, int dayOfMonth) {
+                                from_date_picker_edt.setText(String.format("%02d", dayOfMonth) + "/" + String.format("%02d", (monthOfYear+1)) + "/" + local_year);
+                                from_date_picker_edt.setTextColor(Color.GRAY);
+                                from_day = dayOfMonth;
+                                from_month = monthOfYear;
+                                from_year = local_year;
+                            }
+                        };
+                        CustomDialog.showDatePicker(MyCalendarActivity.this, onDateSetListener, from_day, from_month, from_year);
+                    }
+                });
+                to_date_picker_edt.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+                        DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int local_year, int monthOfYear, int dayOfMonth) {
+                                to_date_picker_edt.setText(String.format("%02d", dayOfMonth) + "/" + String.format("%02d", (monthOfYear+1)) + "/" + local_year);
+                                to_date_picker_edt.setTextColor(Color.GRAY);
+                                to_day = dayOfMonth;
+                                to_month = monthOfYear;
+                                to_year = local_year;
+                            }
+                        };
+                        CustomDialog.showDatePicker(MyCalendarActivity.this, onDateSetListener, to_day, to_month, to_year);
+                    }
+                });
 
 
-                myspinner.setAdapter(new CustomAdapter(getApplicationContext(),spinnervalues));
+                myspinner.setAdapter(new CustomAdapter(getApplicationContext(), spinnervalues));
                 myspinner.setSelection(myspinner.getCount());
                 initNumberPicker((NumberPicker) dialog.findViewById(R.id.hourPickerFrom), CLOCK_PICKER.HOURS);
-                initNumberPicker((NumberPicker)dialog.findViewById(R.id.minutePickerFrom), CLOCK_PICKER.MINUTES);
-                initNumberPicker((NumberPicker)dialog.findViewById(R.id.dayPickerFrom), CLOCK_PICKER.MERIDIEM);
-                initNumberPicker((NumberPicker)dialog.findViewById(R.id.hourPickerTo), CLOCK_PICKER.HOURS);
-                initNumberPicker((NumberPicker)dialog.findViewById(R.id.minutePickerTo), CLOCK_PICKER.MINUTES);
-                initNumberPicker((NumberPicker)dialog.findViewById(R.id.dayPickerTo), CLOCK_PICKER.MERIDIEM);
+                initNumberPicker((NumberPicker) dialog.findViewById(R.id.minutePickerFrom), CLOCK_PICKER.MINUTES);
+                initNumberPicker((NumberPicker) dialog.findViewById(R.id.dayPickerFrom), CLOCK_PICKER.MERIDIEM);
+                initNumberPicker((NumberPicker) dialog.findViewById(R.id.hourPickerTo), CLOCK_PICKER.HOURS);
+                initNumberPicker((NumberPicker) dialog.findViewById(R.id.minutePickerTo), CLOCK_PICKER.MINUTES);
+                initNumberPicker((NumberPicker) dialog.findViewById(R.id.dayPickerTo), CLOCK_PICKER.MERIDIEM);
 
                 View addBtn = dialog.findViewById(R.id.addBtn);
                 addBtn.setOnClickListener(new View.OnClickListener() {
