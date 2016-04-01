@@ -26,6 +26,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 class AvailableInventoryItem {
     public String vaccineName;
@@ -172,12 +173,46 @@ public class AvailableInventoryActivity extends BaseActivity {
         xVals.add("16 Oct");
         xVals.add("17 Oct");
         lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+//        lineChart.getXAxis().addLimitLine(new LimitLine(2f, "2"));
+//        lineChart.getXAxis().addLimitLine(new LimitLine(2f, "8"));
+        lineChart.setContentDescription("");
+
+        {
+            XAxis xAxis = lineChart.getXAxis();
+            xAxis.setTextSize(9f);
+            xAxis.setTextColor(Color.BLACK);
+            xAxis.setAxisLineColor(Color.TRANSPARENT);
+            xAxis.setSpaceBetweenLabels(1);
+            xAxis.setDrawLabels(false); // no axis labels
+//            xAxis.setDrawAxisLine(false); // no axis line
+            xAxis.setDrawGridLines(false); //
+
+            YAxis leftAxis = lineChart.getAxisLeft();
+            leftAxis.setTextColor(ColorTemplate.getHoloBlue());
+            leftAxis.setAxisLineColor(Color.TRANSPARENT);
+            leftAxis.setAxisMaxValue(10f);
+            leftAxis.setAxisMinValue(0f);
+//            leftAxis.setDrawLabels(false); // no axis labels
+//            leftAxis.setDrawAxisLine(false); // no axis line
+            leftAxis.setDrawGridLines(false); //
+
+            YAxis rightAxis = lineChart.getAxisRight();
+            rightAxis.setAxisLineColor(Color.TRANSPARENT);
+            rightAxis.setTextColor(Color.RED);
+            rightAxis.setDrawZeroLine(false);
+            rightAxis.setDrawLabels(false); // no axis labels
+            rightAxis.setDrawAxisLine(false); // no axis line
+            rightAxis.setDrawGridLines(false); //
+        }
+
+//        lineChart.getXAxis().addLimitLine(new LimitLine(8));
+
 
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
         ArrayList<Entry> yVals2 = new ArrayList<Entry>();
 
         for (int i = 0; i < count; i++) {
-            yVals1.add(new Entry(i * 2, i));
+            yVals1.add(new Entry(new Random().nextInt(10), i));
         }
         for (int i = 0; i < count; i++) {
             yVals2.add(new Entry(3, i));
@@ -191,9 +226,8 @@ public class AvailableInventoryActivity extends BaseActivity {
         LineDataSet set5 = new LineDataSet(yVals1, "Doctor");
 
 
-        set1.setAxisDependency(YAxis.AxisDependency.LEFT);
         set1.setColor(ColorTemplate.getHoloBlue());
-        set1.setCircleColor(Color.WHITE);
+        set1.setCircleColor(Color.RED);
         set1.setLineWidth(2f);
         set1.setCircleRadius(3f);
         set1.setFillAlpha(65);
@@ -201,7 +235,7 @@ public class AvailableInventoryActivity extends BaseActivity {
         set1.setHighLightColor(Color.rgb(244, 117, 117));
         set1.setDrawCircleHole(false);
         //set1.setFillFormatter(new MyFillFormatter(0f));
-//        set1.setDrawHorizontalHighlightIndicator(false);
+        set1.setDrawHorizontalHighlightIndicator(false);
 //        set1.setVisible(false);
 //        set1.setCircleHoleColor(Color.WHITE);
 
@@ -231,6 +265,8 @@ public class AvailableInventoryActivity extends BaseActivity {
         data.setValueTextSize(9f);
 
         // set data
+        //        lineChart.setDrawGridBackground(false);
         lineChart.setData(data);
+        lineChart.invalidate();
     }
 }
