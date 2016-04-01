@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Doctor</string>
+    <string name="app_name">Doctor App</string>
     <string name="action_settings">Settings</string>
 
     <!--Main Tabs-->
@@ -259,7 +259,7 @@
     <string name="newPassword">New Password</string>
     <string name="confirmPassword">Confirm Passowrd</string>
     <string name="addClinic">Add Clinic</string>
-    <string name="deleteClinicMessage">Are you Sure?\nYou want to remove Clinic</string>
+    <string name="deleteClinicMessage">Are you Sure?\nYou want to remove Clinic.</string>
     <string name="hintConsultationFee">Consultation Fee</string>
     <string name="hintClinicTimings">Clinic Timings</string>
     <string name="Monday_text">Mon</string>

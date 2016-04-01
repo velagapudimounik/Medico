@@ -1,5 +1,6 @@
 package com.drughub.doctor.MyProfile;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
+import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.utils.CustomDialog;
 import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
 import android.widget.Button;
@@ -53,7 +58,7 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
     }
 
 
-    public class MyClinicsListAdapter extends RecyclerView.Adapter<MyClinicsListAdapter.RecyclerViewHolder> {
+    public class MyClinicsListAdapter extends RecyclerSwipeAdapter<MyClinicsListAdapter.RecyclerViewHolder> {
 
         FragmentActivity context=null;
 
@@ -68,7 +73,37 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
         }
 
         @Override
-        public void onBindViewHolder(RecyclerViewHolder holder, int position) {
+        public void onBindViewHolder(RecyclerViewHolder viewHolder, int position) {
+
+            viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity) context, context.getResources().getString(R.string.deleteClinicMessage));
+
+                    View noBtn = dialog.findViewById(R.id.dialogNoBtn);
+                    noBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    View yesBtn = dialog.findViewById(R.id.dialogYesBtn);
+                    yesBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+//                            mItemManger.removeShownLayouts(viewHolder.swipeLayout);
+//                            mDataSet.remove(position);
+//                            notifyItemRemoved(position);
+//                            notifyItemRangeChanged(position, mDataSet.size());
+//                            mItemManger.closeAllItems();
+                        }
+                    });
+                }
+            });
+
+            mItemManger.bindView(viewHolder.itemView, position);
         }
 
         @Override
@@ -76,16 +111,31 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
             return 5;
         }
 
+        @Override
+        public int getSwipeLayoutResourceId(int position) {
+            return R.id.swipe;
+        }
+
         public class RecyclerViewHolder extends RecyclerView.ViewHolder {
+
+            SwipeLayout swipeLayout;
+            View deleteBtn;
 
             public RecyclerViewHolder(View itemView) {
                 super(itemView);
-                itemView.setOnClickListener(new View.OnClickListener() {
+
+                View myClinicItem = itemView.findViewById(R.id.myClinicItem);
+
+                myClinicItem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        context.getSupportFragmentManager().beginTransaction().add(R.id.containeractivity,new MyProfileClinicDetailsFragment()).addToBackStack(null).commit();
+                        context.getSupportFragmentManager().beginTransaction().add(R.id.containeractivity, new MyProfileClinicDetailsFragment()).addToBackStack(null).commit();
                     }
                 });
+
+                deleteBtn = itemView.findViewById(R.id.deleteClinic);
+
+                swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
             }
         }
     }
