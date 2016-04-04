@@ -1,9 +1,9 @@
 package com.drughub.doctor.Login;
 
-import android.graphics.Typeface;
-import android.support.v4.app.Fragment;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +34,7 @@ public class LoginPage extends Fragment {
             @Override
             public void onClick(View view) {
                 if (view == loginButton){
-                    startActivity(new Intent(getActivity(), MainActivity.class));
-                    getActivity().finish();
+                    signIn("username", "password");
                 } else if (view == signUpButton) {
                     getFragmentManager().beginTransaction().replace(R.id.container1, new SignUpFragment()).addToBackStack(null).commit();
                 } else if (view == forgotPasswordTextView) {
@@ -49,5 +48,10 @@ public class LoginPage extends Fragment {
         forgotPasswordTextView.setOnClickListener(listener);
 
         return view;
+    }
+
+    private void signIn(String username, String password) {
+        startActivity(new Intent(getActivity(), MainActivity.class));
+        getActivity().finish();
     }
 }

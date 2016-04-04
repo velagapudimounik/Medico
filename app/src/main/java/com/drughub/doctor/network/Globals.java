@@ -389,7 +389,7 @@ public class Globals {
         return manufacturer + " " + model;
     }
 
-//    public static Bitmap customMarker(Context context, Bitmap bmp1) {
+    //    public static Bitmap customMarker(Context context, Bitmap bmp1) {
 //        Bitmap bmp2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.pin);
 //        try {
 //
@@ -403,5 +403,11 @@ public class Globals {
 //            return bmp2;
 //        }
 //    }
-
+    public final static boolean isValidEmail(String email) {
+        if (email == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        }
+    }
 }

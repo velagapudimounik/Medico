@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.utils.DrughubIcon;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class BaseActivity extends AppCompatActivity {
     private TextView mTitleText;
     private Toolbar mToolbar;
     private List<View> actionBtns = new ArrayList<>();
+    private Globals globals;
 
     @Override
     public void setContentView(int layoutResID) {
@@ -31,6 +33,7 @@ public class BaseActivity extends AppCompatActivity {
         FrameLayout activityContainer = (FrameLayout) fullView.findViewById(R.id.activity_content);
         getLayoutInflater().inflate(layoutResID, activityContainer, true);
         super.setContentView(fullView);
+        globals = new Globals(getApplicationContext());
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
