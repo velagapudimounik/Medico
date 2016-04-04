@@ -1,11 +1,16 @@
 package com.drughub.doctor.model;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import io.realm.RealmObject;
 
 
 public class Timings extends RealmObject {
 
-    private Integer fromTimeMinutes;
+    private Integer fromTimeMinutes = 1;
     private Integer toTimeHour;
     private Integer toTimeMinutes;
     private Integer fromTimeHour;
@@ -43,5 +48,20 @@ public class Timings extends RealmObject {
     }
 
 
+    public JSONObject getJSONObject() {
 
+        JSONObject object = new JSONObject();
+        try {
+            object.put("fromTimeMinutes",getFromTimeMinutes());
+            object.put("toTimeHour",getToTimeHour());
+            object.put("toTimeMinutes",getToTimeMinutes());
+            object.put("fromTimeHour",getFromTimeHour());
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return object;
+    }
 }

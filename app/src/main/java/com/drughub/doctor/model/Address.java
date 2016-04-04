@@ -3,7 +3,7 @@ package com.drughub.doctor.model;
 import io.realm.RealmObject;
 
 public class Address extends RealmObject {
-    private String buildingName;
+    private String buildingName = "123";
     private String Country;
     private String colony;
     private String City;

@@ -1,25 +1,35 @@
 package com.drughub.doctor.model;
 
+import android.content.Context;
+
+import com.drughub.doctor.network.Globals;
+import com.drughub.doctor.network.Urls;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 import io.realm.RealmObject;
 
 
 public class ServiceProvider extends RealmObject {
 
-    private String firstName;
-    private String lastName;
-    private String phone;
+    private String firstName = "Achyuth";
+    private String lastName = "Kumar";
+    private String phone = "123456789";
     private String buildingName;
     private String colony;
     private String doorNumber;
     private String street;
     private String postalCode;
-    private String City;
+    private String City = "HYd";
     private String State;
-    private String Country;
-    private String email;
-    private String qualification;
-    private String specialization;
-    private Integer experienceInYears;
+    private String Country = "India";
+    private String email = "achyuth@drughub.in";
+    private String qualification = "Btech";
+    private String specialization = "Android";
+    private Integer experienceInYears = 1;
+    private Address address = new Address();
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -142,4 +152,75 @@ public class ServiceProvider extends RealmObject {
         this.experienceInYears = experienceInYears;
     }
 
+    public String toUpdateServiceProvider() {
+        JSONObject object = new JSONObject();
+        JSONObject address_object = new JSONObject();
+        try {
+            object.put("firstName", getFirstName());
+            object.put("lastname", getLastName());
+            object.put("phone", getPhone());
+            object.put("qualification", getQualification());
+            object.put("specialization", getSpecialization());
+            object.put("experienceInYears", getExperienceInYears());
+
+            address_object.put("buildingName", address.getBuildingName());
+            address_object.put("country", address.getCountry());
+            address_object.put("colony", address.getColony());
+            address_object.put("doorNumber", address.getDoorNumber());
+            address_object.put("city", address.getCity());
+            address_object.put("street", address.getStreet());
+            address_object.put("postalCode", address.getPostalCode());
+            address_object.put("state", address.getState());
+
+
+            object.put("address", address_object);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return object.toString();
+    }
+
+
+    public void UpdateServiceProvider(Context context) {
+        HashMap<String, String> headers = new HashMap<>();
+        HashMap<String, String> params = new HashMap<>();
+        Globals.PUT(Urls.SERVICE_PROVIDER, headers, params, toUpdateServiceProvider(), new Globals.VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                try {
+                    JSONObject response = new JSONObject();
+                    // ToDo UpdateServiceProvider(SP)
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFail(String result) {
+
+            }
+        });
+
+    }
+
+    public void CreateServiceProvider() {
+        HashMap<String, String> headers = new HashMap<>();
+        Globals.GET(Urls.SERVICE_PROVIDER, headers, new Globals.VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+
+            @Override
+            public void onFail(String result) {
+
+            }
+        });
+
+
+    }
 }
