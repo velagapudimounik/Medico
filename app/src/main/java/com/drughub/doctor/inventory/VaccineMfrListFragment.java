@@ -2,6 +2,7 @@ package com.drughub.doctor.inventory;
 
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -11,6 +12,7 @@ import android.text.Html;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,18 +28,21 @@ import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
 
-class VaccineMfrItem
-{
+class VaccineMfrItem {
     public String manufacturerName;
-    public VaccineMfrItem(String name)
-    {
+
+    public VaccineMfrItem(String name) {
         manufacturerName = name;
     }
 }
 
 public class VaccineMfrListFragment extends Fragment {
+
     RecyclerView mRecyclerView;
     String mVaccineName;
+
+    final static String[] vaccine_mfr_List = {"0.5ml", "1ml", "1.5ml", "2ml"};
+    static int current_index = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,8 +53,7 @@ public class VaccineMfrListFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState)
-    {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.inventory_manufacturers_list);
         mRecyclerView.setHasFixedSize(true);
 
@@ -60,9 +64,8 @@ public class VaccineMfrListFragment extends Fragment {
 
         ArrayList<VaccineMfrItem> mDataset = new ArrayList<>();
 
-        for(int i=0; i<5; i++)
-        {
-            VaccineMfrItem item = new VaccineMfrItem("Manufacturer"+i);
+        for (int i = 0; i < 5; i++) {
+            VaccineMfrItem item = new VaccineMfrItem("Manufacturer" + i);
             mDataset.add(item);
         }
 
@@ -70,8 +73,7 @@ public class VaccineMfrListFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    public static class VaccineMfrListAdapter extends RecyclerView.Adapter<VaccineMfrListAdapter.ViewHolder>
-    {
+    public static class VaccineMfrListAdapter extends RecyclerView.Adapter<VaccineMfrListAdapter.ViewHolder> {
         private ArrayList<VaccineMfrItem> mDataSet;
         static FragmentActivity sContext;
         String mVaccineName;
@@ -83,16 +85,14 @@ public class VaccineMfrListFragment extends Fragment {
             private View mItemView;
             private View mPurchaseBtn;
 
-            public ViewHolder(View v)
-            {
+            public ViewHolder(View v) {
                 super(v);
 
                 mItemView = v;
 
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v)
-                    {
+                    public void onClick(View v) {
 
                     }
                 });
@@ -105,15 +105,14 @@ public class VaccineMfrListFragment extends Fragment {
 
                 mPurchaseBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v)
-                    {
-                        final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)sContext, R.layout.inventory_add_to_cart_dialog,
+                    public void onClick(View v) {
+                        final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity) sContext, R.layout.inventory_add_to_cart_dialog,
                                 Gravity.CENTER, true, false, true);
 
-                        TextView textView = (TextView)dialog.findViewById(R.id.add_to_cart_db_title);
+                        TextView textView = (TextView) dialog.findViewById(R.id.add_to_cart_db_title);
                         textView.setText(Html.fromHtml("Vaccine name | <font color='#ff5722'>Manufacturer</font>"));
 
-                        Spinner dropdown = (Spinner)dialog.findViewById(R.id.add_to_cart_db_quantity_ropDown);
+                        Spinner dropdown = (Spinner) dialog.findViewById(R.id.add_to_cart_db_quantity_ropDown);
                         String[] items = new String[]{"0.5ML", "1ML", "2ML"};
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(sContext, android.R.layout.simple_list_item_1, items);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -136,13 +135,11 @@ public class VaccineMfrListFragment extends Fragment {
                 });
             }
 
-            public void setItemSelected(boolean selected)
-            {
+            public void setItemSelected(boolean selected) {
                 mItemView.setSelected(selected);
             }
 
-            public void setItemDetails(VaccineMfrItem item, String vaccineNameText)
-            {
+            public void setItemDetails(VaccineMfrItem item, String vaccineNameText) {
                 textView.setText(item.manufacturerName);
                 vaccineName.setText(vaccineNameText);
 
@@ -152,8 +149,7 @@ public class VaccineMfrListFragment extends Fragment {
             }
         }
 
-        public VaccineMfrListAdapter(ArrayList<VaccineMfrItem> dataSet, FragmentActivity context, String vaccineName)
-        {
+        public VaccineMfrListAdapter(ArrayList<VaccineMfrItem> dataSet, FragmentActivity context, String vaccineName) {
             mDataSet = dataSet;
             sContext = context;
             mVaccineName = vaccineName;
@@ -165,20 +161,55 @@ public class VaccineMfrListFragment extends Fragment {
             View v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.inventory_vaccine_mfr_item, viewGroup, false);
 
+            final com.drughub.doctor.utils.DrughubIcon upArrow = (com.drughub.doctor.utils.DrughubIcon) v.findViewById(R.id.up_arrow);
+            final com.drughub.doctor.utils.DrughubIcon downAroow = (com.drughub.doctor.utils.DrughubIcon) v.findViewById(R.id.down_arrow);
+            final TextView item_size = (TextView) v.findViewById(R.id.textItemSize);
+            item_size.setText(vaccine_mfr_List[current_index]);
+            upArrow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    String local = item_size.getText().toString();
+                    if (current_index != vaccine_mfr_List.length - 1) {
+                        current_index++;
+                        downAroow.setTextColor(Color.RED);
+                        item_size.setText(vaccine_mfr_List[current_index]);
+                        if (current_index == vaccine_mfr_List.length - 1)
+                            upArrow.setTextColor(Color.GRAY);
+                        else
+                            upArrow.setTextColor(Color.RED);
+                    }
+
+                }
+            });
+            downAroow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (current_index != 0) {
+                        upArrow.setTextColor(Color.RED);
+                        current_index--;
+                        item_size.setText(vaccine_mfr_List[current_index]);
+                        if (current_index == 0)
+                            downAroow.setTextColor(Color.GRAY);
+                        else
+                            downAroow.setTextColor(Color.RED);
+                    }
+
+                }
+            });
+
+
             return new ViewHolder(v);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, final int position)
-        {
+        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
             // Get element from your dataset at this position and replace the contents of the view
             // with that element
             viewHolder.setItemDetails(mDataSet.get(position), mVaccineName);
         }
 
         @Override
-        public int getItemCount()
-        {
+        public int getItemCount() {
             return mDataSet.size();
         }
     }
