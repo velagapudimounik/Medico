@@ -160,6 +160,58 @@ public class Globals {
 
         return stringResponse;
     }
+    public static String PUT(String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
+        getRequestQueue();
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.v("Global Response", response);
+                stringResponse = response;
+                callback.onSuccess(stringResponse);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                stringResponse = "Connection TimeOut. Please try again.";
+                try {
+                    if (volleyError.networkResponse.statusCode == 404) {
+                        Log.v("statusCode", "" + volleyError.networkResponse.statusCode);
+                        stringResponse = "URL Not Found";
+                        Log.v("stringResponse", stringResponse);
+                    } else if (volleyError.networkResponse.statusCode == 400) {
+                        stringResponse = "Bad Request";
+                    } else if (volleyError.networkResponse.statusCode == 500) {
+                        stringResponse = "Internal Server Error";
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                callback.onFail(stringResponse);
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Log.v("globals params", "" + params);
+                return params;
+            }
+
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Log.v("globals headers", "" + headers);
+                return headers;
+            }
+
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(MY_SOCKET_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        addRequestQueue(stringRequest);
+
+        return stringResponse;
+    }
+
 
     /*IMAGE REQUEST FOR API*/
     public static Bitmap IMAGE(String url, final HashMap<String, String> headers, int width, int height, final VolleyImageCallback callback) {
