@@ -37,6 +37,9 @@ public class BaseActivity extends AppCompatActivity {
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        int pixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics());
+        mToolbar.setPadding(pixels, pixels, pixels, pixels);
+
         setSupportActionBar(mToolbar);
         mTitleText = (TextView) mToolbar.findViewById(R.id.toolbar_title);
 
@@ -93,14 +96,15 @@ public class BaseActivity extends AppCompatActivity {
         actionBtn.setText(getString(drughubIconRes));
         actionBtn.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
         actionBtn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 25);
+        actionBtn.setBackgroundResource(R.drawable.background_selector_action_button);
         actionBtn.setTag(drughubIconRes);
+
+        int pixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
+        actionBtn.setPadding(pixels, pixels, pixels, pixels);
 
         Toolbar.LayoutParams params = new Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.RIGHT;
         actionBtn.setLayoutParams(params);
-
-        int pixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
-        actionBtn.setPadding(0, 0, pixels, 0);
 
         mToolbar.addView(actionBtn);
         actionBtns.add(actionBtn);
