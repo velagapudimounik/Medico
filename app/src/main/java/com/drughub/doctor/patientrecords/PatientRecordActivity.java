@@ -35,4 +35,13 @@ public class PatientRecordActivity extends BaseActivity {
     public void changeFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.activity_content, fragment).addToBackStack(fragment.getClass().getName()).commit();
     }
+
+    public void hideButton(boolean value)
+    {
+        if(value)
+           bookmark.setVisibility(View.GONE);
+        else
+          bookmark.setVisibility(View.VISIBLE);
+
+    }
 }

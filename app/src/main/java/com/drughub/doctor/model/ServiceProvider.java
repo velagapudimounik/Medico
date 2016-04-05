@@ -195,8 +195,6 @@ public class ServiceProvider extends RealmObject {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
             }
 
             @Override

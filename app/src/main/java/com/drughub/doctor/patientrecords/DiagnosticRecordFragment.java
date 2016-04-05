@@ -118,7 +118,8 @@ class DiagnosticAdapter extends RecyclerView.Adapter<DiagnosticAdapter.DataObjec
     public void onBindViewHolder(DataObjectHolder holder, int position) {
         OutPatientPrescription outPatientPrescription = outPatientPrescriptions.get(position);
         holder.name.setText(outPatientPrescription.getName() + " | " + outPatientPrescription.getDisease());
-        holder.date.setText(outPatientPrescription.getHospital() + " | " + outPatientPrescription.getDate());
+        holder.hospital_name.setText(outPatientPrescription.getHospital());
+        holder.date.setText(outPatientPrescription.getDate());
     }
 
     @Override
@@ -127,12 +128,14 @@ class DiagnosticAdapter extends RecyclerView.Adapter<DiagnosticAdapter.DataObjec
     }
 
     public class DataObjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView name, date;
+        TextView name, date , hospital_name;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.patient_name);
             date = (TextView) itemView.findViewById(R.id.patient_dob);
+            hospital_name = (TextView) itemView.findViewById(R.id.hospital_name);
+            hospital_name.setVisibility(View.VISIBLE);
             itemView.setOnClickListener(this);
         }
 

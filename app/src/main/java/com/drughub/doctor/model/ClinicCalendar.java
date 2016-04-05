@@ -1,11 +1,9 @@
 package com.drughub.doctor.model;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.network.Urls;
-import com.drughub.doctor.utils.StringUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,13 +23,13 @@ public class ClinicCalendar extends RealmObject {
     private Date endDate;
     private Integer clinicCalendarId;
     private Boolean isWeeklyTiming = true;
-    private RealmList<WeeklyScheduleList> weeklyScheduleLists ;
+    private RealmList<WeeklyScheduleLists> weeklyScheduleLists ;
 
-    public RealmList<WeeklyScheduleList> getWeeklyScheduleLists() {
+    public RealmList<WeeklyScheduleLists> getWeeklyScheduleLists() {
         return weeklyScheduleLists;
     }
 
-    public void setWeeklyScheduleLists(RealmList<WeeklyScheduleList> weeklyScheduleLists) {
+    public void setWeeklyScheduleLists(RealmList<WeeklyScheduleLists> weeklyScheduleLists) {
         this.weeklyScheduleLists = weeklyScheduleLists;
     }
     public Boolean getIsWeeklyTiming() {
@@ -96,7 +94,7 @@ public class ClinicCalendar extends RealmObject {
             object.put("profileId",getProfileId());
 
             JSONArray array = new JSONArray();
-            for(WeeklyScheduleList weeklyScheduleList : getWeeklyScheduleLists())
+            for(WeeklyScheduleLists weeklyScheduleList : getWeeklyScheduleLists())
             {
                 array.put(weeklyScheduleList.getJSONObject());
             }
