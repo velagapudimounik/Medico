@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
+import com.daimajia.swipe.util.Attributes;
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.Notification.NotificationActivity;
 import com.drughub.doctor.R;
@@ -61,6 +62,7 @@ public class VaccinationSchedule extends BaseActivity {
 
         VaccinationScheduleAdapter(Context context) {
             this.context = context;
+            setMode(Attributes.Mode.Multiple);
         }
 
         @Override
@@ -70,7 +72,10 @@ public class VaccinationSchedule extends BaseActivity {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder viewHolder, int position) {
+
+            viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Left, viewHolder.missedSchedule);
+            mItemManger.bindView(viewHolder.itemView, position);
         }
 
         @Override
@@ -86,11 +91,15 @@ public class VaccinationSchedule extends BaseActivity {
         public class ViewHolder extends RecyclerView.ViewHolder {
 
             SwipeLayout swipeLayout;
+            View administeredSchedule;
+            View missedSchedule;
 
             public ViewHolder(View v)
             {
                 super(v);
                 swipeLayout = (SwipeLayout) v.findViewById(R.id.swipe);
+                administeredSchedule = v.findViewById(R.id.administeredSchedule);
+                missedSchedule = v.findViewById(R.id.missedSchedule);
             }
         }
     }

@@ -49,6 +49,8 @@
     <string name="dialogDeleteConsultation">Are you Sure?\nYou want to cancel todays appointment.</string>
     <string name="am">AM</string>
     <string name="pm">PM</string>
+    <string name="textMissed">Missed</string>
+    <string name="textAdministered">Administered</string>
 
 
     <!-- @@@@ Drughub Icons @@@@ -->

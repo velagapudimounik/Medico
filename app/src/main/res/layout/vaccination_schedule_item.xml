@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<RelativeLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="15dp">
 
@@ -41,5 +45,35 @@
 
 </RelativeLayout>
 
+    <com.daimajia.swipe.SwipeLayout
+    android:id="@+id/swipe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/textAdministered"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_small"
+            android:gravity="center"
+            android:id="@+id/administeredSchedule"
+            android:background="@color/colorPrimary"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/textMissed"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_small"
+            android:gravity="center"
+            android:id="@+id/missedSchedule"
+            android:background="@color/ColorBlack"/>
+
+        <View android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/bookedItem"/>
+
+    </com.daimajia.swipe.SwipeLayout>
+
+</FrameLayout>
