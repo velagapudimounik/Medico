@@ -42,7 +42,7 @@
         android:textAlignment="center"
         android:textSize="13dp"
         android:id="@+id/text2"
-        android:text="Rajsekhar | validity:VALID"
+        android:text="Rajsekhar | Validity:VALID"
         android:layout_marginLeft="12dp" />
 
 

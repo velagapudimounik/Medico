@@ -90,7 +90,7 @@ public class AvailableInventoryActivity extends BaseActivity {
                 vaccinateBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String value = "4";
+                        String value = "<font color=\"#ff5722\">4°C</font>";
 
                         final Dialog dialog = CustomDialog.showMessageDialog((BaseActivity) sContext,
                                 StringUtils.findAndReplace(sContext.getResources().getString(R.string.temperature), "{temp}", value), "Done");

@@ -48,10 +48,6 @@ public class OrderInformationChildView extends RecyclerView.Adapter<OrderInforma
                 @Override
                 public void onClick(View v) {
 
-                    Toast.makeText(v.getContext(),v.getId()+"",Toast.LENGTH_SHORT).show();
-
-
-
                 }
             });
         }

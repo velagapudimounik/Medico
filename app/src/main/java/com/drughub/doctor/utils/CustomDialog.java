@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -75,7 +76,7 @@ public class CustomDialog
         Dialog dialog = showCustomDialog(activity, R.layout.dialog_message, Gravity.CENTER, true, false, true);
 
         TextView textView = (TextView)dialog.findViewById(R.id.dialogMessage);
-        textView.setText(messageTxt);
+        textView.setText(Html.fromHtml(messageTxt));
         Button okBtn = (Button)dialog.findViewById(R.id.dialogOkBtn);
         okBtn.setText(okBtnTxt);
 

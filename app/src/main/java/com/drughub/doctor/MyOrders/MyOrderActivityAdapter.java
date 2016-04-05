@@ -60,8 +60,6 @@ public class MyOrderActivityAdapter extends RecyclerView.Adapter<MyOrderActivity
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.order_container,fragment).addToBackStack(null).commit();
 
-                    Toast.makeText(v.getContext(), v.getId() + "", Toast.LENGTH_SHORT).show();
-
                 }
             });
         }

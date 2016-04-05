@@ -10,7 +10,7 @@ public class NotificationsettingActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notificationsetting);
-        setTitle("Notifications Settings");
+        setTitle("Notification Settings");
         setBackButton(true);
     }
 }

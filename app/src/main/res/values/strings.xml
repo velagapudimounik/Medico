@@ -16,7 +16,7 @@
     <string name="add_to_cart">Add to Cart</string>
     <string name="my_inventory_no_items">No Items</string>
     <string name="cross_symbol">\u00D7</string>
-    <string name="temperature">Administering Vaccine at Temp {temp}°C</string>
+    <string name="temperature">Administering Vaccine at Temp {temp}</string>
 
 
     <!--Consultations-->
@@ -171,12 +171,12 @@
     <string name="icon_vacc">\u004c</string>
 
     <!--notification -->
-    <string name="notify_order">Orders Notification</string>
-    <string name="notify_security">Security Notification</string>
-    <string name="notify_Transaction">Transaction Notification</string>
-    <string name="notify_Vachub">Vachub Notification</string>
-    <string name="notify_Reminder">Reminder Notification</string>
-    <string name="notify_Promotional">Promotional Notification</string>
+    <string name="notify_order">Orders Notifications</string>
+    <string name="notify_security">Security Notifications</string>
+    <string name="notify_Transaction">Transaction Notifications</string>
+    <string name="notify_Vachub">Vachub Notifications</string>
+    <string name="notify_Reminder">Reminder Notifications</string>
+    <string name="notify_Promotional">Promotional Notifications</string>
 
 
     <!--Orange wallet-->

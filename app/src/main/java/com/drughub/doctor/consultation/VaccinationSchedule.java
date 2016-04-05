@@ -41,7 +41,10 @@ public class VaccinationSchedule extends BaseActivity {
         doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                //finish();
+                Intent intent = new Intent(getApplicationContext(),PatientVaccineScheduleActivity.class);
+                startActivity(intent);
+
             }
         });
 
