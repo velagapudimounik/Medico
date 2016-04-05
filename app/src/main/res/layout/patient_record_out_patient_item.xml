@@ -44,7 +44,18 @@
             android:layout_height="wrap_content"
             android:text="Amar"
             android:textSize="@dimen/text_small"
-            android:layout_marginBottom="5dp"/>
+            />
+
+        <TextView
+            android:id="@+id/hospital_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amar"
+            android:textColor="@color/colorDecoration"
+            android:textSize="@dimen/text_tiny"
+            android:visibility="gone"
+            />
+
 
         <TextView
             android:id="@+id/patient_dob"

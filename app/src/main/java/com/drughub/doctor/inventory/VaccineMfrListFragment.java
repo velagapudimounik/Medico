@@ -165,6 +165,14 @@ public class VaccineMfrListFragment extends Fragment {
             final com.drughub.doctor.utils.DrughubIcon downAroow = (com.drughub.doctor.utils.DrughubIcon) v.findViewById(R.id.down_arrow);
             final TextView item_size = (TextView) v.findViewById(R.id.textItemSize);
             item_size.setText(vaccine_mfr_List[current_index]);
+            if(current_index == 0) {
+                downAroow.setTextColor(Color.GRAY);
+                upArrow.setTextColor(Color.RED);
+            }
+            else if(current_index == vaccine_mfr_List.length-1) {
+                upArrow.setTextColor(Color.GRAY);
+                downAroow.setTextColor(Color.RED);
+            }
             upArrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

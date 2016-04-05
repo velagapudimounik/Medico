@@ -49,6 +49,8 @@
     <string name="dialogDeleteConsultation">Are you Sure?\nYou want to cancel todays appointment.</string>
     <string name="am">AM</string>
     <string name="pm">PM</string>
+    <string name="textMissed">Missed</string>
+    <string name="textAdministered">Administered</string>
 
 
     <!-- @@@@ Drughub Icons @@@@ -->
@@ -322,8 +324,8 @@
     <string name="icon_fav">\u0072</string>
     <string name="icon_plus">\u005A</string>
     <string name="icon_bookmark">\u003D</string>
-    <string name="outpatientPrescription">Out Patient Prescription</string>
-    <string name="diagnostic_report">Diagnostic Report</string>
+    <string name="outpatientPrescription">Out Patient Prescriptions</string>
+    <string name="diagnostic_report">Diagnostic Reports</string>
     <string name="hintDiagnosticSearch">Diagnostic Centre | Test Name | Clinic</string>
     <string name="doctorSearch">Docter Name | Clinic</string>
     <string name="doctorName">Dr. Name</string>

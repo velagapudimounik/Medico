@@ -2,17 +2,21 @@ package com.drughub.doctor.patientrecords;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
@@ -103,8 +107,27 @@ class DiagnosticDetailsAdapter extends RecyclerView.Adapter<DiagnosticDetailsAda
         @Override
         public void onClick(View v) {
             if (v.getId() == R.id.icon_plus) {
+                ((BaseActivity) context).setTitle("Upload Report");
+                ((PatientRecordActivity) context).hideButton(true);
                 final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity) context, R.layout.patient_record_upload_dialog,
                         Gravity.CENTER, true, false, true);
+                Spinner types = (Spinner) dialog.findViewById(R.id.type_reports);
+                ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, context.getResources().getStringArray(R.array.typesOfRecords)) {
+                    @Override
+                    public int getCount() {
+                        return 3;
+                    }
+                };
+                types.setAdapter(adapter);
+                types.setSelection(4);
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        ((BaseActivity) context).setTitle(title);
+                        ((PatientRecordActivity) context).hideButton(false);
+                    }
+                });
+
 
             } else {
                 PatientRecordActivity activity = (PatientRecordActivity) context;
@@ -117,5 +140,7 @@ class DiagnosticDetailsAdapter extends RecyclerView.Adapter<DiagnosticDetailsAda
             }
 
         }
+
+
     }
 }
