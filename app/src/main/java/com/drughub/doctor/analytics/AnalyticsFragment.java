@@ -155,7 +155,7 @@ public class AnalyticsFragment extends Fragment implements RadioGroup.OnCheckedC
                     chart.setVisibility(View.GONE);
                     horizontalBarChart.setVisibility(View.VISIBLE);
                     pieChartLayout.setVisibility(View.GONE);
-                    horizontalChartInit(horizontalBarChart, getXAxisValues("week"), getDataSet("week"));
+                    horizontalChartInit(horizontalBarChart, getFMPXAxisValues("week"), getFMPDataSet("week"));
                     break;
                 case R.id.radioButton3: // Profitability
                     radioProfitability.setText(getText(R.string.icon_profitability_s));
@@ -217,8 +217,44 @@ public class AnalyticsFragment extends Fragment implements RadioGroup.OnCheckedC
         if (chart.getVisibility() == View.VISIBLE) {
             chartInit(getXAxisValues(type), getDataSet(type));
         } else if (horizontalBarChart.getVisibility() == View.VISIBLE) {
-            horizontalChartInit(horizontalBarChart, getXAxisValues(type), getDataSet(type));
+            horizontalChartInit(horizontalBarChart, getFMPXAxisValues(type), getFMPDataSet(type));
         }
+    }
+
+    private IBarDataSet getFMPDataSet(String type) {
+        ArrayList<BarEntry> valueSet1 = new ArrayList<>();
+//        if (type.equals("week"))
+        {
+            for (int i = 0; i < 5; i++) {
+                valueSet1.add(new BarEntry(((i + 1) * 10), i));
+            }
+        }
+//        else if (type.equals("month")) {
+//            for (int i = 0; i < 12; i++) {
+//                valueSet1.add(new BarEntry(((i + 1) * 10), i));
+//            }
+//        } else if (type.equals("year")) {
+//            for (int i = 0; i < 4; i++) {
+//                valueSet1.add(new BarEntry(((i + 1) * 10), i));
+//            }
+//        } else {
+//            valueSet1.add(new BarEntry(78, 0));
+//        }
+
+        BarDataSet barDataSet1 = new BarDataSet(valueSet1, "Brand 1");
+        barDataSet1.setColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+
+        return barDataSet1;
+    }
+
+    private List<String> getFMPXAxisValues(String type) {
+        ArrayList<String> xAxis = new ArrayList<>();
+        xAxis.add("Vaccine-5");
+        xAxis.add("Vaccine-4");
+        xAxis.add("Vaccine-3");
+        xAxis.add("Vaccine-2");
+        xAxis.add("Vaccine-1");
+        return xAxis;
     }
 
     private void resetButtons() {
