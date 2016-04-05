@@ -33,10 +33,9 @@ public class DrughubIcon extends TextView {
 
     @Override
     public void setLayoutParams(ViewGroup.LayoutParams params) {
-        if(params != null) {
-            float textSize = getTextSize();
-            params.height = (int) textSize;
-        }
+        if(params != null)
+            params.height = (int) getTextSize() + getPaddingTop() + getPaddingBottom();
+
         super.setLayoutParams(params);
     }
 

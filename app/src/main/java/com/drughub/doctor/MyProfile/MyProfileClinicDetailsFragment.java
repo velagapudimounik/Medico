@@ -11,12 +11,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.drughub.doctor.R;
+import com.drughub.doctor.model.Clinic;
+import com.drughub.doctor.model.User;
 import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
-public class MyProfileClinicDetailsFragment extends Fragment {
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
+public class MyProfileClinicDetailsFragment extends Fragment {
+    private Realm realm;
     public  RecyclerView mRecyclerView;
     public RecyclerView.Adapter adapter;
     @Nullable
@@ -25,12 +31,16 @@ public class MyProfileClinicDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.myprofile_clinic_details,container,false);
         getActivity().setTitle("Sandeep Clinic");
+        TextView clinicName=(TextView)view.findViewById(R.id.ClinicName);
+        TextView clinicAddress=(TextView)view.findViewById(R.id.ClinicAddress);
         mRecyclerView=(RecyclerView)view.findViewById(R.id.imagerecyclerview);
         ClinicDetailsAdapter adapter=new ClinicDetailsAdapter(this.getActivity());
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
+        Clinic clinic=new Clinic();
+        clinicName.setText(clinic.getClinicName());
         return view;
     }
 

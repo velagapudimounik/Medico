@@ -12,6 +12,7 @@ import com.drughub.doctor.model.User;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 public class LoginActivity extends BaseActivity {
     Fragment fragment=null;
@@ -34,6 +35,7 @@ public class LoginActivity extends BaseActivity {
         realm = Realm.getInstance(realmConfiguration);
         realm.beginTransaction();
         User user = realm.createObjectFromJson(User.class, json);
+        RealmResults<User> user1=realm.allObjects(User.class);
         String name  = user.getName();
         String email  = user.getEmail();
         String mobile  = user.getMobile();

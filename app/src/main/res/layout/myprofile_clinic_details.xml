@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Clinic Name"
+        android:id="@+id/ClinicName"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         android:textSize="18sp"
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:text="Clinic Address and Mobile Number"
         android:padding="10dp"
+        android:id="@+id/ClinicAddress"
         android:background="@color/colorWhite"
         android:textSize="14sp"/>
     <View
