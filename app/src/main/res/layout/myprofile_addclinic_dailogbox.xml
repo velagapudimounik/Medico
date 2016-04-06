@@ -1,10 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/cardview_dark_background"
     android:gravity="center"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:id="@+id/mainimagelayout"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal"></LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/icon_plus"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/fill_round_rect_grey">
+
+                <com.drughub.doctor.utils.DrughubIcon
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:gravity="center"
+                    android:text="@string/icon_plus"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_large" />
+            </FrameLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,164 +50,110 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="15dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="20dp">
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <View
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_gravity="center"
-                        android:background="@color/colorDecorationDark"/>
-
-                    <com.drughub.doctor.utils.DrughubIcon
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/icon_image"
-                        android:textSize="25dp"
-                        android:textColor="@color/colorDecoration"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:id="@+id/imageIcon" />
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp">
-
-                    <View
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_gravity="center"
-                        android:background="@color/colorDecorationDark"/>
-
-                    <com.drughub.doctor.utils.DrughubIcon
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/Plusicon"
-                        android:textSize="25dp"
-                        android:textColor="@color/colorDecoration"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:id="@+id/plusIcon" />
-
-               </FrameLayout>
-
-            </LinearLayout>
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hintClinicName"
                 style="@style/EditTextStyle"
-                android:layout_marginTop="10dp"/>
-
-            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hintAddress"
-                style="@style/EditTextStyle"
-                android:layout_marginTop="10dp"/>
+                android:hint="@string/hintClinicName" />
 
             <EditText
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/hintAddress" />
+
+            <EditText
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
+                android:layout_marginTop="10dp"
                 android:hint="@string/hintMobile"
-                android:inputType="phone"
-                style="@style/EditTextStyle"
-                android:layout_marginTop="10dp"/>
+                android:inputType="phone" />
 
             <EditText
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
+                android:layout_marginTop="10dp"
                 android:hint="@string/hintConsultationFee"
-                style="@style/EditTextStyle"
-                android:inputType="numberDecimal"
-                android:layout_marginTop="10dp"/>
+                android:inputType="numberDecimal" />
 
             <EditText
+                style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
+                android:layout_marginTop="10dp"
                 android:hint="@string/hintClinicTimings"
-                android:inputType="time"
-                style="@style/EditTextStyle"
-                android:layout_marginTop="10dp"/>
+                android:inputType="time" />
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:layout_margin="10dp">
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/textFrom"
-                        android:textSize="13sp"
-                        android:textColor="@color/colorTextLight"
                         android:layout_marginBottom="10dp"
-                        android:id="@+id/textView3"/>
+                        android:text="@string/textFrom"
+                        android:textColor="@color/colorTextLight"
+                        android:textSize="13sp" />
 
                     <EditText
+                        android:id="@+id/from_date_picker"
+                        style="@style/EditTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/edit_text_height"
-                        android:inputType="date"
-                        android:hint="@string/hintDate"
-                        android:textSize="13sp"
                         android:ems="10"
-                        android:id="@+id/from_date_picker"
-                        style="@style/EditTextStyle"/>
+                        android:hint="@string/hintDate"
+                        android:inputType="date"
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:layout_margin="10dp">
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/textView6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/textTo"
-                        android:textSize="13sp"
                         android:textColor="@color/colorTextLight"
-                        android:id="@+id/textView6"
-                        android:layout_marginBottom="10dp"/>
+                        android:textSize="13sp" />
 
                     <EditText
+                        android:id="@+id/to_date_picker"
+                        style="@style/EditTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/edit_text_height"
-                        android:inputType="date"
-                        android:hint="@string/hintDate"
-                        android:textSize="13sp"
                         android:ems="10"
-                        android:id="@+id/to_date_picker"
-                        style="@style/EditTextStyle"/>
+                        android:hint="@string/hintDate"
+                        android:inputType="date"
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -181,106 +164,106 @@
                 android:layout_height="wrap_content"
                 android:text="@string/nonWorkingDays"
                 android:textColor="@color/colorTextLight"
-                android:textSize="12dp"/>
+                android:textSize="12dp" />
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <CheckBox
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:text="@string/Monday_text"
                     android:id="@+id/monday"
+                    style="@style/CheckBoxStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_baby"
-                    style="@style/CheckBoxStyle"/>
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/Monday_text" />
 
                 <CheckBox
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:text="@string/Tuesday_text"
                     android:id="@+id/tuesday"
+                    style="@style/CheckBoxStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_baby"
-                    style="@style/CheckBoxStyle"/>
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/Tuesday_text" />
 
                 <CheckBox
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:text="@string/Wednesday_text"
                     android:id="@+id/wednesday"
+                    style="@style/CheckBoxStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_baby"
-                    style="@style/CheckBoxStyle"/>
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/Wednesday_text" />
 
                 <CheckBox
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:text="@string/Thursday_text"
                     android:id="@+id/thursday"
+                    style="@style/CheckBoxStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_baby"
-                    style="@style/CheckBoxStyle"/>
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/Thursday_text" />
 
                 <CheckBox
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:text="@string/Friday_text"
                     android:id="@+id/friday"
+                    style="@style/CheckBoxStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_baby"
-                    style="@style/CheckBoxStyle"/>
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/Friday_text" />
 
                 <CheckBox
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:text="@string/Saturday_text"
                     android:id="@+id/saturday"
+                    style="@style/CheckBoxStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_baby"
-                    style="@style/CheckBoxStyle"/>
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/Saturday_text" />
 
                 <CheckBox
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:button="@null"
-                    android:text="@string/Sunday_text"
                     android:id="@+id/sunday"
+                    style="@style/CheckBoxStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_baby"
-                    style="@style/CheckBoxStyle"/>
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="@string/Sunday_text" />
 
             </LinearLayout>
 
             <CheckBox
+                style="@style/check_box_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/consultationAtHomeText"
-                android:textSize="15dp"
-                style="@style/check_box_style"
-                android:paddingLeft="10dp"
-                android:textColor="@color/colorTextLight"
+                android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:paddingLeft="10dp"
+                android:text="@string/consultationAtHomeText"
+                android:textColor="@color/colorTextLight"
+                android:textSize="15dp" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/textAdd"
                 android:id="@+id/addButton"
                 style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="15dp"
+                android:text="@string/textAdd" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
