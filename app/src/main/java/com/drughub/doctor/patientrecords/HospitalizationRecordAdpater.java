@@ -55,7 +55,7 @@ public class HospitalizationRecordAdpater extends RecyclerView.Adapter<Hospitali
         @Override
         public void onClick(View v) {
             PatientRecordActivity activity = (PatientRecordActivity) context;
-            activity.changeFragment(new DetailOutPatientRecordFragment());
+            activity.changeFragment(new DetailHospitalizationRecordFragment());
         }
     }
 }
