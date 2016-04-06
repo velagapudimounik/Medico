@@ -23,7 +23,7 @@ public class ClinicCalendar extends RealmObject {
     private Date endDate;
     private Integer clinicCalendarId;
     private Boolean isWeeklyTiming = true;
-    private RealmList<WeeklyScheduleLists> weeklyScheduleLists ;
+    private RealmList<WeeklyScheduleLists> weeklyScheduleLists;
 
     public RealmList<WeeklyScheduleLists> getWeeklyScheduleLists() {
         return weeklyScheduleLists;
@@ -32,6 +32,7 @@ public class ClinicCalendar extends RealmObject {
     public void setWeeklyScheduleLists(RealmList<WeeklyScheduleLists> weeklyScheduleLists) {
         this.weeklyScheduleLists = weeklyScheduleLists;
     }
+
     public Boolean getIsWeeklyTiming() {
         return isWeeklyTiming;
     }
@@ -80,40 +81,33 @@ public class ClinicCalendar extends RealmObject {
         this.clinicId = clinicId;
     }
 
-   public String toCreateClinicCalendar()
-   {
-       JSONObject object = new JSONObject();
-        try
-        {
-            object.put("clinicId",getClinicId());
-            object.put("profileId",getProfileId());
-            object.put("startDate",getStartDate());
-            object.put("endDate",getEndDate());
-            object.put("clinicCalendarId",getClinicCalendarId());
-            object.put("isWeeklyTiming",getIsWeeklyTiming());
-            object.put("profileId",getProfileId());
+    public String toCreateClinicCalendar() {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("clinicId", getClinicId());
+            object.put("profileId", getProfileId());
+            object.put("startDate", getStartDate());
+            object.put("endDate", getEndDate());
+            object.put("clinicCalendarId", getClinicCalendarId());
+            object.put("isWeeklyTiming", getIsWeeklyTiming());
+            object.put("profileId", getProfileId());
 
             JSONArray array = new JSONArray();
-            for(WeeklyScheduleLists weeklyScheduleList : getWeeklyScheduleLists())
-            {
+            for (WeeklyScheduleLists weeklyScheduleList : getWeeklyScheduleLists()) {
                 array.put(weeklyScheduleList.getJSONObject());
             }
 
             object.put("weeklyScheduleList", array);
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-       return object.toString();
-   }
+        return object.toString();
+    }
 
-    public void CreateClinicCalendar(Context context)
-    {
-        HashMap<String, String> headers = new HashMap<>();
+    public void CreateClinicCalendar(Context context) {
         HashMap<String, String> params = new HashMap<>();
-        Globals.POST(Urls.CREATE_CALANDER, headers, params, toCreateClinicCalendar(), new Globals.VolleyCallback() {
+        Globals.POST(Urls.CREATE_CALANDER, params, toCreateClinicCalendar(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 JSONObject object = new JSONObject();
@@ -127,8 +121,7 @@ public class ClinicCalendar extends RealmObject {
         });
     }
 
-    public void GetClinicCalendar()
-    {
+    public void GetClinicCalendar() {
         HashMap<String, String> headers = new HashMap<>();
         Globals.GET(Urls.CREATE_CALANDER, headers, new Globals.VolleyCallback() {
             @Override
@@ -144,13 +137,12 @@ public class ClinicCalendar extends RealmObject {
         });
     }
 
-    public void UpdateClinicCalendar(Context context)
-    {
+    public void UpdateClinicCalendar(Context context) {
         HashMap<String, String> headers = new HashMap<>();
         HashMap<String, String> params = new HashMap<>();
         String body_string;
 
-        Globals.PUT(Urls.CREATE_CALANDER, headers, params, toCreateClinicCalendar() , new Globals.VolleyCallback() {
+        Globals.PUT(Urls.CREATE_CALANDER, headers, params, toCreateClinicCalendar(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 JSONObject object = new JSONObject();

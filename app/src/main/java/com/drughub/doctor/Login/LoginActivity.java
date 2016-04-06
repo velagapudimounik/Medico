@@ -11,7 +11,6 @@ import com.drughub.doctor.R;
 import com.drughub.doctor.model.User;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class LoginActivity extends BaseActivity {
@@ -30,9 +29,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main_layout);
 
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
-        Realm.deleteRealm(realmConfiguration);
-        realm = Realm.getInstance(realmConfiguration);
+        realm = getRealmObject();
         realm.beginTransaction();
         User user = realm.createObjectFromJson(User.class, json);
         RealmResults<User> user1=realm.allObjects(User.class);

@@ -1,11 +1,13 @@
 package com.drughub.doctor.model;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 
 import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.network.Urls;
+
 import org.json.JSONObject;
-import java.util.HashMap;
+
 import io.realm.RealmObject;
 
 public class User extends RealmObject {
@@ -121,25 +123,35 @@ public class User extends RealmObject {
     }
 
     public String toSignUp() {
-        JSONObject object = new JSONObject();
+        JSONObject params = new JSONObject();
         try {
-            object.put("name", getName());
-            object.put("email", getEmail());
-            object.put("mobile", getMobile());
-            object.put("password", getPassword());
+            params.put("name", getName());
+            params.put("email", getEmail());
+            params.put("mobile", getMobile());
+            params.put("password", getPassword());
 //            object.put("category", 2);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return object.toString();
+        return params.toString();
     }
 
     public String toSignIn() {
         JSONObject object = new JSONObject();
         try {
-
             object.put("email", getEmail());
-            object.put("password", getPassword());
+            object.put("passwordDigest", Globals.encryptString(getPassword()));
+            object.put("typeOfLogin", "Android");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return object.toString();
+    }
+
+    public String toForgetPassword() {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("email", getEmail());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -147,51 +159,54 @@ public class User extends RealmObject {
     }
 
 
-    public void SignUp(Context context) {
-        HashMap<String, String> headers = new HashMap<>();
-        HashMap<String, String> params = new HashMap<>();
-        Globals.POST(Urls.SIGN_UP, headers, params, toSignUp(), new Globals.VolleyCallback() {
+    public void SignUp(Context context, final Globals.VolleyCallback callback) {
+
+        Globals.POST(Urls.SIGN_UP, null, toSignUp(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 try {
-                    JSONObject object = new JSONObject(result);
-                    //ToDo SignUp parsing
-
-
+//                    Log.v("response"," "+result );
+                    callback.onSuccess(result);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
             public void onFail(String result) {
-
+                callback.onFail(result);
             }
         });
     }
 
-    public void SignIn(Context context) {
-        HashMap<String, String> headers = new HashMap<>();
-        HashMap<String, String> params = new HashMap<>();
-        Globals.POST(Urls.SIGN_IN, headers, params, toSignIn(), new Globals.VolleyCallback() {
+    public void SignIn(Context context, final Globals.VolleyCallback callback) {
+
+        Globals.POST(Urls.SIGN_IN, null, toSignIn(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
-                try {
-                    JSONObject object = new JSONObject(result);
-                    //ToDo signIN parsing
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
+                callback.onSuccess(result);
             }
 
             @Override
             public void onFail(String result) {
-
+                callback.onFail(result);
             }
         });
     }
 
+    public void ForgetPassword(FragmentActivity activity, final Globals.VolleyCallback callback) {
+
+        Globals.POST(Urls.FORGET_PASSWORD, null, toForgetPassword(), new Globals.VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                callback.onSuccess(result);
+            }
+
+            @Override
+            public void onFail(String result) {
+                callback.onFail(result);
+            }
+        });
+
+    }
 }

@@ -68,18 +68,19 @@ public class Clinic extends RealmObject {
     public void setConsultationFee(String consultationFee) {
         this.consultationFee = consultationFee;
     }
-    public String toAddClinic(){
-        JSONObject object=new JSONObject();
-        JSONObject address_object=new JSONObject();
-        try{
-            object.put("consultationFee",getConsultationFee());
-            object.put("clinicName",getClinicName());
-            object.put("phoneNo",getPhoneNo());
-            object.put("isHomeClinic",getisHomeClinic());
-            object.put("clinicTimings",getClinicTimings());
 
-            address_object.put("buildingName",address.getBuildingName());
-            address_object.put("country",address.getCountry());
+    public String toAddClinic() {
+        JSONObject object = new JSONObject();
+        JSONObject address_object = new JSONObject();
+        try {
+            object.put("consultationFee", getConsultationFee());
+            object.put("clinicName", getClinicName());
+            object.put("phoneNo", getPhoneNo());
+            object.put("isHomeClinic", getisHomeClinic());
+            object.put("clinicTimings", getClinicTimings());
+
+            address_object.put("buildingName", address.getBuildingName());
+            address_object.put("country", address.getCountry());
             address_object.put("colony", address.getColony());
             address_object.put("doorNumber", address.getDoorNumber());
             address_object.put("city", address.getCity());
@@ -87,21 +88,20 @@ public class Clinic extends RealmObject {
             address_object.put("postalCode", address.getPostalCode());
             address_object.put("state", address.getState());
 
-            object.put("address",address_object);
+            object.put("address", address_object);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return object.toString();
     }
 
-    public void AddClinic(Context context){
-        HashMap<String,String> headers=new HashMap<>();
-        HashMap<String,String> parameters=new HashMap<>();
-        Globals.POST(Urls.ADD_CLINIC, headers, parameters, toAddClinic(), new Globals.VolleyCallback() {
+    public void AddClinic(Context context) {
+        HashMap<String, String> parameters = new HashMap<>();
+        Globals.POST(Urls.ADD_CLINIC,  parameters, toAddClinic(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 try {
-                    JSONObject object=new JSONObject(result);
+                    JSONObject object = new JSONObject(result);
                     //TODO Clinic Parsing
 
                 } catch (JSONException e) {
@@ -115,14 +115,15 @@ public class Clinic extends RealmObject {
             }
         });
     }
-    public void UpdateClinic(Context context){
-        HashMap<String,String> headers=new HashMap<>();
-        HashMap<String,String> parameters=new HashMap<>();
+
+    public void UpdateClinic(Context context) {
+        HashMap<String, String> headers = new HashMap<>();
+        HashMap<String, String> parameters = new HashMap<>();
         Globals.PUT(Urls.UPDATE_CLINIC, headers, parameters, toAddClinic(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 try {
-                    JSONObject object=new JSONObject(result);
+                    JSONObject object = new JSONObject(result);
                     //TODO Parsing
                 } catch (JSONException e) {
                     e.printStackTrace();

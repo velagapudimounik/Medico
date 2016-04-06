@@ -19,6 +19,9 @@ import com.drughub.doctor.utils.DrughubIcon;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 public class BaseActivity extends AppCompatActivity {
 
     private ActionBar mActionBar;
@@ -26,6 +29,8 @@ public class BaseActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private List<View> actionBtns = new ArrayList<>();
     private Globals globals;
+    private Realm realm;
+
 
     @Override
     public void setContentView(int layoutResID) {
@@ -34,6 +39,8 @@ public class BaseActivity extends AppCompatActivity {
         getLayoutInflater().inflate(layoutResID, activityContainer, true);
         super.setContentView(fullView);
         globals = new Globals(getApplicationContext());
+        realmInit();
+
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -156,6 +163,18 @@ public class BaseActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    public Realm getRealmObject() {
+        if (realm == null)
+            realmInit();
+        return realm;
+    }
+
+    private void realmInit() {
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
+//        Realm.deleteRealm(realmConfiguration);
+        realm = Realm.getInstance(realmConfiguration);
     }
 
 }

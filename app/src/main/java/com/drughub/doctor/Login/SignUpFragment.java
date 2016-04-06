@@ -1,6 +1,8 @@
 package com.drughub.doctor.Login;
 
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,13 +14,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.drughub.doctor.MainActivity;
 import com.drughub.doctor.R;
 import com.drughub.doctor.model.User;
 import com.drughub.doctor.network.Globals;
+import com.drughub.doctor.utils.PrefUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SignUpFragment extends Fragment {
     TextView titleSignup = null;
     Fragment fragment = null;
+    ProgressDialog progress;
 
     public SignUpFragment() {
 
@@ -53,20 +61,47 @@ public class SignUpFragment extends Fragment {
                 if (view.getId() == R.id.registerbutton) {
 //                    fragment = new LoginPage();
                     String name = editName.getText().toString();
-                    String email = editEmail.getText().toString();
+                    final String email = editEmail.getText().toString();
                     String mobile = editMobile.getText().toString();
-                    String password = editPassword.getText().toString();
-
-                    if (name.length() > 0) {
+                    final String password = editPassword.getText().toString();
+                    if (!name.isEmpty()) {
                         if (Globals.isValidEmail(email)) {
                             if (mobile.length() >= 10) {
                                 if (password.length() >= 8) {
+                                    progress = ProgressDialog.show(getActivity(), "SignUp", "Please wait...", true);
                                     User user = new User();
                                     user.setEmail(email);
                                     user.setMobile(mobile);
                                     user.setName(name);
-                                    user.setPassword(password);
-                                    user.SignUp(getActivity());
+                                    user.setPassword(Globals.encryptString(password));
+                                    user.SignUp(getActivity(), new Globals.VolleyCallback() {
+                                        @Override
+                                        public void onSuccess(String result) {
+                                            if (progress != null)
+                                                progress.dismiss();
+                                            try {
+                                                JSONObject object = new JSONObject(result);
+                                                if (object.getBoolean("result")) {
+                                                    PrefUtils.saveToLoginPrefs(getActivity(), email, password);
+                                                    startActivity(new Intent(getActivity(), MainActivity.class));
+                                                    getActivity().finish();
+                                                } else {
+                                                    Toast.makeText(getActivity(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onFail(String result) {
+                                            if (progress != null)
+                                                progress.dismiss();
+                                            Toast.makeText(getActivity(), "Unable to process your request, please try again.", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    });
 
                                 } else {
                                     Toast.makeText(getActivity(), "Password should be minimum 8 characters", Toast.LENGTH_SHORT).show();

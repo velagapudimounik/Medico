@@ -12,7 +12,8 @@ import com.drughub.doctor.R;
 
 public class ThanksRegards extends Fragment {
 
-    Fragment fragment=null;
+    Fragment fragment = null;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -24,9 +25,9 @@ public class ThanksRegards extends Fragment {
         btnok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container1, new LoginPage()).commit();
-            getActivity().getSupportFragmentManager().popBackStack(null, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container1, new LoginPage()).commit();
+                getActivity().getSupportFragmentManager().popBackStack(null, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
         });
 
         return view;

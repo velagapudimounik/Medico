@@ -26,7 +26,6 @@ import com.android.volley.toolbox.Volley;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -109,7 +108,7 @@ public class Globals {
     }
 
     /*POST METHOD REQUEST FOR API*/
-    public static String POST(String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
+    public static String POST(String url, final Map<String, String> params, final String body, final VolleyCallback callback) {
         getRequestQueue();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -138,28 +137,39 @@ public class Globals {
                     e.printStackTrace();
                 }
                 callback.onFail(stringResponse);
-
             }
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Log.v("globals params", "" + params);
-                return params;
+                if (params != null)
+                    return params;
+                else
+                    return super.getParams();
             }
 
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Log.v("globals headers", "" + headers);
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
                 return headers;
             }
 
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                if (body.isEmpty())
+                    return super.getBody();
+                else
+                    return body.getBytes();
+            }
         };
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(MY_SOCKET_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         addRequestQueue(stringRequest);
 
         return stringResponse;
     }
+
     public static String PUT(String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
         getRequestQueue();
         StringRequest stringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
@@ -383,17 +393,17 @@ public class Globals {
     }
 
 
-    public static String encryptStringWithSalt(String value, String salt) {
+    public static String encryptString(String value) {
         String md5 = null;
-        value = salt.concat(value);
+//        value = salt.concat(value);
         if (null == value) return null;
         try {
             //Create MessageDigest object for MD5
-            MessageDigest digest = MessageDigest.getInstance("MD5");
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
             digest.update(value.getBytes(), 0, value.length());
             md5 = new BigInteger(1, digest.digest()).toString(16);
 
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return md5;
