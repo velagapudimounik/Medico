@@ -274,7 +274,19 @@
     <string name="consultationAtHomeText">Consultation at Home</string>
     <string name="noClinicsAdded">No Clinics Added</string>
     <string name="txtChange">change</string>
-
+    <string name="firstName">First name</string>
+    <string name="middleName">Middle name</string>
+    <string name="lastName">Last name</string>
+    <string name="buildingName">Building Name</string>
+    <string name="doorNo">Door no</string>
+    <string name="streetName">Street Name</string>
+    <string name="colonyName">Colony Name</string>
+    <string name="country">Country</string>
+    <string name="state">State</string>
+    <string name="district">District</string>
+    <string name="townorcity">Town/City</string>
+    <string name="landmark">Landmark</string>
+    <string name="pincode">Pincode</string>
 
     <!-- My Order -->
     <string name="order_id">Order ID :</string>
