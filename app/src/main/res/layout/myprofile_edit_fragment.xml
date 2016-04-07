@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -11,87 +12,269 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:orientation="vertical">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/Name"
-                android:layout_marginTop="10dp"
-                style="@style/EditTextStyleTransparent1"/>
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <EditText
-                    android:layout_width="0dp"
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hintDesignation"
                     android:layout_weight="1"
-                    style="@style/EditTextStyleTransparent1" />
+                    android:id="@+id/firstname_edittext"
+                    android:hint="@string/firstName" />
 
                 <EditText
-                    android:layout_width="0dp"
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hintSpecialization"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    style="@style/EditTextStyleTransparent1" />
+                    android:id="@+id/middlename_edittext"
+                    android:hint="@string/middleName" />
+
+                <EditText
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:id="@+id/lastname_edittext"
+                    android:hint="@string/lastName" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/designation_editext"
+                    android:hint="@string/hintDesignation" />
+
+                <EditText
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:id="@+id/specialization_edittext"
+                    android:hint="@string/hintSpecialization" />
 
             </LinearLayout>
 
             <EditText
+                style="@style/EditTextStyleTransparent1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="10dp"
+                android:id="@+id/yearsof_experience_edittext"
                 android:hint="@string/hintYearsOfExperience"
-                android:inputType="number"
-                android:layout_marginTop="10dp"
-                style="@style/EditTextStyleTransparent1"/>
+                android:inputType="number" />
 
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/hintClinicName"
-                style="@style/EditTextStyleTransparent1"/>
+                android:orientation="horizontal">
 
-            <EditText
+                <EditText
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/buldingname_edittext"
+                    android:hint="@string/buildingName" />
+
+                <EditText
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:id="@+id/doorno_edittext"
+                    android:hint="@string/doorNo" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hintAddress"
                 android:layout_marginTop="10dp"
-                style="@style/EditTextStyleTransparent1"/>
+                android:orientation="horizontal">
+
+                <EditText
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/streetname_edittext"
+                    android:hint="@string/streetName" />
+
+                <EditText
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:id="@+id/colonyname_edittext"
+                    android:hint="@string/colonyName" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                <EditText
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/country_edittext"
+                    android:hint="@string/country" />
+
+                <com.drughub.doctor.utils.DrughubIcon
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_view"
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/iconview_forcountry"
+                    android:layout_gravity="center_vertical|right"/>
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1">
+                <EditText
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/state_edittext"
+                    android:hint="@string/state" />
+
+                <com.drughub.doctor.utils.DrughubIcon
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_view"
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/iconview_forstate"
+                    android:layout_gravity="center_vertical|right"/>
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                <EditText
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/district_editext"
+                    android:hint="@string/district" />
+                <com.drughub.doctor.utils.DrughubIcon
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_view"
+                    android:id="@+id/iconview_fordistrict"
+                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center_vertical|right"
+                    />
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1">
+                <EditText
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/townorcity_edittext"
+                    android:hint="@string/townorcity" />
+                <com.drughub.doctor.utils.DrughubIcon
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_view"
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/iconview_fortownorcity"
+                    android:layout_gravity="center_vertical|right"/>
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/pincode_edittext"
+                    android:hint="@string/pincode" />
+
+                <EditText
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:id="@+id/landmark_edittext"
+                    android:hint="@string/landmark" />
+            </LinearLayout>
 
             <EditText
+                style="@style/EditTextStyleTransparent1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edit_text_height"
                 android:layout_marginTop="10dp"
-                android:inputType="textEmailAddress"
+                android:id="@+id/emailaddress_edittext"
                 android:hint="@string/hintEmailId"
-                style="@style/EditTextStyleTransparent1"/>
+                android:inputType="textEmailAddress" />
 
             <EditText
+                style="@style/EditTextStyleTransparent1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edit_text_height"
                 android:layout_marginTop="10dp"
                 android:hint="@string/hintMobile"
-                android:inputType="phone"
-                style="@style/EditTextStyleTransparent1"/>
+                android:id="@+id/mobile_edittext"
+                android:inputType="phone" />
 
             <Button
+                android:id="@+id/UpdateButton"
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/update"
-                style="@style/ButtonStyle"
-                android:id="@+id/UpdateButton"
-                android:layout_marginTop="25dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="25dp"
+                android:text="@string/update" />
 
         </LinearLayout>
 
