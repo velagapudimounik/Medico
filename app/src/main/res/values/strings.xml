@@ -216,6 +216,7 @@
     <string name="icon_foradd_image">\u002D</string>
     <string name="icon_noimage">\u002B</string>
     <string name="icon_view">\u0073</string>
+    <string name="icon_rightmark">\u004F</string>
 
     <!-- More -->
     <string name="myhome">My Home</string>
