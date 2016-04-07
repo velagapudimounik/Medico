@@ -24,14 +24,14 @@ import com.drughub.doctor.utils.CustomDialog;
 import java.util.ArrayList;
 
 /**
- * Created by Deepak on 4/5/2016.
+ * Created by Achyuth V on 4/7/2016.
  */
-public class DetailHospitalizationRecordFragment extends Fragment {
+public class DetailVaccinationRecordFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().setTitle(getResources().getString(R.string.hospitalization_reports));
+        getActivity().setTitle(getResources().getString(R.string.vaccination_reports));
         ((BaseActivity) getActivity()).setBackButton(true);
 
         final View view = inflater.inflate(R.layout.patient_record_out_patient_details_fragment, container, false);
@@ -49,7 +49,7 @@ public class DetailHospitalizationRecordFragment extends Fragment {
         }
         image_urls.add("dummy");
 
-        HospitalizeDetailsAdapter adapter = new HospitalizeDetailsAdapter(getActivity(), image_urls, getString(R.string.hospitalization_reports));
+        VaccinationDetailAdapter adapter = new VaccinationDetailAdapter(getActivity(), image_urls, getString(R.string.vaccination_reports));
         recyclerView.setAdapter(adapter);
 
 
@@ -58,12 +58,12 @@ public class DetailHospitalizationRecordFragment extends Fragment {
     }
 }
 
-class HospitalizeDetailsAdapter extends RecyclerView.Adapter<HospitalizeDetailsAdapter.DataObjectHolder> {
+class VaccinationDetailAdapter extends RecyclerView.Adapter<VaccinationDetailAdapter.DataObjectHolder> {
     Context context;
     ArrayList<String> imageUrls;
     String title;
 
-    public HospitalizeDetailsAdapter(Context context, ArrayList<String> imageUrls, String title) {
+    public VaccinationDetailAdapter(Context context, ArrayList<String> imageUrls, String title) {
         this.context = context;
         this.imageUrls = imageUrls;
         this.title = title;

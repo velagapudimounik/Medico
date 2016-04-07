@@ -42,7 +42,11 @@ public class VaccinationSchedule extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //finish();
+                String upcoming = "upcoming";
+                String value = "false";
                 Intent intent = new Intent(getApplicationContext(),PatientVaccineScheduleActivity.class);
+                intent.putExtra("today",upcoming);
+                intent.putExtra("check",value);
                 startActivity(intent);
 
             }

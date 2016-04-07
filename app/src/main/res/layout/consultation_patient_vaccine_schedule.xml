@@ -97,7 +97,7 @@
     <RadioGroup
         android:id="@+id/toggle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_gravity="center_horizontal"
         android:background="@color/colorDecoration"
         android:layout_marginTop="10dp"
@@ -106,7 +106,7 @@
         <RadioButton
             android:id="@+id/todaysSchedule"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:button="@null"
             android:checked="true"
@@ -114,6 +114,7 @@
             android:paddingBottom="@dimen/margin_medium"
             android:paddingTop="@dimen/margin_medium"
             android:text="@string/todays"
+            android:visibility="gone"
             android:textColor="@drawable/tabs_text_selector_grey_orange"
             android:textSize="12sp"
             android:layout_weight="1"

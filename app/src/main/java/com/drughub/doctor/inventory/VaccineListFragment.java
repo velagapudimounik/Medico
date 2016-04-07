@@ -61,8 +61,14 @@ public class VaccineListFragment extends Fragment
         VaccineListAdapter mAdapter = new VaccineListAdapter(mDataset, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
-        MyInventoryFragment inventoryFragment = (MyInventoryFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
-        inventoryFragment.setInventoryInfo(mDataset.get(0).consumed, mDataset.get(0).available, mDataset.get(0).reserve);
+        try {
+            MyInventoryFragment inventoryFragment = (MyInventoryFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
+            inventoryFragment.setInventoryInfo(mDataset.get(0).consumed, mDataset.get(0).available, mDataset.get(0).reserve);
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         Fragment fragment = new VaccineMfrListFragment();
         Bundle bundle = new Bundle();

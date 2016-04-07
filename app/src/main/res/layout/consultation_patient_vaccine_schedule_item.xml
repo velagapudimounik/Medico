@@ -55,7 +55,7 @@
                     android:text="@string/icon_vaccine"
                     android:textSize="30dp"
                     android:textColor="@color/colorWhite"
-                    android:id="@+id/textView4" />
+                    android:id="@+id/inventory_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                     android:text="@string/inventory"
                     android:textSize="10dp"
                     android:textColor="@color/colorWhite"
-                    android:id="@+id/textView5" />
+                    android:id="@+id/inventory" />
 
             </LinearLayout>
 

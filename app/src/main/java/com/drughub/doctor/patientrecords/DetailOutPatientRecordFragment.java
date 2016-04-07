@@ -2,6 +2,7 @@ package com.drughub.doctor.patientrecords;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,8 +12,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
@@ -43,7 +46,7 @@ public class DetailOutPatientRecordFragment extends Fragment {
         }
         image_urls.add("dummy");
 
-        OutPatientDetailsAdapter adapter = new OutPatientDetailsAdapter(getActivity(), image_urls);
+        OutPatientDetailsAdapter adapter = new OutPatientDetailsAdapter(getActivity(), image_urls, getString(R.string.outpatientPrescription));
         recyclerView.setAdapter(adapter);
 
 
@@ -55,10 +58,12 @@ public class DetailOutPatientRecordFragment extends Fragment {
 class OutPatientDetailsAdapter extends RecyclerView.Adapter<OutPatientDetailsAdapter.DataObjectHolder> {
     Context context;
     ArrayList<String> imageUrls;
+    String local_title;
 
-    public OutPatientDetailsAdapter(Context context, ArrayList<String> imageUrls) {
+    public OutPatientDetailsAdapter(Context context, ArrayList<String> imageUrls, String title) {
         this.context = context;
         this.imageUrls = imageUrls;
+        local_title = title;
     }
 
     @Override
@@ -99,11 +104,31 @@ class OutPatientDetailsAdapter extends RecyclerView.Adapter<OutPatientDetailsAda
 
         @Override
         public void onClick(View v) {
-            if(v.getId() == R.id.icon_plus){
+            if (v.getId() == R.id.icon_plus) {
+                ((BaseActivity) context).setTitle("Upload Report");
+                ((PatientRecordActivity) context).hideButton(true);
                 final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity) context, R.layout.patient_record_upload_dialog,
                         Gravity.CENTER, true, false, true);
+                Spinner types = (Spinner) dialog.findViewById(R.id.type_reports);
+                ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, context.getResources().getStringArray(R.array.typesOfRecords)) {
+                    @Override
+                    public int getCount() {
+                        return 3;
+                    }
+                };
+                types.setAdapter(adapter);
+                types.setSelection(4);
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        ((BaseActivity) context).setTitle(local_title);
+                        ((PatientRecordActivity) context).hideButton(false);
+                    }
 
-            }    else {
+                });
+            } else
+
+            {
                 PatientRecordActivity activity = (PatientRecordActivity) context;
                 Bundle mBundle = new Bundle();
                 mBundle.putString("image_url", imageUrls.get(getPosition()));

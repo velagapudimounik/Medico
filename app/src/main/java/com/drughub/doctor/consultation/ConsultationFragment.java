@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,14 +35,13 @@ import com.drughub.doctor.utils.CustomDialog;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-class ItemConsultation
-{
+class ItemConsultation {
     public String name;
     public String vaccine;
     public String clinic;
     public String date;
-    public ItemConsultation(String name, String consumed, String clinic, String date)
-    {
+
+    public ItemConsultation(String name, String consumed, String clinic, String date) {
         this.name = name;
         this.vaccine = consumed;
         this.clinic = clinic;
@@ -51,18 +51,22 @@ class ItemConsultation
 
 public class ConsultationFragment extends DialogFragment {
 
-    EditText datePicker , timePicker;
-    int day = -1,month = -1,year = -1,hour = -1,minute = -1;
+    EditText datePicker, timePicker;
+    int day = -1, month = -1, year = -1, hour = -1, minute = -1;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.consultation_main, container, false);
+
+        View v = inflater.inflate(R.layout.consultation_main, container, false);
+        ;
+
+        return v;
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState)
-    {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         getActivity().setTitle(getString(R.string.consultations));
 
         final TextView addBtn = (TextView) view.findViewById(R.id.addConsultationBtn);
@@ -70,9 +74,9 @@ public class ConsultationFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 //((BaseActivity)getActivity()).setBackButton(true);
-                final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity)getActivity(), R.layout.consultation_add_new,
+                final Dialog dialog = CustomDialog.showCustomDialog((BaseActivity) getActivity(), R.layout.consultation_add_new,
                         Gravity.BOTTOM, true, false, true);
-                final Spinner time_dropdown = (Spinner)dialog.findViewById(R.id.time_extension);
+                final Spinner time_dropdown = (Spinner) dialog.findViewById(R.id.time_extension);
                 String[] time_items = new String[]{getString(R.string.am), getString(R.string.pm)};
                 ArrayAdapter<String> time_adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, time_items);
                 time_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -85,23 +89,21 @@ public class ConsultationFragment extends DialogFragment {
                 timePicker.setKeyListener(null);
 
 
-
                 datePicker.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener()
-                        {
+                        DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int local_year, int monthOfYear, int dayOfMonth) {
-                                datePicker.setText(String.format("%02d", dayOfMonth) + "/" + String.format("%02d", (monthOfYear+1)) + "/" + local_year);
+                                datePicker.setText(String.format("%02d", dayOfMonth) + "/" + String.format("%02d", (monthOfYear + 1)) + "/" + local_year);
                                 datePicker.setTextColor(Color.GRAY);
                                 day = dayOfMonth;
                                 month = monthOfYear;
                                 year = local_year;
                             }
                         };
-                        CustomDialog.showDatePicker((BaseActivity)getActivity(),onDateSetListener,day,month,year);
+                        CustomDialog.showDatePicker((BaseActivity) getActivity(), onDateSetListener, day, month, year);
 
                     }
                 });
@@ -111,15 +113,13 @@ public class ConsultationFragment extends DialogFragment {
                     public void onClick(View v) {
 
 
-                                TimePickerDialog.OnTimeSetListener  onTimeSetListener =   new TimePickerDialog.OnTimeSetListener() {
+                        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int local_minute) {
-                                if( hourOfDay > 12)
-                                {
-                                    timePicker.setText(String.format("%02d", (hourOfDay-12)) + ":" + String.format("%02d", local_minute) );
+                                if (hourOfDay > 12) {
+                                    timePicker.setText(String.format("%02d", (hourOfDay - 12)) + ":" + String.format("%02d", local_minute));
                                     time_dropdown.setSelection(1);
-                                }
-                                else {
+                                } else {
                                     timePicker.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", local_minute));
                                     time_dropdown.setSelection(0);
                                 }
@@ -152,23 +152,21 @@ public class ConsultationFragment extends DialogFragment {
 
         //mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
 
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL, false);
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         final ArrayList<ItemConsultation> mDataSet = new ArrayList<>();
 
-        for(int i=0; i<5; i++)
-        {
-            ItemConsultation item = new ItemConsultation("Name"+i, "Vaccine Name", "Clinic", "Time");
+        for (int i = 0; i < 5; i++) {
+            ItemConsultation item = new ItemConsultation("Name" + i, "Vaccine Name", "Clinic", "Time");
             mDataSet.add(item);
         }
 
         final ArrayList<ItemConsultation> mDataSet1 = new ArrayList<>();
 
-        for(int i=0; i<5; i++)
-        {
-            ItemConsultation item = new ItemConsultation("Name"+i, "Vaccine Name", "Clinic", "Date");
+        for (int i = 0; i < 5; i++) {
+            ItemConsultation item = new ItemConsultation("Name" + i, "Vaccine Name", "Clinic", "Date");
             mDataSet1.add(item);
         }
 
@@ -189,8 +187,7 @@ public class ConsultationFragment extends DialogFragment {
                 if (checkedId == R.id.todaysConsultations) {
                     dataSet = mDataSet;
                     searchView.setHint(getResources().getString(R.string.hintPatientName));
-                }
-                else if (checkedId == R.id.upcomingConsultations) {
+                } else if (checkedId == R.id.upcomingConsultations) {
                     dataSet = mDataSet1;
                     searchView.setHint(getResources().getString(R.string.hintDateOrPatient));
                 }
@@ -198,12 +195,11 @@ public class ConsultationFragment extends DialogFragment {
                 mLayoutManager.scrollToPosition(0);
                 mAdapter.swap(dataSet);
 
-                if(dataSet == null || dataSet.size() == 0) {
+                if (dataSet == null || dataSet.size() == 0) {
                     noAppointments.setVisibility(View.VISIBLE);
                     editLayout.setVisibility(View.GONE);
                     mRecyclerView.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     noAppointments.setVisibility(View.GONE);
                     editLayout.setVisibility(View.VISIBLE);
                     mRecyclerView.setVisibility(View.VISIBLE);
@@ -212,8 +208,7 @@ public class ConsultationFragment extends DialogFragment {
         });
     }
 
-    public static class ConsultationListAdapter extends RecyclerSwipeAdapter<ConsultationListAdapter.ViewHolder>
-    {
+    public static class ConsultationListAdapter extends RecyclerSwipeAdapter<ConsultationListAdapter.ViewHolder> {
         private ArrayList<ItemConsultation> mDataSet;
         static FragmentActivity sContext;
 
@@ -224,18 +219,9 @@ public class ConsultationFragment extends DialogFragment {
             SwipeLayout swipeLayout;
             View deleteBtn;
 
-            public ViewHolder(View v)
-            {
+            public ViewHolder(View v) {
                 super(v);
                 mItemView = v;
-
-                v.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        sContext.startActivity(new Intent(sContext, PatientVaccineScheduleActivity.class));
-                    }
-                });
-
                 textView = (TextView) v.findViewById(R.id.consultationPatientDetails);
                 txtClinic = (TextView) v.findViewById(R.id.consultationClinicDetails);
 
@@ -244,7 +230,12 @@ public class ConsultationFragment extends DialogFragment {
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        sContext.startActivity(new Intent(sContext, PatientVaccineScheduleActivity.class));
+                        String todays = "today";
+                        String value = "true";
+                        Intent intent = new Intent(sContext, PatientVaccineScheduleActivity.class);
+                        intent.putExtra("today", todays);
+                        intent.putExtra("check",value);
+                        sContext.startActivity(intent);
                     }
                 });
 
@@ -253,20 +244,17 @@ public class ConsultationFragment extends DialogFragment {
                 deleteBtn = v.findViewById(R.id.deleteConsultation);
             }
 
-            public void setItemSelected(boolean selected)
-            {
+            public void setItemSelected(boolean selected) {
                 mItemView.setSelected(selected);
             }
 
-            public void setItemDetails(ItemConsultation item)
-            {
+            public void setItemDetails(ItemConsultation item) {
                 textView.setText(item.name + " | " + item.vaccine);
                 txtClinic.setText(item.clinic + " | " + item.date);
             }
         }
 
-        public ConsultationListAdapter(ArrayList<ItemConsultation> dataSet, FragmentActivity context)
-        {
+        public ConsultationListAdapter(ArrayList<ItemConsultation> dataSet, FragmentActivity context) {
             mDataSet = dataSet;
             sContext = context;
         }
@@ -281,8 +269,7 @@ public class ConsultationFragment extends DialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder viewHolder, final int position)
-        {
+        public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
             // Get element from your dataset at this position and replace the contents of the view
             // with that element
             viewHolder.setItemDetails(mDataSet.get(position));
@@ -319,8 +306,7 @@ public class ConsultationFragment extends DialogFragment {
         }
 
         @Override
-        public int getItemCount()
-        {
+        public int getItemCount() {
             return mDataSet.size();
         }
 
@@ -329,7 +315,7 @@ public class ConsultationFragment extends DialogFragment {
             return R.id.swipe;
         }
 
-        public void swap(ArrayList<ItemConsultation> dataSet){
+        public void swap(ArrayList<ItemConsultation> dataSet) {
             mDataSet = dataSet;
             notifyDataSetChanged();
             mItemManger.closeAllItems();

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
 
-   <RadioGroup
+    <RadioGroup
         android:id="@+id/radioGroupConsultation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,6 +16,9 @@
             android:id="@+id/todaysConsultations"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_slim"
+            android:layout_marginRight="@dimen/margin_slim"
+            android:layout_weight="1"
             android:background="@android:color/white"
             android:button="@null"
             android:checked="true"
@@ -23,104 +26,101 @@
             android:paddingBottom="@dimen/margin_medium"
             android:paddingTop="@dimen/margin_medium"
             android:text="@string/todays"
-            android:textColor="@drawable/tabs_text_selector_grey_orange"
-            android:layout_weight="1"
-            android:layout_marginBottom="@dimen/margin_slim"
-            android:layout_marginRight="@dimen/margin_slim" />
+            android:textColor="@drawable/tabs_text_selector_grey_orange" />
 
         <RadioButton
             android:id="@+id/upcomingConsultations"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_slim"
+            android:layout_weight="1"
             android:background="@android:color/white"
             android:button="@null"
             android:checked="false"
             android:gravity="center"
             android:text="@string/upcoming"
-            android:textColor="@drawable/tabs_text_selector_grey_orange"
-            android:layout_weight="1"
-            android:layout_marginBottom="@dimen/margin_slim" />
+            android:textColor="@drawable/tabs_text_selector_grey_orange" />
     </RadioGroup>
 
     <View
+        android:id="@+id/view"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:background="@android:color/white"
-        android:layout_marginTop="35dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/view" />
+        android:layout_marginTop="35dp"
+        android:background="@android:color/white" />
 
     <com.drughub.doctor.utils.DrughubIcon
+        android:id="@+id/addConsultationBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/icon_add_consultation"
-        android:textSize="65dp"
-        android:textColor="@color/colorPrimary"
-        android:id="@+id/addConsultationBtn"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true" />
+        android:text="@string/icon_add_consultation"
+        android:textColor="@color/colorPrimary"
+        android:textSize="65dp" />
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/noAppointments"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/noAppointments"
         android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_large"
             android:gravity="center"
             android:text="@string/noAppointments"
-            android:textColor="@color/colorPrimary"
-            android:layout_marginBottom="@dimen/margin_large"/>
+            android:textColor="@color/colorPrimary" />
 
         <com.drughub.doctor.utils.DrughubIcon
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/icon_vaccine"
-            android:textSize="75dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
+            android:text="@string/icon_vaccine"
             android:textColor="@color/colorDecoration"
-            android:layout_marginTop="20dp" />
+            android:textSize="75dp" />
 
     </LinearLayout>
 
     <RelativeLayout
-        android:orientation="horizontal"
+        android:id="@+id/editLayout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:paddingLeft="@dimen/margin_small"
-        android:paddingRight="@dimen/margin_small"
         android:layout_below="@+id/view"
-        android:id="@+id/editLayout"
-        android:layout_marginTop="@dimen/margin_large">
+        android:layout_marginTop="@dimen/margin_large"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/margin_small"
+        android:paddingRight="@dimen/margin_small">
 
         <EditText
+            android:id="@+id/consultationSearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/consultationSearch"
-            android:hint="@string/hintPatientName"
-            android:textColorHint="@color/colorHint"
-            android:textColor="@color/colorText"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/round_rect_fill_grey"
-            android:singleLine="true"
+            android:hint="@string/hintPatientName"
+            android:imeOptions="actionSearch"
             android:paddingLeft="@dimen/margin_small"
-            android:imeOptions="actionSearch" />
+            android:singleLine="true"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorHint" />
 
         <com.drughub.doctor.utils.DrughubIcon
+            android:id="@+id/consultationSearchBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="false"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:id="@+id/consultationSearchBtn"
-            android:text="@string/icon_search"
-            android:textSize="25sp"
-            android:layout_alignParentEnd="false"
             android:layout_marginRight="@dimen/margin_small"
-            android:textColor="@color/colorText" />
+            android:text="@string/icon_search"
+            android:textColor="@color/colorText"
+            android:textSize="25sp" />
 
     </RelativeLayout>
 
@@ -128,9 +128,9 @@
         android:id="@+id/consultation_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_tiny"
+        android:layout_below="@+id/editLayout"
         android:layout_marginBottom="@dimen/margin_small"
-        android:background="@color/colorWhite"
-        android:layout_below="@+id/editLayout"/>
+        android:layout_marginTop="@dimen/margin_tiny"
+        android:background="@color/colorWhite" />
 
 </RelativeLayout>
