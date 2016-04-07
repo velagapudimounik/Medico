@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.app.DatePickerDialog;
 import android.widget.DatePicker;
@@ -25,6 +26,8 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
@@ -43,7 +46,14 @@ public class MyProfileAddClinicFragment extends DialogFragment {
     int from_year = -1,from_month = -1,from_day = -1;
     int to_year = -1,to_month = -1,to_day = -1;
     LinearLayout imagelayout;
-
+    Spinner spinner1,spinner2,spinner3,spinner4;
+    TextView tv1;
+    public String[] country={"Country", "India", "Pakistan"};
+    public String[] state={"State","State2","State3"};
+    public String[] district={"District","District2","District3"};
+    public String[] townorcity={"Town/City"};
+    int spinner_position;
+    String selected;
 
 
     @Nullable
@@ -51,10 +61,26 @@ public class MyProfileAddClinicFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle(getString(R.string.addClinic));
         View view= inflater.inflate(R.layout.myprofile_addclinic_dailogbox,container,false);
-
+        String myString="Country";
+        spinner1=(Spinner)view.findViewById(R.id.country_spinner);
+        spinner2=(Spinner)view.findViewById(R.id.state_spinner);
+        spinner3=(Spinner)view.findViewById(R.id.district_spinner);
+        spinner4=(Spinner)view.findViewById(R.id.townorcity_spinner);
        // FrameLayout plusicon=(FrameLayout)view.findViewById(R.id.plusicon);
         image_urls = new ArrayList<>();
         image_urls.add(0,Uri.EMPTY);
+        ArrayAdapter<String> spinner1adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,country);
+        ArrayAdapter<String> spinner2adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,state);
+        ArrayAdapter<String> spinner3adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,district);
+        ArrayAdapter<String> spinner4adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,townorcity);
+        spinner1.setAdapter(spinner1adapter);
+        spinner2.setAdapter(spinner2adapter);
+        spinner3.setAdapter(spinner3adapter);
+        spinner4.setAdapter(spinner4adapter);
+        spinner1.setSelection(0);
+        spinner2.setSelection(0);
+        spinner3.setSelection(0);
+        spinner4.setSelection(0);
         return view;
     }
     @Override
@@ -66,46 +92,6 @@ public class MyProfileAddClinicFragment extends DialogFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         imagelayout=(LinearLayout)view.findViewById(R.id.mainimagelayout);
-        from_date_picker_edt = (EditText) view.findViewById(R.id.from_date_picker);
-        to_date_picker_edt = (EditText) view.findViewById(R.id.to_date_picker);
-        from_date_picker_edt.setKeyListener(null);
-        to_date_picker_edt.setKeyListener(null);
-        from_date_picker_edt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
-
-                    @Override
-                    public void onDateSet(DatePicker view, int local_year, int monthOfYear, int dayOfMonth) {
-                        from_date_picker_edt.setText(String.format("%02d", dayOfMonth) + "/" + String.format("%02d", (monthOfYear + 1)) + "/" + local_year);
-                        from_date_picker_edt.setTextColor(Color.GRAY);
-                        from_day = dayOfMonth;
-                        from_month = monthOfYear;
-                        from_year = local_year;
-                    }
-                };
-                CustomDialog.showDatePicker((BaseActivity) getActivity(), onDateSetListener, from_day, from_month, from_year);
-            }
-        });
-
-        to_date_picker_edt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
-
-                    @Override
-                    public void onDateSet(DatePicker view, int local_year, int monthOfYear, int dayOfMonth) {
-                        to_date_picker_edt.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + local_year);
-                        to_date_picker_edt.setTextColor(Color.GRAY);
-                        to_day = dayOfMonth;
-                        to_month = monthOfYear;
-                        to_year = local_year;
-                    }
-                };
-                CustomDialog.showDatePicker((BaseActivity) getActivity(), onDateSetListener, to_day, to_month, to_year);
-
-            }
-        });
         FrameLayout iconplus=(FrameLayout)view.findViewById(R.id.icon_plus);
         iconplus.setOnClickListener(new View.OnClickListener() {
             @Override

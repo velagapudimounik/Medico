@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:id="@+id/mainimagelayout"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="30dp"
                 android:orientation="horizontal"></LinearLayout>
 
             <FrameLayout
@@ -62,13 +62,208 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hintClinicName" />
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
             <EditText
                 style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/hintAddress" />
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:hint="@string/buildingName" />
+                <EditText
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:hint="@string/doorNo" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"
+                    android:hint="@string/streetName" />
+                <EditText
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:hint="@string/colonyName" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1">
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:id="@+id/country_spinner"
+                        android:textSize="13sp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/round_rect_fill_white"
+                        android:spinnerMode="dropdown"
+                        android:dropDownVerticalOffset="37dp"
+                        android:popupBackground="@drawable/round_rect_fill_white"/>
+
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/fill_round_rect_light_grey"
+                        android:layout_gravity="center_vertical|right"/>
+
+                    <com.drughub.doctor.utils.DrughubIcon
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/icon_down_arrow"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorTextDark"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical|right"/>
+
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:textSize="13sp"
+                        android:id="@+id/state_spinner"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/round_rect_fill_white"
+                        android:spinnerMode="dropdown"
+                        android:dropDownVerticalOffset="37dp"
+                        android:popupBackground="@drawable/round_rect_fill_white"/>
+
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/fill_round_rect_light_grey"
+                        android:layout_gravity="center_vertical|right"/>
+
+                    <com.drughub.doctor.utils.DrughubIcon
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/icon_down_arrow"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorTextDark"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical|right"/>
+
+                </FrameLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1">
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:textSize="13sp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/round_rect_fill_white"
+                        android:spinnerMode="dropdown"
+                        android:id="@+id/district_spinner"
+                        android:dropDownVerticalOffset="37dp"
+                        android:popupBackground="@drawable/round_rect_fill_white"/>
+
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/fill_round_rect_light_grey"
+                        android:layout_gravity="center_vertical|right"/>
+
+                    <com.drughub.doctor.utils.DrughubIcon
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/icon_down_arrow"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorTextDark"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical|right"/>
+
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/round_rect_fill_white"
+                        android:spinnerMode="dropdown"
+                        android:id="@+id/townorcity_spinner"
+                        android:dropDownVerticalOffset="37dp"
+                        android:popupBackground="@drawable/round_rect_fill_white"/>
+
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/fill_round_rect_light_grey"
+                        android:layout_gravity="center_vertical|right"/>
+
+                    <com.drughub.doctor.utils.DrughubIcon
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/icon_down_arrow"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorTextDark"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical|right"/>
+
+                </FrameLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"
+                    android:hint="@string/pincode" />
+                <EditText
+                    style="@style/EditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:hint="@string/landmark" />
+            </LinearLayout>
 
             <EditText
                 style="@style/EditTextStyle"
@@ -85,172 +280,12 @@
                 android:layout_marginTop="10dp"
                 android:hint="@string/hintConsultationFee"
                 android:inputType="numberDecimal" />
-
-            <EditText
-                style="@style/EditTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginTop="10dp"
-                android:hint="@string/hintClinicTimings"
-                android:inputType="time" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/textFrom"
-                        android:textColor="@color/colorTextLight"
-                        android:textSize="13sp" />
-
-                    <EditText
-                        android:id="@+id/from_date_picker"
-                        style="@style/EditTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/edit_text_height"
-                        android:ems="10"
-                        android:hint="@string/hintDate"
-                        android:inputType="date"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/textTo"
-                        android:textColor="@color/colorTextLight"
-                        android:textSize="13sp" />
-
-                    <EditText
-                        android:id="@+id/to_date_picker"
-                        style="@style/EditTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/edit_text_height"
-                        android:ems="10"
-                        android:hint="@string/hintDate"
-                        android:inputType="date"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/nonWorkingDays"
-                android:textColor="@color/colorTextLight"
-                android:textSize="12dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/monday"
-                    style="@style/CheckBoxStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_baby"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:text="@string/Monday_text" />
-
-                <CheckBox
-                    android:id="@+id/tuesday"
-                    style="@style/CheckBoxStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_baby"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:text="@string/Tuesday_text" />
-
-                <CheckBox
-                    android:id="@+id/wednesday"
-                    style="@style/CheckBoxStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_baby"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:text="@string/Wednesday_text" />
-
-                <CheckBox
-                    android:id="@+id/thursday"
-                    style="@style/CheckBoxStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_baby"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:text="@string/Thursday_text" />
-
-                <CheckBox
-                    android:id="@+id/friday"
-                    style="@style/CheckBoxStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_baby"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:text="@string/Friday_text" />
-
-                <CheckBox
-                    android:id="@+id/saturday"
-                    style="@style/CheckBoxStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_baby"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:text="@string/Saturday_text" />
-
-                <CheckBox
-                    android:id="@+id/sunday"
-                    style="@style/CheckBoxStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_baby"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:text="@string/Sunday_text" />
-
-            </LinearLayout>
-
             <CheckBox
                 style="@style/check_box_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="20dp"
                 android:paddingLeft="10dp"
                 android:text="@string/consultationAtHomeText"
                 android:textColor="@color/colorTextLight"
@@ -262,7 +297,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="50dp"
                 android:text="@string/textAdd" />
         </LinearLayout>
     </ScrollView>
