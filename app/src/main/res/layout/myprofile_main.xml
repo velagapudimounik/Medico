@@ -29,7 +29,15 @@
                 android:textSize="40dp"/>
 
         </FrameLayout>
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/profile_image"
+            android:visibility="visible"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            />
         <FrameLayout
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -108,9 +116,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/icon_tickmark"
+                android:text="@string/icon_rightmark"
                 android:textColor="@color/colorPrimary"
-                android:textSize="40dp"
+                android:textSize="20dp"
                 android:id="@+id/rightmark"
                 android:visibility="invisible"/>
 
