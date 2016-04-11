@@ -27,6 +27,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.drughub.doctor.BaseActivity;
@@ -35,8 +36,11 @@ import com.drughub.doctor.utils.CustomDialog;
 import com.drughub.doctor.utils.DrughubIcon;
 import com.gun0912.tedpicker.ImagePickerActivity;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.zip.Inflater;
 
 
 public class MyProfileAddClinicFragment extends DialogFragment {
@@ -69,14 +73,16 @@ public class MyProfileAddClinicFragment extends DialogFragment {
        // FrameLayout plusicon=(FrameLayout)view.findViewById(R.id.plusicon);
         image_urls = new ArrayList<>();
         image_urls.add(0,Uri.EMPTY);
-        ArrayAdapter<String> spinner1adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,country);
-        ArrayAdapter<String> spinner2adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,state);
-        ArrayAdapter<String> spinner3adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,district);
-        ArrayAdapter<String> spinner4adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,townorcity);
-        spinner1.setAdapter(spinner1adapter);
-        spinner2.setAdapter(spinner2adapter);
-        spinner3.setAdapter(spinner3adapter);
-        spinner4.setAdapter(spinner4adapter);
+//        ArrayAdapter<String> spinner1adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,country);
+//        ArrayAdapter<String> spinner2adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,state);
+//        ArrayAdapter<String> spinner3adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,district);
+//        ArrayAdapter<String> spinner4adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,townorcity);
+       // CountrySpinner   LTRadapter.setDropDownViewResource(android.R.layout.myprofile_addclinic_dailogbox);
+
+        spinner1.setAdapter(new CountrySpinner(getActivity(),country));
+        spinner2.setAdapter(new StateSpinner(getActivity(),state));
+        spinner3.setAdapter(new DistrictSpinner(getActivity(), district));
+        spinner4.setAdapter(new TownCitySpinner(getActivity(), townorcity));
         spinner1.setSelection(0);
         spinner2.setSelection(0);
         spinner3.setSelection(0);
@@ -96,10 +102,13 @@ public class MyProfileAddClinicFragment extends DialogFragment {
         iconplus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),ImagePickerActivity.class);
-                startActivityForResult(intent,SELECT_PICTURE);
+                Intent intent = new Intent(getActivity(), ImagePickerActivity.class);
+                startActivityForResult(intent, SELECT_PICTURE);
             }
         });
+
+
+
 
         super.onViewCreated(view, savedInstanceState);
     }
@@ -122,6 +131,33 @@ public class MyProfileAddClinicFragment extends DialogFragment {
 
                 }
             }
+        }
+    }
+
+    public class CountrySpinner extends ArrayAdapter<String> {
+        private int position;
+        private View convertView;
+        private ViewGroup parent;
+        private Context context;
+        public CountrySpinner(Context context, String[] country) {
+            super(context,R.layout.myporfile_spinner_addclinic,country);
+        }
+    }
+
+    private class StateSpinner extends ArrayAdapter<String>{
+        public StateSpinner(Context context, String[] state) {
+            super(context,R.layout.myporfile_spinner_addclinic,state);
+        }
+    }
+
+    private class DistrictSpinner extends ArrayAdapter<String> {
+        public DistrictSpinner(Context context, String[] district) {
+            super(context,R.layout.myporfile_spinner_addclinic,district);
+        }
+    }
+    private class TownCitySpinner extends ArrayAdapter<String> {
+        public TownCitySpinner(Context context, String[] district) {
+            super(context,R.layout.myporfile_spinner_addclinic,townorcity);
         }
     }
 }
