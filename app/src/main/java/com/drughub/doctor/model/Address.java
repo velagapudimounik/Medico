@@ -13,7 +13,7 @@ public class Address extends RealmObject {
     private String street;
     private ValueIds state;
     private String doorNumber;
-    private Integer postalCode;
+    private String postalCode;
     private String areaCode;
     private String addressType;
     private String district;
@@ -59,11 +59,11 @@ public class Address extends RealmObject {
         this.doorNumber = doorNumber;
     }
 
-    public Integer getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(Integer postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
