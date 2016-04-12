@@ -8,20 +8,16 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
-import com.drughub.doctor.model.User;
-
-import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class LoginActivity extends BaseActivity {
     Fragment fragment=null;
-    private Realm realm;
-    String json = "{" +
-            "\"name\" : \"Test\"," +
-            "\"email\" : \"test@test.com\"," +
-            "\"mobile\" : \"9876543210\"," +
-            "\"password\" : \"test@123\"" +
-            "}";
+//    private Realm realm;
+//    String json = "{" +
+//            "\"name\" : \"Test\"," +
+//            "\"email\" : \"test@test.com\"," +
+//            "\"mobile\" : \"9876543210\"," +
+//            "\"password\" : \"test@123\"" +
+//            "}";
 
 
     @Override
@@ -29,16 +25,16 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main_layout);
 
-        realm = getRealmObject();
-        realm.beginTransaction();
-        User user = realm.createObjectFromJson(User.class, json);
-        RealmResults<User> user1=realm.allObjects(User.class);
-        String name  = user.getName();
-        String email  = user.getEmail();
-        String mobile  = user.getMobile();
-        String pass  = user.getPassword();
+//        realm = getRealmObject();
+//        realm.beginTransaction();
+//        User user = realm.createObjectFromJson(User.class, json);
+//        RealmResults<User> user1=realm.allObjects(User.class);
+//        String name  = user.getName();
+//        String email  = user.getEmail();
+//        String mobile  = user.getMobile();
+//        String pass  = user.getPassword();
 
-        realm.commitTransaction();
+//        realm.commitTransaction();
 
         fragment=new LoginPage();
         FragmentManager manager=getSupportFragmentManager();
@@ -49,6 +45,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        realm.close();
+//        realm.close();
     }
 }

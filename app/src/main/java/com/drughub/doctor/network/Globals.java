@@ -23,6 +23,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.drughub.doctor.model.User;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -43,6 +44,7 @@ public class Globals {
     public static Typeface typeFace, lightTypeFace;
     public static Double latitude = 0.0, longitude = 0.0;
     public static boolean sendLocation = false;
+    public static User userProfile;
 
     public Globals(Context context) {
         mCtx = context;
@@ -56,7 +58,6 @@ public class Globals {
 
     /*GET METHOD REQUEST FOR API*/
     public static String GET(String url, final Map<String, String> headers, final VolleyCallback callback) {
-
         getRequestQueue();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -93,11 +94,8 @@ public class Globals {
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Log.v("Headers", "" + headers);
-                return headers;
+                return super.getHeaders();
             }
-
-
         };
 
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(MY_SOCKET_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));

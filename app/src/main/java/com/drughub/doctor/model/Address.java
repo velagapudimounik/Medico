@@ -1,5 +1,7 @@
 package com.drughub.doctor.model;
 
+import org.json.JSONObject;
+
 import io.realm.RealmObject;
 
 public class Address extends RealmObject {
@@ -152,4 +154,25 @@ public class Address extends RealmObject {
     public void setDlno(Integer dlno) {
         this.dlno = dlno;
     }
+
+    public JSONObject toServiceProvider(){
+        JSONObject address_object = new JSONObject();
+        try {
+            address_object.put("buildingName", getBuildingName());
+            address_object.put("country", getCountry());
+            address_object.put("colony", getColony());
+            address_object.put("doorNumber", getDoorNumber());
+            address_object.put("city", getCity());
+            address_object.put("street", getStreet());
+            address_object.put("postalCode", getPostalCode());
+            address_object.put("state", getState());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return address_object;
+
+    }
+
 }
