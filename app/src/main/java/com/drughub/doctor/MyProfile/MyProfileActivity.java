@@ -1,5 +1,6 @@
 package com.drughub.doctor.MyProfile;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,19 +9,57 @@ import android.widget.Button;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.model.ServiceProvider;
+import com.drughub.doctor.network.Globals;
+import com.drughub.doctor.network.Urls;
+import com.drughub.doctor.utils.PrefUtils;
+
+import org.json.JSONObject;
+
+import io.realm.Realm;
 
 public class MyProfileActivity extends BaseActivity {
-    Fragment fragment=null;
+    Fragment fragment = null;
+    Realm realm;
+    ProgressDialog progress;
+
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myprofile_activity);
-        final Button myclinicbutton=(Button)findViewById(R.id.Myclinic_button);
+        realm = Realm.getDefaultInstance();
+        final Button myClinicButton = (Button) findViewById(R.id.Myclinic_button);
         setBackButton(true);
-        fragment=new MyProfileFragment();
-        FragmentManager manager=getSupportFragmentManager();
-        FragmentTransaction transaction=manager.beginTransaction();
-        transaction.replace(R.id.containeractivity, fragment).commit();
+        progress = ProgressDialog.show(MyProfileActivity.this, "", "Please wait...", true);
+        Globals.GET(Urls.SERVICE_PROVIDER + PrefUtils.getUserName(getApplicationContext()), null, new Globals.VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                try {
+                    JSONObject object = new JSONObject(result);
+                    if (object.getBoolean("result")) {
+                        realm.beginTransaction();
+                        realm.createObjectFromJson(ServiceProvider.class, object.getJSONObject("response"));
+                        realm.commitTransaction();
+                    }
+                    if (progress != null)
+                        progress.dismiss();
+
+                    fragment = new MyProfileFragment();
+                    FragmentManager manager = getSupportFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.containeractivity, fragment).commit();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFail(String result) {
+                if (progress != null)
+                    progress.dismiss();
+            }
+        });
+
     }
 }

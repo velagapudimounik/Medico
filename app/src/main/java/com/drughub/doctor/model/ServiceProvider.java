@@ -5,6 +5,7 @@ import android.content.Context;
 import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.network.Urls;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import io.realm.RealmList;
@@ -48,13 +49,28 @@ public class ServiceProvider extends RealmObject {
     public String toUpdateServiceProvider() {
         JSONObject object = new JSONObject();
         try {
-            object.put("firstName", getFirstName());
-            object.put("lastname", getLastName());
-            object.put("mobile", getMobile());
-//            object.put("qualification", getQualification());
-//            object.put("specialization", getSpecialization());
-//            object.put("experienceInYears", getExperienceInYears());
             object.put("address", address.toServiceProvider());
+            JSONArray qualificationList = new JSONArray();
+            for (ValueIds qualification : getQualificationList()) {
+                qualificationList.put(qualification.getValueIds());
+            }
+            JSONArray specializationList = new JSONArray();
+            for (ValueIds spec : getSpecializationList()) {
+                specializationList.put(spec.getValueIds());
+            }
+
+            object.put("qualificationList", qualificationList);
+            object.put("specializationList", specializationList);
+            object.put("practiseStartDate", getPractiseStartDate());
+            object.put("profileDescription", getProfileDescription());
+            object.put("mobile", getMobile());
+            object.put("spProfileId", getSpProfileId());
+            object.put("firstName", getFirstName());
+            object.put("lastName", getLastName());
+            object.put("middleName", getLastName());
+            object.put("profileName", getProfileName());
+//            object.put("experienceInYears", getExperienceInYears());
+
         } catch (Exception e) {
             e.printStackTrace();
         }

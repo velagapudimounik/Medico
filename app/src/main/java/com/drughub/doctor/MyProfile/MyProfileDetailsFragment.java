@@ -34,12 +34,12 @@ public class MyProfileDetailsFragment extends Fragment {
 
 
         doctor_name.setText(serviceProvider.getFirstName() + " " + serviceProvider.getLastName());
-        qualification.setText(serviceProvider.getQualification());
-        experience.setText(serviceProvider.getExperienceInYears()+" year(s) experience");
-        city.setText(serviceProvider.getCity());
-        country.setText(serviceProvider.getCountry());
-        email.setText(serviceProvider.getEmail());
-        mobile.setText(serviceProvider.getPhone());
+//        qualification.setText(serviceProvider.getQualification());
+//        experience.setText(serviceProvider.getExperienceInYears()+" year(s) experience");
+//        city.setText(serviceProvider.getCity());
+//        country.setText(serviceProvider.getCountry());
+//        email.setText(serviceProvider.getEmail());
+//        mobile.setText(serviceProvider.getPhone());
 
         Log.i("Service_", serviceProvider.toUpdateServiceProvider());
 

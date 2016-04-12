@@ -11,6 +11,7 @@ import android.widget.Spinner;
 
 import com.drughub.doctor.R;
 import com.drughub.doctor.model.ServiceProvider;
+import com.drughub.doctor.network.Globals;
 
 import io.realm.Realm;
 
@@ -144,6 +145,18 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
         serviceProvider.getAddress().setLandmark(getEditLandMark().getText().toString());
         serviceProvider.setEmailId(getEditEmailAddress().getText().toString());
         serviceProvider.setMobile(getEditMobile().getText().toString());
+
+        serviceProvider.UpdateServiceProvider(getActivity(), new Globals.VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+
+            @Override
+            public void onFail(String result) {
+
+            }
+        });
     }
 
 }
