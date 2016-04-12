@@ -13,11 +13,11 @@ import java.util.HashMap;
 import io.realm.RealmObject;
 
 
-public class Clinic extends RealmObject {
+public class DoctorClinic extends RealmObject {
     private String clinicId;
     private String clinicTimings;
     private String consultationFee;
-    private String clinicName;
+    private String clinicName="Clinic Name";
     private String phoneNo;
     private boolean isHomeClinic;
     private Address address;
