@@ -5,47 +5,28 @@ import org.json.JSONObject;
 import io.realm.RealmObject;
 
 public class Address extends RealmObject {
+    private String addressId = "123";
     private String buildingName = "123";
-    private String Country;
+    private ValueIds country;
     private String colony;
-    private String City;
+    private ValueIds city;
     private String street;
-    private String State;
+    private ValueIds state;
     private String doorNumber;
     private Integer postalCode;
+    private String areaCode;
     private String addressType;
     private String district;
     private String tinno;
     private String companyName;
     private String colonyName;
     private String streetName;
+    private String landmark;
     private double lng;
     private double lat;
     private Integer dlno;
 
-    public String getCountry() {
-        return Country;
-    }
 
-    public void setCountry(String country) {
-        Country = country;
-    }
-
-    public String getCity() {
-        return City;
-    }
-
-    public void setCity(String city) {
-        City = city;
-    }
-
-    public String getState() {
-        return State;
-    }
-
-    public void setState(String state) {
-        State = state;
-    }
     public String getBuildingName() {
         return buildingName;
     }
@@ -53,6 +34,7 @@ public class Address extends RealmObject {
     public void setBuildingName(String buildingName) {
         this.buildingName = buildingName;
     }
+
     public String getColony() {
         return colony;
     }
@@ -60,6 +42,7 @@ public class Address extends RealmObject {
     public void setColony(String colony) {
         this.colony = colony;
     }
+
     public String getStreet() {
         return street;
     }
@@ -67,6 +50,7 @@ public class Address extends RealmObject {
     public void setStreet(String street) {
         this.street = street;
     }
+
     public String getDoorNumber() {
         return doorNumber;
     }
@@ -155,24 +139,77 @@ public class Address extends RealmObject {
         this.dlno = dlno;
     }
 
-    public JSONObject toServiceProvider(){
-        JSONObject address_object = new JSONObject();
+    public JSONObject toServiceProvider() {
+        JSONObject addressObject = new JSONObject();
         try {
-            address_object.put("buildingName", getBuildingName());
-            address_object.put("country", getCountry());
-            address_object.put("colony", getColony());
-            address_object.put("doorNumber", getDoorNumber());
-            address_object.put("city", getCity());
-            address_object.put("street", getStreet());
-            address_object.put("postalCode", getPostalCode());
-            address_object.put("state", getState());
+
+            addressObject.put("addressId", getAddressId());
+            addressObject.put("doorNumber", getDoorNumber());
+            addressObject.put("buildingName", getBuildingName());
+            addressObject.put("streetName", getStreet());
+            addressObject.put("areaCode", getAreaCode());
+            addressObject.put("landmark", getLandmark());
+            addressObject.put("postalCode", getPostalCode());
+            addressObject.put("lat", getLat());
+            addressObject.put("lng", getLng());
+            addressObject.put("state", getState().getValueIds());
+            addressObject.put("country", getCountry().getValueIdsCode());
+            addressObject.put("city", getCity().getValueIds());
+            addressObject.put("colony", getColony());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return address_object;
+        return addressObject;
 
     }
 
+    public String getAreaCode() {
+        return areaCode;
+    }
+
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
+    }
+
+    public String getLandmark() {
+        return landmark;
+    }
+
+    public void setLandmark(String landmark) {
+        this.landmark = landmark;
+    }
+
+    public String getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
+    }
+
+    public ValueIds getCountry() {
+        return country;
+    }
+
+    public void setCountry(ValueIds country) {
+        this.country = country;
+    }
+
+    public ValueIds getCity() {
+        return city;
+    }
+
+    public void setCity(ValueIds city) {
+        this.city = city;
+    }
+
+    public ValueIds getState() {
+        return state;
+    }
+
+    public void setState(ValueIds state) {
+        this.state = state;
+    }
 }
