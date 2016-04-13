@@ -33,9 +33,8 @@
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".MyProfile.MyProfileActivity" />
 
-        <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="adjustNothing" />
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustNothing"/>
 
         <activity android:name=".Cart.CartActivity" />
         <activity android:name=".MyOrders.MyOrderContainer" />
@@ -51,16 +50,15 @@
 
         <activity android:name=".OrangeWallet.SaveCard" />
 
-        <activity android:name=".consultation.VaccinationSchedule" />
+        <activity  android:name=".consultation.VaccinationSchedule" />
 
-        <activity android:name=".Notification.NotificationActivity" />
+        <activity android:name=".Notification.NotificationActivity"/>
 
         <activity android:name=".Notification.NotificationsettingActivity" />
         <activity
             android:name="com.gun0912.tedpicker.ImagePickerActivity"
             android:screenOrientation="portrait" />
-
-
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
         <activity
             android:name=".patientrecords.PatientRecordActivity"
             android:windowSoftInputMode="adjustNothing" />
