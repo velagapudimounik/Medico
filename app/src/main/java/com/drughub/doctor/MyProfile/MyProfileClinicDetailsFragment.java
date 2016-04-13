@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.drughub.doctor.R;
-import com.drughub.doctor.model.Clinic;
+import com.drughub.doctor.model.DoctorClinic;
 import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
 import io.realm.Realm;
@@ -36,7 +36,7 @@ public class MyProfileClinicDetailsFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
-        Clinic Clinic =new Clinic();
+        DoctorClinic Clinic =new DoctorClinic();
         clinicName.setText(Clinic.getClinicName());
         return view;
     }

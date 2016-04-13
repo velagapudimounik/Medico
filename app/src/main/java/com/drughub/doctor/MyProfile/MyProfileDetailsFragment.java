@@ -22,10 +22,11 @@ public class MyProfileDetailsFragment extends Fragment {
     private TextView doctorName;
     private TextView qualification;
     private TextView experience;
-    private TextView city;
-    private TextView country;
+    private TextView adressline1;
+    private TextView adressline2;
     private TextView email;
     private TextView mobile;
+
 
     @Nullable
     @Override
@@ -41,8 +42,8 @@ public class MyProfileDetailsFragment extends Fragment {
         doctorName = (TextView) view.findViewById(R.id.doctor_name);
         qualification = (TextView) view.findViewById(R.id.qualification);
         experience = (TextView) view.findViewById(R.id.experience);
-        city = (TextView) view.findViewById(R.id.city);
-        country = (TextView) view.findViewById(R.id.country);
+        adressline1 = (TextView) view.findViewById(R.id.textadressLine1);
+        adressline2 = (TextView) view.findViewById(R.id.textadressLine2);
         email = (TextView) view.findViewById(R.id.email);
         mobile = (TextView) view.findViewById(R.id.mobile);
     }
@@ -54,6 +55,14 @@ public class MyProfileDetailsFragment extends Fragment {
         realm = Realm.getDefaultInstance();
         serviceProvider = realm.where(ServiceProvider.class).findFirst();
         if (serviceProvider != null) {
+            doctorName.setText(serviceProvider.getFirstName()+serviceProvider.getMiddleName()+serviceProvider.getLastName());
+            if (serviceProvider.getAddress()!=null) {
+                adressline1.setText(serviceProvider.getAddress().getBuildingName() + serviceProvider.getAddress().
+                        getDoorNumber() + serviceProvider.getAddress().getStreetName() + serviceProvider.getAddress().getColonyName());
+                adressline2.setText(serviceProvider.getAddress().getPostalCode());
+            }
+            email.setText(serviceProvider.getEmailId());
+            mobile.setText(serviceProvider.getMobile());
 
         }
 

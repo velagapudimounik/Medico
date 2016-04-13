@@ -3,6 +3,7 @@ package com.drughub.doctor.MyProfile;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
             getEditFirstName().setText(serviceProvider.getFirstName());
             getEditMiddleName().setText(serviceProvider.getMiddleName());
             getEditLastName().setText(serviceProvider.getLastName());
-            getEditBuildingName().setText(serviceProvider.getAddress().getBuildingName());
+             getEditBuildingName().setText(serviceProvider.getAddress().getBuildingName());
             getEditDoorNo().setText(serviceProvider.getAddress().getDoorNumber());
             getEditStreetName().setText(serviceProvider.getAddress().getStreetName());
             getEditColonyName().setText(serviceProvider.getAddress().getColonyName());
@@ -149,12 +150,12 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
         serviceProvider.UpdateServiceProvider(getActivity(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
-
+                Log.v("SP UPResult",result);
             }
 
             @Override
             public void onFail(String result) {
-
+                Log.v("SP UpFail",result);
             }
         });
     }
