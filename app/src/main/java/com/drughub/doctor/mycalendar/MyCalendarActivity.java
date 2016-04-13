@@ -1,5 +1,6 @@
 package com.drughub.doctor.mycalendar;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,11 +18,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.app.DatePickerDialog;
-import android.widget.DatePicker;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.Notification.NotificationActivity;
@@ -29,10 +26,8 @@ import com.drughub.doctor.R;
 import com.drughub.doctor.utils.CustomDialog;
 
 import java.lang.reflect.Field;
-import java.util.Calendar;
 
-enum CLOCK_PICKER
-{
+enum CLOCK_PICKER {
     HOURS,
     MINUTES,
     MERIDIEM,
@@ -40,12 +35,78 @@ enum CLOCK_PICKER
 
 public class MyCalendarActivity extends BaseActivity {
 
-    final  String[] spinnervalues={"Clinic Name1 |","Clinic Name2 |","Clinic Name3 |","My Address"};
-    final  String[] spinneraddress={"Address1","Address2","Address3",""};
+    final String[] spinnervalues = {"Clinic Name1 |", "Clinic Name2 |", "Clinic Name3 |", "My Clinics"};
+    final String[] spinneraddress = {"Address1", "Address2", "Address3", ""};
 
-    int from_day = -1,from_month = -1,from_year =  -1;
-    int to_day = -1,to_month = -1,to_year =  -1;
-    EditText from_date_picker_edt , to_date_picker_edt;
+    int from_day = -1, from_month = -1, from_year = -1;
+    int to_day = -1, to_month = -1, to_year = -1;
+    EditText from_date_picker_edt, to_date_picker_edt;
+
+    public static NumberPicker initNumberPicker(NumberPicker numberPicker, CLOCK_PICKER pickerType) {
+        String[] displayValues = null;
+
+        switch (pickerType) {
+            case HOURS: {
+                displayValues = new String[12];
+                for (int i = 0; i < 12; i++)
+                    displayValues[i] = "" + (i + 1);//String.format("%02d", i+1);
+
+                numberPicker.setMaxValue(12);
+                numberPicker.setMinValue(1);
+            }
+            break;
+            case MINUTES: {
+                displayValues = new String[60];
+                for (int i = 0; i < 60; i++)
+                    displayValues[i] = String.format("%02d", i);
+
+                numberPicker.setMaxValue(60);
+                numberPicker.setMinValue(1);
+            }
+            break;
+            case MERIDIEM: {
+                displayValues = new String[2];
+                displayValues[0] = "AM";
+                displayValues[1] = "PM";
+
+                numberPicker.setMaxValue(2);
+                numberPicker.setMinValue(1);
+            }
+            break;
+        }
+
+        numberPicker.setDisplayedValues(displayValues);
+        setNumberPickerTextColor(numberPicker, 0xFFFFFFFF);
+        return numberPicker;
+    }
+
+    public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color) {
+        final int count = numberPicker.getChildCount();
+        for (int i = 0; i < count; i++) {
+            View child = numberPicker.getChildAt(i);
+            if (child instanceof EditText) {
+                try {
+                    Class<?> numberPickerClass = numberPicker.getClass();
+                    Field selectorWheelPaintField = numberPickerClass.getDeclaredField("mSelectorWheelPaint");
+                    selectorWheelPaintField.setAccessible(true);
+                    ((Paint) selectorWheelPaintField.get(numberPicker)).setColor(color);
+                    ((EditText) child).setTextColor(color);
+                    child.setPadding(0, 0, 0, 0);
+
+                    Field selectionDivider = numberPickerClass.getDeclaredField("mSelectionDivider");
+                    selectionDivider.setAccessible(true);
+                    selectionDivider.set(numberPicker, null);
+
+                    numberPicker.invalidate();
+                    return true;
+                } catch (Exception e) {
+                    Log.w("setNumberPickerColor", e);
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public void onActionButtonClicked(int drughubIconsRes) {
         super.onActionButtonClicked(drughubIconsRes);
@@ -101,7 +162,7 @@ public class MyCalendarActivity extends BaseActivity {
 
                             @Override
                             public void onDateSet(DatePicker view, int local_year, int monthOfYear, int dayOfMonth) {
-                                from_date_picker_edt.setText(String.format("%02d", dayOfMonth) + "/" + String.format("%02d", (monthOfYear+1)) + "/" + local_year);
+                                from_date_picker_edt.setText(String.format("%02d", dayOfMonth) + "/" + String.format("%02d", (monthOfYear + 1)) + "/" + local_year);
                                 from_date_picker_edt.setTextColor(Color.GRAY);
                                 from_day = dayOfMonth;
                                 from_month = monthOfYear;
@@ -120,7 +181,7 @@ public class MyCalendarActivity extends BaseActivity {
 
                             @Override
                             public void onDateSet(DatePicker view, int local_year, int monthOfYear, int dayOfMonth) {
-                                to_date_picker_edt.setText(String.format("%02d", dayOfMonth) + "/" + String.format("%02d", (monthOfYear+1)) + "/" + local_year);
+                                to_date_picker_edt.setText(String.format("%02d", dayOfMonth) + "/" + String.format("%02d", (monthOfYear + 1)) + "/" + local_year);
                                 to_date_picker_edt.setTextColor(Color.GRAY);
                                 to_day = dayOfMonth;
                                 to_month = monthOfYear;
@@ -152,85 +213,13 @@ public class MyCalendarActivity extends BaseActivity {
         });
     }
 
-    public static NumberPicker initNumberPicker(NumberPicker numberPicker, CLOCK_PICKER pickerType)
-    {
-        String[] displayValues = null;
-
-        switch (pickerType)
-        {
-            case HOURS:
-            {
-                displayValues = new String[12];
-                for(int i = 0; i<12; i++)
-                    displayValues[i] = ""+(i+1);//String.format("%02d", i+1);
-
-                numberPicker.setMaxValue(12);
-                numberPicker.setMinValue(1);
-            }
-            break;
-            case MINUTES:
-            {
-                displayValues = new String[60];
-                for(int i = 0; i<60; i++)
-                    displayValues[i] = String.format("%02d", i);
-
-                numberPicker.setMaxValue(60);
-                numberPicker.setMinValue(1);
-            }
-            break;
-            case MERIDIEM:
-            {
-                displayValues = new String[2];
-                displayValues[0] = "AM";
-                displayValues[1] = "PM";
-
-                numberPicker.setMaxValue(2);
-                numberPicker.setMinValue(1);
-            }
-            break;
-        }
-
-        numberPicker.setDisplayedValues(displayValues);
-        setNumberPickerTextColor(numberPicker, 0xFFFFFFFF);
-        return numberPicker;
-    }
-
-    public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color)
-    {
-        final int count = numberPicker.getChildCount();
-        for(int i = 0; i < count; i++){
-            View child = numberPicker.getChildAt(i);
-            if(child instanceof EditText){
-                try{
-                    Class<?> numberPickerClass = numberPicker.getClass();
-                    Field selectorWheelPaintField = numberPickerClass.getDeclaredField("mSelectorWheelPaint");
-                    selectorWheelPaintField.setAccessible(true);
-                    ((Paint)selectorWheelPaintField.get(numberPicker)).setColor(color);
-                    ((EditText)child).setTextColor(color);
-                    child.setPadding(0, 0 ,0, 0);
-
-                    Field selectionDivider = numberPickerClass.getDeclaredField("mSelectionDivider");
-                    selectionDivider.setAccessible(true);
-                    selectionDivider.set(numberPicker, null);
-
-                    numberPicker.invalidate();
-                    return true;
-                }
-                catch(Exception e){
-                    Log.w("setNumberPickerColor", e);
-                }
-            }
-        }
-        return false;
-    }
-
     private class CustomAdapter extends ArrayAdapter<String> {
         private int position;
         private View convertView;
         private ViewGroup parent;
         private Context context;
 
-        public CustomAdapter(Context context,  String[] objects) {
+        public CustomAdapter(Context context, String[] objects) {
             super(context, R.layout.custom_spinner, objects);
         }
 
@@ -244,29 +233,24 @@ public class MyCalendarActivity extends BaseActivity {
             Address.setText(spinneraddress[position]);
             return mySpinner;
         }
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater= (getLayoutInflater());
-            View mySpinner=inflater.inflate(R.layout.custom_spinner, null);
-            TextView clinicname=(TextView)mySpinner.findViewById(R.id.string1);
+            LayoutInflater inflater = (getLayoutInflater());
+            View mySpinner = inflater.inflate(R.layout.custom_spinner, null);
+            TextView clinicname = (TextView) mySpinner.findViewById(R.id.string1);
             clinicname.setText(spinnervalues[position]);
-            TextView Address=(TextView)mySpinner.findViewById(R.id.string2);
+            TextView Address = (TextView) mySpinner.findViewById(R.id.string2);
             Address.setText(spinneraddress[position]);
-            if(getCount() == position)
-            {
+            if (getCount() == position) {
                 clinicname.setTextColor(Color.LTGRAY);
             }
-
-
-
-
-            return  mySpinner;
+            return mySpinner;
         }
+
         @Override
         public int getCount() {
-            //int count=getCount();
-            //System.out.println(count+"count");
-            return super.getCount()-1; // you dont display last item. It is used as hint.
+            return super.getCount() - 1; // you dont display last item. It is used as hint.
         }
 
     }

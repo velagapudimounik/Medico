@@ -20,24 +20,25 @@ import io.realm.Realm;
 
 public class MyProfileClinicDetailsFragment extends Fragment {
     private Realm realm;
-    public  RecyclerView mRecyclerView;
+    public RecyclerView mRecyclerView;
     public RecyclerView.Adapter adapter;
+
     @Nullable
     @Override
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.myprofile_clinic_details,container,false);
-        getActivity().setTitle("Sandeep Clinic");
-        TextView clinicName=(TextView)view.findViewById(R.id.ClinicName);
-        TextView clinicAddress=(TextView)view.findViewById(R.id.ClinicAddress);
-        mRecyclerView=(RecyclerView)view.findViewById(R.id.imagerecyclerview);
-        ClinicDetailsAdapter adapter=new ClinicDetailsAdapter(this.getActivity());
+        View view = inflater.inflate(R.layout.myprofile_clinic_details, container, false);
+        getActivity().setTitle("Clinic Name");
+        TextView clinicName = (TextView) view.findViewById(R.id.ClinicName);
+        TextView clinicAddress = (TextView) view.findViewById(R.id.ClinicAddress);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.imagerecyclerview);
+        ClinicDetailsAdapter adapter = new ClinicDetailsAdapter(this.getActivity());
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
-        DoctorClinic Clinic =new DoctorClinic();
-        clinicName.setText(Clinic.getClinicName());
+        DoctorClinic clinic = new DoctorClinic();
+        clinicName.setText(clinic.getClinicName());
         return view;
     }
 
@@ -48,14 +49,15 @@ public class MyProfileClinicDetailsFragment extends Fragment {
     }
 
     public class ClinicDetailsAdapter extends RecyclerView.Adapter<ClinicDetailsAdapter.RecyclerViewHolder> {
-        FragmentActivity context=null;
-        public ClinicDetailsAdapter(FragmentActivity context){
-            this.context=context;
+        FragmentActivity context = null;
+
+        public ClinicDetailsAdapter(FragmentActivity context) {
+            this.context = context;
         }
 
         @Override
         public ClinicDetailsAdapter.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view1=LayoutInflater.from(context).inflate(R.layout.myprifile_clinicimage_recyclerview,parent,false);
+            View view1 = LayoutInflater.from(context).inflate(R.layout.myprifile_clinicimage_recyclerview, parent, false);
             return new RecyclerViewHolder(view1);
         }
 
@@ -69,7 +71,7 @@ public class MyProfileClinicDetailsFragment extends Fragment {
             return 10;
         }
 
-        public class RecyclerViewHolder extends RecyclerView.ViewHolder{
+        public class RecyclerViewHolder extends RecyclerView.ViewHolder {
             public RecyclerViewHolder(View itemView) {
                 super(itemView);
             }
