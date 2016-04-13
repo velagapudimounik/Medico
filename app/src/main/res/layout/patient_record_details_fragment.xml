@@ -40,6 +40,10 @@
             android:layout_toRightOf="@+id/linearLayout"
             android:orientation="vertical"
             android:layout_marginLeft="10dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/patient_name"
@@ -48,6 +52,14 @@
                 android:text="Amar"
                 android:textColor="@color/colorText"
                 android:textSize="@dimen/text_medium" />
+            <TextView
+                android:id="@+id/Doctor_DHCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="| DH Code"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_medium" />
+        </LinearLayout>
 
             <TextView
                 android:id="@+id/patient_dob"

@@ -44,13 +44,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Clinic Name | Date"
+            android:text="Clinic Name | Location"
             android:id="@+id/clinicDetails" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Location | Time"
+            android:text="Slot1 | Slot2"
             android:textSize="@dimen/text_tiny"
             android:textColor="@color/colorPrimary"
             android:id="@+id/locationDetails" />
