@@ -35,11 +35,13 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
             getEditFirstName().setText(serviceProvider.getFirstName());
             getEditMiddleName().setText(serviceProvider.getMiddleName());
             getEditLastName().setText(serviceProvider.getLastName());
-             getEditBuildingName().setText(serviceProvider.getAddress().getBuildingName());
-            getEditDoorNo().setText(serviceProvider.getAddress().getDoorNumber());
-            getEditStreetName().setText(serviceProvider.getAddress().getStreetName());
-            getEditColonyName().setText(serviceProvider.getAddress().getColonyName());
-            getEditPincode().setText(serviceProvider.getAddress().getPostalCode());
+            if (serviceProvider.getAddress() != null) {
+                getEditBuildingName().setText(serviceProvider.getAddress().getBuildingName());
+                getEditDoorNo().setText(serviceProvider.getAddress().getDoorNumber());
+                getEditStreetName().setText(serviceProvider.getAddress().getStreetName());
+                getEditColonyName().setText(serviceProvider.getAddress().getColonyName());
+                getEditPincode().setText(serviceProvider.getAddress().getPostalCode());
+            }
             getEditEmailAddress().setText(serviceProvider.getEmailId());
             getEditMobile().setText(serviceProvider.getMobile());
         }
@@ -135,27 +137,33 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
     }
 
     private void updateProfile() {
+        realm.beginTransaction();
         serviceProvider.setMobile(getEditMobile().getText().toString());
         serviceProvider.setFirstName(getEditFirstName().getText().toString());
         serviceProvider.setLastName(getEditLastName().getText().toString());
-        serviceProvider.getAddress().setBuildingName(getEditBuildingName().getText().toString());
-        serviceProvider.getAddress().setDoorNumber(getEditDoorNo().getText().toString());
-        serviceProvider.getAddress().setStreetName(getEditStreetName().getText().toString());
-        serviceProvider.getAddress().setColonyName(getEditColonyName().getText().toString());
-        serviceProvider.getAddress().setPostalCode(getEditPincode().getText().toString());
-        serviceProvider.getAddress().setLandmark(getEditLandMark().getText().toString());
+        if (serviceProvider.getAddress() != null) {
+            serviceProvider.getAddress().setBuildingName(getEditBuildingName().getText().toString());
+            serviceProvider.getAddress().setDoorNumber(getEditDoorNo().getText().toString());
+            serviceProvider.getAddress().setStreetName(getEditStreetName().getText().toString());
+            serviceProvider.getAddress().setColonyName(getEditColonyName().getText().toString());
+            serviceProvider.getAddress().setPostalCode(getEditPincode().getText().toString());
+            serviceProvider.getAddress().setLandmark(getEditLandMark().getText().toString());
+        }
         serviceProvider.setEmailId(getEditEmailAddress().getText().toString());
         serviceProvider.setMobile(getEditMobile().getText().toString());
+        realm.commitTransaction();
 
         serviceProvider.UpdateServiceProvider(getActivity(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
-                Log.v("SP UPResult",result);
+                Log.v("update SP", result);
+
             }
 
             @Override
             public void onFail(String result) {
-                Log.v("SP UpFail",result);
+                Log.v("update SP fail", result);
+
             }
         });
     }
