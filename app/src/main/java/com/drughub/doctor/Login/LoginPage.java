@@ -49,13 +49,18 @@ public class LoginPage extends Fragment {
                     String username = editTextUserName.getText().toString();
                     String password = editTextPassword.getText().toString();
                     if (!username.isEmpty()) {
-                        if (!password.isEmpty() && password.length() >= 8) {
-                            signIn(username, password);
-                        } else {
-                            Toast.makeText(getActivity(), "Password minimum 8 characters", Toast.LENGTH_SHORT).show();
+                        if (Globals.isValidEmail(username)) {
+                            if (!password.isEmpty()) {
+                                signIn(username, password);
+                            } else {
+                                Toast.makeText(getActivity(), "Please enter your password", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "Please enter valid Email ID", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getActivity(), "Enter valid name", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Please enter your Email ID", Toast.LENGTH_SHORT).show();
                     }
                 } else if (view == signUpButton) {
                     getFragmentManager().beginTransaction().replace(R.id.container1, new SignUpFragment()).addToBackStack(null).commit();
