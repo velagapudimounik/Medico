@@ -48,17 +48,15 @@ public class SaveCard extends BaseActivity {
     }
 
 
-
-
-    public void onAddCardClick(View v){
+    public void onAddCardClick(View v) {
         LinearLayout ll = (LinearLayout) findViewById(R.id.addCardLayout);
-
-        if(ll.getVisibility() == View.VISIBLE){
+        if (ll.getVisibility() == View.VISIBLE) {
             btn.setRotation(270);
+            setTitle("Saved Cards");
             ll.setVisibility(View.GONE);
-        }else{
+        } else {
             btn.setRotation(360);
-
+            setTitle("Add card");
             ll.setVisibility(View.VISIBLE);
         }
     }
