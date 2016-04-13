@@ -65,56 +65,68 @@ public class SignUpFragment extends Fragment {
                     String mobile = editMobile.getText().toString();
                     final String password = editPassword.getText().toString();
                     if (!name.isEmpty()) {
-                        if (Globals.isValidEmail(email)) {
-                            if (mobile.length() >= 10) {
-                                if (password.length() >= 8) {
-                                    progress = ProgressDialog.show(getActivity(), "SignUp", "Please wait...", true);
-                                    User user = new User();
-                                    user.setEmail(email);
-                                    user.setMobile(mobile);
-                                    user.setName(name);
-                                    user.setPassword(Globals.encryptString(password));
-                                    user.SignUp(getActivity(), new Globals.VolleyCallback() {
-                                        @Override
-                                        public void onSuccess(String result) {
-                                            if (progress != null)
-                                                progress.dismiss();
-                                            try {
-                                                JSONObject object = new JSONObject(result);
-                                                if (object.getBoolean("result")) {
-                                                    PrefUtils.saveToLoginPrefs(getActivity(), email, password);
-                                                    startActivity(new Intent(getActivity(), MainActivity.class));
-                                                    getActivity().finish();
-                                                } else {
-                                                    Toast.makeText(getActivity(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
+                                if (!mobile.isEmpty()) {
+                                    if (mobile.length() >= 10) {
+                                        if (!email.isEmpty()) {
+                                            if (Globals.isValidEmail(email)) {
+                                                if (!password.isEmpty()) {
+                                                    if (password.length() >= 8) {
+                                                        progress = ProgressDialog.show(getActivity(), "SignUp", "Please wait...", true);
+                                                        User user = new User();
+                                                        user.setEmail(email);
+                                                        user.setMobile(mobile);
+                                                        user.setName(name);
+                                                        user.setPassword(Globals.encryptString(password));
+                                                        user.SignUp(getActivity(), new Globals.VolleyCallback() {
+                                                            @Override
+                                                            public void onSuccess(String result) {
+                                                                if (progress != null)
+                                                                    progress.dismiss();
+                                                                try {
+                                                                    JSONObject object = new JSONObject(result);
+                                                                    if (object.getBoolean("result")) {
+                                                                        PrefUtils.saveToLoginPrefs(getActivity(), email, password);
+                                                                        startActivity(new Intent(getActivity(), MainActivity.class));
+                                                                        getActivity().finish();
+                                                                    } else {
+                                                                        Toast.makeText(getActivity(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+
+                                                            }
+
+                                                            @Override
+                                                            public void onFail(String result) {
+                                                                if (progress != null)
+                                                                    progress.dismiss();
+                                                                Toast.makeText(getActivity(), "Unable to process your request, please try again.", Toast.LENGTH_SHORT).show();
+
+                                                            }
+                                                        });
+
+                                                    } else {
+                                                        Toast.makeText(getActivity(), "Password should be in minimum 8 characters", Toast.LENGTH_SHORT).show();
+                                                    }
                                                 }
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-
-                                        }
-
-                                        @Override
-                                        public void onFail(String result) {
-                                            if (progress != null)
-                                                progress.dismiss();
-                                            Toast.makeText(getActivity(), "Unable to process your request, please try again.", Toast.LENGTH_SHORT).show();
-
-                                        }
-                                    });
-
+                                                else {
+                                                    Toast.makeText(getActivity(), "Please enter the Password", Toast.LENGTH_SHORT).show();
+                                                }
+                                    } else {
+                                        Toast.makeText(getActivity(), "Please enter valid Email ID", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
-                                    Toast.makeText(getActivity(), "Password should be minimum 8 characters", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "Please enter Email ID", Toast.LENGTH_SHORT).show();
                                 }
-
                             } else {
-                                Toast.makeText(getActivity(), "Enter valid mobile number", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Please enter valid Mobile Number", Toast.LENGTH_SHORT).show();
                             }
-                        } else {
-                            Toast.makeText(getActivity(), "Enter valid email", Toast.LENGTH_SHORT).show();
-                        }
+                        }else {
+                                Toast.makeText(getActivity(), "Please enter your Mobile Number", Toast.LENGTH_SHORT).show();
+                            }
                     } else {
-                        Toast.makeText(getActivity(), "Enter valid name", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Please enter your Name", Toast.LENGTH_SHORT).show();
                     }
 
 
