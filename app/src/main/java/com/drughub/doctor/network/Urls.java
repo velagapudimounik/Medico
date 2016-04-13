@@ -16,6 +16,7 @@ public class Urls {
     public static String UPDATE_CLINIC = BASE_URL + "1.0/sp/clinic/{userId}";
 
     public static String CREATE_CALANDER = BASE_URL + "1.0/sp/clinic";
+    public static String CHANGE_PASSWORD=BASE_URL+"user/changePassword";
 
 
 }
