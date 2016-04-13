@@ -41,7 +41,7 @@ public class OutPatientFragment extends Fragment {
         ArrayList<OutPatientPrescription> outPatientPrescriptions = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            outPatientPrescriptions.add(new OutPatientPrescription("Amar " + i, "Fever", "Suriya Nursing Home", "Date : 24th Oct 2015"));
+            outPatientPrescriptions.add(new OutPatientPrescription("Dr.Amar " + i, "Fever", "Suriya Nursing Home", "Date : 24th Oct 2015"));
         }
 
         OutPatientAdapter adapter = new OutPatientAdapter(getActivity(), outPatientPrescriptions);
