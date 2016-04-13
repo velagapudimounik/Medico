@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.network.Urls;
+import com.drughub.doctor.utils.PrefUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,9 +16,9 @@ import io.realm.RealmObject;
 public class ServiceProvider extends RealmObject {
 
     private ValueIds gender;
-    private String mobile = "123456789";
-    private int spProfileId = 12;
-    private String emailId = "achyuth@drughub.in";
+    private String mobile;
+    private int spProfileId;
+    private String emailId;
     private RealmList<ValueIds> qualificationList;
     private RealmList<ValueIds> specializationList;
     private String practiseStartDate;
@@ -46,10 +47,14 @@ public class ServiceProvider extends RealmObject {
         this.lastName = lastName;
     }
 
+    public JSONObject getFullAddress(){
+        return address.toServiceProvider();
+    }
+
     public String toUpdateServiceProvider() {
         JSONObject object = new JSONObject();
         try {
-            object.put("address", address.toServiceProvider());
+            object.put("address", getFullAddress());
             JSONArray qualificationList = new JSONArray();
             for (ValueIds qualification : getQualificationList()) {
                 qualificationList.put(qualification.getValueIds());
@@ -79,7 +84,7 @@ public class ServiceProvider extends RealmObject {
 
 
     public void UpdateServiceProvider(Context context, final Globals.VolleyCallback callback) {
-        Globals.PUT(Urls.SERVICE_PROVIDER, null, null, toUpdateServiceProvider(), new Globals.VolleyCallback() {
+        Globals.PUT(Urls.SERVICE_PROVIDER+ PrefUtils.getUserName(context), null, null, toUpdateServiceProvider(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 callback.onSuccess(result);
