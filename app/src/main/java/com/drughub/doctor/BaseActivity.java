@@ -13,14 +13,17 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.drughub.doctor.model.Country;
 import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.utils.DrughubIcon;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -39,7 +42,27 @@ public class BaseActivity extends AppCompatActivity {
         getLayoutInflater().inflate(layoutResID, activityContainer, true);
         super.setContentView(fullView);
         globals = new Globals(getApplicationContext());
-        realmInit();
+
+        Globals.getCountries(new Globals.VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                try {
+                    realm = Realm.getDefaultInstance();
+                    realm.beginTransaction();
+                    realm.allObjects(Country.class).clear();
+                    realm.createAllFromJson(Country.class, (new JSONObject(result)).getJSONArray("response").toString());
+                    realm.commitTransaction();
+                    realm.close();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFail(String result) {
+
+            }
+        });
 
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -163,18 +186,6 @@ public class BaseActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
-    }
-
-    public Realm getRealmObject() {
-        if (realm == null)
-            realmInit();
-        return realm;
-    }
-
-    private void realmInit() {
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
-//        Realm.deleteRealm(realmConfiguration);
-        realm = Realm.getInstance(realmConfiguration);
     }
 
 }

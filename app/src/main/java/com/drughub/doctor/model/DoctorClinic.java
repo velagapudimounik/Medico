@@ -95,7 +95,7 @@ public class DoctorClinic extends RealmObject {
         return object.toString();
     }
 
-    public void AddClinic(Context context) {
+    public void AddClinic(Context context ,  final Globals.VolleyCallback callback) {
         HashMap<String, String> parameters = new HashMap<>();
         Globals.POST(Urls.ADD_CLINIC,  parameters, toAddClinic(), new Globals.VolleyCallback() {
             @Override

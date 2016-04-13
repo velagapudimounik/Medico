@@ -59,6 +59,7 @@ public class DetailHospitalizationRecordFragment extends Fragment {
 }
 
 class HospitalizeDetailsAdapter extends RecyclerView.Adapter<HospitalizeDetailsAdapter.DataObjectHolder> {
+
     Context context;
     ArrayList<String> imageUrls;
     String title;

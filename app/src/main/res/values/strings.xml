@@ -322,8 +322,10 @@
     <string name="create_new_calendar">Create New Calendar</string>
     <string name="textFrom">From</string>
     <string name="textTo">To</string>
+    <string name="day_wise_schedule">Day Wise Schedule</string>
 
     <string name="icon_reschedule">\u0033</string>
+    <string name="add_calender">\u005A</string>
 
     <!--Patient Records-->
     <string name="icon_test_urine">\u0057</string>

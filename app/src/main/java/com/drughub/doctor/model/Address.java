@@ -5,8 +5,8 @@ import org.json.JSONObject;
 import io.realm.RealmObject;
 
 public class Address extends RealmObject {
-    private String addressId = "123";
-    private String buildingName = "123";
+    private String addressId ;
+    private String buildingName;
     private ValueIds country;
     private String colony;
     private ValueIds city;

@@ -15,6 +15,7 @@ import android.view.WindowManager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,12 +24,14 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.drughub.doctor.MyApplication;
 import com.drughub.doctor.model.User;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,13 +51,9 @@ public class Globals {
 
     public Globals(Context context) {
         mCtx = context;
-
-
         mRequestQueue = getRequestQueue();
-
-      /*To load image into NetworkImageView directly*/
-
     }
+
 
     /*GET METHOD REQUEST FOR API*/
     public static String GET(String url, final Map<String, String> headers, final VolleyCallback callback) {
@@ -149,8 +148,16 @@ public class Globals {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<>();
+                Map<String, String> headers = super.getHeaders();
+                if (headers == null
+                        || headers.equals(Collections.emptyMap())) {
+                    headers = new HashMap<String, String>();
+                }
+                MyApplication.get().addSessionCookie(headers);
+
                 headers.put("Content-Type", "application/json");
+                Log.v("post headers", headers.toString());
+
                 return headers;
             }
 
@@ -160,6 +167,13 @@ public class Globals {
                     return super.getBody();
                 else
                     return body.getBytes();
+            }
+
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                MyApplication.get().checkSessionCookie(response.headers);
+                Log.v("response headers", response.headers.toString());
+                return super.parseNetworkResponse(response);
             }
         };
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(MY_SOCKET_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -202,17 +216,23 @@ public class Globals {
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Log.v("globals params", "" + params);
-                return params;
+
+                return super.getParams();
             }
 
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Log.v("globals headers", "" + headers);
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
                 return headers;
             }
 
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                Log.v("globals body", " " + body);
+                return body.getBytes();
+            }
         };
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(MY_SOCKET_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         addRequestQueue(stringRequest);
@@ -470,4 +490,48 @@ public class Globals {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
         }
     }
+
+    public static void getCountries(final VolleyCallback callback) {
+        GET(Urls.COUNTRY, null, new VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                callback.onSuccess(result);
+            }
+
+            @Override
+            public void onFail(String result) {
+                callback.onFail(result);
+            }
+        });
+    }
+
+    public static void getState(int id, final VolleyCallback callback) {
+        GET(Urls.STATE + id, null, new VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                callback.onSuccess(result);
+            }
+
+            @Override
+            public void onFail(String result) {
+                callback.onFail(result);
+            }
+        });
+    }
+
+    public static void getCity(int id, final VolleyCallback callback) {
+        GET(Urls.CITY + id, null, new VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                callback.onSuccess(result);
+            }
+
+            @Override
+            public void onFail(String result) {
+                callback.onFail(result);
+            }
+        });
+    }
+
+
 }
