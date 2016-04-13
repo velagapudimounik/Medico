@@ -8,9 +8,9 @@ public class Urls {
     public static String FORGET_PASSWORD = BASE_URL + "login/forgotPassword";
 
     public static String SERVICE_PROVIDER = BASE_URL + "serviceprovider/1.0/spProfile/";
-    public static String COUNTRY = BASE_URL + "1.0/common/country";
-    public static String STATE = BASE_URL + "1.0/common/state/";
-    public static String CITY = BASE_URL + "1.0/common/city/";
+    public static String COUNTRY = BASE_URL + "common/1.0/country";
+    public static String STATE = BASE_URL + "common/1.0/state/";
+    public static String CITY = BASE_URL + "common/1.0/city/";
 
     public static String ADD_CLINIC = BASE_URL + "serviceprovider/1.0/clinics";
     public static String UPDATE_CLINIC = BASE_URL + "1.0/sp/clinic/{userId}";

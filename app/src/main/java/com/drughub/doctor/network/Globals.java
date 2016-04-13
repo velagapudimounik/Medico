@@ -91,9 +91,27 @@ public class Globals {
                 callback.onFail(stringResponse);
             }
         }) {
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                return super.getHeaders();
+                Map<String, String> headers = super.getHeaders();
+                if (headers == null
+                        || headers.equals(Collections.emptyMap())) {
+                    headers = new HashMap<String, String>();
+                }
+                MyApplication.get().addSessionCookie(headers);
+
+                headers.put("Content-Type", "application/json");
+                Log.v("get headers", headers.toString());
+
+                return headers;
+            }
+
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                MyApplication.get().checkSessionCookie(response.headers);
+                Log.v("response headers", response.headers.toString());
+                return super.parseNetworkResponse(response);
             }
         };
 
@@ -409,7 +427,6 @@ public class Globals {
     public static Typeface typefaceFor(Context context, String typeface) {
         return Typeface.createFromAsset(context.getAssets(), "fonts/" + typeface);
     }
-
 
     public static String encryptString(String value) {
         String md5 = null;

@@ -42,9 +42,10 @@ public class MyProfileChangePasswordFragment extends Fragment {
                 if (newPwd.equals(confirmpwd)) {
                     JSONObject object = new JSONObject();
                     try {
-                        object.put("oldPassword", Globals.encryptString(currentPassword.getText().toString()));
-                        object.put("newPassowrd", Globals.encryptString(newPwd));
-                        object.put("email", PrefUtils.getUserName(getActivity()));
+                        object.put("oldpassword", Globals.encryptString(currentPassword.getText().toString()));
+                        object.put("newpassword", Globals.encryptString(newPwd));
+                        object.put("confirmpassword", Globals.encryptString(newPwd));
+                        //object.put("email", PrefUtils.getUserName(getActivity()));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

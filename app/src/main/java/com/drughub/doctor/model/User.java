@@ -141,7 +141,7 @@ public class User extends RealmObject {
         JSONObject object = new JSONObject();
         try {
             object.put("email", getEmail());
-            object.put("passwordDigest", Globals.encryptString(getPassword()));
+            object.put("passwordDigest", getPassword());
             object.put("typeOfLogin", "Android");
         } catch (Exception e) {
             e.printStackTrace();

@@ -23,6 +23,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginPage extends Fragment {
+
+    public static final int MIN_PASSWORD_LENGTH = 8;
     ProgressDialog progress;
 
     @Override
@@ -37,6 +39,7 @@ public class LoginPage extends Fragment {
         editTextPassword.setTypeface(Typeface.DEFAULT);
 
         editTextUserName.setText(PrefUtils.getUserName(getActivity()));
+        editTextPassword.setText(PrefUtils.getPassword(getActivity()));
 
         final TextView forgotPasswordTextView = (TextView) view.findViewById(R.id.forgotPasswordTextView);
         final Button loginButton = (Button) view.findViewById(R.id.loginButton);
@@ -48,20 +51,18 @@ public class LoginPage extends Fragment {
                 if (view == loginButton) {
                     String username = editTextUserName.getText().toString();
                     String password = editTextPassword.getText().toString();
-                    if (!username.isEmpty()) {
-                        if (Globals.isValidEmail(username)) {
-                            if (!password.isEmpty()) {
-                                signIn(username, password);
-                            } else {
-                                Toast.makeText(getActivity(), "Please enter your password", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        else {
-                            Toast.makeText(getActivity(), "Please enter valid Email ID", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
+
+                    if (username.isEmpty())
                         Toast.makeText(getActivity(), "Please enter your Email ID", Toast.LENGTH_SHORT).show();
-                    }
+                    else if (!Globals.isValidEmail(username))
+                        Toast.makeText(getActivity(), "Please enter valid Email ID", Toast.LENGTH_SHORT).show();
+                    else if (password.isEmpty())
+                        Toast.makeText(getActivity(), "Please enter your password", Toast.LENGTH_SHORT).show();
+                    //else if (password.length() < MIN_PASSWORD_LENGTH)
+                    //    Toast.makeText(getActivity(), "Password should be minimum "+MIN_PASSWORD_LENGTH+" characters", Toast.LENGTH_SHORT).show();
+                    else
+                        signIn(username, password);
+
                 } else if (view == signUpButton) {
                     getFragmentManager().beginTransaction().replace(R.id.container1, new SignUpFragment()).addToBackStack(null).commit();
                 } else if (view == forgotPasswordTextView) {
@@ -81,7 +82,7 @@ public class LoginPage extends Fragment {
         progress = ProgressDialog.show(getActivity(), "SignIn", "Please wait...", true);
         User user = new User();
         user.setEmail(username);
-        user.setPassword(password);
+        user.setPassword(Globals.encryptString(password));
         user.SignIn(getActivity(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
