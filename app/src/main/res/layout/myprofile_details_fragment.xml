@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Address Line 1"
-                android:id="@+id/city"
+                android:id="@+id/textadressLine1"
                 android:layout_marginTop="25dp" />
 
             <View
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Address Line 2"
-                android:id="@+id/country"
+                android:id="@+id/textadressLine2"
                 android:layout_marginTop="25dp"/>
 
             <View
