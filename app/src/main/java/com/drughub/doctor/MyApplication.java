@@ -72,4 +72,8 @@ public class MyApplication extends Application {
             Log.v("headers addSession", headers.toString());
         }
     }
+
+    public final void removeSessionCookie(){
+        _preferences.edit().clear().apply();
+    }
 }
