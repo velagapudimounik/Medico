@@ -19,7 +19,8 @@ public class DoctorClinic extends RealmObject {
     private String phoneNo;
     private boolean isHomeClinic;
     private Address address;
-
+    private String website;
+    GetAllClinicsCalender gacc=new GetAllClinicsCalender();
     public String getClinicTimings() {
         return clinicTimings;
     }
@@ -130,6 +131,15 @@ public class DoctorClinic extends RealmObject {
             }
         });
 
+    }
+
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
     public JSONObject getFullAddress() {

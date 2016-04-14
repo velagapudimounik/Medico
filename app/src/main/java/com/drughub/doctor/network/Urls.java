@@ -17,6 +17,7 @@ public class Urls {
 
     public static String CREATE_CALANDER = BASE_URL + "1.0/sp/clinic";
     public static String CHANGE_PASSWORD=BASE_URL+"user/changePassword";
-
-
+    public static String GET_SPECIALLIZATION=BASE_URL+"common/1.0/specialization";
+    public static String GET_QUALIFICATION=BASE_URL+"common/1.0/qualification";
+    public static String GET_ALLCLINICS_CALENDER=BASE_URL+"serviceprovider/1.0/clinicCalendars";
 }
