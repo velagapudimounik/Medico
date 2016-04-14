@@ -15,6 +15,24 @@ public class Address extends RealmObject {
     private String doorNumber;
     private String postalCode;
     private String areaCode;
+
+    public String getAreaName() {
+        return areaName;
+    }
+
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
+    }
+
+    public String getLandMark() {
+        return landMark;
+    }
+
+    public void setLandMark(String landMark) {
+        this.landMark = landMark;
+    }
+
+    private String areaName;
     private String addressType;
     private String district;
     private String tinno;

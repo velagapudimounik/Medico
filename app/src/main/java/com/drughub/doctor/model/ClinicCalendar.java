@@ -17,143 +17,99 @@ import io.realm.RealmObject;
 
 public class ClinicCalendar extends RealmObject {
 
-    private Integer clinicId = 1;
-    private Integer profileId = 2;
-    private Date startDate;
-    private Date endDate;
-    private Integer clinicCalendarId;
-    private Boolean isWeeklyTiming = true;
-    private RealmList<WeeklyScheduleLists> weeklyScheduleLists;
+    private RealmList<ConsultationTiming> consultationTimings;
+    private DoctorClinic clinic;
 
-    public RealmList<WeeklyScheduleLists> getWeeklyScheduleLists() {
-        return weeklyScheduleLists;
+    public RealmList<ConsultationTiming> getConsultationTimings() {
+        return consultationTimings;
     }
 
-    public void setWeeklyScheduleLists(RealmList<WeeklyScheduleLists> weeklyScheduleLists) {
-        this.weeklyScheduleLists = weeklyScheduleLists;
+    public void setConsultationTimings(RealmList<ConsultationTiming> consultationTimings) {
+        this.consultationTimings = consultationTimings;
     }
 
-    public Boolean getIsWeeklyTiming() {
-        return isWeeklyTiming;
+    public DoctorClinic getClinic() {
+        return clinic;
     }
 
-    public void setIsWeeklyTiming(Boolean isWeeklyTiming) {
-        this.isWeeklyTiming = isWeeklyTiming;
+    public void setClinic(DoctorClinic clinic) {
+        this.clinic = clinic;
     }
 
-    public Integer getClinicCalendarId() {
-        return clinicCalendarId;
-    }
 
-    public void setClinicCalendarId(Integer clinicCalendarId) {
-        this.clinicCalendarId = clinicCalendarId;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Integer getProfileId() {
-        return profileId;
-    }
-
-    public void setProfileId(Integer profileId) {
-        this.profileId = profileId;
-    }
-
-    public Integer getClinicId() {
-        return clinicId;
-    }
-
-    public void setClinicId(Integer clinicId) {
-        this.clinicId = clinicId;
-    }
-
-    public String toCreateClinicCalendar() {
-        JSONObject object = new JSONObject();
-        try {
-            object.put("clinicId", getClinicId());
-            object.put("profileId", getProfileId());
-            object.put("startDate", getStartDate());
-            object.put("endDate", getEndDate());
-            object.put("clinicCalendarId", getClinicCalendarId());
-            object.put("isWeeklyTiming", getIsWeeklyTiming());
-            object.put("profileId", getProfileId());
-
-            JSONArray array = new JSONArray();
-            for (WeeklyScheduleLists weeklyScheduleList : getWeeklyScheduleLists()) {
-                array.put(weeklyScheduleList.getJSONObject());
-            }
-
-            object.put("weeklyScheduleList", array);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return object.toString();
-    }
-
-    public void CreateClinicCalendar(Context context) {
-        HashMap<String, String> params = new HashMap<>();
-        Globals.POST(Urls.CREATE_CALANDER, params, toCreateClinicCalendar(), new Globals.VolleyCallback() {
-            @Override
-            public void onSuccess(String result) {
-                JSONObject object = new JSONObject();
-                // ToDo ClinicCalendar
-            }
-
-            @Override
-            public void onFail(String result) {
-
-            }
-        });
-    }
-
-    public void GetClinicCalendar() {
-        HashMap<String, String> headers = new HashMap<>();
-        Globals.GET(Urls.CREATE_CALANDER, headers, new Globals.VolleyCallback() {
-            @Override
-            public void onSuccess(String result) {
-                JSONObject object = new JSONObject();
-                // ToDo GetCalendar
-            }
-
-            @Override
-            public void onFail(String result) {
-
-            }
-        });
-    }
-
-    public void UpdateClinicCalendar(Context context) {
-        HashMap<String, String> headers = new HashMap<>();
-        HashMap<String, String> params = new HashMap<>();
-        String body_string;
-
-        Globals.PUT(Urls.CREATE_CALANDER, headers, params, toCreateClinicCalendar(), new Globals.VolleyCallback() {
-            @Override
-            public void onSuccess(String result) {
-                JSONObject object = new JSONObject();
-                // ToDo UpdateCalender
-            }
-
-            @Override
-            public void onFail(String result) {
-
-            }
-        });
-
-    }
+//    public String toCreateClinicCalendar() {
+//        JSONObject object = new JSONObject();
+//        try {
+//            object.put("consultationTimings", getClinicId());
+//            object.put("doctorId", getProfileId());
+//            object.put("clinic", getStartDate());
+//            object.put("endDate", getEndDate());
+//            object.put("clinicCalendarId", getClinicCalendarId());
+//            object.put("isWeeklyTiming", getIsWeeklyTiming());
+//            object.put("profileId", getProfileId());
+//
+//            JSONArray array = new JSONArray();
+//            for (WeeklyScheduleLists weeklyScheduleList : getWeeklyScheduleLists()) {
+//                array.put(weeklyScheduleList.getJSONObject());
+//            }
+//
+//            object.put("weeklyScheduleList", array);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return object.toString();
+//    }
+//
+//    public void CreateClinicCalendar(Context context) {
+//        HashMap<String, String> params = new HashMap<>();
+//        Globals.POST(Urls.CLINIC_CALENDAR, params, toCreateClinicCalendar(), new Globals.VolleyCallback() {
+//            @Override
+//            public void onSuccess(String result) {
+//                JSONObject object = new JSONObject();
+//                // ToDo ClinicCalendar
+//            }
+//
+//            @Override
+//            public void onFail(String result) {
+//
+//            }
+//        });
+//    }
+//
+//    public void GetClinicCalendar() {
+//        HashMap<String, String> headers = new HashMap<>();
+//        Globals.GET(Urls.CLINIC_CALENDAR, headers, new Globals.VolleyCallback() {
+//            @Override
+//            public void onSuccess(String result) {
+//                JSONObject object = new JSONObject();
+//                // ToDo GetCalendar
+//            }
+//
+//            @Override
+//            public void onFail(String result) {
+//
+//            }
+//        });
+//    }
+//
+//    public void UpdateClinicCalendar(Context context) {
+//        HashMap<String, String> headers = new HashMap<>();
+//        HashMap<String, String> params = new HashMap<>();
+//        String body_string;
+//
+//        Globals.PUT(Urls.CLINIC_CALENDAR, headers, params, toCreateClinicCalendar(), new Globals.VolleyCallback() {
+//            @Override
+//            public void onSuccess(String result) {
+//                JSONObject object = new JSONObject();
+//                // ToDo UpdateCalender
+//            }
+//
+//            @Override
+//            public void onFail(String result) {
+//
+//            }
+//        });
+//
+//    }
 }

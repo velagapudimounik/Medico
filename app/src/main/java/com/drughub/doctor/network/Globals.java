@@ -56,7 +56,7 @@ public class Globals {
         mRequestQueue = getRequestQueue();
     }
 
-    public static void startStringRequest(int method, final String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
+    public static void startStringRequest(final int method, final String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
         getRequestQueue();
         StringRequest stringRequest = new StringRequest(method, url, new Response.Listener<String>() {
             @Override
@@ -165,22 +165,31 @@ public class Globals {
 
     /*GET METHOD REQUEST FOR API*/
     public static void GET(String url, final Map<String, String> headers, final VolleyCallback callback) {
+        Log.v(VOLLEY_TAG, "GET URL: " + url);
         startStringRequest(Request.Method.GET, url, headers, null, null, callback);
     }
 
     /*POST METHOD REQUEST FOR API*/
     public static void POST(String url, final Map<String, String> params, final String body, final VolleyCallback callback) {
+        Log.v(VOLLEY_TAG, "POST URL: " + url);
         startStringRequest(Request.Method.POST, url, null, params, body, callback);
     }
 
     /*PUT METHOD REQUEST FOR API*/
     public static void PUT(String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
+        Log.v(VOLLEY_TAG, "PUT URL: " + url);
         startStringRequest(Request.Method.PUT, url, headers, params, body, callback);
     }
 
     /*PATCH METHOD REQUEST FOR API*/
     public static void PATCH(String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
         startStringRequest(Request.Method.PATCH, url, headers, params, body, callback);
+    }
+
+    /*PUT METHOD REQUEST FOR API*/
+    public static void DELETE(String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
+        Log.v(VOLLEY_TAG, "DELETE URL: " + url);
+        startStringRequest(Request.Method.DELETE, url, headers, params, body, callback);
     }
 
     /*IMAGE REQUEST FOR API*/

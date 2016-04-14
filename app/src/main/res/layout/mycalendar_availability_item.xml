@@ -53,7 +53,7 @@
             android:text="Slot1 | Slot2"
             android:textSize="@dimen/text_tiny"
             android:textColor="@color/colorPrimary"
-            android:id="@+id/locationDetails" />
+            android:id="@+id/timeSlots" />
     </LinearLayout>
 
     <FrameLayout

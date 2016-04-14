@@ -1,7 +1,6 @@
 package com.drughub.doctor.mycalendar;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -10,31 +9,37 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
-import com.drughub.doctor.consultation.PatientVaccineScheduleActivity;
+import com.drughub.doctor.model.ClinicCalendar;
+import com.drughub.doctor.model.ConsultationTiming;
+import com.drughub.doctor.network.Globals;
+import com.drughub.doctor.network.Urls;
 import com.drughub.doctor.utils.CustomDialog;
 import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
-class ItemAvailability
-{
-    public String clinicName;
-    public ItemAvailability(String name)
-    {
-        clinicName = name;
-    }
-
-}
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class MyCalendarAvailabilityList extends Fragment {
 
+
+    private Realm realm;
+    View mView;
     RecyclerView mRecyclerView;
+    EditText mCalendarSearch;
+    private RealmResults<ClinicCalendar> calendarList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,6 +50,10 @@ public class MyCalendarAvailabilityList extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
+        mView = view;
+
+        mCalendarSearch = (EditText) view.findViewById(R.id.myCalendarAvailabilitySearch);
+
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_calendar_available_list);
         mRecyclerView.setHasFixedSize(true);
 
@@ -53,26 +62,24 @@ public class MyCalendarAvailabilityList extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        ArrayList<ItemAvailability> mDataSet = new ArrayList<>();
+        realm = Realm.getDefaultInstance();
+        calendarList = realm.where(ClinicCalendar.class).findAll();
 
-        for(int i=0; i<10; i++)
-        {
-            ItemAvailability item = new ItemAvailability("Clinic Name"+i);
-            mDataSet.add(item);
-        }
-
-        AvailabilityListAdapter mAdapter = new AvailabilityListAdapter(mDataSet, getActivity());
+        AvailabilityListAdapter mAdapter = new AvailabilityListAdapter(calendarList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
+
+        if(calendarList.size() == 0)
+            mView.setVisibility(View.GONE);
     }
 
-    public static class AvailabilityListAdapter extends RecyclerSwipeAdapter<AvailabilityListAdapter.ViewHolder>
+    public class AvailabilityListAdapter extends RecyclerSwipeAdapter<AvailabilityListAdapter.ViewHolder>
     {
-        private ArrayList<ItemAvailability> mDataSet;
-        static FragmentActivity sContext;
+        private List<ClinicCalendar> mDataSet;
+        FragmentActivity sContext;
 
-        public static class ViewHolder extends RecyclerView.ViewHolder {
-            private final TextView textView;
-            private View mItemView;
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            private final TextView clinicDetails;
+            private final TextView timeSlots;
             SwipeLayout swipeLayout;
             View rescheduleBtn;
             View deleteBtn;
@@ -82,8 +89,6 @@ public class MyCalendarAvailabilityList extends Fragment {
             {
                 super(v);
 
-                mItemView = v;
-
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -91,7 +96,8 @@ public class MyCalendarAvailabilityList extends Fragment {
                     }
                 });
 
-                textView = (TextView) v.findViewById(R.id.clinicDetails);
+                clinicDetails = (TextView) v.findViewById(R.id.clinicDetails);
+                timeSlots = (TextView) v.findViewById(R.id.timeSlots);
                 swipeLayout = (SwipeLayout) v.findViewById(R.id.swipe);
                 swipeLayout.setSwipeEnabled(false);
                 settingsBtn = v.findViewById(R.id.settingsBtn);
@@ -105,18 +111,23 @@ public class MyCalendarAvailabilityList extends Fragment {
                 deleteBtn = v.findViewById(R.id.deleteCalendar);
             }
 
-            public void setItemSelected(boolean selected)
+            public void setItemDetails(ClinicCalendar item)
             {
-                mItemView.setSelected(selected);
-            }
+                if(item.getClinic().getAddress() == null || item.getClinic().getAddress().getColonyName() == null)
+                    clinicDetails.setText(item.getClinic().getClinicName());
+                else
+                    clinicDetails.setText(item.getClinic().getClinicName() + " | " + item.getClinic().getAddress().getColonyName());
 
-            public void setItemDetails(ItemAvailability item)
-            {
-//                textView.setText(item.name);
+                timeSlots.setText("");
+                for (ConsultationTiming timeSlot: item.getConsultationTimings()) {
+                    if(timeSlots.getText().length() > 0)
+                        timeSlots.append(" | ");
+                    timeSlots.append(timeSlot.getFromTime() + " to " + timeSlot.getToTime());
+                }
             }
         }
 
-        public AvailabilityListAdapter(ArrayList<ItemAvailability> dataSet, FragmentActivity context)
+        public AvailabilityListAdapter(List<ClinicCalendar> dataSet, FragmentActivity context)
         {
             mDataSet = dataSet;
             sContext = context;
@@ -156,11 +167,35 @@ public class MyCalendarAvailabilityList extends Fragment {
                         @Override
                         public void onClick(View v) {
                             dialog.dismiss();
-                            mItemManger.removeShownLayouts(viewHolder.swipeLayout);
-                            mDataSet.remove(position);
-                            notifyItemRemoved(position);
-                            notifyItemRangeChanged(position, mDataSet.size());
-                            mItemManger.closeAllItems();
+
+                            Globals.DELETE(Urls.CLINIC_CALENDAR + "/" + mDataSet.get(position).getClinic().getClinicId(), null, null, null, new Globals.VolleyCallback() {
+                                @Override
+                                public void onSuccess(String result) {
+                                    try {
+                                        JSONObject object = new JSONObject(result);
+                                        if (object.getBoolean("result")) {
+                                            realm.beginTransaction();
+                                            mDataSet.remove(position);
+                                            realm.commitTransaction();
+
+                                            mItemManger.removeShownLayouts(viewHolder.swipeLayout);
+                                            notifyItemRemoved(position);
+                                            notifyItemRangeChanged(position, mDataSet.size());
+                                            mItemManger.closeAllItems();
+
+                                            if(mDataSet.size() == 0)
+                                                mView.setVisibility(View.GONE);
+                                        }
+
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFail(String result) {
+                                }
+                            });
                         }
                     });
                 }

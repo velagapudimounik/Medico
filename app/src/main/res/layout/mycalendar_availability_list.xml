@@ -40,6 +40,7 @@
         android:id="@+id/my_calendar_available_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/margin_baby" />
+        android:layout_marginBottom="@dimen/margin_baby"
+        android:background="@color/colorWhite"/>
 
 </LinearLayout>

@@ -20,7 +20,7 @@ public class DoctorClinic extends RealmObject {
     private boolean isHomeClinic;
     private Address address;
     private String website;
-    GetAllClinicsCalender gacc=new GetAllClinicsCalender();
+    //GetAllClinicsCalender gacc=new GetAllClinicsCalender();
     public String getClinicTimings() {
         return clinicTimings;
     }

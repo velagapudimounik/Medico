@@ -26,13 +26,21 @@ import android.widget.TextView;
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.Notification.NotificationActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.model.ClinicCalendar;
+import com.drughub.doctor.model.DoctorClinic;
+import com.drughub.doctor.model.ServiceProvider;
 import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.network.Urls;
 import com.drughub.doctor.utils.CustomDialog;
 import com.drughub.doctor.utils.PrefUtils;
 
+import org.json.JSONObject;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
 
 enum CLOCK_PICKER {
     HOURS,
@@ -45,9 +53,8 @@ public class MyCalendarActivity extends BaseActivity {
     final String[] spinnervalues = {"Clinic Name1 |", "Clinic Name2 |", "Clinic Name3 |", "My Clinics"};
     final String[] spinneraddress = {"Address1", "Address2", "Address3", ""};
 
-    int from_day = -1, from_month = -1, from_year = -1;
-    int to_day = -1, to_month = -1, to_year = -1;
-    EditText from_date_picker_edt, to_date_picker_edt;
+    List<DoctorClinic> clinicList = new ArrayList<>();
+    List<ClinicCalendar> clinicCalendarList = new ArrayList<>();
 
     TextView working_day;
     CheckBox day_wise;
@@ -125,6 +132,7 @@ public class MyCalendarActivity extends BaseActivity {
         return false;
     }
 
+    Realm realm;
 
     @Override
     public void onActionButtonClicked(int drughubIconsRes) {
@@ -142,15 +150,31 @@ public class MyCalendarActivity extends BaseActivity {
         setTitle(getString(R.string.my_calendar));
         setBackButton(true);
         addActionButton(R.string.icon_notification);
-        Globals.GET(Urls.GET_ALLCLINICS_CALENDER, null, new Globals.VolleyCallback() {
+
+        realm = Realm.getDefaultInstance();
+
+        Globals.GET(Urls.CLINIC_CALENDAR, null, new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
-                Log.v("result==gg==",result);
+                try {
+                    JSONObject object = new JSONObject(result);
+                    if (object.getBoolean("result")) {
+                        realm.beginTransaction();
+                        realm.allObjects(ClinicCalendar.class).clear();
+                        realm.createAllFromJson(ClinicCalendar.class, object.getJSONArray("response"));
+                        realm.commitTransaction();
+                    }
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.my_calendar_container, new MyCalendarAvailabilityList()).commit();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFail(String result) {
-                Log.v("fail==gg==",result);
+
             }
         });
 
@@ -158,16 +182,12 @@ public class MyCalendarActivity extends BaseActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                //RadioButton rb = (RadioButton) group.findViewById(checkedId);
-
                 if (checkedId == R.id.availability)
                     getSupportFragmentManager().beginTransaction().replace(R.id.my_calendar_container, new MyCalendarAvailabilityList()).commit();
                 else if (checkedId == R.id.booked)
                     getSupportFragmentManager().beginTransaction().replace(R.id.my_calendar_container, new MyCalendarBookedList()).commit();
             }
         });
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.my_calendar_container, new MyCalendarAvailabilityList()).commit();
 
         View addCalendar = findViewById(R.id.addCalendar);
         addCalendar.setOnClickListener(new View.OnClickListener() {
@@ -431,8 +451,6 @@ public class MyCalendarActivity extends BaseActivity {
         friday.setChecked(false);
         saturday.setChecked(false);
         sunday.setChecked(false);
-
-
     }
 
     public void hideRecyclerView(boolean hide) {
@@ -490,8 +508,8 @@ public class MyCalendarActivity extends BaseActivity {
 class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.DataHolder> {
 
 
-    private ArrayList<String> fromTime, toTime;
     Context context;
+    private ArrayList<String> fromTime, toTime;
 
     public CalenderAdapter(ArrayList<String> fromTime, ArrayList<String> toTime, Context context) {
         this.fromTime = fromTime;
