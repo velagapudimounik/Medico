@@ -72,7 +72,7 @@ public class ServiceProvider extends RealmObject {
             object.put("spProfileId", getSpProfileId());
             object.put("firstName", getFirstName());
             object.put("lastName", getLastName());
-            object.put("middleName", getLastName());
+            object.put("middleName", getMiddleName());
             object.put("profileName", getProfileName());
 //            object.put("experienceInYears", getExperienceInYears());
 

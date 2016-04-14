@@ -77,16 +77,16 @@ public class DoctorClinic extends RealmObject {
             object.put("isHomeClinic", getisHomeClinic());
             object.put("clinicTimings", getClinicTimings());
 
-            address_object.put("buildingName", "");
-            address_object.put("country", "");
-            address_object.put("colony", "");
-            address_object.put("doorNumber", "");
-            address_object.put("city", "");
-            address_object.put("street", "");
-            address_object.put("postalCode","");
-            address_object.put("state", "");
+//            address_object.put("buildingName", address.getBuildingName());
+//            address_object.put("country", address.getCountry());
+//            address_object.put("colony", address.getColony());
+//            address_object.put("doorNumber", address.getDoorNumber());
+//            address_object.put("city", address.getCity());
+//            address_object.put("street", address.getStreet());
+//            address_object.put("postalCode",address.getPostalCode());
+//            address_object.put("state", address.getStreet());
 
-            object.put("address", address_object);
+            object.put("address", getFullAddress());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -132,4 +132,15 @@ public class DoctorClinic extends RealmObject {
 
     }
 
+    public JSONObject getFullAddress() {
+        return address.toServiceProvider();
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
 }

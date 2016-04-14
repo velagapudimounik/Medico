@@ -21,7 +21,7 @@ public class Address extends RealmObject {
     private String companyName;
     private String colonyName;
     private String streetName;
-    private String landmark;
+    private String landMark;
     private double lng;
     private double lat;
     private Integer dlno;
@@ -148,7 +148,7 @@ public class Address extends RealmObject {
             addressObject.put("buildingName", getBuildingName());
             addressObject.put("streetName", getStreet());
             addressObject.put("areaCode", getAreaCode());
-            addressObject.put("landmark", getLandmark());
+            addressObject.put("landMark", getLandmark());
             addressObject.put("postalCode", getPostalCode());
             addressObject.put("lat", getLat());
             addressObject.put("lng", getLng());
@@ -174,11 +174,11 @@ public class Address extends RealmObject {
     }
 
     public String getLandmark() {
-        return landmark;
+        return landMark;
     }
 
     public void setLandmark(String landmark) {
-        this.landmark = landmark;
+        this.landMark = landmark;
     }
 
     public String getAddressId() {

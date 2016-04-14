@@ -74,6 +74,6 @@ public class MyApplication extends Application {
     }
 
     public final void removeSessionCookie(){
-        _preferences.edit().clear().apply();
+        _preferences.edit().remove(SESSION_COOKIE).apply();
     }
 }
