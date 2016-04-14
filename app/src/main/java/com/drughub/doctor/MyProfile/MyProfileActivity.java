@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.Button;
 
 import com.drughub.doctor.BaseActivity;
@@ -35,9 +36,11 @@ public class MyProfileActivity extends BaseActivity {
             @Override
             public void onSuccess(String result) {
                 try {
+                    Log.v("SP GET result", result);
                     JSONObject object = new JSONObject(result);
                     if (object.getBoolean("result")) {
                         realm.beginTransaction();
+                        realm.allObjects(ServiceProvider.class).clear();
                         realm.createObjectFromJson(ServiceProvider.class, object.getJSONObject("response"));
                         realm.commitTransaction();
                     }

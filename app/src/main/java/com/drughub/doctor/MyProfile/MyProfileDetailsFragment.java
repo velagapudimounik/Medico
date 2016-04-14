@@ -55,8 +55,8 @@ public class MyProfileDetailsFragment extends Fragment {
         realm = Realm.getDefaultInstance();
         serviceProvider = realm.where(ServiceProvider.class).findFirst();
         if (serviceProvider != null) {
-            doctorName.setText(serviceProvider.getFirstName()+serviceProvider.getMiddleName()+serviceProvider.getLastName());
-            if (serviceProvider.getAddress()!=null) {
+            doctorName.setText(serviceProvider.getFirstName() + serviceProvider.getMiddleName() + serviceProvider.getLastName());
+            if (serviceProvider.getAddress() != null) {
                 adressline1.setText(serviceProvider.getAddress().getBuildingName() + serviceProvider.getAddress().
                         getDoorNumber() + serviceProvider.getAddress().getStreetName() + serviceProvider.getAddress().getColonyName());
                 adressline2.setText(serviceProvider.getAddress().getPostalCode());
@@ -66,5 +66,11 @@ public class MyProfileDetailsFragment extends Fragment {
 
         }
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        realm.close();
     }
 }

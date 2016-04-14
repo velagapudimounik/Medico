@@ -28,7 +28,7 @@ public class ServiceProvider extends RealmObject {
     private String middleName;
     private String lastName;
     private String firstName;
-    private Address address;
+    private Address address = new Address();
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;

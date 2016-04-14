@@ -7,11 +7,11 @@ import io.realm.RealmObject;
 public class Address extends RealmObject {
     private String addressId ;
     private String buildingName;
-    private ValueIds country;
+    private Country country = new Country();
     private String colony;
-    private ValueIds city;
+    private ValueIds city = new ValueIds();
     private String street;
-    private ValueIds state;
+    private ValueIds state = new ValueIds();
     private String doorNumber;
     private String postalCode;
     private String areaCode;
@@ -189,11 +189,11 @@ public class Address extends RealmObject {
         this.addressId = addressId;
     }
 
-    public ValueIds getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(ValueIds country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 

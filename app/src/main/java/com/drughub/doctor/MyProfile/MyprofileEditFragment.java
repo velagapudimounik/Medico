@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.drughub.doctor.R;
+import com.drughub.doctor.model.Address;
 import com.drughub.doctor.model.ServiceProvider;
 import com.drughub.doctor.network.Globals;
 
@@ -141,14 +142,14 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
         serviceProvider.setMobile(getEditMobile().getText().toString());
         serviceProvider.setFirstName(getEditFirstName().getText().toString());
         serviceProvider.setLastName(getEditLastName().getText().toString());
-        if (serviceProvider.getAddress() != null) {
-            serviceProvider.getAddress().setBuildingName(getEditBuildingName().getText().toString());
-            serviceProvider.getAddress().setDoorNumber(getEditDoorNo().getText().toString());
-            serviceProvider.getAddress().setStreetName(getEditStreetName().getText().toString());
-            serviceProvider.getAddress().setColonyName(getEditColonyName().getText().toString());
-            serviceProvider.getAddress().setPostalCode(getEditPincode().getText().toString());
-            serviceProvider.getAddress().setLandmark(getEditLandMark().getText().toString());
-        }
+        if (serviceProvider.getAddress() == null)
+            serviceProvider.setAddress(realm.createObject(Address.class));
+        serviceProvider.getAddress().setBuildingName(getEditBuildingName().getText().toString());
+        serviceProvider.getAddress().setDoorNumber(getEditDoorNo().getText().toString());
+        serviceProvider.getAddress().setStreetName(getEditStreetName().getText().toString());
+        serviceProvider.getAddress().setColonyName(getEditColonyName().getText().toString());
+        serviceProvider.getAddress().setPostalCode(getEditPincode().getText().toString());
+        serviceProvider.getAddress().setLandmark(getEditLandMark().getText().toString());
         serviceProvider.setEmailId(getEditEmailAddress().getText().toString());
         serviceProvider.setMobile(getEditMobile().getText().toString());
         realm.commitTransaction();
@@ -156,13 +157,13 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
         serviceProvider.UpdateServiceProvider(getActivity(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
-                Log.v("update SP", result);
+                Log.v("update SP response", result);
 
             }
 
             @Override
             public void onFail(String result) {
-                Log.v("update SP fail", result);
+                Log.v("update SP fail response", result);
 
             }
         });
