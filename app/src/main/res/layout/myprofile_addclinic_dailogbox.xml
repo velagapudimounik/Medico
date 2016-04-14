@@ -171,6 +171,7 @@
                         android:dropDownVerticalOffset="37dp"
                         android:popupBackground="@drawable/round_rect_fill_white"
                         android:spinnerMode="dropdown"
+                        android:visibility="visible"
                         android:textSize="13sp" />
 
                     <View

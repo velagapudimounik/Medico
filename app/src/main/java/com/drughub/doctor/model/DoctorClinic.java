@@ -8,8 +8,6 @@ import com.drughub.doctor.network.Urls;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-
 import io.realm.RealmObject;
 
 
@@ -96,13 +94,12 @@ public class DoctorClinic extends RealmObject {
     }
 
     public void AddClinic(Context context ,  final Globals.VolleyCallback callback) {
-        HashMap<String, String> parameters = new HashMap<>();
-        Globals.POST(Urls.ADD_CLINIC,  parameters, toAddClinic(), new Globals.VolleyCallback() {
+
+        Globals.POST(Urls.ADD_CLINIC,  null, toAddClinic(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 try {
                     callback.onSuccess(result);
-                    //TODO Clinic Parsing
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -117,14 +114,12 @@ public class DoctorClinic extends RealmObject {
     }
 
     public void UpdateClinic(Context context) {
-        HashMap<String, String> headers = new HashMap<>();
-        HashMap<String, String> parameters = new HashMap<>();
-        Globals.PUT(Urls.UPDATE_CLINIC, headers, parameters, toAddClinic(), new Globals.VolleyCallback() {
+
+        Globals.PUT(Urls.UPDATE_CLINIC, null, null, toAddClinic(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 try {
                     JSONObject object = new JSONObject(result);
-                    //TODO Parsing
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
