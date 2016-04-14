@@ -54,6 +54,7 @@ public class MyCalendarActivity extends BaseActivity {
     CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     boolean checked;
     CalenderAdapter calenderAdapter;
+    Button addCalender;
     ArrayList<String> fromTime, toTime, fromTimeMonday, fromTimeTuesday, fromTimeWednesday, fromTimeThursday, fromTimeFriday, fromTimeSaturday, fromTimeSunday;
     ArrayList<String> toTimeMonday, toTimeTuesday, toTimeWednesday, toTimeThursday, toTimeFriday, toTimeSaturday, toTimeSunday;
 
@@ -167,6 +168,7 @@ public class MyCalendarActivity extends BaseActivity {
 
                 View add_time = dialog.findViewById(R.id.add_calender);
                 day_wise = (CheckBox) dialog.findViewById(R.id.date_check_box);
+                addCalender = (Button) dialog.findViewById(R.id.addBtn);
 
                 working_day = (TextView) dialog.findViewById(R.id.working_days);
                 show_date_view = (RecyclerView) dialog.findViewById(R.id.date_show);
@@ -190,14 +192,14 @@ public class MyCalendarActivity extends BaseActivity {
                 toTimeSaturday = new ArrayList<String>();
                 fromTimeSunday = new ArrayList<String>();
                 toTimeSunday = new ArrayList<String>();
-                itemadd(fromTimeMonday, toTimeMonday, 1);
+               /* itemadd(fromTimeMonday, toTimeMonday, 1);
                 itemadd(fromTimeTuesday, toTimeTuesday, 2);
                 itemadd(fromTimeWednesday, toTimeWednesday, 1);
                 itemadd(fromTimeThursday, toTimeThursday, 2);
                 itemadd(fromTimeFriday, toTimeFriday, 1);
                 itemadd(fromTimeSaturday, toTimeSaturday, 2);
                 itemadd(fromTimeSunday, toTimeSunday, 1);
-               /* for (int i = 0; i < 1; i++) {
+               *//* for (int i = 0; i < 1; i++) {
                     fromTime.add("09:00 AM");
                     toTime.add("11:00 AM");
                 }*/
@@ -220,6 +222,7 @@ public class MyCalendarActivity extends BaseActivity {
                         if (((CheckBox) v).isChecked()) {
                             uncheckall();
                             working_day.setVisibility(View.GONE);
+                            show_date_view.setVisibility(View.GONE);
                             calenderAdapter = new CalenderAdapter(fromTimeMonday, toTimeMonday, MyCalendarActivity.this);
                             show_date_view.setAdapter(calenderAdapter);
                             monday.setChecked(true);
@@ -240,9 +243,9 @@ public class MyCalendarActivity extends BaseActivity {
                         if (day_wise.isChecked()) {
                             uncheckall();
                             buttonView.setChecked(isChecked);
+
                             switch (buttonView.getId()) {
                                 case R.id.monday:
-                                    show_date_view.setVisibility(View.VISIBLE);
                                     calenderAdapter = new CalenderAdapter(fromTimeMonday, toTimeMonday, MyCalendarActivity.this);
                                     show_date_view.setAdapter(calenderAdapter);
                                     Log.i("Frommonday", fromTimeMonday + "");
@@ -273,6 +276,11 @@ public class MyCalendarActivity extends BaseActivity {
                                     show_date_view.setAdapter(calenderAdapter);
                                     break;
                             }
+                            if (calenderAdapter.getItemCount() > 0) {
+                                show_date_view.setVisibility(View.VISIBLE);
+                            } else {
+                                show_date_view.setVisibility(View.GONE);
+                            }
                         }
                     }
                 };
@@ -289,6 +297,9 @@ public class MyCalendarActivity extends BaseActivity {
 
                     @Override
                     public void onClick(View v) {
+
+                        final Dialog dialog = CustomDialog.showCustomDialog(MyCalendarActivity.this, R.layout.calender_time_picker,
+                                Gravity.BOTTOM, true, true, false);
                         MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.hourPickerFrom), CLOCK_PICKER.HOURS);
                         MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.minutePickerFrom), CLOCK_PICKER.MINUTES);
                         MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.dayPickerFrom), CLOCK_PICKER.MERIDIEM);
@@ -366,20 +377,27 @@ public class MyCalendarActivity extends BaseActivity {
                         add_time.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                fromTime.add(String.format("%02d", from_Hour) + ":" + String.format("%02d", (from_Minute - 1)) + " " + fromMeridian);
-                                toTime.add(String.format("%02d", to_Hour) + ":" + String.format("%02d", (to_Minute - 1)) + " " + toMeridian);
+                                show_date_view.setVisibility(View.VISIBLE);
+                                if (from_Hour == 0) {
+                                    from_Hour = 12;
+                                }
+                                if (to_Hour == 0) {
+                                    to_Hour = 12;
+                                }
+                                calenderAdapter.getFromTime().add(String.format("%02d", from_Hour) + ":" + String.format("%02d", (from_Minute - 1)) + " " + fromMeridian);
+                                calenderAdapter.getToTime().add(String.format("%02d", to_Hour) + ":" + String.format("%02d", (to_Minute - 1)) + " " + toMeridian);
                                 Log.i("from_hour12", fromTime.toString() + "  " + toTime);
-                                calenderAdapter = new CalenderAdapter(fromTime, toTime, MyCalendarActivity.this);
+                                /*calenderAdapter = new CalenderAdapter(fromTime, toTime, MyCalendarActivity.this);
                                 show_date_view.setAdapter(calenderAdapter);
-                                //calenderAdapter.notifyDataSetChanged();
-                               /* fromdate.setText(String.format("%02d", from_Hour) + ":" + String.format("%02d", (from_Minute - 1)) + " " + fromMeridian);
-                                todate.setText(String.format("%02d", to_Hour) + ":" + String.format("%02d", (to_Minute - 1)) + " " + toMeridian);
-                               */
+                                */
+                                calenderAdapter.notifyDataSetChanged();
                                 dialog.dismiss();
                             }
                         });
                     }
                 });
+                myspinner.setAdapter(new CustomAdapter(getApplicationContext(), spinnervalues));
+                myspinner.setSelection(myspinner.getCount());
 
                 View addBtn = dialog.findViewById(R.id.addBtn);
                 addBtn.setOnClickListener(new View.OnClickListener() {
@@ -389,21 +407,6 @@ public class MyCalendarActivity extends BaseActivity {
                     }
                 });
             }
-
-            private void itemadd(ArrayList<String> fromtimearray, ArrayList<String> totimearray, int day) {
-                if (day == 1) {
-                    for (int i = 0; i < 2; i++) {
-                        fromtimearray.add("09:00 AM");
-                        totimearray.add("11:00 AM");
-                    }
-                } else {
-                    for (int i = 0; i < 2; i++) {
-                        fromtimearray.add("10:00 AM");
-                        totimearray.add("12:00 PM");
-                    }
-                }
-            }
-
         });
     }
 
@@ -417,6 +420,13 @@ public class MyCalendarActivity extends BaseActivity {
         sunday.setChecked(false);
 
 
+    }
+
+    public void hideRecyclerView(boolean hide) {
+        if (hide)
+            show_date_view.setVisibility(View.GONE);
+        else
+            show_date_view.setVisibility(View.VISIBLE);
     }
 
 
@@ -466,13 +476,22 @@ public class MyCalendarActivity extends BaseActivity {
 
 class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.DataHolder> {
 
-    ArrayList<String> fromTime, toTime;
+
+    private ArrayList<String> fromTime, toTime;
     Context context;
 
     public CalenderAdapter(ArrayList<String> fromTime, ArrayList<String> toTime, Context context) {
         this.fromTime = fromTime;
         this.toTime = toTime;
         this.context = context;
+    }
+
+    public ArrayList<String> getFromTime() {
+        return fromTime;
+    }
+
+    public ArrayList<String> getToTime() {
+        return toTime;
     }
 
     @Override
@@ -485,14 +504,21 @@ class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.DataHolder> {
     }
 
     @Override
-    public void onBindViewHolder(CalenderAdapter.DataHolder holder, final int position) {
+    public void onBindViewHolder(final CalenderAdapter.DataHolder holder, final int position) {
 
         holder.fromdate.setText(String.format(fromTime.get(position)));
         holder.todate.setText(String.format(toTime.get(position)));
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                notifyDataSetChanged();
+                fromTime.remove(position);
+                toTime.remove(position);
+                notifyItemRemoved(position);
+                if (fromTime.size() > 0)
+                    ((MyCalendarActivity) context).hideRecyclerView(false);
+                else
+                    ((MyCalendarActivity) context).hideRecyclerView(true);
             }
         });
     }
@@ -596,6 +622,12 @@ class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.DataHolder> {
                     add_time.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if (from_Hour == 0) {
+                                from_Hour = 12;
+                            }
+                            if (to_Hour == 0) {
+                                to_Hour = 12;
+                            }
                             fromdate.setText(String.format("%02d", from_Hour) + ":" + String.format("%02d", (from_Minute - 1)) + " " + fromMeridian);
                             todate.setText(String.format("%02d", to_Hour) + ":" + String.format("%02d", (to_Minute - 1)) + " " + toMeridian);
                             fromTime.set(getPosition(), fromdate.getText().toString());

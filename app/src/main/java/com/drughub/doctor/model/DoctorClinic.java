@@ -79,14 +79,14 @@ public class DoctorClinic extends RealmObject {
             object.put("isHomeClinic", getisHomeClinic());
             object.put("clinicTimings", getClinicTimings());
 
-            address_object.put("buildingName", address.getBuildingName());
-            address_object.put("country", address.getCountry());
-            address_object.put("colony", address.getColony());
-            address_object.put("doorNumber", address.getDoorNumber());
-            address_object.put("city", address.getCity());
-            address_object.put("street", address.getStreet());
-            address_object.put("postalCode", address.getPostalCode());
-            address_object.put("state", address.getState());
+            address_object.put("buildingName", "");
+            address_object.put("country", "");
+            address_object.put("colony", "");
+            address_object.put("doorNumber", "");
+            address_object.put("city", "");
+            address_object.put("street", "");
+            address_object.put("postalCode","");
+            address_object.put("state", "");
 
             object.put("address", address_object);
         } catch (JSONException e) {
@@ -101,17 +101,17 @@ public class DoctorClinic extends RealmObject {
             @Override
             public void onSuccess(String result) {
                 try {
-                    JSONObject object = new JSONObject(result);
+                    callback.onSuccess(result);
                     //TODO Clinic Parsing
 
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
             @Override
             public void onFail(String result) {
-
+                callback.onFail(result);
             }
         });
     }
