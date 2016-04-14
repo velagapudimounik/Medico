@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.drughub.doctor.BaseActivity;
+import com.drughub.doctor.MyApplication;
 import com.drughub.doctor.R;
 
 public class LoginActivity extends BaseActivity {
@@ -24,7 +25,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main_layout);
-
+        MyApplication.get().removeSessionCookie();
 //        realm = getRealmObject();
 //        realm.beginTransaction();
 //        User user = realm.createObjectFromJson(User.class, json);
