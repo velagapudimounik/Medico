@@ -26,7 +26,10 @@ import android.widget.TextView;
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.Notification.NotificationActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.network.Globals;
+import com.drughub.doctor.network.Urls;
 import com.drughub.doctor.utils.CustomDialog;
+import com.drughub.doctor.utils.PrefUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -57,7 +60,6 @@ public class MyCalendarActivity extends BaseActivity {
     Button addCalender;
     ArrayList<String> fromTime, toTime, fromTimeMonday, fromTimeTuesday, fromTimeWednesday, fromTimeThursday, fromTimeFriday, fromTimeSaturday, fromTimeSunday;
     ArrayList<String> toTimeMonday, toTimeTuesday, toTimeWednesday, toTimeThursday, toTimeFriday, toTimeSaturday, toTimeSunday;
-
     public static NumberPicker initNumberPicker(NumberPicker numberPicker, CLOCK_PICKER pickerType) {
         String[] displayValues = null;
 
@@ -140,6 +142,17 @@ public class MyCalendarActivity extends BaseActivity {
         setTitle(getString(R.string.my_calendar));
         setBackButton(true);
         addActionButton(R.string.icon_notification);
+        Globals.GET(Urls.GET_ALLCLINICS_CALENDER, null, new Globals.VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                Log.v("result==gg==",result);
+            }
+
+            @Override
+            public void onFail(String result) {
+                Log.v("fail==gg==",result);
+            }
+        });
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
