@@ -417,5 +417,35 @@ public class Globals {
 
         void onFail(String result);
     }
+    public static void getSpecialization(final VolleyCallback callback){
+        GET(Urls.GET_SPECIALLIZATION, null, new VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                callback.onSuccess(result);
+                Log.v("result===", result);
+            }
+
+            @Override
+            public void onFail(String result) {
+                callback.onFail(result);
+                Log.v("FailSP===", result);
+            }
+        });
+    }
+    public static void getQualification(final VolleyCallback callback){
+        GET(Urls.GET_QUALIFICATION, null, new VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                callback.onSuccess(result);
+                Log.v("resultQL===",result);
+            }
+
+            @Override
+            public void onFail(String result) {
+                callback.onFail(result);
+                Log.v("FailQL===",result);
+            }
+        });
+    }
 
 }
