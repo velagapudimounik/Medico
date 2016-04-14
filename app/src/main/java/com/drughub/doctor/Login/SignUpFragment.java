@@ -64,73 +64,59 @@ public class SignUpFragment extends Fragment {
                     final String email = editEmail.getText().toString();
                     String mobile = editMobile.getText().toString();
                     final String password = editPassword.getText().toString();
-                    if (!name.isEmpty()) {
-                                if (!mobile.isEmpty()) {
-                                    if (mobile.length() >= 10) {
-                                        if (!email.isEmpty()) {
-                                            if (Globals.isValidEmail(email)) {
-                                                if (!password.isEmpty()) {
-                                                    if (password.length() >= 8) {
-                                                        progress = ProgressDialog.show(getActivity(), "SignUp", "Please wait...", true);
-                                                        User user = new User();
-                                                        user.setEmail(email);
-                                                        user.setMobile(mobile);
-                                                        user.setName(name);
-                                                        user.setPassword(Globals.encryptString(password));
-                                                        user.SignUp(getActivity(), new Globals.VolleyCallback() {
-                                                            @Override
-                                                            public void onSuccess(String result) {
-                                                                if (progress != null)
-                                                                    progress.dismiss();
-                                                                try {
-                                                                    JSONObject object = new JSONObject(result);
-                                                                    if (object.getBoolean("result")) {
-                                                                        PrefUtils.saveToLoginPrefs(getActivity(), email, password);
-                                                                        startActivity(new Intent(getActivity(), MainActivity.class));
-                                                                        getActivity().finish();
-                                                                    } else {
-                                                                        Toast.makeText(getActivity(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
-                                                                    }
-                                                                } catch (JSONException e) {
-                                                                    e.printStackTrace();
-                                                                }
-
-                                                            }
-
-                                                            @Override
-                                                            public void onFail(String result) {
-                                                                if (progress != null)
-                                                                    progress.dismiss();
-                                                                Toast.makeText(getActivity(), "Unable to process your request, please try again.", Toast.LENGTH_SHORT).show();
-
-                                                            }
-                                                        });
-
-                                                    } else {
-                                                        Toast.makeText(getActivity(), "Password should be in minimum 8 characters", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-                                                else {
-                                                    Toast.makeText(getActivity(), "Please enter the Password", Toast.LENGTH_SHORT).show();
-                                                }
-                                    } else {
-                                        Toast.makeText(getActivity(), "Please enter valid Email ID", Toast.LENGTH_SHORT).show();
-                                    }
-                                } else {
-                                    Toast.makeText(getActivity(), "Please enter Email ID", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(getActivity(), "Please enter valid Mobile Number", Toast.LENGTH_SHORT).show();
-                            }
-                        }else {
-                                Toast.makeText(getActivity(), "Please enter your Mobile Number", Toast.LENGTH_SHORT).show();
-                            }
-                    } else {
+                    if (name.isEmpty())
                         Toast.makeText(getActivity(), "Please enter your Name", Toast.LENGTH_SHORT).show();
+                    else if (mobile.isEmpty())
+                        Toast.makeText(getActivity(), "Please enter your Mobile Number", Toast.LENGTH_SHORT).show();
+                    else if ( mobile.length()<10)
+                        Toast.makeText(getActivity(), "Please enter valid Mobile Number", Toast.LENGTH_SHORT).show();
+                    else if (email.isEmpty())
+                        Toast.makeText(getActivity(), "Please enter Email ID", Toast.LENGTH_SHORT).show();
+                    else if (!Globals.isValidEmail(email))
+                        Toast.makeText(getActivity(), "Please enter valid Email ID", Toast.LENGTH_SHORT).show();
+                    else if (password.isEmpty())
+                        Toast.makeText(getActivity(), "Please enter the Password", Toast.LENGTH_SHORT).show();
+                    else if (password.length() < 8)
+                        Toast.makeText(getActivity(), "Password should be in minimum 8 characters", Toast.LENGTH_SHORT).show();
+                    else {
+                        progress = ProgressDialog.show(getActivity(), "SignUp", "Please wait...", true);
+                        User user = new User();
+                        user.setEmail(email);
+                        user.setMobile(mobile);
+                        user.setName(name);
+                        user.setPassword(Globals.encryptString(password));
+                        user.SignUp(getActivity(), new Globals.VolleyCallback() {
+                            @Override
+                            public void onSuccess(String result) {
+                                if (progress != null)
+                                    progress.dismiss();
+                                try {
+                                    JSONObject object = new JSONObject(result);
+                                    if (object.getBoolean("result")) {
+                                        PrefUtils.saveToLoginPrefs(getActivity(), email, password);
+                                        startActivity(new Intent(getActivity(), MainActivity.class));
+                                        getActivity().finish();
+                                    } else {
+                                        Toast.makeText(getActivity(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFail(String result) {
+                                if (progress != null)
+                                    progress.dismiss();
+                                Toast.makeText(getActivity(), "Unable to process your request, please try again.", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+
                     }
-
-
                 }
+
 
 //                FragmentManager manager=getActivity().getSupportFragmentManager();
 //                FragmentTransaction transaction=manager.beginTransaction();
