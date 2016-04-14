@@ -37,55 +37,59 @@ import java.util.Map;
 
 
 public class Globals {
-    static String stringResponse = null;
-    private static ImageLoader mImageLoader;
-    private static Context mCtx;
-    private static RequestQueue mRequestQueue;
-    static Bitmap responseBitmap;
+    private static final String TAG = "GLOBALS";
+    private static final String VOLLEY_TAG = "VOLLEY_GLOBALS";
     public static Drawable drawable;
     public static int MY_SOCKET_TIMEOUT_MS = 15000;
     public static Typeface typeFace, lightTypeFace;
     public static Double latitude = 0.0, longitude = 0.0;
     public static boolean sendLocation = false;
     public static User userProfile;
+    static String stringResponse = null;
+    static Bitmap responseBitmap;
+    private static ImageLoader mImageLoader;
+    private static Context mCtx;
+    private static RequestQueue mRequestQueue;
 
     public Globals(Context context) {
         mCtx = context;
         mRequestQueue = getRequestQueue();
     }
 
-
-    /*GET METHOD REQUEST FOR API*/
-    public static String GET(String url, final Map<String, String> headers, final VolleyCallback callback) {
+    public static void startStringRequest(int method, final String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
         getRequestQueue();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(method, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.v("Global Response", response + "");
+                Log.v(VOLLEY_TAG, "onResponse(): " + response);
                 stringResponse = response;
                 callback.onSuccess(stringResponse);
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 try {
-                    Log.v("volleyerrorf", "" + volleyError);
-                    if (volleyError.networkResponse.statusCode == 404) {
-                        Log.v("statusCode", "" + volleyError.networkResponse.statusCode);
-                        stringResponse = "URL Not Found";
-                        Log.v("stringResponse", stringResponse);
-                    } else if (volleyError.networkResponse.statusCode == 400) {
+                    Log.v(VOLLEY_TAG, "URL: " + url);
+                    Log.v(VOLLEY_TAG, "onErrorResponse(): " + volleyError);
+
+                    Log.v(VOLLEY_TAG, "onErrorResponse(): StatusCode: " + volleyError.networkResponse.statusCode);
+
+                    if (volleyError.networkResponse.statusCode == 400)
                         stringResponse = "Bad Request";
-                    } else if (volleyError.networkResponse.statusCode == 500) {
+                    else if (volleyError.networkResponse.statusCode == 401)
+                        stringResponse = "Session Timed Out";
+                    else if (volleyError.networkResponse.statusCode == 403)
+                        stringResponse = "Forbidden Request";
+                    else if (volleyError.networkResponse.statusCode == 404)
+                        stringResponse = "URL Not Found";
+                    else if (volleyError.networkResponse.statusCode == 500)
                         stringResponse = "Internal Server Error";
-                    } else {
-                        stringResponse = "error occured";
-                    }
+                    else
+                        stringResponse = "Error Occurred";
 
                 } catch (Exception e) {
-                    stringResponse = "error occured";
-                    Log.v("exception", "" + e);
+                    stringResponse = "Error Occurred";
+                    Log.v(VOLLEY_TAG, "onErrorResponse(): Exception: " + e);
                     e.printStackTrace();
                 }
                 callback.onFail(stringResponse);
@@ -94,170 +98,90 @@ public class Globals {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = super.getHeaders();
-                if (headers == null
-                        || headers.equals(Collections.emptyMap())) {
-                    headers = new HashMap<String, String>();
+
+                Map<String, String> localHeaders = headers;
+
+                if (localHeaders == null)
+                    localHeaders = super.getHeaders();
+
+                if (localHeaders == null
+                        || localHeaders.equals(Collections.emptyMap())) {
+                    localHeaders = new HashMap<String, String>();
                 }
-                MyApplication.get().addSessionCookie(headers);
+                MyApplication.get().addSessionCookie(localHeaders);
 
-                headers.put("Content-Type", "application/json");
-                Log.v("get headers", headers.toString());
+                localHeaders.put("Content-Type", "application/json");
 
-                return headers;
+                Log.v(VOLLEY_TAG, "URL: " + url);
+                Log.v(VOLLEY_TAG, "getHeaders(): " + localHeaders.toString());
+
+                return localHeaders;
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> localParams = params;
+
+                if (localParams == null)
+                    localParams = super.getParams();
+
+                Log.v(VOLLEY_TAG, "getParams(): " + localParams);
+
+                return localParams;
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+
+                String localBody = body;
+
+                if (localBody == null || localBody.isEmpty())
+                    return super.getBody();
+
+                Log.v(VOLLEY_TAG, "getBody(): " + localBody);
+
+                return localBody.getBytes();
             }
 
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
+
                 MyApplication.get().checkSessionCookie(response.headers);
-                Log.v("response headers", response.headers.toString());
+
+                Log.v(VOLLEY_TAG, "URL: " + url);
+                Log.v(VOLLEY_TAG, "parseNetworkResponse(): StatusCode: " + response.statusCode);
+                Log.v(VOLLEY_TAG, "parseNetworkResponse(): Headers: " + response.headers.toString());
+                Log.v(VOLLEY_TAG, "parseNetworkResponse(): Data: " + response.data.toString());
+
                 return super.parseNetworkResponse(response);
             }
         };
 
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(MY_SOCKET_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         addRequestQueue(stringRequest);
+    }
 
 
-        return stringResponse;
+    /*GET METHOD REQUEST FOR API*/
+    public static void GET(String url, final Map<String, String> headers, final VolleyCallback callback) {
+        startStringRequest(Request.Method.GET, url, headers, null, null, callback);
     }
 
     /*POST METHOD REQUEST FOR API*/
-    public static String POST(String url, final Map<String, String> params, final String body, final VolleyCallback callback) {
-        getRequestQueue();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.v("Global Response", response);
-                stringResponse = response;
-                callback.onSuccess(stringResponse);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                stringResponse = "Connection TimeOut. Please try again.";
-                try {
-                    if (volleyError.networkResponse.statusCode == 404) {
-                        Log.v("statusCode", "" + volleyError.networkResponse.statusCode);
-                        stringResponse = "URL Not Found";
-                        Log.v("stringResponse", stringResponse);
-                    } else if (volleyError.networkResponse.statusCode == 400) {
-                        stringResponse = "Bad Request";
-                    } else if (volleyError.networkResponse.statusCode == 500) {
-                        stringResponse = "Internal Server Error";
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                callback.onFail(stringResponse);
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Log.v("globals params", "" + params);
-                if (params != null)
-                    return params;
-                else
-                    return super.getParams();
-            }
-
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = super.getHeaders();
-                if (headers == null
-                        || headers.equals(Collections.emptyMap())) {
-                    headers = new HashMap<String, String>();
-                }
-                MyApplication.get().addSessionCookie(headers);
-
-                headers.put("Content-Type", "application/json");
-                Log.v("post headers", headers.toString());
-
-                return headers;
-            }
-
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                if (body.isEmpty())
-                    return super.getBody();
-                else
-                    return body.getBytes();
-            }
-
-            @Override
-            protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                MyApplication.get().checkSessionCookie(response.headers);
-                Log.v("response headers", response.headers.toString());
-                return super.parseNetworkResponse(response);
-            }
-        };
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(MY_SOCKET_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        addRequestQueue(stringRequest);
-
-        return stringResponse;
+    public static void POST(String url, final Map<String, String> params, final String body, final VolleyCallback callback) {
+        startStringRequest(Request.Method.POST, url, null, params, body, callback);
     }
 
-    public static String PUT(String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
-        getRequestQueue();
-        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.v("Global Response", response);
-                stringResponse = response;
-                callback.onSuccess(stringResponse);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                stringResponse = "Connection TimeOut. Please try again.";
-                try {
-                    if (volleyError.networkResponse.statusCode == 404) {
-                        Log.v("statusCode", "" + volleyError.networkResponse.statusCode);
-                        stringResponse = "URL Not Found";
-                        Log.v("stringResponse", stringResponse);
-                    } else if (volleyError.networkResponse.statusCode == 400) {
-                        stringResponse = "Bad Request";
-                    } else if (volleyError.networkResponse.statusCode == 500) {
-                        stringResponse = "Internal Server Error";
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                callback.onFail(stringResponse);
-
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                return super.getParams();
-            }
-
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json");
-                return headers;
-            }
-
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                Log.v("globals body", " " + body);
-                return body.getBytes();
-            }
-        };
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(MY_SOCKET_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        addRequestQueue(stringRequest);
-
-        return stringResponse;
+    /*PUT METHOD REQUEST FOR API*/
+    public static void PUT(String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
+        startStringRequest(Request.Method.PUT, url, headers, params, body, callback);
     }
 
+    /*PATCH METHOD REQUEST FOR API*/
+    public static void PATCH(String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
+        startStringRequest(Request.Method.PATCH, url, headers, params, body, callback);
+    }
 
     /*IMAGE REQUEST FOR API*/
     public static Bitmap IMAGE(String url, final HashMap<String, String> headers, int width, int height, final VolleyImageCallback callback) {
@@ -305,77 +229,10 @@ public class Globals {
         return responseBitmap;
     }
 
-    /*PATCH METHOD REQUEST FOR API*/
-    public static String PATCH(String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
-        getRequestQueue();
-        StringRequest stringRequest = new StringRequest(Request.Method.PATCH, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.v("Global Response", response);
-                stringResponse = response;
-                callback.onSuccess(stringResponse);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                stringResponse = "Connection TimeOut. Please try again.";
-                try {
-                    if (volleyError.networkResponse.statusCode == 404) {
-                        Log.v("statusCode", "" + volleyError.networkResponse.statusCode);
-                        stringResponse = "URL Not Found";
-                        Log.v("stringResponse", stringResponse);
-                    } else if (volleyError.networkResponse.statusCode == 400) {
-                        stringResponse = "Bad Request";
-                    } else if (volleyError.networkResponse.statusCode == 500) {
-                        stringResponse = "Internal Server Error";
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                callback.onFail(stringResponse);
-
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Log.v("globals params", "" + params);
-                return params;
-            }
-
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Log.v("globals headers", "" + headers);
-                return headers;
-            }
-
-
-        };
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(MY_SOCKET_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        addRequestQueue(stringRequest);
-
-        return stringResponse;
-    }
-
-    public interface VolleyCallback {
-        void onSuccess(String result);
-
-        void onFail(String result);
-    }
-
-    public interface VolleyImageCallback {
-        void onSuccess(Bitmap bitmap);
-
-        void onFail(String result);
-    }
-
     public static RequestQueue getRequestQueue() {
-        if (mRequestQueue == null) {
-
+        if (mRequestQueue == null)
             mRequestQueue = Volley.newRequestQueue(mCtx);
-        }
+
         return mRequestQueue;
 
     }
@@ -423,7 +280,6 @@ public class Globals {
         return false;
     }
 
-
     public static Typeface typefaceFor(Context context, String typeface) {
         return Typeface.createFromAsset(context.getAssets(), "fonts/" + typeface);
     }
@@ -448,30 +304,6 @@ public class Globals {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
         return simpleDateFormat;
     }
-
-//    public static void addDevice(Context context){
-//        HashMap<String, String> postParams = new HashMap<>();
-//        HashMap<String, String> postHeaders = new HashMap<>();
-//        postHeaders.put("token",Globals.userProfile.token);
-//
-//        postParams.put("push_token", ZeroPush.getInstance().getDeviceToken());
-//        postParams.put("model", getDeviceName());
-//        postParams.put("os_version", Build.VERSION.RELEASE);
-//        postParams.put("os_name","android");
-//        Log.v("device params"," "+postParams);
-//
-//        Globals.POST(Globals.urlFor(context, "device"), postHeaders, postParams, "", new VolleyCallback() {
-//            @Override
-//            public void onSuccess(String result) {
-//                Log.v("result", " " + result);
-//            }
-//
-//            @Override
-//            public void onFail(String result) {
-//                Log.v("result error"," "+result);
-//            }
-//        });
-//    }
 
     public static String getDeviceName() {
         final String manufacturer = Build.MANUFACTURER;
@@ -507,6 +339,30 @@ public class Globals {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
         }
     }
+
+//    public static void addDevice(Context context){
+//        HashMap<String, String> postParams = new HashMap<>();
+//        HashMap<String, String> postHeaders = new HashMap<>();
+//        postHeaders.put("token",Globals.userProfile.token);
+//
+//        postParams.put("push_token", ZeroPush.getInstance().getDeviceToken());
+//        postParams.put("model", getDeviceName());
+//        postParams.put("os_version", Build.VERSION.RELEASE);
+//        postParams.put("os_name","android");
+//        Log.v("device params"," "+postParams);
+//
+//        Globals.POST(Globals.urlFor(context, "device"), postHeaders, postParams, "", new VolleyCallback() {
+//            @Override
+//            public void onSuccess(String result) {
+//                Log.v("result", " " + result);
+//            }
+//
+//            @Override
+//            public void onFail(String result) {
+//                Log.v("result error"," "+result);
+//            }
+//        });
+//    }
 
     public static void getCountries(final VolleyCallback callback) {
         GET(Urls.COUNTRY, null, new VolleyCallback() {
@@ -550,5 +406,16 @@ public class Globals {
         });
     }
 
+    public interface VolleyCallback {
+        void onSuccess(String result);
+
+        void onFail(String result);
+    }
+
+    public interface VolleyImageCallback {
+        void onSuccess(Bitmap bitmap);
+
+        void onFail(String result);
+    }
 
 }
