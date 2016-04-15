@@ -195,8 +195,12 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
                         realm.allObjects(DoctorClinic.class).clear();
                         realm.createOrUpdateAllFromJson(DoctorClinic.class, object.getJSONArray("response"));
                         Log.i("Clinic_Response", object.getJSONArray("response").toString());
-                        doctorClinics = realm.allObjects(DoctorClinic.class);
                         realm.commitTransaction();
+                        doctorClinics = realm.allObjects(DoctorClinic.class);
+                        for (DoctorClinic doctorClinic : doctorClinics){
+                            int id = doctorClinic.getClinicId();
+
+                        }
                         addValuesToRecyclerView(doctorClinics);
                     }
                 } catch (JSONException e) {

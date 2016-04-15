@@ -17,9 +17,9 @@ public class DoctorClinic extends RealmObject {
     private int clinicId;
     private String clinicTimings;
     private int consultationFee;
-    private String clinicName="Clinic Name";
+    private String clinicName;
     private String phoneNo;
-    private boolean isHomeClinic;
+    private boolean isConsultationAtHome;
     private Address address;
     private String website;
     private int yearOfEstablishment;
@@ -58,20 +58,8 @@ public class DoctorClinic extends RealmObject {
         this.phoneNo = phoneNo;
     }
 
-    public boolean getisHomeClinic() {
-        return isHomeClinic;
-    }
 
-    public void setIsHomeClinic(boolean isHomeClinic) {
-        this.isHomeClinic = isHomeClinic;
-    }
-    public int getClinicId() {
-        return clinicId;
-    }
 
-    public void setClinicId(int clinicId) {
-        this.clinicId = clinicId;
-    }
 
     public int getConsultationFee() {
         return consultationFee;
@@ -88,7 +76,7 @@ public class DoctorClinic extends RealmObject {
             object.put("consultationFee", getConsultationFee());
             object.put("clinicName", getClinicName());
 //            object.put("mobile", getPhoneNo());
-            object.put("isConsultationAtHome", getisHomeClinic());
+            object.put("isConsultationAtHome", getIsConsultationAtHome());
             object.put("yearOfEstablishment",getYearOfEstablishment());
             object.put("website",getWebsite());
 
@@ -107,7 +95,7 @@ public class DoctorClinic extends RealmObject {
             object.put("consultationFee", getConsultationFee());
             object.put("clinicName", getClinicName());
 //            object.put("mobile", getPhoneNo());
-            object.put("isConsultationAtHome", getisHomeClinic());
+            object.put("isConsultationAtHome", getIsConsultationAtHome());
             object.put("yearOfEstablishment",getYearOfEstablishment());
             object.put("website",getWebsite());
 
@@ -191,5 +179,21 @@ public class DoctorClinic extends RealmObject {
 
     public Address getAddress() {
         return address;
+    }
+
+    public boolean getIsConsultationAtHome() {
+        return isConsultationAtHome;
+    }
+
+    public void setIsConsultationAtHome(boolean isConsultationAtHome) {
+        this.isConsultationAtHome = isConsultationAtHome;
+    }
+
+    public int getClinicId() {
+        return clinicId;
+    }
+
+    public void setClinicId(int clinicId) {
+        this.clinicId = clinicId;
     }
 }
