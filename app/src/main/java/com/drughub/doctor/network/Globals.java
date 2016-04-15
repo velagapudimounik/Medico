@@ -25,6 +25,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.drughub.doctor.MyApplication;
+import com.drughub.doctor.model.DoctorClinic;
 import com.drughub.doctor.model.User;
 
 import java.math.BigInteger;
@@ -50,6 +51,7 @@ public class Globals {
     private static ImageLoader mImageLoader;
     private static Context mCtx;
     private static RequestQueue mRequestQueue;
+    public static DoctorClinic selectedDoctorClinic;
 
     public Globals(Context context) {
         mCtx = context;

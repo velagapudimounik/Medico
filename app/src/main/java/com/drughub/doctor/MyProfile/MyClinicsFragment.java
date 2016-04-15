@@ -1,29 +1,41 @@
 package com.drughub.doctor.MyProfile;
 
 import android.app.Dialog;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.model.DoctorClinic;
+import com.drughub.doctor.network.Globals;
+import com.drughub.doctor.network.Urls;
 import com.drughub.doctor.utils.CustomDialog;
 import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
-import android.widget.Button;
-import android.widget.TextView;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class MyClinicsFragment extends android.support.v4.app.Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter adapter;
+    private Realm realm;
+    ProgressDialog progress;
+    RealmResults<DoctorClinic> doctorClinics;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,19 +46,17 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.myprofile_myclinic_fragment, container, false);
-
         mRecyclerView=(RecyclerView)view.findViewById(R.id.myclinic_recyclerview);
-        MyClinicsListAdapter adapter = new MyClinicsListAdapter(this.getActivity());
-        mRecyclerView.setAdapter(adapter);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
 
         View.OnClickListener listener=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(v==view.findViewById(R.id.addclinic_button)){
-                    getFragmentManager().beginTransaction().add(R.id.containeractivity,new MyProfileAddClinicFragment()).addToBackStack(null).commit();
+                    MyProfileAddClinicFragment fragment = new MyProfileAddClinicFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("doctorClinic","addClinic");
+                    fragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().add(R.id.containeractivity,fragment).addToBackStack(null).commit();
                 }
             }
         };
@@ -61,9 +71,11 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
     public class MyClinicsListAdapter extends RecyclerSwipeAdapter<MyClinicsListAdapter.RecyclerViewHolder> {
 
         FragmentActivity context=null;
+        RealmResults<DoctorClinic> doctorClinics;
 
-        public MyClinicsListAdapter(FragmentActivity context) {
+        public MyClinicsListAdapter(FragmentActivity context, RealmResults<DoctorClinic> doctorClinics) {
             this.context = context;
+            this.doctorClinics = doctorClinics;
         }
 
         @Override
@@ -73,7 +85,11 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
         }
 
         @Override
-        public void onBindViewHolder(RecyclerViewHolder viewHolder, int position) {
+        public void onBindViewHolder(RecyclerViewHolder viewHolder, final int position) {
+            final DoctorClinic doctorClinic = doctorClinics.get(position);
+
+            viewHolder.hospitalName.setText(doctorClinic.getClinicName());
+            viewHolder.hospitalAddress.setText(doctorClinic.getAddress().getStreetName()+","+ doctorClinic.getAddress().getBuildingName());
 
             viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,15 +108,35 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
                     yesBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Log.i("clinicID", doctorClinics.get(position).getClinicId()+"");
+                            doctorClinic.DeleteClinic(doctorClinics.get(position).getClinicId(), new Globals.VolleyCallback() {
+                                @Override
+                                public void onSuccess(String result) {
+
+                                    notifyDataSetChanged();
+                                    notifyItemRemoved(position);
+                                }
+
+                                @Override
+                                public void onFail(String result) {
+
+                                }
+                            });
                             dialog.dismiss();
-//                            mItemManger.removeShownLayouts(viewHolder.swipeLayout);
-//                            mDataSet.remove(position);
-//                            notifyItemRemoved(position);
-//                            notifyItemRangeChanged(position, mDataSet.size());
-//                            mItemManger.closeAllItems();
                         }
                     });
                 }
+            });
+
+            viewHolder.updatebtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Globals.selectedDoctorClinic = doctorClinic;
+                    MyProfileAddClinicFragment fragment = new MyProfileAddClinicFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("doctorClinic","fromEdit");
+                    fragment.setArguments(bundle);
+                    context.getSupportFragmentManager().beginTransaction().add(R.id.containeractivity, fragment).addToBackStack(null).commit();                }
             });
 
             mItemManger.bindView(viewHolder.itemView, position);
@@ -108,7 +144,7 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
 
         @Override
         public int getItemCount() {
-            return 5;
+            return doctorClinics.size();
         }
 
         @Override
@@ -119,7 +155,8 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
         public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
             SwipeLayout swipeLayout;
-            View deleteBtn;
+            View deleteBtn, updatebtn;
+            TextView hospitalName , hospitalAddress;
 
             public RecyclerViewHolder(View itemView) {
                 super(itemView);
@@ -134,9 +171,55 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
                 });
 
                 deleteBtn = itemView.findViewById(R.id.deleteClinic);
-
+                updatebtn = itemView.findViewById(R.id.editClinic);
+                hospitalName = (TextView) itemView.findViewById(R.id.hospitalName);
+                hospitalAddress = (TextView) itemView.findViewById(R.id.hospitalAddress);
                 swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
             }
         }
+    }
+
+    @Override
+    public void onStart() {
+        realm = Realm.getDefaultInstance();
+        progress = ProgressDialog.show(getContext(), "", "Please wait...", true);
+        Globals.GET(Urls.CLINIC, null, new Globals.VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                try {
+                    progress.dismiss();
+                    JSONObject object = new JSONObject(result);
+                    if(object.getBoolean("result"))
+                    {
+                        realm.beginTransaction();
+                        realm.allObjects(DoctorClinic.class).clear();
+                        realm.createAllFromJson(DoctorClinic.class, object.getJSONArray("response"));
+                        Log.i("Clinic_Response", object.getJSONArray("response").toString());
+                        doctorClinics = realm.allObjects(DoctorClinic.class);
+                        realm.commitTransaction();
+                        addValuesToRecyclerView(doctorClinics);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFail(String result) {
+                progress.dismiss();
+            }
+        });
+        super.onStart();
+    }
+
+    private void addValuesToRecyclerView(RealmResults<DoctorClinic> doctorClinics) {
+
+
+        MyClinicsListAdapter adapter = new MyClinicsListAdapter(this.getActivity(), doctorClinics);
+        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
+
     }
 }

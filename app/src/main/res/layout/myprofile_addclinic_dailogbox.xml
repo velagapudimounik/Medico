@@ -310,6 +310,7 @@
 
             <CheckBox
                 style="@style/check_box_style"
+                android:id="@+id/consultHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"

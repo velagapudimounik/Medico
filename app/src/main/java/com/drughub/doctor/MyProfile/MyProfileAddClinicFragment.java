@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.drughub.doctor.R;
+import com.drughub.doctor.model.Address;
 import com.drughub.doctor.model.City;
 import com.drughub.doctor.model.Country;
 import com.drughub.doctor.model.DoctorClinic;
@@ -62,6 +64,8 @@ public class MyProfileAddClinicFragment extends DialogFragment {
     Realm realm;
     ProgressDialog progress;
     EditText clinic_Name, building_name, doorNo, streetName, colonyName, landmark, Mobile, consultationFee, pincode;
+    CheckBox consultationHome;
+    String clinicString;
 
 
     @Nullable
@@ -84,32 +88,37 @@ public class MyProfileAddClinicFragment extends DialogFragment {
         pincode = (EditText) view.findViewById(R.id.pincode);
         landmark = (EditText) view.findViewById(R.id.landmark);
         addClinic = (Button) view.findViewById(R.id.addButton);
+        consultationHome = (CheckBox) view.findViewById(R.id.consultHome);
         // FrameLayout plusicon=(FrameLayout)view.findViewById(R.id.plusicon);
         image_urls = new ArrayList<>();
         image_urls.add(0, Uri.EMPTY);
-        //ArrayAdapter<String> spinner1adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, country);
-        //ArrayAdapter<String> spinner2adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, state);
         ArrayAdapter<String> spinner3adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, district);
         ArrayAdapter<String> spinner4adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, townorcity);
-        // spinner1.setAdapter(spinner1adapter);
-        //spinner2.setAdapter(spinner2adapter);
         spinner3.setAdapter(spinner3adapter);
-       // spinner4.setAdapter(spinner4adapter);
         image_urls.add(0, Uri.EMPTY);
-//        ArrayAdapter<String> spinner1adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,country);
-//        ArrayAdapter<String> spinner2adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,state);
-//        ArrayAdapter<String> spinner3adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,district);
-//        ArrayAdapter<String> spinner4adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,townorcity);
-        // CountrySpinner   LTRadapter.setDropDownViewResource(android.R.layout.myprofile_addclinic_dailogbox);
-
-        //spinner1.setAdapter(new CountrySpinner(getActivity(),countries));
-        //spinner2.setAdapter(new StateSpinner(getActivity(), state));
         spinner3.setAdapter(new DistrictSpinner(getActivity(), district));
-       // spinner4.setAdapter(new TownCitySpinner(getActivity(), townorcity));
-        //  spinner1.setSelection(0);
-       // spinner2.setSelection(0);
-        spinner3.setSelection(0);
-       // spinner4.setSelection(0);
+        Bundle bundle = this.getArguments();
+        clinicString = bundle.getString("doctorClinic");
+        Log.i("Bundle_vales",bundle.toString());
+        if(clinicString.equals("fromEdit"))
+        {
+            getActivity().setTitle(getString(R.string.editClinic));
+            clinic_Name.setText(Globals.selectedDoctorClinic.getClinicName());
+            building_name.setText(Globals.selectedDoctorClinic.getAddress().getBuildingName());
+            doorNo.setText(Globals.selectedDoctorClinic.getAddress().getDoorNumber());
+            streetName.setText(Globals.selectedDoctorClinic.getAddress().getStreetName());
+            colonyName.setText(Globals.selectedDoctorClinic.getAddress().getColonyName());
+           // spinner1.set(bundle.getString("clinicName"));
+            //clinic_Name.setText(bundle.getString("clinicName"));
+            //clinic_Name.setText(bundle.getString("clinicName"));
+            pincode.setText(Globals.selectedDoctorClinic.getAddress().getPostalCode());
+            landmark.setText(Globals.selectedDoctorClinic.getAddress().getLandMark());
+            Mobile.setText(Globals.selectedDoctorClinic.getPhoneNo());
+            consultationFee.setText(""+Globals.selectedDoctorClinic.getConsultationFee());
+            addClinic.setText("Save");
+
+        }
+
         return view;
     }
 
@@ -137,34 +146,103 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                 String buildingName = building_name.getText().toString();
                 String mobile = Mobile.getText().toString();
                 String con_fee = consultationFee.getText().toString();
+                String doorno = doorNo.getText().toString();
+                String streetname = streetName.getText().toString();
+                String colonyname = colonyName.getText().toString();
+                Country country = countries.get(spinner1.getSelectedItemPosition());
+                State state = states.get(spinner2.getSelectedItemPosition());
+                City city = cities.get(spinner4.getSelectedItemPosition());
+                String postalcode = pincode.getText().toString();
+                String landMark = landmark.getText().toString();
+
                 if (!clinicName.isEmpty()) {
                     if (mobile.length() >= 10) {
                         if (!con_fee.isEmpty()) {
                             progress = ProgressDialog.show(getActivity(), "Add Clinic", "Please wait...", true);
                             DoctorClinic clinic = new DoctorClinic();
+                            realm.beginTransaction();
                             clinic.setClinicName(clinicName);
                             clinic.setPhoneNo(mobile);
-                            clinic.setConsultationFee(con_fee);
-                            clinic.AddClinic(getContext(), new Globals.VolleyCallback() {
-                                @Override
-                                public void onSuccess(String result) {
-                                    try {
-                                        JSONObject object = new JSONObject(result);
-                                        if (object.getBoolean("result")) {
-                                            Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(getContext(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
+                            clinic.setConsultationFee(Integer.parseInt(con_fee));
+                            clinic.setYearOfEstablishment(2010);
+                            clinic.setWebsite("www.google.com");
+                            if (consultationHome.isChecked())
+                                clinic.setIsHomeClinic(true);
+                            else
+                                clinic.setIsHomeClinic(false);
+
+                            if (clinic.getAddress() == null)
+                                clinic.setAddress(realm.createObject(Address.class));
+
+                            clinic.getAddress().setBuildingName(buildingName);
+                            clinic.getAddress().setDoorNumber(doorno);
+                            clinic.getAddress().setStreetName(streetname);
+                            clinic.getAddress().setColonyName(colonyname);
+                            clinic.getAddress().setCountry(country);
+                            clinic.getAddress().setState(state);
+                            clinic.getAddress().setCity(city);
+                            clinic.getAddress().setPostalCode(postalcode);
+                            clinic.getAddress().setLandmark(landMark);
+                            clinic.getAddress().setAreaCode("null");
+                            clinic.getAddress().setAreaName("SR Ngr");
+                            realm.commitTransaction();
+                            if(clinicString.equals("addClinic"))
+                            {
+                                clinic.AddClinic(new Globals.VolleyCallback() {
+
+                                    @Override
+                                    public void onSuccess(String result) {
+                                        progress.dismiss();
+                                        try {
+                                            JSONObject object = new JSONObject(result);
+                                            if (object.getBoolean("result")) {
+                                                Toast.makeText(getContext(), "Clinic Added Successfully", Toast.LENGTH_SHORT).show();
+                                                getFragmentManager().popBackStack();
+                                            } else {
+                                                Toast.makeText(getContext(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(getContext(), "Please try Again", Toast.LENGTH_SHORT).show();
+
                                         }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
                                     }
-                                }
 
-                                @Override
-                                public void onFail(String result) {
+                                    @Override
+                                    public void onFail(String result) {
+                                        progress.dismiss();
+                                    }
+                                });
 
-                                }
-                            });
+                            }
+                            else
+                            {
+                             clinic.UpdateClinic(new Globals.VolleyCallback() {
+                                 @Override
+                                 public void onSuccess(String result) {
+                                     progress.dismiss();
+                                     try {
+                                         JSONObject object = new JSONObject(result);
+                                         if(object.getBoolean("result"))
+                                         {
+                                             Toast.makeText(getContext(), "Clinic Updated Successfully", Toast.LENGTH_SHORT).show();
+                                             getFragmentManager().popBackStack();
+                                         }else {
+                                             Toast.makeText(getContext(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
+                                         }
+                                     }catch (Exception e)
+                                     {
+                                         e.printStackTrace();
+                                         Toast.makeText(getContext(), "Please try Again", Toast.LENGTH_SHORT).show();
+                                     }
+                                 }
+
+                                 @Override
+                                 public void onFail(String result) {
+
+                                 }
+                             });
+                            }
 
                         } else {
                             Toast.makeText(getContext(), "Enter Consultation Fee", Toast.LENGTH_SHORT).show();
@@ -313,15 +391,15 @@ public class MyProfileAddClinicFragment extends DialogFragment {
         public int getCount() {
             return super.getCount();
         }
-        View countrySet(int position)
-        {
+
+        View countrySet(int position) {
             LayoutInflater inflater = getLayoutInflater(null);
             View countrySpinner = inflater.inflate(R.layout.myporfile_spinner_addclinic, null);
             TextView countryTextview = (TextView) countrySpinner.findViewById(R.id.spinner_textview);
 
             countryTextview.setText(countries.get(position).getValue());
             countryTextview.setTextColor(Color.DKGRAY);
-            return  countrySpinner;
+            return countrySpinner;
 
         }
     }
@@ -350,14 +428,11 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                         realm.createAllFromJson(City.class, (new JSONObject(result)).getJSONArray("response").toString());
                         realm.commitTransaction();
                         cities = realm.where(City.class).findAllSorted("value");
-                        if(cities != null)
-                        {
-                            spinner4.setAdapter(new TownCitySpinner(getContext(),cities));
+                        if (cities != null) {
+                            spinner4.setAdapter(new TownCitySpinner(getContext(), cities));
                         }
                         realm.close();
-                    }
-                    catch (Exception e)
-                    {
+                    } catch (Exception e) {
 
                     }
 
@@ -385,14 +460,11 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                         realm.createAllFromJson(City.class, (new JSONObject(result)).getJSONArray("response").toString());
                         realm.commitTransaction();
                         cities = realm.where(City.class).findAllSorted("value");
-                        if(cities != null)
-                        {
-                            spinner4.setAdapter(new TownCitySpinner(getContext(),cities));
+                        if (cities != null) {
+                            spinner4.setAdapter(new TownCitySpinner(getContext(), cities));
                         }
                         realm.close();
-                    }
-                    catch (Exception e)
-                    {
+                    } catch (Exception e) {
 
                     }
 
@@ -412,8 +484,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
             return super.getCount();
         }
 
-        View stateSet(int position)
-        {
+        View stateSet(int position) {
             LayoutInflater inflater = getLayoutInflater(null);
             View stateSpinner = inflater.inflate(R.layout.myporfile_spinner_addclinic, null);
             TextView state = (TextView) stateSpinner.findViewById(R.id.spinner_textview);
@@ -434,7 +505,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
         Context context;
         RealmResults<City> cities;
 
-        public TownCitySpinner(Context context,  RealmResults<City> objects) {
+        public TownCitySpinner(Context context, RealmResults<City> objects) {
             super(context, R.layout.myporfile_spinner_addclinic, objects);
             this.context = context;
             this.cities = objects;
@@ -460,8 +531,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
             return super.getCount();
         }
 
-        View citySet(int position)
-        {
+        View citySet(int position) {
             LayoutInflater inflater = getLayoutInflater(null);
             View citySpinner = inflater.inflate(R.layout.myporfile_spinner_addclinic, null);
             TextView cityTextView = (TextView) citySpinner.findViewById(R.id.spinner_textview);

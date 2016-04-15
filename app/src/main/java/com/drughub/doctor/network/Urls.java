@@ -13,8 +13,7 @@ public class Urls {
     public static String STATE = BASE_URL + "common/1.0/state/";
     public static String CITY = BASE_URL + "common/1.0/city/";
 
-    public static String ADD_CLINIC = BASE_URL + "serviceprovider/1.0/clinics";
-    public static String UPDATE_CLINIC = BASE_URL + "1.0/sp/clinic/{userId}";
+    public static String CLINIC = BASE_URL + "serviceprovider/1.0/clinics";
 
     public static String CLINIC_CALENDAR = BASE_URL + "serviceprovider/1.0/clinicCalendars";
     public static String CHANGE_PASSWORD = BASE_URL + "user/changePassword";

@@ -10,7 +10,6 @@ public class Address extends RealmObject {
     private Country country = new Country();
     private String colony;
     private City city = new City();
-    private String street;
     private State state = new State();
     private String doorNumber;
     private String postalCode;
@@ -59,14 +58,6 @@ public class Address extends RealmObject {
 
     public void setColony(String colony) {
         this.colony = colony;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
     }
 
     public String getDoorNumber() {
@@ -164,8 +155,9 @@ public class Address extends RealmObject {
             addressObject.put("addressId", getAddressId());
             addressObject.put("doorNumber", getDoorNumber());
             addressObject.put("buildingName", getBuildingName());
-            addressObject.put("streetName", getStreet());
+            addressObject.put("streetName", getStreetName());
             addressObject.put("areaCode", getAreaCode());
+            addressObject.put("areaName",getAreaName());
             addressObject.put("landMark", getLandmark());
             addressObject.put("postalCode", getPostalCode());
             addressObject.put("lat", getLat());

@@ -1,6 +1,6 @@
 package com.drughub.doctor.model;
 
-import android.content.Context;
+import android.util.Log;
 
 import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.network.Urls;
@@ -12,14 +12,25 @@ import io.realm.RealmObject;
 
 
 public class DoctorClinic extends RealmObject {
-    private String clinicId;
+    private int clinicId;
     private String clinicTimings;
-    private String consultationFee;
+    private int consultationFee;
     private String clinicName="Clinic Name";
     private String phoneNo;
     private boolean isHomeClinic;
     private Address address;
     private String website;
+    private int yearOfEstablishment;
+
+    public int getYearOfEstablishment() {
+        return yearOfEstablishment;
+    }
+
+    public void setYearOfEstablishment(int yearOfEstablishment) {
+        this.yearOfEstablishment = yearOfEstablishment;
+    }
+
+
     //GetAllClinicsCalender gacc=new GetAllClinicsCalender();
     public String getClinicTimings() {
         return clinicTimings;
@@ -52,19 +63,19 @@ public class DoctorClinic extends RealmObject {
     public void setIsHomeClinic(boolean isHomeClinic) {
         this.isHomeClinic = isHomeClinic;
     }
-    public String getClinicId() {
+    public int getClinicId() {
         return clinicId;
     }
 
-    public void setClinicId(String clinicId) {
+    public void setClinicId(int clinicId) {
         this.clinicId = clinicId;
     }
 
-    public String getConsultationFee() {
+    public int getConsultationFee() {
         return consultationFee;
     }
 
-    public void setConsultationFee(String consultationFee) {
+    public void setConsultationFee(int consultationFee) {
         this.consultationFee = consultationFee;
     }
 
@@ -74,29 +85,41 @@ public class DoctorClinic extends RealmObject {
         try {
             object.put("consultationFee", getConsultationFee());
             object.put("clinicName", getClinicName());
-            object.put("phoneNo", getPhoneNo());
-            object.put("isHomeClinic", getisHomeClinic());
-            object.put("clinicTimings", getClinicTimings());
-
-//            address_object.put("buildingName", address.getBuildingName());
-//            address_object.put("country", address.getCountry());
-//            address_object.put("colony", address.getColony());
-//            address_object.put("doorNumber", address.getDoorNumber());
-//            address_object.put("city", address.getCity());
-//            address_object.put("street", address.getStreet());
-//            address_object.put("postalCode",address.getPostalCode());
-//            address_object.put("state", address.getStreet());
+//            object.put("mobile", getPhoneNo());
+            object.put("isConsultationAtHome", getisHomeClinic());
+            object.put("yearOfEstablishment",getYearOfEstablishment());
+            object.put("website",getWebsite());
 
             object.put("address", getFullAddress());
+            Log.i("response_addclinic",object.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object.toString();
+    }
+    public String toUpdateClinic() {
+        JSONObject object = new JSONObject();
+        JSONObject address_object = new JSONObject();
+        try {
+            object.put("clinicId",getClinicId());
+            object.put("consultationFee", getConsultationFee());
+            object.put("clinicName", getClinicName());
+//            object.put("mobile", getPhoneNo());
+            object.put("isConsultationAtHome", getisHomeClinic());
+            object.put("yearOfEstablishment",getYearOfEstablishment());
+            object.put("website",getWebsite());
+
+            object.put("address", getFullAddress());
+            Log.i("response_toupdateclinic",object.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return object.toString();
     }
 
-    public void AddClinic(Context context ,  final Globals.VolleyCallback callback) {
+    public void AddClinic( final Globals.VolleyCallback callback) {
 
-        Globals.POST(Urls.ADD_CLINIC,  null, toAddClinic(), new Globals.VolleyCallback() {
+        Globals.POST(Urls.CLINIC,  null, toAddClinic(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 try {
@@ -114,23 +137,37 @@ public class DoctorClinic extends RealmObject {
         });
     }
 
-    public void UpdateClinic(Context context) {
+    public void UpdateClinic(final Globals.VolleyCallback callback ) {
 
-        Globals.PUT(Urls.UPDATE_CLINIC, null, null, toAddClinic(), new Globals.VolleyCallback() {
+        Globals.PUT(Urls.CLINIC, null, null, toUpdateClinic(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
-                try {
-                    JSONObject object = new JSONObject(result);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
+                    callback.onSuccess(result);
+
             }
+
             @Override
             public void onFail(String result) {
-
+                callback.onFail(result);
             }
         });
 
+    }
+    public void DeleteClinic(int id , final Globals.VolleyCallback callback)
+    {
+        Globals.DELETE(Urls.CLINIC +"/"+ id, null, null, null, new Globals.VolleyCallback() {
+            @Override
+            public void onSuccess(String result) {
+                Log.i("Deleted_","Successfully");
+                callback.onSuccess(result);
+            }
+
+            @Override
+            public void onFail(String result) {
+                callback.onFail(result);
+            }
+        });
     }
 
 
