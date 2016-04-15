@@ -41,7 +41,7 @@ public class MyProfileActivity extends BaseActivity {
                     if (object.getBoolean("result")) {
                         realm.beginTransaction();
                         realm.allObjects(ServiceProvider.class).clear();
-                        realm.createObjectFromJson(ServiceProvider.class, object.getJSONObject("response"));
+                        realm.createOrUpdateObjectFromJson(ServiceProvider.class, object.getJSONObject("response"));
                         realm.commitTransaction();
                     }
                     if (progress != null)
@@ -54,6 +54,7 @@ public class MyProfileActivity extends BaseActivity {
 
                 } catch (Exception e) {
                     e.printStackTrace();
+                    progress.dismiss();
                 }
             }
 

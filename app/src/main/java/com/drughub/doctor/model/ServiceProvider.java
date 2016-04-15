@@ -11,16 +11,18 @@ import org.json.JSONObject;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 
 public class ServiceProvider extends RealmObject {
 
     private ValueIds gender;
     private String mobile;
+    @PrimaryKey
     private int spProfileId;
     private String emailId;
-    private RealmList<ValueIds> qualificationList;
-    private RealmList<ValueIds> specializationList;
+    private RealmList<Qualification> qualificationList;
+    private RealmList<Specialization> specializationList;
     private String practiseStartDate;
     private String partnerNature;
     private String profileName;
@@ -54,13 +56,13 @@ public class ServiceProvider extends RealmObject {
     public String toUpdateServiceProvider() {
         JSONObject object = new JSONObject();
         try {
-            object.put("address", getFullAddress());
+
             JSONArray qualificationList = new JSONArray();
-            for (ValueIds qualification : getQualificationList()) {
+            for (Qualification qualification : getQualificationList()) {
                 qualificationList.put(qualification.getValueIds());
             }
             JSONArray specializationList = new JSONArray();
-            for (ValueIds spec : getSpecializationList()) {
+            for (Specialization spec : getSpecializationList()) {
                 specializationList.put(spec.getValueIds());
             }
 
@@ -75,6 +77,7 @@ public class ServiceProvider extends RealmObject {
             object.put("middleName", getMiddleName());
             object.put("profileName", getProfileName());
 //            object.put("experienceInYears", getExperienceInYears());
+            object.put("address", getFullAddress());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -152,21 +155,7 @@ public class ServiceProvider extends RealmObject {
         this.gender = gender;
     }
 
-    public RealmList<ValueIds> getQualificationList() {
-        return qualificationList;
-    }
 
-    public void setQualificationList(RealmList<ValueIds> qualificationList) {
-        this.qualificationList = qualificationList;
-    }
-
-    public RealmList<ValueIds> getSpecializationList() {
-        return specializationList;
-    }
-
-    public void setSpecializationList(RealmList<ValueIds> specializationList) {
-        this.specializationList = specializationList;
-    }
 
     public String getPractiseStartDate() {
         return practiseStartDate;
@@ -206,5 +195,21 @@ public class ServiceProvider extends RealmObject {
 
     public Address getAddress() {
         return address;
+    }
+
+    public RealmList<Qualification> getQualificationList() {
+        return qualificationList;
+    }
+
+    public void setQualificationList(RealmList<Qualification> qualificationList) {
+        this.qualificationList = qualificationList;
+    }
+
+    public RealmList<Specialization> getSpecializationList() {
+        return specializationList;
+    }
+
+    public void setSpecializationList(RealmList<Specialization> specializationList) {
+        this.specializationList = specializationList;
     }
 }

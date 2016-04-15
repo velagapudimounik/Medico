@@ -5,7 +5,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -64,30 +63,7 @@ public class BaseActivity extends AppCompatActivity {
 
             }
         });
-        Globals.getSpecialization(new Globals.VolleyCallback() {
-            @Override
-            public void onSuccess(String result) {
-                Log.v("resultSP", result);
-            }
 
-            @Override
-            public void onFail(String result) {
-                Log.v("FailSp", result);
-
-            }
-        });
-        Globals.getQualification(new Globals.VolleyCallback() {
-            @Override
-            public void onSuccess(String result) {
-                Log.v("resultQL=", result);
-            }
-
-            @Override
-            public void onFail(String result) {
-                Log.v("FailQl=", result);
-
-            }
-        });
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         int pixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics());

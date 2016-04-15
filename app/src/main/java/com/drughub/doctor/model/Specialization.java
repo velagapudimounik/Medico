@@ -5,10 +5,11 @@ import org.json.JSONObject;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class City extends RealmObject {
+public class Specialization extends RealmObject {
     private String value;
     @PrimaryKey
     private int id;
+
     public String getValue() {
         return value;
     }
@@ -24,6 +25,7 @@ public class City extends RealmObject {
     public void setId(int id) {
         this.id = id;
     }
+
     public JSONObject getValueIds() {
         JSONObject object = new JSONObject();
         try {

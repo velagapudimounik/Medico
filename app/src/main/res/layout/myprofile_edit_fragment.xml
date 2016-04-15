@@ -50,30 +50,66 @@
                     android:hint="@string/lastName" />
 
             </LinearLayout>
-
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:layout_marginRight="10dp"
+                android:layout_weight="1">
 
-                <EditText
-                    android:id="@+id/editDesignation"
-                    style="@style/EditTextStyleTransparent1"
+                <Spinner
+                    android:id="@+id/spinnerQualification"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/hintDesignation" />
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/underline_light_grey"
+                    android:dropDownVerticalOffset="37dp"
+                    android:popupBackground="@drawable/round_rect_fill_white"
+                    android:spinnerMode="dropdown"
+                    android:textSize="13sp" />
 
-                <EditText
-                    android:id="@+id/editSpecialization"
-                    style="@style/EditTextStyleTransparent1"
+                <com.drughub.doctor.utils.DrughubIcon
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:gravity="center"
+                    android:text="@string/icon_down_arrow"
+                    android:textColor="@color/colorHint"
+                    android:textSize="15sp" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1">
+
+                <Spinner
+                    android:id="@+id/spinnerSpecialization"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:hint="@string/hintSpecialization" />
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/underline_light_grey"
+                    android:dropDownVerticalOffset="37dp"
+                    android:popupBackground="@drawable/round_rect_fill_white"
+                    android:spinnerMode="dropdown"
+                    android:textSize="13sp" />
 
+                <com.drughub.doctor.utils.DrughubIcon
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:gravity="center"
+                    android:text="@string/icon_down_arrow"
+                    android:textColor="@color/colorHint"
+                    android:textSize="15sp" />
+
+            </FrameLayout>
             </LinearLayout>
 
             <EditText

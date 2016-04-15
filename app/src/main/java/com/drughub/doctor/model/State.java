@@ -3,9 +3,11 @@ package com.drughub.doctor.model;
 import org.json.JSONObject;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class State extends RealmObject {
     private String value;
+    @PrimaryKey
     private int id;
 
     public String getValue() {

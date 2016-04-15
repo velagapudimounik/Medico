@@ -4,10 +4,12 @@ package com.drughub.doctor.model;
 import org.json.JSONObject;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class ValueIds extends RealmObject {
     private String value;
     private String code;
+    @PrimaryKey
     private int id;
 
     public int getId() {
