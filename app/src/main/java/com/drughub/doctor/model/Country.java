@@ -34,16 +34,6 @@ public class Country extends RealmObject {
         this.code = code;
     }
 
-    public JSONObject getValueIds() {
-        JSONObject object = new JSONObject();
-        try {
-            object.put("id", getId());
-            object.put("value", getValue());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return object;
-    }
 
     public JSONObject getValueIdsCode() {
         JSONObject object = new JSONObject();

@@ -1,5 +1,7 @@
 package com.drughub.doctor.model;
 
+import org.json.JSONObject;
+
 import io.realm.RealmObject;
 
 public class State extends RealmObject {
@@ -21,4 +23,15 @@ public class State extends RealmObject {
     public void setId(int id) {
         this.id = id;
     }
+    public JSONObject getValueIds() {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("id", getId());
+            object.put("value", getValue());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return object;
+    }
+
 }

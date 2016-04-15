@@ -9,9 +9,9 @@ public class Address extends RealmObject {
     private String buildingName;
     private Country country = new Country();
     private String colony;
-    private ValueIds city = new ValueIds();
+    private City city = new City();
     private String street;
-    private ValueIds state = new ValueIds();
+    private State state = new State();
     private String doorNumber;
     private String postalCode;
     private String areaCode;
@@ -215,19 +215,19 @@ public class Address extends RealmObject {
         this.country = country;
     }
 
-    public ValueIds getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(ValueIds city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
-    public ValueIds getState() {
+    public State getState() {
         return state;
     }
 
-    public void setState(ValueIds state) {
+    public void setState(State state) {
         this.state = state;
     }
 }
