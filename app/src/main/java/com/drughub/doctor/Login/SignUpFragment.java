@@ -60,9 +60,9 @@ public class SignUpFragment extends Fragment {
             public void onClick(View view) {
                 if (view.getId() == R.id.registerbutton) {
 //                    fragment = new LoginPage();
-                    String name = editName.getText().toString();
-                    final String email = editEmail.getText().toString();
-                    String mobile = editMobile.getText().toString();
+                    String name = editName.getText().toString().trim();
+                    final String email = editEmail.getText().toString().trim();
+                    String mobile = editMobile.getText().toString().trim();
                     final String password = editPassword.getText().toString();
                     if (name.isEmpty())
                         Toast.makeText(getActivity(), "Please enter your Name", Toast.LENGTH_SHORT).show();
