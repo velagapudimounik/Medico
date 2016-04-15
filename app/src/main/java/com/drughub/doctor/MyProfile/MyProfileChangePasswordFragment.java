@@ -1,5 +1,6 @@
 package com.drughub.doctor.MyProfile;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MyProfileChangePasswordFragment extends Fragment {
+    ProgressDialog progress;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.myprofile_changepassword_fragment, container, false);
 
@@ -28,33 +30,63 @@ public class MyProfileChangePasswordFragment extends Fragment {
         submitbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String currentpwd = currentPassword.getText().toString();
                 String newPwd = newPassword.getText().toString();
                 String confirmpwd = confirmPassword.getText().toString();
-                if (newPwd.equals(confirmpwd)) {
-                    JSONObject object = new JSONObject();
-                    try {
-                        String newPass = Globals.encryptString(newPwd);
-                        object.put("oldpassword", Globals.encryptString(currentPassword.getText().toString().trim()));
-                        object.put("newpassword", newPass);
-                        object.put("confirmpassword", newPass);
-                        //object.put("email", PrefUtils.getUserName(getActivity()));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if (currentpwd.isEmpty())
+                    Toast.makeText(getActivity(), "Please enter current password", Toast.LENGTH_SHORT).show();
+                else if (newPwd.isEmpty())
+                    Toast.makeText(getActivity(), "Please enter your new password", Toast.LENGTH_SHORT).show();
+                else if (confirmpwd.isEmpty())
+                    Toast.makeText(getActivity(), "Please confirm your new password", Toast.LENGTH_SHORT).show();
+                else {
+                    if (newPwd.equals(confirmpwd)) {
+                        JSONObject object = new JSONObject();
+                        try {
+                            String newPass = Globals.encryptString(newPwd);
+                            object.put("oldpassword", Globals.encryptString(currentPassword.getText().toString().trim()));
+                            object.put("newpassword", newPass);
+                            object.put("confirmpassword", newPass);
+                            //object.put("email", PrefUtils.getUserName(getActivity()));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Globals.POST(Urls.CHANGE_PASSWORD, null, object.toString(), new Globals.VolleyCallback() {
+                            @Override
+                            public void onSuccess(String result) {
+                                if (progress != null)
+                                    progress.dismiss();
+                                    try {
+                                        JSONObject object = new JSONObject(result);
+                                        if (object.getBoolean("result"))
+                                        {
+                                            currentPassword.setText("");
+                                            newPassword.setText("");
+                                            confirmPassword.setText("");
+                                            Toast.makeText(getActivity(), "Your password changed successfully", Toast.LENGTH_SHORT).show();
+                                            Log.v("result==change", result);
+                                        }
+                                        else {
+                                            Toast.makeText(getActivity(), ""+object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
+                                        }
+
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                            }
+
+                            @Override
+                            public void onFail(String result) {
+                                if (progress!=null)
+                                    progress.dismiss();
+                                Toast.makeText(getActivity(), "Unable to process your request,please try again", Toast.LENGTH_SHORT).show();
+                                Log.v("Result===", result);
+                            }
+                        });
+
                     }
-                    Globals.POST(Urls.CHANGE_PASSWORD, null, object.toString(), new Globals.VolleyCallback() {
-                        @Override
-                        public void onSuccess(String result) {
-                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                            Log.v("response", result);
-                        }
-
-                        @Override
-                        public void onFail(String result) {
-                            Toast.makeText(getActivity(), "Fail===", Toast.LENGTH_SHORT).show();
-                            Log.v("Result===",result);
-                        }
-                    });
-
                 }
             }
         });

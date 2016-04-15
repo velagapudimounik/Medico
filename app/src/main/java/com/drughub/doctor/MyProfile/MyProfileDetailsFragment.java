@@ -27,6 +27,25 @@ public class MyProfileDetailsFragment extends Fragment {
     private TextView email;
     private TextView mobile;
 
+    public TextView getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(TextView specialization) {
+        this.specialization = specialization;
+    }
+
+    public TextView getYearsOfExperience() {
+        return yearsOfExperience;
+    }
+
+    public void setYearsOfExperience(TextView yearsOfExperience) {
+        this.yearsOfExperience = yearsOfExperience;
+    }
+
+    private TextView specialization;
+    private TextView yearsOfExperience;
+
 
     @Nullable
     @Override
@@ -45,6 +64,7 @@ public class MyProfileDetailsFragment extends Fragment {
         adressline1 = (TextView) view.findViewById(R.id.textadressLine1);
         adressline2 = (TextView) view.findViewById(R.id.textadressLine2);
         email = (TextView) view.findViewById(R.id.email);
+        yearsOfExperience=(TextView)view.findViewById(R.id.experience);
         mobile = (TextView) view.findViewById(R.id.mobile);
     }
 
@@ -55,10 +75,12 @@ public class MyProfileDetailsFragment extends Fragment {
         realm = Realm.getDefaultInstance();
         serviceProvider = realm.where(ServiceProvider.class).findFirst();
         if (serviceProvider != null) {
-            doctorName.setText(serviceProvider.getFirstName() + serviceProvider.getMiddleName() + serviceProvider.getLastName());
+            doctorName.setText(serviceProvider.getFirstName() + " "+serviceProvider.getMiddleName() +" "+ serviceProvider.getLastName());
+            qualification.setText(serviceProvider.getQualificationList().get(0).getValue()+" , "+serviceProvider.getSpecializationList().get(0).getValue() );
+//            yearsOfExperience.setText(serviceProvider.ge);
             if (serviceProvider.getAddress() != null) {
-                adressline1.setText(serviceProvider.getAddress().getBuildingName() + serviceProvider.getAddress().
-                        getDoorNumber() + serviceProvider.getAddress().getStreetName() + serviceProvider.getAddress().getColonyName());
+                adressline1.setText(serviceProvider.getAddress().getBuildingName()+", " + serviceProvider.getAddress().
+                        getDoorNumber() +", "+ serviceProvider.getAddress().getStreetName() +", "+ serviceProvider.getAddress().getColonyName());
                 adressline2.setText(serviceProvider.getAddress().getPostalCode());
             }
             email.setText(serviceProvider.getEmailId());

@@ -38,7 +38,7 @@ public class ForgotPasswordFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = editEmail.getText().toString();
+                String email = editEmail.getText().toString().trim();
                 if (Globals.isValidEmail(email)) {
                     User user = new User();
                     user.setEmail(email);

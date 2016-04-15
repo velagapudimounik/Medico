@@ -17,13 +17,18 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.drughub.doctor.R;
+import com.drughub.doctor.model.ServiceProvider;
 import com.drughub.doctor.utils.DrughubIcon;
 import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
+
+import io.realm.Realm;
+import io.realm.RealmObject;
 
 public class MyProfileFragment extends Fragment {
     private ImageView profileimage;
@@ -31,14 +36,16 @@ public class MyProfileFragment extends Fragment {
     RadioGroup profile_radiogroup;
     FrameLayout emptyimageview;
     FrameLayout addimageIcon;
-    DrughubIcon editicon;
-    DrughubIcon righticon;
+    DrughubIcon editicon,righticon;
+    TextView changetext,doctorName,doctorDHCode,doctorEmail;
     boolean clickCount = false;
     private static final int SELECT_PICTURE = 120;
     public static final int PICK_IMAGE = 110;
     public static final  int CROP_IMAGE=200;
     String fileName ;
     Uri outputUri;
+    Realm realm;
+    ServiceProvider serviceProvider;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,9 +58,13 @@ public class MyProfileFragment extends Fragment {
         getActivity().setTitle(getString(R.string.myProfile));
         final View view = inflater.inflate(R.layout.myprofile_main, container, false);
         profile_radiogroup = (RadioGroup) view.findViewById(R.id.myProfileRadiogroup);
+        doctorName=(TextView)view.findViewById(R.id.doctorName);
+        doctorDHCode=(TextView)view.findViewById(R.id.doctorID);
+        doctorEmail=(TextView)view.findViewById(R.id.doctorEmail);
         editicon = (DrughubIcon) view.findViewById(R.id.Editicon);
         //editicon.setOnClickListener(this);
         righticon = (DrughubIcon) view.findViewById(R.id.rightmark);
+        //changetext=(TextView)view.findViewById(R.id.change_textview);
         emptyimageview=(FrameLayout)view.findViewById(R.id.emptyimage);
         //righticon.setOnClickListener(this);
         //final TextView changetext=(TextView)view.findViewById(R.id.profile_changetextview);
@@ -83,7 +94,7 @@ public class MyProfileFragment extends Fragment {
                 righticon.setVisibility(View.INVISIBLE);
                 editicon.setVisibility(View.VISIBLE);
                 addimageIcon.setVisibility(View.INVISIBLE);
-                //emptyimageview.setVisibility(View.VISIBLE);
+                emptyimageview.setVisibility(View.VISIBLE);
                 myprofile.setPressed(true);
             }
         });
@@ -95,11 +106,12 @@ public class MyProfileFragment extends Fragment {
                 myprofile.setChecked(true);
                 changepassword.setChecked(false);
                 myclinic.setChecked(false);
-                System.out.println(clickCount + "clickCount");
-                Toast.makeText(getActivity(), "Editmain", Toast.LENGTH_SHORT).show();
+                //System.out.println(clickCount + "clickCount");
+               // Toast.makeText(getActivity(), "Editmain", Toast.LENGTH_SHORT).show();
                 addimageIcon.setVisibility(View.VISIBLE);
                 righticon.setVisibility(View.VISIBLE);
                 editicon.setVisibility(View.INVISIBLE);
+                //changetext.setVisibility(View.VISIBLE);
                 emptyimageview.setVisibility(View.INVISIBLE);
                 //clickCount=false;
             }
@@ -110,7 +122,7 @@ public class MyProfileFragment extends Fragment {
                 if (checkedId == R.id.myProfileButton) {
                     getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).commit();
                     if (clickCount) {
-                        Toast.makeText(getContext(), "Edit", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), "Edit", Toast.LENGTH_SHORT).show();
                         getFragmentManager().beginTransaction().replace(R.id.container2, new MyprofileEditFragment()).commit();
                     }
                     clickCount = false;
@@ -199,6 +211,19 @@ public class MyProfileFragment extends Fragment {
         addimageIcon.setVisibility(View.INVISIBLE);
         emptyimageview.setVisibility(View.VISIBLE);
         myprofile.setChecked(true);
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        realm= Realm.getDefaultInstance();
+        serviceProvider=realm.where(ServiceProvider.class).findFirst();
+        if (serviceProvider!=null){
+            doctorName.setText("Dr."+serviceProvider.getFirstName());
+            doctorDHCode.setText(""+serviceProvider.getSpProfileId());
+            doctorEmail.setText(serviceProvider.getEmailId());
+        }
 
     }
 }

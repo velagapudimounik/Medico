@@ -28,50 +28,65 @@
                 android:text="@string/icon_foradd_image"
                 android:textSize="40dp"/>
 
+            <FrameLayout
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/fill_circle_white"
+                android:id="@+id/emptyimage"
+                android:visibility="invisible"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="left|bottom">
+
+                    <com.drughub.doctor.utils.DrughubIcon
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/icon_noimage"
+                        android:textSize="40dp"
+                        android:textColor="@color/colorTextLight"/>
+
+                </FrameLayout>
+
         </FrameLayout>
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:id="@+id/profile_image"
             android:visibility="visible"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             />
-        <FrameLayout
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:background="@drawable/fill_circle_white"
-            android:id="@+id/emptyimage"
-            android:visibility="visible"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtChange"
+            android:id="@+id/change_textview"
+            android:background="@color/translucent_background"
+            android:textColor="@color/colorWhite"
+            android:visibility="invisible"
+            android:layout_below="@+id/linearLayout6"
+            android:layout_toLeftOf="@+id/linearLayout6"
+            android:layout_toStartOf="@+id/linearLayout6" />
 
-                <com.drughub.doctor.utils.DrughubIcon
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/icon_noimage"
-                    android:textSize="40dp"
-                    android:textColor="@color/colorTextLight"/>
-
-            </FrameLayout>
-
-            <LinearLayout
+        <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/frameLayout"
-                android:layout_toRightOf="@+id/add_image_view">
+                android:layout_toRightOf="@+id/add_image_view"
+                android:id="@+id/linearLayout6">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:inputType="textCapWords"
                     android:text="Doctor Name"
                     android:id="@+id/doctorName"/>
 
@@ -88,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:text="doctor@email.com"
                     android:textSize="12dp"
-                    android:id="@+id/textView_email" />
+                    android:id="@+id/doctorEmail" />
 
             </LinearLayout>
 
