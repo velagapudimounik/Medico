@@ -193,7 +193,7 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
                     {
                         realm.beginTransaction();
                         realm.allObjects(DoctorClinic.class).clear();
-                        realm.createAllFromJson(DoctorClinic.class, object.getJSONArray("response"));
+                        realm.createOrUpdateAllFromJson(DoctorClinic.class, object.getJSONArray("response"));
                         Log.i("Clinic_Response", object.getJSONArray("response").toString());
                         doctorClinics = realm.allObjects(DoctorClinic.class);
                         realm.commitTransaction();
