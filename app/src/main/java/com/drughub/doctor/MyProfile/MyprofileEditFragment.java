@@ -14,13 +14,14 @@ import android.widget.Spinner;
 import com.drughub.doctor.MyProfile.adapters.SpinnerAdapter;
 import com.drughub.doctor.R;
 import com.drughub.doctor.model.Address;
+import com.drughub.doctor.model.AllCity;
+import com.drughub.doctor.model.AllState;
 import com.drughub.doctor.model.City;
 import com.drughub.doctor.model.Country;
 import com.drughub.doctor.model.Qualification;
 import com.drughub.doctor.model.ServiceProvider;
 import com.drughub.doctor.model.Specialization;
 import com.drughub.doctor.model.State;
-import com.drughub.doctor.model.ValueIds;
 import com.drughub.doctor.network.Globals;
 
 import org.json.JSONObject;
@@ -41,8 +42,8 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
     private Spinner spinnerSpecialization;
     private Spinner spinnerQualification;
     private RealmResults<Country> countries;
-    private RealmResults<State> states;
-    private RealmResults<City> cities;
+    private RealmResults<AllState> states;
+    private RealmResults<AllCity> cities;
     private RealmResults<Specialization> specializations;
     private RealmResults<Qualification> qualifications;
 
@@ -172,30 +173,20 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
             public void onSuccess(String result) {
                 try {
 
-                    ValueIds valueIds = new ValueIds(serviceProvider.getAddress().getState().getValueIds());
+//                    ValueIds valueIds = new ValueIds(serviceProvider.getAddress().getState().getValueIds());
                     realm.beginTransaction();
-                    realm.allObjects(State.class).clear();
-                    realm.createAllFromJson(State.class, (new JSONObject(result)).getJSONArray("response").toString());
-                    State stat = realm.createOrUpdateObjectFromJson(State.class, valueIds.getValueIds());
-                    serviceProvider.getAddress().setState(stat);
+                    if (states != null)
+                        states.clear();
+                    realm.allObjects(AllState.class).clear();
+                    realm.createOrUpdateAllFromJson(AllState.class, (new JSONObject(result)).getJSONArray("response").toString());
+//                    State stat = realm.createOrUpdateObjectFromJson(State.class, valueIds.getValueIds());
+//                    serviceProvider.getAddress().setState(stat);
 
 
                     realm.commitTransaction();
-                    states = realm.where(State.class).findAllSorted("value");
-                    if (states.size() > 0) {
-                        ArrayList<String> values = new ArrayList<String>();
-                        for (State state : states) {
-                            values.add(state.getValue());
-                        }
 
-                        spinnerState.setAdapter(new SpinnerAdapter(getContext(), values));
-                        int pos = values.indexOf(serviceProvider.getAddress().getState().getValue());
-                        if (pos > 0)
-                            spinnerState.setSelection(pos);
-                        else
-                            spinnerState.setSelection(0);
+                    states = realm.where(AllState.class).findAllSorted("value");
 
-                    }
                     spinnerState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -207,6 +198,19 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 
                         }
                     });
+                    if (states.size() > 0) {
+                        ArrayList<String> values = new ArrayList<String>();
+                        for (AllState state : states) {
+                            values.add(state.getValue());
+                        }
+                        spinnerState.setAdapter(new SpinnerAdapter(getContext(), values));
+                        int pos = values.indexOf(serviceProvider.getAddress().getState().getValue());
+                        if (pos > 0)
+                            spinnerState.setSelection(pos);
+                        else
+                            spinnerState.setSelection(0);
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -224,24 +228,23 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
             @Override
             public void onSuccess(String result) {
                 try {
-                    ValueIds valueIds = new ValueIds(serviceProvider.getAddress().getCity().getValueIds());
+
+//                    ValueIds valueIds = new ValueIds(serviceProvider.getAddress().getCity().getValueIds());
                     realm.beginTransaction();
-                    realm.allObjects(City.class).clear();
-                    realm.createAllFromJson(City.class, (new JSONObject(result)).getJSONArray("response").toString());
-                    City city1 = realm.createOrUpdateObjectFromJson(City.class, valueIds.getValueIds());
-                    serviceProvider.getAddress().setCity(city1);
+                    if (cities != null)
+                        cities.clear();
+                    realm.allObjects(AllCity.class).clear();
+                    realm.createOrUpdateAllFromJson(AllCity.class, (new JSONObject(result)).getJSONArray("response").toString());
+//                    City city1 = realm.createOrUpdateObjectFromJson(City.class, valueIds.getValueIds());
+//                    serviceProvider.getAddress().setCity(city1);
                     realm.commitTransaction();
-                    cities = realm.where(City.class).findAllSorted("value");
+                    cities = realm.where(AllCity.class).findAllSorted("value");
                     ArrayList<String> values = new ArrayList<String>();
-                    for (City city : cities) {
+                    for (AllCity city : cities) {
                         values.add(city.getValue().trim());
                     }
                     spinnerTownorCity.setAdapter(new SpinnerAdapter(getContext(), values));
-                    int pos = values.indexOf(serviceProvider.getAddress().getCity().getValue());
-                    if (pos >= 0)
-                        spinnerTownorCity.setSelection(pos);
-                    else
-                        spinnerTownorCity.setSelection(0);
+
                     spinnerTownorCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -253,6 +256,11 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 
                         }
                     });
+                    int pos = values.indexOf(serviceProvider.getAddress().getCity().getValue());
+                    if (pos >= 0)
+                        spinnerTownorCity.setSelection(pos);
+                    else
+                        spinnerTownorCity.setSelection(0);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -382,13 +390,13 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
             City city = realm.createOrUpdateObjectFromJson(City.class, cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds());
             serviceProvider.getAddress().setCity(city);
         } else {
-            serviceProvider.getAddress().setCity(cities.get(spinnerTownorCity.getSelectedItemPosition()));
+            serviceProvider.getAddress().setCity(realm.createObjectFromJson(City.class, cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds()));
         }
         if (serviceProvider.getAddress().getState() == null) {
             State state = realm.createOrUpdateObjectFromJson(State.class, states.get(spinnerState.getSelectedItemPosition()).getValueIds());
             serviceProvider.getAddress().setState(state);
         } else {
-            serviceProvider.getAddress().setState(states.get(spinnerState.getSelectedItemPosition()));
+            serviceProvider.getAddress().setState((realm.createObjectFromJson(State.class, states.get(spinnerState.getSelectedItemPosition()).getValueIds())));
         }
 
         realm.commitTransaction();
