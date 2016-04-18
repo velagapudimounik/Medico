@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.drughub.doctor.R;
+import com.drughub.doctor.model.Address;
+import com.drughub.doctor.model.City;
 import com.drughub.doctor.model.ServiceProvider;
+import com.drughub.doctor.model.State;
 
 import io.realm.Realm;
 
@@ -91,6 +94,13 @@ public class MyProfileDetailsFragment extends Fragment {
                 adressline1.setText(serviceProvider.getAddress().getBuildingName()+", " + serviceProvider.getAddress().
                         getDoorNumber() +", "+ serviceProvider.getAddress().getStreetName() +", "+ serviceProvider.getAddress().getColonyName());
                 adressline2.setText(serviceProvider.getAddress().getPostalCode());
+            }else {
+                realm.beginTransaction();
+                serviceProvider.setAddress(realm.createObject(Address.class));
+                serviceProvider.getAddress().setState(realm.createObject(State.class));
+                serviceProvider.getAddress().setCity(realm.createObject(City.class));
+
+                realm.commitTransaction();
             }
             email.setText(serviceProvider.getEmailId());
             mobile.setText(serviceProvider.getMobile());

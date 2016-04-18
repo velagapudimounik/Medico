@@ -27,6 +27,7 @@
                     android:id="@+id/editFirstName"
                     style="@style/EditTextStyleTransparent1"
                     android:layout_width="wrap_content"
+                    android:inputType="textCapWords"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/firstName" />
@@ -35,6 +36,7 @@
                     android:id="@+id/editMiddleName"
                     style="@style/EditTextStyleTransparent1"
                     android:layout_width="wrap_content"
+                    android:inputType="textCapWords"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
@@ -45,6 +47,7 @@
                     style="@style/EditTextStyleTransparent1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:hint="@string/lastName" />
@@ -131,6 +134,8 @@
                     android:id="@+id/editBuildingName"
                     style="@style/EditTextStyleTransparent1"
                     android:layout_width="match_parent"
+                    android:inputType="textCapWords"
+                    android:singleLine="true"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/buildingName" />
@@ -142,6 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:singleLine="true"
                     android:hint="@string/doorNo" />
             </LinearLayout>
 
@@ -156,7 +162,9 @@
                     style="@style/EditTextStyleTransparent1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
                     android:layout_weight="1"
+                    android:singleLine="true"
                     android:hint="@string/streetName" />
 
                 <EditText
@@ -164,7 +172,9 @@
                     style="@style/EditTextStyleTransparent1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
                     android:layout_marginLeft="10dp"
+                    android:singleLine="true"
                     android:layout_weight="1"
                     android:hint="@string/colonyName" />
             </LinearLayout>
@@ -307,6 +317,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:singleLine="true"
                     android:hint="@string/pincode" />
 
                 <EditText
