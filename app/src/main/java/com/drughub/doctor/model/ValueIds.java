@@ -12,6 +12,19 @@ public class ValueIds extends RealmObject {
     @PrimaryKey
     private int id;
 
+    public ValueIds(){
+
+    }
+
+    public ValueIds(JSONObject object) {
+        try {
+            this.value = object.getString("value");
+            this.id = object.getInt("id");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getId() {
         return id;
     }
