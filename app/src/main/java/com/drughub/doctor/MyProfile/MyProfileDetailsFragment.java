@@ -76,8 +76,17 @@ public class MyProfileDetailsFragment extends Fragment {
         serviceProvider = realm.where(ServiceProvider.class).findFirst();
         if (serviceProvider != null) {
             doctorName.setText(serviceProvider.getFirstName() + " "+serviceProvider.getMiddleName() +" "+ serviceProvider.getLastName());
-            qualification.setText(serviceProvider.getQualificationList().get(0).getValue()+" , "+serviceProvider.getSpecializationList().get(0).getValue() );
-//            yearsOfExperience.setText(serviceProvider.ge);
+            if (serviceProvider.getQualificationList()!=null && serviceProvider.getQualificationList().size()>0){
+                qualification.setText(serviceProvider.getQualificationList().get(0).getValue());
+            }
+            else
+            qualification.setText("");
+            if (serviceProvider.getSpecializationList()!=null && serviceProvider.getSpecializationList().size()>0){
+                qualification.append(serviceProvider.getSpecializationList().get(0).getValue());
+            }
+            else
+            qualification.append("");
+// yearsOfExperience.setText(serviceProvider.ge);
             if (serviceProvider.getAddress() != null) {
                 adressline1.setText(serviceProvider.getAddress().getBuildingName()+", " + serviceProvider.getAddress().
                         getDoorNumber() +", "+ serviceProvider.getAddress().getStreetName() +", "+ serviceProvider.getAddress().getColonyName());
