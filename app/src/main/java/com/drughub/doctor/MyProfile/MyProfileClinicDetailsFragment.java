@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.drughub.doctor.R;
 import com.drughub.doctor.model.DoctorClinic;
+import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 
 import io.realm.Realm;
@@ -22,15 +23,17 @@ public class MyProfileClinicDetailsFragment extends Fragment {
     private Realm realm;
     public RecyclerView mRecyclerView;
     public RecyclerView.Adapter adapter;
+    String mobile;
 
     @Nullable
     @Override
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.myprofile_clinic_details, container, false);
-        getActivity().setTitle("Clinic Name");
+        getActivity().setTitle(Globals.selectedDoctorClinic.getClinicName());
         TextView clinicName = (TextView) view.findViewById(R.id.ClinicName);
         TextView clinicAddress = (TextView) view.findViewById(R.id.ClinicAddress);
+        TextView consultataionfee = (TextView) view.findViewById(R.id.consultationFee);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.imagerecyclerview);
         ClinicDetailsAdapter adapter = new ClinicDetailsAdapter(this.getActivity());
         mRecyclerView.setAdapter(adapter);
@@ -38,7 +41,12 @@ public class MyProfileClinicDetailsFragment extends Fragment {
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
         DoctorClinic clinic = new DoctorClinic();
-        clinicName.setText(clinic.getClinicName());
+
+        clinicName.setText(Globals.selectedDoctorClinic.getClinicName());
+        clinicAddress.setText(Globals.selectedDoctorClinic.getAddress().getBuildingName()+", "+Globals.selectedDoctorClinic.getAddress().getDoorNumber()+
+                ", "+Globals.selectedDoctorClinic.getAddress().getLandMark()+" \n"+Globals.selectedDoctorClinic.getAddress().getCity().getValue().trim()+". Mobile Number : "+Globals.selectedDoctorClinic.getPhoneNo());
+        consultataionfee.setText(Globals.selectedDoctorClinic.getConsultationFee()+"");
+
         return view;
     }
 

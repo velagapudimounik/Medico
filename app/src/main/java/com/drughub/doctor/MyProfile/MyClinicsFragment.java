@@ -18,7 +18,11 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
+import com.drughub.doctor.model.Address;
+import com.drughub.doctor.model.City;
+import com.drughub.doctor.model.Country;
 import com.drughub.doctor.model.DoctorClinic;
+import com.drughub.doctor.model.State;
 import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.network.Urls;
 import com.drughub.doctor.utils.CustomDialog;
@@ -41,6 +45,7 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,13 +61,15 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putString("doctorClinic","addClinic");
                     fragment.setArguments(bundle);
-                    getFragmentManager().beginTransaction().add(R.id.containeractivity,fragment).addToBackStack(null).commit();
+                    getFragmentManager().beginTransaction().add(R.id.containeractivity, fragment).addToBackStack(null).commit();
                 }
             }
         };
 
-        Button addClinic = (Button)view.findViewById(R.id.addclinic_button);
+
+        Button addClinic = (Button) view.findViewById(R.id.addclinic_button);
         addClinic.setOnClickListener(listener);
+
 
         return view;
     }
@@ -70,7 +77,7 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
 
     public class MyClinicsListAdapter extends RecyclerSwipeAdapter<MyClinicsListAdapter.RecyclerViewHolder> {
 
-        FragmentActivity context=null;
+        FragmentActivity context = null;
         RealmResults<DoctorClinic> doctorClinics;
 
         public MyClinicsListAdapter(FragmentActivity context, RealmResults<DoctorClinic> doctorClinics) {
@@ -89,7 +96,7 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
             final DoctorClinic doctorClinic = doctorClinics.get(position);
 
             viewHolder.hospitalName.setText(doctorClinic.getClinicName());
-            viewHolder.hospitalAddress.setText(doctorClinic.getAddress().getStreetName()+","+ doctorClinic.getAddress().getBuildingName());
+            viewHolder.hospitalAddress.setText(doctorClinic.getAddress().getStreetName() + "," + doctorClinic.getAddress().getBuildingName());
 
             viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -108,13 +115,16 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
                     yesBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Log.i("clinicID", doctorClinics.get(position).getClinicId()+"");
+                            Log.i("clinicID", doctorClinics.get(position).getAddress().getCountry().getId() + "");
                             doctorClinic.DeleteClinic(doctorClinics.get(position).getClinicId(), new Globals.VolleyCallback() {
                                 @Override
                                 public void onSuccess(String result) {
-
+                                    realm.beginTransaction();
+                                    doctorClinic.removeFromRealm();
+                                    realm.commitTransaction();
                                     notifyDataSetChanged();
                                     notifyItemRemoved(position);
+
                                 }
 
                                 @Override
@@ -134,9 +144,19 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
                     Globals.selectedDoctorClinic = doctorClinic;
                     MyProfileAddClinicFragment fragment = new MyProfileAddClinicFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("doctorClinic","fromEdit");
+                    bundle.putString("doctorClinic", "fromEdit");
+                    notifyDataSetChanged();
+                    Log.i("clinicID", Globals.selectedDoctorClinic.getAddress().getState().getValue() + "");
                     fragment.setArguments(bundle);
-                    context.getSupportFragmentManager().beginTransaction().add(R.id.containeractivity, fragment).addToBackStack(null).commit();                }
+                    context.getSupportFragmentManager().beginTransaction().replace(R.id.containeractivity, fragment).addToBackStack(null).commit();
+                }
+            });
+            viewHolder.myClinicItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Globals.selectedDoctorClinic = doctorClinic;
+                    context.getSupportFragmentManager().beginTransaction().add(R.id.containeractivity, new MyProfileClinicDetailsFragment()).addToBackStack(null).commit();
+                }
             });
 
             mItemManger.bindView(viewHolder.itemView, position);
@@ -156,19 +176,15 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
 
             SwipeLayout swipeLayout;
             View deleteBtn, updatebtn;
-            TextView hospitalName , hospitalAddress;
+            TextView hospitalName, hospitalAddress;
+            View myClinicItem;
 
             public RecyclerViewHolder(View itemView) {
                 super(itemView);
 
-                View myClinicItem = itemView.findViewById(R.id.myClinicItem);
 
-                myClinicItem.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        context.getSupportFragmentManager().beginTransaction().add(R.id.containeractivity, new MyProfileClinicDetailsFragment()).addToBackStack(null).commit();
-                    }
-                });
+                myClinicItem = itemView.findViewById(R.id.myClinicItem);
+
 
                 deleteBtn = itemView.findViewById(R.id.deleteClinic);
                 updatebtn = itemView.findViewById(R.id.editClinic);
@@ -189,16 +205,22 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
                 try {
                     progress.dismiss();
                     JSONObject object = new JSONObject(result);
-                    if(object.getBoolean("result"))
-                    {
+                    if (object.getBoolean("result")) {
                         realm.beginTransaction();
                         realm.allObjects(DoctorClinic.class).clear();
                         realm.createOrUpdateAllFromJson(DoctorClinic.class, object.getJSONArray("response"));
                         Log.i("Clinic_Response", object.getJSONArray("response").toString());
                         realm.commitTransaction();
                         doctorClinics = realm.allObjects(DoctorClinic.class);
-                        for (DoctorClinic doctorClinic : doctorClinics){
+                        for (DoctorClinic doctorClinic : doctorClinics) {
                             int id = doctorClinic.getClinicId();
+                            if (doctorClinic.getAddress() == null) {
+                                doctorClinic.setAddress(realm.createObject(Address.class));
+                                doctorClinic.getAddress().setState(realm.createObject(State.class));
+                                doctorClinic.getAddress().setCity(realm.createObject(City.class));
+                                doctorClinic.getAddress().setCountry(realm.createObject(Country.class));
+
+                            }
 
                         }
                         addValuesToRecyclerView(doctorClinics);
