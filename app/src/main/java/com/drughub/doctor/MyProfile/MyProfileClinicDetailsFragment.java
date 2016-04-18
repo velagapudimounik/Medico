@@ -33,7 +33,7 @@ public class MyProfileClinicDetailsFragment extends Fragment {
         getActivity().setTitle(Globals.selectedDoctorClinic.getClinicName());
         TextView clinicName = (TextView) view.findViewById(R.id.ClinicName);
         TextView clinicAddress = (TextView) view.findViewById(R.id.ClinicAddress);
-        TextView consultataionfee = (TextView) view.findViewById(R.id.consultationFee);
+        TextView consultataionfee = (TextView) view.findViewById(R.id.consultation_Fee);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.imagerecyclerview);
         ClinicDetailsAdapter adapter = new ClinicDetailsAdapter(this.getActivity());
         mRecyclerView.setAdapter(adapter);
@@ -44,7 +44,7 @@ public class MyProfileClinicDetailsFragment extends Fragment {
 
         clinicName.setText(Globals.selectedDoctorClinic.getClinicName());
         clinicAddress.setText(Globals.selectedDoctorClinic.getAddress().getBuildingName()+", "+Globals.selectedDoctorClinic.getAddress().getDoorNumber()+
-                ", "+Globals.selectedDoctorClinic.getAddress().getLandMark()+" \n"+Globals.selectedDoctorClinic.getAddress().getCity().getValue().trim()+". Mobile Number : "+Globals.selectedDoctorClinic.getPhoneNo());
+                ", "+Globals.selectedDoctorClinic.getAddress().getLandMark()+" \n"+Globals.selectedDoctorClinic.getAddress().getCity().getValue().trim()+". Mobile Number : "+Globals.selectedDoctorClinic.getPhoneNo()+"");
         consultataionfee.setText(Globals.selectedDoctorClinic.getConsultationFee()+"");
 
         return view;

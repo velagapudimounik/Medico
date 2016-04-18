@@ -59,7 +59,7 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
                 if(v==view.findViewById(R.id.addclinic_button)){
                     MyProfileAddClinicFragment fragment = new MyProfileAddClinicFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("doctorClinic","addClinic");
+                    bundle.putString("doctorClinic", "addClinic");
                     fragment.setArguments(bundle);
                     getFragmentManager().beginTransaction().add(R.id.containeractivity, fragment).addToBackStack(null).commit();
                 }
