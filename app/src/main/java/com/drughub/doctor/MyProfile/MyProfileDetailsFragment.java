@@ -78,7 +78,18 @@ public class MyProfileDetailsFragment extends Fragment {
         realm = Realm.getDefaultInstance();
         serviceProvider = realm.where(ServiceProvider.class).findFirst();
         if (serviceProvider != null) {
-            doctorName.setText(serviceProvider.getFirstName() + " "+serviceProvider.getMiddleName() +" "+ serviceProvider.getLastName());
+            if (serviceProvider.getFirstName()!=null)
+            doctorName.setText(serviceProvider.getFirstName());
+            else
+            doctorName.setText("");
+            if (serviceProvider.getMiddleName()!=null)
+                doctorName.append(serviceProvider.getMiddleName());
+            else
+            doctorName.append("");
+            if (serviceProvider.getLastName()!=null)
+                doctorName.append(serviceProvider.getLastName());
+            else
+            doctorName.append("");
             if (serviceProvider.getQualificationList()!=null && serviceProvider.getQualificationList().size()>0){
                 qualification.setText(serviceProvider.getQualificationList().get(0).getValue());
             }
@@ -91,9 +102,24 @@ public class MyProfileDetailsFragment extends Fragment {
             qualification.append("");
 // yearsOfExperience.setText(serviceProvider.ge);
             if (serviceProvider.getAddress() != null) {
-                adressline1.setText(serviceProvider.getAddress().getBuildingName()+", " + serviceProvider.getAddress().
-                        getDoorNumber() +", "+ serviceProvider.getAddress().getStreetName() +", "+ serviceProvider.getAddress().getColonyName());
-                adressline2.setText(serviceProvider.getAddress().getPostalCode());
+                if (serviceProvider.getAddress().getBuildingName()!=null){
+                    adressline1.setText(serviceProvider.getAddress().getBuildingName());
+                }
+                else
+                adressline1.setText("");
+                if (serviceProvider.getAddress().getDoorNumber()!=null)
+                    adressline1.append(serviceProvider.getAddress().getDoorNumber());
+                else
+                adressline1.append("");
+                if (serviceProvider.getAddress().getStreetName()!=null)
+                    adressline1.append(serviceProvider.getAddress().getStreetName());
+                else
+                adressline1.append("");
+                if (serviceProvider.getAddress().getColonyName()!=null)
+                    adressline1.append(serviceProvider.getAddress().getColonyName());
+                else
+                adressline1.append("");
+                adressline2.setText(serviceProvider.getAddress().getCity()+serviceProvider.getAddress().getPostalCode());
             }else {
                 realm.beginTransaction();
                 serviceProvider.setAddress(realm.createObject(Address.class));
