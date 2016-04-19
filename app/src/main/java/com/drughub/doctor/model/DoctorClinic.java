@@ -109,7 +109,7 @@ public class DoctorClinic extends RealmObject {
 
     public void AddClinic( final Globals.VolleyCallback callback) {
 
-        Globals.POST(Urls.CLINIC,  null, toAddClinic(), new Globals.VolleyCallback() {
+        Globals.POST(Urls.CLINIC, toAddClinic(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 try {
@@ -124,16 +124,16 @@ public class DoctorClinic extends RealmObject {
             public void onFail(String result) {
                 callback.onFail(result);
             }
-        });
+        }, "Add Clinic");
     }
 
     public void UpdateClinic(final Globals.VolleyCallback callback ) {
 
-        Globals.PUT(Urls.CLINIC, null, null, toUpdateClinic(), new Globals.VolleyCallback() {
+        Globals.PUT(Urls.CLINIC, toUpdateClinic(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
 
-                    callback.onSuccess(result);
+                callback.onSuccess(result);
 
             }
 
@@ -141,12 +141,12 @@ public class DoctorClinic extends RealmObject {
             public void onFail(String result) {
                 callback.onFail(result);
             }
-        });
+        }, "Updating Clinic");
 
     }
     public void DeleteClinic(int id , final Globals.VolleyCallback callback)
     {
-        Globals.DELETE(Urls.CLINIC +"/"+ id, null, null, null, new Globals.VolleyCallback() {
+        Globals.DELETE(Urls.CLINIC +"/"+ id, null, new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 Log.i("Deleted_","Successfully");
@@ -157,7 +157,7 @@ public class DoctorClinic extends RealmObject {
             public void onFail(String result) {
                 callback.onFail(result);
             }
-        });
+        }, "Deleting Clinic");
     }
 
 

@@ -2,6 +2,7 @@ package com.drughub.doctor.mycalendar;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -22,25 +24,30 @@ import android.widget.NumberPicker;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.Notification.NotificationActivity;
 import com.drughub.doctor.R;
 import com.drughub.doctor.model.ClinicCalendar;
+import com.drughub.doctor.model.ConsultationTiming;
 import com.drughub.doctor.model.DoctorClinic;
-import com.drughub.doctor.model.ServiceProvider;
 import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.network.Urls;
 import com.drughub.doctor.utils.CustomDialog;
-import com.drughub.doctor.utils.PrefUtils;
 
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmResults;
 
 enum CLOCK_PICKER {
     HOURS,
@@ -50,23 +57,35 @@ enum CLOCK_PICKER {
 
 public class MyCalendarActivity extends BaseActivity {
 
-    final String[] spinnervalues = {"Clinic Name1 |", "Clinic Name2 |", "Clinic Name3 |", "My Clinics"};
-    final String[] spinneraddress = {"Address1", "Address2", "Address3", ""};
+    private TextView non_working_days_txt;
+    private CheckBox day_wise;
+    private RecyclerView mRecyclerView;
+    private int from_Hour, from_Minute = 1, to_Hour, to_Minute = 1;
+    private String fromMeridian = "AM", toMeridian = "AM";
+    //private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+    private CalenderAdapter calenderAdapter;
+    private ClinicCalendar mClinicCalendar;
+    private List<DoctorClinic> clinicList;
+    private MyCalendarAvailabilityList myCalendarAvailabilityList = null;
+    private boolean clinicsLoaded = false;
+    private boolean addClinicCalendar;
+    private int selectedClinic;
+    private String selectedDay;
+    private Dialog dialog = null;
 
-    List<DoctorClinic> clinicList = new ArrayList<>();
-    List<ClinicCalendar> clinicCalendarList = new ArrayList<>();
+    public static final Map<Integer, String> sDaysOfWeek;
+    static
+    {
+        sDaysOfWeek = new LinkedHashMap<>();
+        sDaysOfWeek.put(R.id.monday, "Monday");
+        sDaysOfWeek.put(R.id.tuesday, "Tuesday");
+        sDaysOfWeek.put(R.id.wednesday ,"Wednesday");
+        sDaysOfWeek.put(R.id.thursday, "Thursday");
+        sDaysOfWeek.put(R.id.friday, "Friday");
+        sDaysOfWeek.put(R.id.saturday, "Saturday");
+        sDaysOfWeek.put(R.id.sunday, "Sunday");
+    }
 
-    TextView working_day;
-    CheckBox day_wise;
-    RecyclerView show_date_view;
-    int from_Hour, from_Minute = 1, to_Hour, to_Minute = 1;
-    String fromMeridian = "AM", toMeridian = "AM";
-    CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
-    boolean checked;
-    CalenderAdapter calenderAdapter;
-    Button addCalender;
-    ArrayList<String> fromTime, toTime, fromTimeMonday, fromTimeTuesday, fromTimeWednesday, fromTimeThursday, fromTimeFriday, fromTimeSaturday, fromTimeSunday;
-    ArrayList<String> toTimeMonday, toTimeTuesday, toTimeWednesday, toTimeThursday, toTimeFriday, toTimeSaturday, toTimeSunday;
     public static NumberPicker initNumberPicker(NumberPicker numberPicker, CLOCK_PICKER pickerType) {
         String[] displayValues = null;
 
@@ -74,7 +93,7 @@ public class MyCalendarActivity extends BaseActivity {
             case HOURS: {
                 displayValues = new String[12];
                 for (int i = 0; i < 12; i++)
-                    displayValues[i] = "" + (i + 1);//String.format("%02d", i+1);
+                    displayValues[i] = String.format("%02d", i+1);
 
                 numberPicker.setMaxValue(12);
                 numberPicker.setMinValue(1);
@@ -85,8 +104,8 @@ public class MyCalendarActivity extends BaseActivity {
                 for (int i = 0; i < 60; i++)
                     displayValues[i] = String.format("%02d", i);
 
-                numberPicker.setMaxValue(60);
-                numberPicker.setMinValue(1);
+                numberPicker.setMaxValue(59);
+                numberPicker.setMinValue(0);
             }
             break;
             case MERIDIEM: {
@@ -94,14 +113,15 @@ public class MyCalendarActivity extends BaseActivity {
                 displayValues[0] = "AM";
                 displayValues[1] = "PM";
 
-                numberPicker.setMaxValue(2);
-                numberPicker.setMinValue(1);
+                numberPicker.setMaxValue(1);
+                numberPicker.setMinValue(0);
             }
             break;
         }
 
         numberPicker.setDisplayedValues(displayValues);
         setNumberPickerTextColor(numberPicker, 0xFFFFFFFF);
+        numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         return numberPicker;
     }
 
@@ -151,21 +171,23 @@ public class MyCalendarActivity extends BaseActivity {
         setBackButton(true);
         addActionButton(R.string.icon_notification);
 
+        if(myCalendarAvailabilityList == null)
+            myCalendarAvailabilityList = new MyCalendarAvailabilityList();
+
         realm = Realm.getDefaultInstance();
 
-        Globals.GET(Urls.CLINIC_CALENDAR, null, new Globals.VolleyCallback() {
+        Globals.GET(Urls.CLINIC + Urls.CALENDAR, new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 try {
                     JSONObject object = new JSONObject(result);
                     if (object.getBoolean("result")) {
                         realm.beginTransaction();
-                        realm.allObjects(ClinicCalendar.class).clear();
-                        realm.createAllFromJson(ClinicCalendar.class, object.getJSONArray("response"));
+                        realm.createOrUpdateAllFromJson(ClinicCalendar.class, object.getJSONArray("response"));
                         realm.commitTransaction();
                     }
 
-                    getSupportFragmentManager().beginTransaction().replace(R.id.my_calendar_container, new MyCalendarAvailabilityList()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.my_calendar_container, myCalendarAvailabilityList).commit();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -176,14 +198,14 @@ public class MyCalendarActivity extends BaseActivity {
             public void onFail(String result) {
 
             }
-        });
+        }, "");
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.availability)
-                    getSupportFragmentManager().beginTransaction().replace(R.id.my_calendar_container, new MyCalendarAvailabilityList()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.my_calendar_container, myCalendarAvailabilityList).commit();
                 else if (checkedId == R.id.booked)
                     getSupportFragmentManager().beginTransaction().replace(R.id.my_calendar_container, new MyCalendarBookedList()).commit();
             }
@@ -191,484 +213,535 @@ public class MyCalendarActivity extends BaseActivity {
 
         View addCalendar = findViewById(R.id.addCalendar);
         addCalendar.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                loadAndShowEditCalendarDialog(-1);
+            }
 
-                final Dialog dialog = CustomDialog.showCustomDialog(MyCalendarActivity.this, R.layout.mycalendar_create_new,
-                        Gravity.BOTTOM, true, true, false);
+        });
+    }
 
-                Spinner myspinner = (Spinner) dialog.findViewById(R.id.addressSelection);
+    void addConsultationTiming(String fromTime, String toTime)
+    {
+        realm.beginTransaction();
+        ConsultationTiming timing = realm.createObject(ConsultationTiming.class);
+        timing.setFromTime(Globals.to24HourFormat(fromTime));
+        timing.setToTime(Globals.to24HourFormat(toTime));
+        timing.setClinicId(selectedClinic);
+        timing.setDayOfWeek(selectedDay);
+        mClinicCalendar.getConsultationTimings().add(timing);
+        realm.commitTransaction();
 
-                View add_time = dialog.findViewById(R.id.add_calender);
-                day_wise = (CheckBox) dialog.findViewById(R.id.date_check_box);
-                addCalender = (Button) dialog.findViewById(R.id.addBtn);
+        calenderAdapter.refresh();
+    }
 
-                working_day = (TextView) dialog.findViewById(R.id.working_days);
-                show_date_view = (RecyclerView) dialog.findViewById(R.id.date_show);
-                show_date_view.hasFixedSize();
+    int prevPosition = -1;
 
-                RecyclerView.LayoutManager layout = new LinearLayoutManager(getApplicationContext());
-                show_date_view.setLayoutManager(layout);
-                fromTime = new ArrayList<String>();
-                toTime = new ArrayList<String>();
-                fromTimeMonday = new ArrayList<String>();
-                toTimeMonday = new ArrayList<String>();
-                fromTimeTuesday = new ArrayList<String>();
-                toTimeTuesday = new ArrayList<String>();
-                fromTimeWednesday = new ArrayList<String>();
-                toTimeWednesday = new ArrayList<String>();
-                fromTimeThursday = new ArrayList<String>();
-                toTimeThursday = new ArrayList<String>();
-                fromTimeFriday = new ArrayList<String>();
-                toTimeFriday = new ArrayList<String>();
-                fromTimeSaturday = new ArrayList<String>();
-                toTimeSaturday = new ArrayList<String>();
-                fromTimeSunday = new ArrayList<String>();
-                toTimeSunday = new ArrayList<String>();
-               /* itemadd(fromTimeMonday, toTimeMonday, 1);
-                itemadd(fromTimeTuesday, toTimeTuesday, 2);
-                itemadd(fromTimeWednesday, toTimeWednesday, 1);
-                itemadd(fromTimeThursday, toTimeThursday, 2);
-                itemadd(fromTimeFriday, toTimeFriday, 1);
-                itemadd(fromTimeSaturday, toTimeSaturday, 2);
-                itemadd(fromTimeSunday, toTimeSunday, 1);
-               *//* for (int i = 0; i < 1; i++) {
-                    fromTime.add("09:00 AM");
-                    toTime.add("11:00 AM");
-                }*/
+    public void loadAndShowEditCalendarDialog(final int clinic)
+    {
+        if(clinicsLoaded)
+            showEditCalendarDialog(clinic);
+        else
+            Globals.GET(Urls.CLINIC, new Globals.VolleyCallback() {
+                @Override
+                public void onSuccess(String result) {
+                    try {
+                        JSONObject object = new JSONObject(result);
+                        if (object.getBoolean("result")) {
+                            realm.beginTransaction();
+                            realm.createOrUpdateAllFromJson(DoctorClinic.class, object.getJSONArray("response"));
+                            realm.commitTransaction();
 
-                monday = (CheckBox) dialog.findViewById(R.id.monday);
-                tuesday = (CheckBox) dialog.findViewById(R.id.tuesday);
-                wednesday = (CheckBox) dialog.findViewById(R.id.wednesday);
-                thursday = (CheckBox) dialog.findViewById(R.id.thursday);
-                friday = (CheckBox) dialog.findViewById(R.id.friday);
-                saturday = (CheckBox) dialog.findViewById(R.id.saturday);
-                sunday = (CheckBox) dialog.findViewById(R.id.sunday);
-
-
-                calenderAdapter = new CalenderAdapter(fromTime, toTime, MyCalendarActivity.this);
-                show_date_view.setAdapter(calenderAdapter);
-
-                day_wise.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (((CheckBox) v).isChecked()) {
-                            uncheckall();
-                            working_day.setVisibility(View.GONE);
-                            show_date_view.setVisibility(View.GONE);
-                            calenderAdapter = new CalenderAdapter(fromTimeMonday, toTimeMonday, MyCalendarActivity.this);
-                            show_date_view.setAdapter(calenderAdapter);
-                            monday.setChecked(true);
-                            checked = true;
-                        } else {
-                            uncheckall();
-                            working_day.setVisibility(View.VISIBLE);
-                            calenderAdapter = new CalenderAdapter(fromTime, toTime, MyCalendarActivity.this);
-                            show_date_view.setAdapter(calenderAdapter);
-                            checked = false;
+                            showEditCalendarDialog(clinic);
+                            clinicsLoaded = true;
                         }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                });
+                }
 
-                CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (day_wise.isChecked()) {
-                            uncheckall();
-                            buttonView.setChecked(isChecked);
+                @Override
+                public void onFail(String result) {
 
-                            switch (buttonView.getId()) {
-                                case R.id.monday:
-                                    calenderAdapter = new CalenderAdapter(fromTimeMonday, toTimeMonday, MyCalendarActivity.this);
-                                    show_date_view.setAdapter(calenderAdapter);
-                                    Log.i("Frommonday", fromTimeMonday + "");
-                                    Log.i("from to time", toTimeMonday + "");
-                                    break;
-                                case R.id.tuesday:
-                                    calenderAdapter = new CalenderAdapter(fromTimeTuesday, toTimeTuesday, MyCalendarActivity.this);
-                                    show_date_view.setAdapter(calenderAdapter);
-                                    break;
-                                case R.id.wednesday:
-                                    calenderAdapter = new CalenderAdapter(fromTimeWednesday, toTimeWednesday, MyCalendarActivity.this);
-                                    show_date_view.setAdapter(calenderAdapter);
-                                    break;
-                                case R.id.thursday:
-                                    calenderAdapter = new CalenderAdapter(fromTimeThursday, toTimeThursday, MyCalendarActivity.this);
-                                    show_date_view.setAdapter(calenderAdapter);
-                                    break;
-                                case R.id.friday:
-                                    calenderAdapter = new CalenderAdapter(fromTimeFriday, toTimeFriday, MyCalendarActivity.this);
-                                    show_date_view.setAdapter(calenderAdapter);
-                                    break;
-                                case R.id.saturday:
-                                    calenderAdapter = new CalenderAdapter(fromTimeSaturday, toTimeSaturday, MyCalendarActivity.this);
-                                    show_date_view.setAdapter(calenderAdapter);
-                                    break;
-                                case R.id.sunday:
-                                    calenderAdapter = new CalenderAdapter(fromTimeSunday, toTimeSunday, MyCalendarActivity.this);
-                                    show_date_view.setAdapter(calenderAdapter);
-                                    break;
-                            }
-                            if (calenderAdapter.getItemCount() > 0) {
-                                show_date_view.setVisibility(View.VISIBLE);
-                            } else {
-                                show_date_view.setVisibility(View.GONE);
-                            }
-                        }
+                }
+            }, "");
+    }
+
+    public void showEditCalendarDialog(int clinic){
+
+        selectedClinic = clinic;
+        selectedDay = "Monday";
+        if(selectedClinic == -1)
+            addClinicCalendar = true;
+        else
+            addClinicCalendar = false;
+
+        prevPosition = -1;
+
+        dialog = CustomDialog.showCustomDialog(MyCalendarActivity.this, R.layout.mycalendar_create_new,
+                Gravity.BOTTOM, true, true, false);
+
+        TextView titleText = (TextView) dialog.findViewById(R.id.titleText);
+        View add_time = dialog.findViewById(R.id.add_calender);
+        day_wise = (CheckBox) dialog.findViewById(R.id.date_check_box);
+        non_working_days_txt = (TextView) dialog.findViewById(R.id.non_working_days);
+
+        mRecyclerView = (RecyclerView) dialog.findViewById(R.id.date_show);
+        mRecyclerView.hasFixedSize();
+        RecyclerView.LayoutManager layout = new LinearLayoutManager(getApplicationContext());
+        mRecyclerView.setLayoutManager(layout);
+
+        Button addBtn = (Button)dialog.findViewById(R.id.addBtn);
+
+        if(!addClinicCalendar)
+        {
+            titleText.setText("Edit Calendar");
+            addBtn.setText("Edit");
+            day_wise.setChecked(true);
+            day_wise.setVisibility(View.GONE);
+            non_working_days_txt.setVisibility(View.GONE);
+            ((CheckBox) dialog.findViewById(R.id.monday)).setChecked(true);
+        }
+
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if (addClinicCalendar) {
+                    realm.beginTransaction();
+                    mClinicCalendar.removeFromRealm();
+                    realm.commitTransaction();
+                }
+            }
+        });
+
+        final Spinner clinicSelection = (Spinner) dialog.findViewById(R.id.addressSelection);
+
+        if(selectedClinic != -1)
+            clinicList = realm.copyFromRealm(realm.where(DoctorClinic.class).equalTo("clinicId", selectedClinic).findAll());
+        else
+            clinicList = realm.copyFromRealm(realm.where(DoctorClinic.class).findAll());
+
+        clinicList.add(null);//adding hint item
+        final CustomAdapter spinnerAdapter = new CustomAdapter(getApplicationContext(), clinicList);
+        clinicSelection.setAdapter(spinnerAdapter);
+
+        if(selectedClinic != -1 || clinicList.size() == 1) {
+            clinicSelection.setEnabled(false);
+            clinicSelection.setSelection(0);
+        }
+        else {
+            clinicSelection.setSelection(spinnerAdapter.getCount());
+        }
+
+        prevPosition = spinnerAdapter.getCount();
+
+        clinicSelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (!addClinicCalendar)
+                    return;
+
+                if (position == spinnerAdapter.getCount() || clinicList.size() == 1)
+                    return;
+
+                DoctorClinic doctorClinic = spinnerAdapter.getItem(position);
+                ClinicCalendar clinicCalendar = realm.where(ClinicCalendar.class).equalTo("clinicId", doctorClinic.getClinicId()).findFirst();
+
+                if (clinicCalendar == null) {
+                    realm.beginTransaction();
+                    doctorClinic = realm.where(DoctorClinic.class).equalTo("clinicId", doctorClinic.getClinicId()).findFirst();
+                    mClinicCalendar.setClinic(doctorClinic);
+                    mClinicCalendar.setClinicId(doctorClinic.getClinicId());
+                    realm.commitTransaction();
+
+                    selectedClinic = mClinicCalendar.getClinicId();
+                    spinnerAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(MyCalendarActivity.this, "Calendar already exists for this clinic", Toast.LENGTH_SHORT).show();
+                    if (prevPosition != -1) {
+                        clinicSelection.setSelection(prevPosition);
+                        position = prevPosition;
                     }
-                };
-                monday.setOnCheckedChangeListener(listener);
-                tuesday.setOnCheckedChangeListener(listener);
-                wednesday.setOnCheckedChangeListener(listener);
-                thursday.setOnCheckedChangeListener(listener);
-                friday.setOnCheckedChangeListener(listener);
-                saturday.setOnCheckedChangeListener(listener);
-                sunday.setOnCheckedChangeListener(listener);
+                }
 
+                prevPosition = position;
+            }
 
-                add_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
-                    @Override
-                    public void onClick(View v) {
+        if(addClinicCalendar) {
+            realm.beginTransaction();
+            mClinicCalendar = realm.createObject(ClinicCalendar.class);
+            mClinicCalendar.setClinicId(selectedClinic);
+            realm.commitTransaction();
+        }
+        else
+            mClinicCalendar = realm.where(ClinicCalendar.class).equalTo("clinicId", selectedClinic).findFirst();
 
-                        final Dialog dialog = CustomDialog.showCustomDialog(MyCalendarActivity.this, R.layout.calender_time_picker,
-                                Gravity.BOTTOM, true, true, false);
-                        MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.hourPickerFrom), CLOCK_PICKER.HOURS);
-                        MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.minutePickerFrom), CLOCK_PICKER.MINUTES);
-                        MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.dayPickerFrom), CLOCK_PICKER.MERIDIEM);
-                        MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.hourPickerTo), CLOCK_PICKER.HOURS);
-                        MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.minutePickerTo), CLOCK_PICKER.MINUTES);
-                        MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.dayPickerTo), CLOCK_PICKER.MERIDIEM);
+        RealmResults<ConsultationTiming> timingList = mClinicCalendar.getConsultationTimings().where().equalTo("dayOfWeek", selectedDay).findAll();
 
+        calenderAdapter = new CalenderAdapter(timingList, MyCalendarActivity.this);
+        mRecyclerView.setAdapter(calenderAdapter);
+        calenderAdapter.refresh();
 
-                        NumberPicker hourfrom = (NumberPicker) dialog.findViewById(R.id.hourPickerFrom);
-                        NumberPicker minutefrom = (NumberPicker) dialog.findViewById(R.id.minutePickerFrom);
-                        NumberPicker dayfrom = (NumberPicker) dialog.findViewById(R.id.dayPickerFrom);
-                        NumberPicker hourto = (NumberPicker) dialog.findViewById(R.id.hourPickerTo);
-                        NumberPicker minuteto = (NumberPicker) dialog.findViewById(R.id.minutePickerTo);
-                        NumberPicker dayto = (NumberPicker) dialog.findViewById(R.id.dayPickerTo);
+        day_wise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (((CheckBox) v).isChecked()) {
+                    for(Map.Entry<Integer, String> dayOfWeek : MyCalendarActivity.sDaysOfWeek.entrySet())
+                        ((CheckBox) dialog.findViewById(dayOfWeek.getKey())).setChecked(false);
+                    non_working_days_txt.setVisibility(View.GONE);
+                    mRecyclerView.setVisibility(View.GONE);
+                    selectedDay = "Monday";
+                    ((CheckBox) dialog.findViewById(R.id.monday)).setChecked(true);
 
-                        hourfrom.setValue(from_Hour);
-                        minutefrom.setValue(from_Minute);
-                        hourto.setValue(to_Hour);
-                        minuteto.setValue(to_Minute);
+                    realm.beginTransaction();
+                    mClinicCalendar.getConsultationTimings().clear();
+                    realm.commitTransaction();
+                } else {
+                    for(Map.Entry<Integer, String> dayOfWeek : MyCalendarActivity.sDaysOfWeek.entrySet())
+                        ((CheckBox) dialog.findViewById(dayOfWeek.getKey())).setChecked(false);
+                    non_working_days_txt.setVisibility(View.VISIBLE);
+                    selectedDay = "Monday";
 
+                    realm.beginTransaction();
+                    mClinicCalendar.getConsultationTimings().clear();
+                    realm.commitTransaction();
+                }
 
-                        hourfrom.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                            @Override
-                            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                                from_Hour = newVal;
-                            }
-                        });
+                RealmResults<ConsultationTiming> timingList = mClinicCalendar.getConsultationTimings().where().equalTo("dayOfWeek", selectedDay).findAll();
+                calenderAdapter.setDataSet(timingList);
+            }
+        });
 
-                        minutefrom.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                            @Override
-                            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                                from_Minute = newVal;
+        CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (day_wise.isChecked() && isChecked) {
 
-                            }
-                        });
-                        dayfrom.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                            @Override
-                            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                                if (newVal == 2)
-                                    fromMeridian = "PM";
-                                else fromMeridian = "AM";
-                            }
-                        });
-                        hourto.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                            @Override
-                            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                                to_Hour = newVal;
-
-                            }
-                        });
-                        minuteto.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                            @Override
-                            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                                to_Minute = newVal;
-
-                            }
-                        });
-                        dayto.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                            @Override
-                            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                                if (newVal == 2)
-                                    toMeridian = "PM";
-                                else toMeridian = "AM";
-                            }
-                        });
-
-                        View add_timer_close = dialog.findViewById(R.id.add_timer_close);
-                        add_timer_close.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialog.dismiss();
-                            }
-                        });
-                        View add_time = dialog.findViewById(R.id.add_time);
-                        add_time.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                show_date_view.setVisibility(View.VISIBLE);
-                                if (from_Hour == 0) {
-                                    from_Hour = 12;
-                                }
-                                if (to_Hour == 0) {
-                                    to_Hour = 12;
-                                }
-                                calenderAdapter.getFromTime().add(String.format("%02d", from_Hour) + ":" + String.format("%02d", (from_Minute - 1)) + " " + fromMeridian);
-                                calenderAdapter.getToTime().add(String.format("%02d", to_Hour) + ":" + String.format("%02d", (to_Minute - 1)) + " " + toMeridian);
-                                Log.i("from_hour12", fromTime.toString() + "  " + toTime);
-                                /*calenderAdapter = new CalenderAdapter(fromTime, toTime, MyCalendarActivity.this);
-                                show_date_view.setAdapter(calenderAdapter);
-                                */
-                                calenderAdapter.notifyDataSetChanged();
-                                dialog.dismiss();
-                            }
-                        });
+                    for(Map.Entry<Integer, String> dayOfWeek : MyCalendarActivity.sDaysOfWeek.entrySet()) {
+                        if(buttonView.getId() != dayOfWeek.getKey())
+                            ((CheckBox) dialog.findViewById(dayOfWeek.getKey())).setChecked(false);
                     }
-                });
-                myspinner.setAdapter(new CustomAdapter(getApplicationContext(), spinnervalues));
-                myspinner.setSelection(myspinner.getCount());
 
-                View addBtn = dialog.findViewById(R.id.addBtn);
-                addBtn.setOnClickListener(new View.OnClickListener() {
+                    if(sDaysOfWeek.containsKey(buttonView.getId())) {
+                        selectedDay = sDaysOfWeek.get(buttonView.getId());
+                        RealmResults<ConsultationTiming> timingList = mClinicCalendar.getConsultationTimings().where().equalTo("dayOfWeek", selectedDay).findAll();
+                        calenderAdapter.setDataSet(timingList);
+                    }
+                }
+                else if (day_wise.isChecked() && isChecked)
+                    buttonView.setChecked(true);
+            }
+        };
+
+        for(Map.Entry<Integer, String> dayOfWeek : MyCalendarActivity.sDaysOfWeek.entrySet()) {
+            ((CheckBox) dialog.findViewById(dayOfWeek.getKey())).setOnCheckedChangeListener(listener);
+        }
+
+        add_time.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                showEditTimeSlotDialog(null, null, new AddTimeSlotListener() {
                     @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
+                    public void onAddTimeSlot(String fromTime, String toTime) {
+                        addConsultationTiming(fromTime, toTime);
                     }
                 });
             }
         });
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(mClinicCalendar.getClinicId() == -1)
+                    Toast.makeText(MyCalendarActivity.this, "Select clinic to proceed", Toast.LENGTH_SHORT).show();
+                else if(mClinicCalendar.getConsultationTimings().size() == 0)
+                    Toast.makeText(MyCalendarActivity.this, "Add at least one time slot", Toast.LENGTH_SHORT).show();
+                else
+                {
+                    if (!day_wise.isChecked())
+                    {
+                        realm.beginTransaction();
+                        RealmList<ConsultationTiming> timeSlots = mClinicCalendar.getConsultationTimings();
+                        List<ConsultationTiming> newList = new ArrayList<>();
+                        for(Map.Entry<Integer, String> dayOfWeek : MyCalendarActivity.sDaysOfWeek.entrySet()){
+                            boolean isChecked = ((CheckBox) dialog.findViewById(dayOfWeek.getKey())).isChecked();
+                            if(dayOfWeek.getKey() == R.id.monday || isChecked)
+                                continue;
+
+                            for(ConsultationTiming timing: timeSlots){
+                                ConsultationTiming newTiming = new ConsultationTiming();
+                                newTiming.copy(timing);
+                                newTiming.setDayOfWeek(dayOfWeek.getValue());
+                                newList.add(newTiming);
+                            }
+                        }
+
+                        if(((CheckBox) dialog.findViewById(R.id.monday)).isChecked())
+                            timeSlots.clear();
+
+                        for(ConsultationTiming timing: newList)
+                            timeSlots.add(timing);
+
+                        for(ConsultationTiming timing: timeSlots)
+                            timing.setClinicId(mClinicCalendar.getClinicId());
+
+                        realm.commitTransaction();
+                    }
+                    Globals.VolleyCallback listener = new Globals.VolleyCallback() {
+                        @Override
+                        public void onSuccess(String result) {
+                            try {
+                                JSONObject object = new JSONObject(result);
+                                if (object.getBoolean("result")) {
+                                    myCalendarAvailabilityList.updateView();
+                                    dialog.dismiss();
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(String result) {
+                        }
+                    };
+
+                    if(addClinicCalendar)
+                        Globals.POST(Urls.CLINIC + "/" + mClinicCalendar.getClinicId() + Urls.CALENDAR, mClinicCalendar.toCreateClinicCalendar(), listener, "");
+                    else
+                        Globals.PUT(Urls.CLINIC + "/" + mClinicCalendar.getClinicId() + Urls.CALENDAR, mClinicCalendar.toCreateClinicCalendar(), listener, "");
+                }
+            }
+        });
     }
 
-    private void uncheckall() {
-        monday.setChecked(false);
-        tuesday.setChecked(false);
-        wednesday.setChecked(false);
-        thursday.setChecked(false);
-        friday.setChecked(false);
-        saturday.setChecked(false);
-        sunday.setChecked(false);
-    }
+    private class CustomAdapter extends ArrayAdapter<DoctorClinic> {
 
-    public void hideRecyclerView(boolean hide) {
-        if (hide)
-            show_date_view.setVisibility(View.GONE);
-        else
-            show_date_view.setVisibility(View.VISIBLE);
-    }
-
-
-    private class CustomAdapter extends ArrayAdapter<String> {
-        private int position;
-        private View convertView;
-        private ViewGroup parent;
-        private Context context;
-
-        public CustomAdapter(Context context, String[] objects) {
-            super(context, R.layout.custom_spinner, objects);
+        public CustomAdapter(Context context, List<DoctorClinic> clinicList) {
+            super(context, R.layout.custom_spinner, clinicList);
         }
 
         @Override
         public View getDropDownView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = getLayoutInflater();
             View mySpinner = inflater.inflate(R.layout.custom_spinner, null);
-            TextView clinicname = (TextView) mySpinner.findViewById(R.id.string1);
-            clinicname.setText(spinnervalues[position]);
-            TextView Address = (TextView) mySpinner.findViewById(R.id.string2);
-            Address.setText(spinneraddress[position]);
+            TextView clinicName = (TextView) mySpinner.findViewById(R.id.string1);
+            clinicName.setText(getItem(position).getClinicName() + " | ");
+            TextView address = (TextView) mySpinner.findViewById(R.id.string2);
+            address.setText(getItem(position).getAddress().getStreetName());
             return mySpinner;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = (getLayoutInflater());
-            View mySpinner = inflater.inflate(R.layout.custom_spinner, null);
-            TextView clinicname = (TextView) mySpinner.findViewById(R.id.string1);
-            clinicname.setText(spinnervalues[position]);
-            TextView Address = (TextView) mySpinner.findViewById(R.id.string2);
-            Address.setText(spinneraddress[position]);
-            if (getCount() == position) {
-                clinicname.setTextColor(Color.LTGRAY);
+
+            View mySpinner;
+            if(position == getCount() || getItem(position) == null)
+            {
+                mySpinner = getLayoutInflater().inflate(R.layout.custom_spinner, null);
+                TextView clinicName = (TextView) mySpinner.findViewById(R.id.string1);
+                clinicName.setText(position==0?"No Clinics Available":"My Clinics");
+                clinicName.setTextColor(Color.LTGRAY);
+                ((TextView) mySpinner.findViewById(R.id.string2)).setText("");
             }
+            else
+                mySpinner = getDropDownView(position, convertView, parent);
             return mySpinner;
         }
 
         @Override
         public int getCount() {
-            return super.getCount() - 1; // you dont display last item. It is used as hint.
+            int count = super.getCount();
+            return (count==1) ? 1 : count-1;
         }
-
-    }
-}
-
-
-class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.DataHolder> {
-
-
-    Context context;
-    private ArrayList<String> fromTime, toTime;
-
-    public CalenderAdapter(ArrayList<String> fromTime, ArrayList<String> toTime, Context context) {
-        this.fromTime = fromTime;
-        this.toTime = toTime;
-        this.context = context;
     }
 
-    public ArrayList<String> getFromTime() {
-        return fromTime;
+    interface AddTimeSlotListener
+    {
+        void onAddTimeSlot(String fromTime, String toTime);
     }
 
-    public ArrayList<String> getToTime() {
-        return toTime;
-    }
+    void showEditTimeSlotDialog(String fromTime, String toTime, final AddTimeSlotListener callback)
+    {
+        final Dialog dialog = CustomDialog.showCustomDialog(this, R.layout.calender_time_picker,
+                Gravity.BOTTOM, true, true, false);
 
-    @Override
-    public CalenderAdapter.DataHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final NumberPicker hourPickerFrom = (NumberPicker) dialog.findViewById(R.id.hourPickerFrom);
+        final NumberPicker minutePickerFrom = (NumberPicker) dialog.findViewById(R.id.minutePickerFrom);
+        final NumberPicker dayPickerFrom = (NumberPicker) dialog.findViewById(R.id.dayPickerFrom);
+        final NumberPicker hourPickerTo = (NumberPicker) dialog.findViewById(R.id.hourPickerTo);
+        final NumberPicker minutePickerTo = (NumberPicker) dialog.findViewById(R.id.minutePickerTo);
+        final NumberPicker dayPickerTo = (NumberPicker) dialog.findViewById(R.id.dayPickerTo);
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_calender_show_date, parent, false);
-        DataHolder dataHolder = new DataHolder(view);
+        MyCalendarActivity.initNumberPicker(hourPickerFrom, CLOCK_PICKER.HOURS);
+        MyCalendarActivity.initNumberPicker(minutePickerFrom, CLOCK_PICKER.MINUTES);
+        MyCalendarActivity.initNumberPicker(dayPickerFrom, CLOCK_PICKER.MERIDIEM);
+        MyCalendarActivity.initNumberPicker(hourPickerTo, CLOCK_PICKER.HOURS);
+        MyCalendarActivity.initNumberPicker(minutePickerTo, CLOCK_PICKER.MINUTES);
+        MyCalendarActivity.initNumberPicker(dayPickerTo, CLOCK_PICKER.MERIDIEM);
 
-        return dataHolder;
-    }
+        from_Hour = Globals.getHour(fromTime);
+        from_Minute = Globals.getMinute(fromTime);
+        fromMeridian = Globals.getMeridian(fromTime);
+        to_Hour = Globals.getHour(toTime);
+        to_Minute = Globals.getMinute(toTime);
+        toMeridian = Globals.getMeridian(toTime);
 
-    @Override
-    public void onBindViewHolder(final CalenderAdapter.DataHolder holder, final int position) {
+        hourPickerFrom.setValue(from_Hour);
+        minutePickerFrom.setValue(from_Minute);
+        dayPickerFrom.setValue(fromMeridian.equals("PM")?1:0);
+        hourPickerTo.setValue(to_Hour);
+        minutePickerTo.setValue(to_Minute);
+        dayPickerTo.setValue(toMeridian.equals("PM")?1:0);
 
-        holder.fromdate.setText(String.format(fromTime.get(position)));
-        holder.todate.setText(String.format(toTime.get(position)));
-        holder.remove.setOnClickListener(new View.OnClickListener() {
+        NumberPicker.OnValueChangeListener listener = new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                if(picker == hourPickerFrom)
+                    from_Hour = newVal;
+                else if(picker == minutePickerFrom)
+                    from_Minute = newVal;
+                else if(picker == dayPickerFrom) {
+                    if (newVal == 0)
+                        fromMeridian = "AM";
+                    else
+                        fromMeridian = "PM";
+                }
+                else if(picker == hourPickerTo)
+                    to_Hour = newVal;
+                else if(picker == minutePickerTo)
+                    to_Minute = newVal;
+                else if(picker == dayPickerTo) {
+                    if (newVal == 0)
+                        toMeridian = "AM";
+                    else
+                        toMeridian = "PM";
+                }
+            }
+        };
+
+        hourPickerFrom.setOnValueChangedListener(listener);
+        minutePickerFrom.setOnValueChangedListener(listener);
+        dayPickerFrom.setOnValueChangedListener(listener);
+        hourPickerTo.setOnValueChangedListener(listener);
+        minutePickerTo.setOnValueChangedListener(listener);
+        dayPickerTo.setOnValueChangedListener(listener);
+
+        View add_timer_close = dialog.findViewById(R.id.add_timer_close);
+        add_timer_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                notifyDataSetChanged();
-                fromTime.remove(position);
-                toTime.remove(position);
-                notifyItemRemoved(position);
-                if (fromTime.size() > 0)
-                    ((MyCalendarActivity) context).hideRecyclerView(false);
-                else
-                    ((MyCalendarActivity) context).hideRecyclerView(true);
+                dialog.dismiss();
+            }
+        });
+        Button add_time = (Button) dialog.findViewById(R.id.add_time);
+        add_time.setText("Done");
+        add_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String fromTime = String.format("%02d", from_Hour) + ":" + String.format("%02d", from_Minute) + " " + fromMeridian;
+                String toTime = String.format("%02d", to_Hour) + ":" + String.format("%02d", to_Minute) + " " + toMeridian;
+                callback.onAddTimeSlot(fromTime, toTime);
+                dialog.dismiss();
             }
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return fromTime.size();
-    }
+    class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.DataHolder> {
 
-    public class DataHolder extends RecyclerView.ViewHolder {
-        TextView fromdate, todate, remove;
-        int from_Hour, from_Minute = 1, to_Hour, to_Minute = 1;
-        String fromMeridian = "AM", toMeridian = "AM";
+        Context context;
+        private List<ConsultationTiming> timingList;
 
-        public DataHolder(final View itemView) {
-            super(itemView);
-            fromdate = (TextView) itemView.findViewById(R.id.from_date);
-            todate = (TextView) itemView.findViewById(R.id.to_date);
-            remove = (TextView) itemView.findViewById(R.id.remove_item);
-            itemView.setOnClickListener(new View.OnClickListener() {
+        public CalenderAdapter(List<ConsultationTiming> timingList, Context context) {
+            this.timingList = timingList;
+            this.context = context;
+        }
+
+        @Override
+        public CalenderAdapter.DataHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_calender_show_date, parent, false);
+            return new DataHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(final DataHolder holder, final int position) {
+
+            holder.fromTimeText.setText(Globals.to12HourFormat(timingList.get(position).getFromTime()));
+            holder.toTimeText.setText(Globals.to12HourFormat(timingList.get(position).getToTime()));
+            holder.remove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    final Dialog dialog = CustomDialog.showCustomDialog((MyCalendarActivity) context, R.layout.calender_time_picker,
-                            Gravity.BOTTOM, true, true, false);
-
-                    MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.hourPickerFrom), CLOCK_PICKER.HOURS);
-                    MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.minutePickerFrom), CLOCK_PICKER.MINUTES);
-                    MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.dayPickerFrom), CLOCK_PICKER.MERIDIEM);
-                    MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.hourPickerTo), CLOCK_PICKER.HOURS);
-                    MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.minutePickerTo), CLOCK_PICKER.MINUTES);
-                    MyCalendarActivity.initNumberPicker((NumberPicker) dialog.findViewById(R.id.dayPickerTo), CLOCK_PICKER.MERIDIEM);
-
-
-                    NumberPicker hourfrom = (NumberPicker) dialog.findViewById(R.id.hourPickerFrom);
-                    NumberPicker minutefrom = (NumberPicker) dialog.findViewById(R.id.minutePickerFrom);
-                    NumberPicker dayfrom = (NumberPicker) dialog.findViewById(R.id.dayPickerFrom);
-                    NumberPicker hourto = (NumberPicker) dialog.findViewById(R.id.hourPickerTo);
-                    NumberPicker minuteto = (NumberPicker) dialog.findViewById(R.id.minutePickerTo);
-                    NumberPicker dayto = (NumberPicker) dialog.findViewById(R.id.dayPickerTo);
-
-                    hourfrom.setValue(from_Hour);
-                    minutefrom.setValue(from_Minute);
-                    hourto.setValue(to_Hour);
-                    minuteto.setValue(to_Minute);
-
-
-                    hourfrom.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                        @Override
-                        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                            from_Hour = newVal;
-                            Log.i("from_hour", from_Hour + "");
-
-                        }
-                    });
-                    minutefrom.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                        @Override
-                        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                            from_Minute = newVal;
-                            Log.i("from_minute", from_Minute + "");
-                        }
-                    });
-                    dayfrom.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                        @Override
-                        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                            if (newVal == 2)
-                                fromMeridian = "PM";
-                            else fromMeridian = "AM";
-                        }
-                    });
-                    hourto.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                        @Override
-                        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                            to_Hour = newVal;
-                        }
-                    });
-                    minuteto.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                        @Override
-                        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                            to_Minute = newVal;
-                        }
-                    });
-                    dayto.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                        @Override
-                        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                            if (newVal == 2)
-                                toMeridian = "PM";
-                            else toMeridian = "AM";
-                        }
-                    });
-
-                    View add_timer_close = dialog.findViewById(R.id.add_timer_close);
-                    add_timer_close.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
-                    Button add_time = (Button) dialog.findViewById(R.id.add_time);
-                    add_time.setText("Done");
-                    add_time.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (from_Hour == 0) {
-                                from_Hour = 12;
-                            }
-                            if (to_Hour == 0) {
-                                to_Hour = 12;
-                            }
-                            fromdate.setText(String.format("%02d", from_Hour) + ":" + String.format("%02d", (from_Minute - 1)) + " " + fromMeridian);
-                            todate.setText(String.format("%02d", to_Hour) + ":" + String.format("%02d", (to_Minute - 1)) + " " + toMeridian);
-                            fromTime.set(getPosition(), fromdate.getText().toString());
-                            toTime.set(getPosition(), todate.getText().toString());
-                            dialog.dismiss();
-                        }
-                    });
+                    realm.beginTransaction();
+                    timingList.remove(position);
+                    realm.commitTransaction();
+                    notifyItemRemoved(position);
+                    if (timingList.size() == 0)
+                        mRecyclerView.setVisibility(View.GONE);
                 }
             });
+        }
 
+        public void refresh()
+        {
+            notifyDataSetChanged();
+
+            if (getItemCount() > 0)
+                mRecyclerView.setVisibility(View.VISIBLE);
+            else
+                mRecyclerView.setVisibility(View.GONE);
+        }
+
+        public void setDataSet(List<ConsultationTiming> timingList)
+        {
+            this.timingList = timingList;
+
+            refresh();
+        }
+
+        @Override
+        public int getItemCount() {
+            return timingList.size();
+        }
+
+        public class DataHolder extends RecyclerView.ViewHolder {
+            TextView fromTimeText, toTimeText, remove;
+
+            public DataHolder(final View itemView) {
+                super(itemView);
+                fromTimeText = (TextView) itemView.findViewById(R.id.from_date);
+                toTimeText = (TextView) itemView.findViewById(R.id.to_date);
+                remove = (TextView) itemView.findViewById(R.id.remove_item);
+
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showEditTimeSlotDialog(fromTimeText.getText().toString(), toTimeText.getText().toString(), new AddTimeSlotListener() {
+                            @Override
+                            public void onAddTimeSlot(String fromTime, String toTime) {
+                                fromTimeText.setText(fromTime);
+                                toTimeText.setText(toTime);
+
+                                realm.beginTransaction();
+                                timingList.get(getPosition()).setFromTime(Globals.to24HourFormat(fromTime));
+                                timingList.get(getPosition()).setToTime(Globals.to24HourFormat(toTime));
+                                realm.commitTransaction();
+                            }
+                        });
+                    }
+                });
+            }
         }
     }
 }

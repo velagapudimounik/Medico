@@ -162,7 +162,7 @@ public class User extends RealmObject {
 
     public void SignUp(Context context, final Globals.VolleyCallback callback) {
 
-        Globals.POST(Urls.SIGN_UP, null, toSignUp(), new Globals.VolleyCallback() {
+        Globals.POST(Urls.SIGN_UP, toSignUp(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 try {
@@ -177,12 +177,12 @@ public class User extends RealmObject {
             public void onFail(String result) {
                 callback.onFail(result);
             }
-        });
+        }, "Signing Up");
     }
 
     public void SignIn(Context context, final Globals.VolleyCallback callback) {
 
-        Globals.POST(Urls.SIGN_IN, null, toSignIn(), new Globals.VolleyCallback() {
+        Globals.POST(Urls.SIGN_IN, toSignIn(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 callback.onSuccess(result);
@@ -192,12 +192,12 @@ public class User extends RealmObject {
             public void onFail(String result) {
                 callback.onFail(result);
             }
-        });
+        }, "Signing In");
     }
 
     public void ForgetPassword(FragmentActivity activity, final Globals.VolleyCallback callback) {
 
-        Globals.POST(Urls.FORGET_PASSWORD, null, toForgetPassword(), new Globals.VolleyCallback() {
+        Globals.POST(Urls.FORGET_PASSWORD, toForgetPassword(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 callback.onSuccess(result);
@@ -207,7 +207,7 @@ public class User extends RealmObject {
             public void onFail(String result) {
                 callback.onFail(result);
             }
-        });
+        }, "");
 
     }
 }

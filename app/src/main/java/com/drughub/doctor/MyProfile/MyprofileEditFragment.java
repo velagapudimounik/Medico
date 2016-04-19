@@ -52,18 +52,21 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
         super.onStart();
         // Create Realm instance for the UI thread
         realm = Realm.getDefaultInstance();
-        serviceProvider = realm.allObjects(ServiceProvider.class).first();
+        serviceProvider = realm.where(ServiceProvider.class).findFirst();
         if (serviceProvider != null) {
             getEditFirstName().setText(serviceProvider.getFirstName());
             getEditMiddleName().setText(serviceProvider.getMiddleName());
             getEditLastName().setText(serviceProvider.getLastName());
             getEditEmailAddress().setText(serviceProvider.getEmailId());
+            getEditEmailAddress().setEnabled(false);
             getEditMobile().setText(serviceProvider.getMobile());
+            getEditMobile().setEnabled(false);
+            //getEditYearsofExperience().setText(serviceProvider.get);
             if (serviceProvider.getAddress() != null) {
                 getEditBuildingName().setText(serviceProvider.getAddress().getBuildingName());
                 getEditDoorNo().setText(serviceProvider.getAddress().getDoorNumber());
                 getEditStreetName().setText(serviceProvider.getAddress().getStreetName());
-                getEditColonyName().setText(serviceProvider.getAddress().getColonyName());
+                getEditColonyName().setText(serviceProvider.getAddress().getAreaName());
                 getEditPincode().setText(serviceProvider.getAddress().getPostalCode());
             }
         }
@@ -352,12 +355,11 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
         switch (view.getId()) {
             case R.id.buttonUpdate:
                 updateProfile();
-
                 break;
         }
     }
 
-    private void updateProfile() {
+    public void updateProfile() {
         realm.beginTransaction();
         serviceProvider.setMobile(getEditMobile().getText().toString().trim());
         serviceProvider.setFirstName(getEditFirstName().getText().toString().trim());
@@ -374,12 +376,12 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 
         if (serviceProvider.getAddress() == null)
             serviceProvider.setAddress(realm.createObject(Address.class));
-        serviceProvider.getAddress().setBuildingName(getEditBuildingName().getText().toString().trim());
-        serviceProvider.getAddress().setDoorNumber(getEditDoorNo().getText().toString().trim());
-        serviceProvider.getAddress().setStreetName(getEditStreetName().getText().toString().trim());
-        serviceProvider.getAddress().setColonyName(getEditColonyName().getText().toString().trim());
-        serviceProvider.getAddress().setPostalCode(getEditPincode().getText().toString().trim());
-        serviceProvider.getAddress().setLandmark(getEditLandMark().getText().toString().trim());
+        serviceProvider.getAddress().setBuildingName(getEditBuildingName().getText().toString());
+        serviceProvider.getAddress().setDoorNumber(getEditDoorNo().getText().toString());
+        serviceProvider.getAddress().setStreetName(getEditStreetName().getText().toString());
+        serviceProvider.getAddress().setAreaName(getEditColonyName().getText().toString());
+        serviceProvider.getAddress().setPostalCode(getEditPincode().getText().toString());
+        serviceProvider.getAddress().setLandmark(getEditLandMark().getText().toString());
         if (serviceProvider.getAddress().getCountry() == null) {
             Country country = realm.createOrUpdateObjectFromJson(Country.class, countries.get(spinnerCountry.getSelectedItemPosition()).getValueIdsCode());
             serviceProvider.getAddress().setCountry(country);
@@ -390,13 +392,13 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
             City city = realm.createOrUpdateObjectFromJson(City.class, cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds());
             serviceProvider.getAddress().setCity(city);
         } else {
-            serviceProvider.getAddress().setCity(realm.createObjectFromJson(City.class, cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds()));
+            serviceProvider.getAddress().setCity(realm.createOrUpdateObjectFromJson(City.class, cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds()));
         }
         if (serviceProvider.getAddress().getState() == null) {
             State state = realm.createOrUpdateObjectFromJson(State.class, states.get(spinnerState.getSelectedItemPosition()).getValueIds());
             serviceProvider.getAddress().setState(state);
         } else {
-            serviceProvider.getAddress().setState((realm.createObjectFromJson(State.class, states.get(spinnerState.getSelectedItemPosition()).getValueIds())));
+            serviceProvider.getAddress().setState((realm.createOrUpdateObjectFromJson(State.class, states.get(spinnerState.getSelectedItemPosition()).getValueIds())));
         }
 
         realm.commitTransaction();
@@ -413,7 +415,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
             }
         });
         getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).commit();
-
+        ((MyProfileFragment)getFragmentManager().findFragmentById(R.id.containeractivity)).updateDetails();
     }
 
 }

@@ -1,6 +1,5 @@
 package com.drughub.doctor.Login;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.drughub.doctor.MainActivity;
+import com.drughub.doctor.MyApplication;
 import com.drughub.doctor.R;
 import com.drughub.doctor.model.User;
 import com.drughub.doctor.network.Globals;
@@ -25,8 +25,6 @@ import org.json.JSONObject;
 public class LoginPage extends Fragment {
 
     public static final int MIN_PASSWORD_LENGTH = 8;
-    ProgressDialog progress;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -66,7 +64,10 @@ public class LoginPage extends Fragment {
                 } else if (view == signUpButton) {
                     getFragmentManager().beginTransaction().replace(R.id.container1, new SignUpFragment()).addToBackStack(null).commit();
                 } else if (view == forgotPasswordTextView) {
-                    getFragmentManager().beginTransaction().replace(R.id.container1, new ForgotPasswordFragment()).addToBackStack(null).commit();
+                    //getFragmentManager().beginTransaction().replace(R.id.container1, new ForgotPasswordFragment()).addToBackStack(null).commit();
+
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    getActivity().finish();
                 }
             }
         };
@@ -79,15 +80,12 @@ public class LoginPage extends Fragment {
     }
 
     private void signIn(final String username, final String password) {
-        progress = ProgressDialog.show(getActivity(), "SignIn", "Please wait...", true);
         User user = new User();
         user.setEmail(username);
         user.setPassword(Globals.encryptString(password));
         user.SignIn(getActivity(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
-                if (progress != null)
-                    progress.dismiss();
                 try {
                     JSONObject object = new JSONObject(result);
                     if (object.getBoolean("result")) {
@@ -104,10 +102,7 @@ public class LoginPage extends Fragment {
 
             @Override
             public void onFail(String result) {
-                if (progress != null)
-                    progress.dismiss();
                 Toast.makeText(getActivity(), "Unable to process your request, please try again.", Toast.LENGTH_SHORT).show();
-
             }
         });
     }

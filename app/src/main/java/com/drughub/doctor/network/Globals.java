@@ -1,5 +1,6 @@
 package com.drughub.doctor.network;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -7,11 +8,14 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.util.LruCache;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -28,13 +32,26 @@ import com.drughub.doctor.MyApplication;
 import com.drughub.doctor.model.DoctorClinic;
 import com.drughub.doctor.model.User;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.net.CookieManager;
+import java.net.HttpCookie;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 
 public class Globals {
@@ -49,149 +66,197 @@ public class Globals {
     static String stringResponse = null;
     static Bitmap responseBitmap;
     private static ImageLoader mImageLoader;
-    private static Context mCtx;
+    private static Context mContext;
     private static RequestQueue mRequestQueue;
     public static DoctorClinic selectedDoctorClinic;
+    public static final String COOKIES_HEADER = "Set-Cookie";
+    private static CookieManager mCookieManager = null;
+    private static final boolean USE_VOLLEY = false;
 
-    public Globals(Context context) {
-        mCtx = context;
+    public enum RequestMethod {
+        GET,
+        POST,
+        PUT,
+        DELETE,
+        HEAD,
+        OPTIONS,
+        TRACE,
+        PATCH,
+    }
+
+    public static void init(Context context) {
+        mContext = context;
         mRequestQueue = getRequestQueue();
     }
 
-    public static void startStringRequest(final int method, final String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
-        getRequestQueue();
-        StringRequest stringRequest = new StringRequest(method, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.v(VOLLEY_TAG, "onResponse(): " + response);
-                stringResponse = response;
-                callback.onSuccess(stringResponse);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                try {
-                    Log.v(VOLLEY_TAG, "URL: " + url);
-                    Log.v(VOLLEY_TAG, "onErrorResponse(): " + volleyError);
-
-                    Log.v(VOLLEY_TAG, "onErrorResponse(): StatusCode: " + volleyError.networkResponse.statusCode);
-
-                    if (volleyError.networkResponse.statusCode == 400)
-                        stringResponse = "Bad Request";
-                    else if (volleyError.networkResponse.statusCode == 401)
-                        stringResponse = "Session Timed Out";
-                    else if (volleyError.networkResponse.statusCode == 403)
-                        stringResponse = "Forbidden Request";
-                    else if (volleyError.networkResponse.statusCode == 404)
-                        stringResponse = "URL Not Found";
-                    else if (volleyError.networkResponse.statusCode == 500)
-                        stringResponse = "Internal Server Error";
-                    else
-                        stringResponse = "Error Occurred";
-
-                } catch (Exception e) {
-                    stringResponse = "Error Occurred";
-                    Log.v(VOLLEY_TAG, "onErrorResponse(): Exception: " + e);
-                    e.printStackTrace();
-                }
-                callback.onFail(stringResponse);
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-
-                Map<String, String> localHeaders = headers;
-
-                if (localHeaders == null)
-                    localHeaders = super.getHeaders();
-
-                if (localHeaders == null
-                        || localHeaders.equals(Collections.emptyMap())) {
-                    localHeaders = new HashMap<String, String>();
-                }
-                MyApplication.get().addSessionCookie(localHeaders);
-
-                localHeaders.put("Content-Type", "application/json");
-
-                Log.v(VOLLEY_TAG, "URL: " + url);
-                Log.v(VOLLEY_TAG, "getHeaders(): " + localHeaders.toString());
-
-                return localHeaders;
-            }
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> localParams = params;
-
-                if (localParams == null)
-                    localParams = super.getParams();
-
-                Log.v(VOLLEY_TAG, "getParams(): " + localParams);
-
-                return localParams;
-            }
-
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-
-                String localBody = body;
-
-                if (localBody == null || localBody.isEmpty())
-                    return super.getBody();
-
-                Log.v(VOLLEY_TAG, "getBody(): " + localBody);
-
-                return localBody.getBytes();
-            }
-
-            @Override
-            protected Response<String> parseNetworkResponse(NetworkResponse response) {
-
-                MyApplication.get().checkSessionCookie(response.headers);
-
-                Log.v(VOLLEY_TAG, "URL: " + url);
-                Log.v(VOLLEY_TAG, "parseNetworkResponse(): StatusCode: " + response.statusCode);
-                Log.v(VOLLEY_TAG, "parseNetworkResponse(): Headers: " + response.headers.toString());
-                Log.v(VOLLEY_TAG, "parseNetworkResponse(): Data: " + response.data.toString());
-
-                return super.parseNetworkResponse(response);
-            }
-        };
-
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(MY_SOCKET_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        addRequestQueue(stringRequest);
+    public static void setContext(Context context) {
+        mContext = context;
     }
 
+    public static void startStringRequest(RequestMethod method, final String url, final Map<String, String> headers, final Map<String, String> params,
+                                          final String body, final String progressText, final VolleyCallback callback) {
+        if(USE_VOLLEY) {
+
+            final ProgressDialog progress = (progressText != null) ? ProgressDialog.show(mContext, progressText, "Please wait...", true) : null;
+
+            StringRequest stringRequest = new StringRequest(method.ordinal(), url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    Log.v(VOLLEY_TAG, "onResponse(): " + response);
+                    stringResponse = response;
+
+                    if (progress != null)
+                        progress.dismiss();
+
+                    if (callback != null)
+                        callback.onSuccess(stringResponse);
+
+                    try {
+                        JSONObject object = new JSONObject(stringResponse);
+                        if (!object.getBoolean("result"))
+                            Toast.makeText(mContext, object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    try {
+                        if (progress != null)
+                            progress.dismiss();
+
+                        Log.v(VOLLEY_TAG, "URL: " + url);
+                        Log.v(VOLLEY_TAG, "onErrorResponse(): " + volleyError);
+
+                        if (volleyError.networkResponse != null)
+                            Log.v(VOLLEY_TAG, "onErrorResponse(): StatusCode: " + volleyError.networkResponse.statusCode);
+
+                        if (volleyError.networkResponse == null)
+                            stringResponse = "Error Occurred";
+                        else if (volleyError.networkResponse.statusCode == 400)
+                            stringResponse = "Bad Request";
+                        else if (volleyError.networkResponse.statusCode == 401)
+                            stringResponse = "Session Timed Out";
+                        else if (volleyError.networkResponse.statusCode == 403)
+                            stringResponse = "Forbidden Request";
+                        else if (volleyError.networkResponse.statusCode == 404)
+                            stringResponse = "URL Not Found";
+                        else if (volleyError.networkResponse.statusCode == 500)
+                            stringResponse = "Internal Server Error";
+                        else
+                            stringResponse = "Error Occurred";
+
+                        Toast.makeText(mContext, stringResponse, Toast.LENGTH_SHORT).show();
+
+                    } catch (Exception e) {
+                        stringResponse = "Error Occurred";
+                        Log.v(VOLLEY_TAG, "onErrorResponse(): Exception: " + e);
+                        e.printStackTrace();
+                    }
+                    if (callback != null)
+                        callback.onFail(stringResponse);
+                }
+            }) {
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+
+                    Map<String, String> localHeaders = headers;
+
+                    if (localHeaders == null)
+                        localHeaders = super.getHeaders();
+
+                    if (localHeaders == null
+                            || localHeaders.equals(Collections.emptyMap())) {
+                        localHeaders = new HashMap<String, String>();
+                    }
+                    MyApplication.get().addSessionCookie(localHeaders);
+
+                    localHeaders.put("Content-Type", "application/json");
+
+                    Log.v(VOLLEY_TAG, "URL: " + url);
+                    Log.v(VOLLEY_TAG, "getHeaders(): " + localHeaders.toString());
+
+                    return localHeaders;
+                }
+
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String, String> localParams = params;
+
+                    if (localParams == null)
+                        localParams = super.getParams();
+
+                    Log.v(VOLLEY_TAG, "getParams(): " + localParams);
+
+                    return localParams;
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+
+                    String localBody = body;
+
+                    if (localBody == null || localBody.isEmpty())
+                        return super.getBody();
+
+                    Log.v(VOLLEY_TAG, "getBody(): " + localBody);
+
+                    return localBody.getBytes();
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+
+                    MyApplication.get().checkSessionCookie(response.headers);
+
+                    Log.v(VOLLEY_TAG, "URL: " + url);
+                    Log.v(VOLLEY_TAG, "parseNetworkResponse(): StatusCode: " + response.statusCode);
+                    Log.v(VOLLEY_TAG, "parseNetworkResponse(): Data: " + response.data.toString());
+
+                    return super.parseNetworkResponse(response);
+                }
+            };
+
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(MY_SOCKET_TIMEOUT_MS, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            addRequestQueue(stringRequest);
+        }
+        else
+        {
+            WebService service = new WebService(method, url, body, callback, progressText);
+            service.execute();
+        }
+    }
 
     /*GET METHOD REQUEST FOR API*/
-    public static void GET(String url, final Map<String, String> headers, final VolleyCallback callback) {
+    public static void GET(String url, VolleyCallback callback, String progressText) {
         Log.v(VOLLEY_TAG, "GET URL: " + url);
-        startStringRequest(Request.Method.GET, url, headers, null, null, callback);
+        startStringRequest(RequestMethod.GET, url, null, null, null, progressText, callback);
     }
 
     /*POST METHOD REQUEST FOR API*/
-    public static void POST(String url, final Map<String, String> params, final String body, final VolleyCallback callback) {
+    public static void POST(String url, String body, VolleyCallback callback, String progressText) {
         Log.v(VOLLEY_TAG, "POST URL: " + url);
-        startStringRequest(Request.Method.POST, url, null, params, body, callback);
+        startStringRequest(RequestMethod.POST, url, null, null, body, progressText, callback);
     }
 
     /*PUT METHOD REQUEST FOR API*/
-    public static void PUT(String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
+    public static void PUT(String url, String body, VolleyCallback callback, String progressText) {
         Log.v(VOLLEY_TAG, "PUT URL: " + url);
-        startStringRequest(Request.Method.PUT, url, headers, params, body, callback);
+        startStringRequest(RequestMethod.PUT, url, null, null, body, progressText, callback);
     }
 
     /*PATCH METHOD REQUEST FOR API*/
-    public static void PATCH(String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
-        startStringRequest(Request.Method.PATCH, url, headers, params, body, callback);
+    public static void PATCH(String url, String body, VolleyCallback callback, String progressText) {
+        startStringRequest(RequestMethod.PATCH, url, null, null, body, progressText, callback);
     }
 
     /*PUT METHOD REQUEST FOR API*/
-    public static void DELETE(String url, final Map<String, String> headers, final Map<String, String> params, final String body, final VolleyCallback callback) {
+    public static void DELETE(String url, String body, VolleyCallback callback, String progressText) {
         Log.v(VOLLEY_TAG, "DELETE URL: " + url);
-        startStringRequest(Request.Method.DELETE, url, headers, params, body, callback);
+        startStringRequest(RequestMethod.DELETE, url, null, null, body, progressText, callback);
     }
 
     /*IMAGE REQUEST FOR API*/
@@ -242,7 +307,7 @@ public class Globals {
 
     public static RequestQueue getRequestQueue() {
         if (mRequestQueue == null)
-            mRequestQueue = Volley.newRequestQueue(mCtx);
+            mRequestQueue = Volley.newRequestQueue(mContext);
 
         return mRequestQueue;
 
@@ -371,12 +436,14 @@ public class Globals {
 //            @Override
 //            public void onFail(String result) {
 //                Log.v("result error"," "+result);
+
+
 //            }
 //        });
 //    }
 
     public static void getCountries(final VolleyCallback callback) {
-        GET(Urls.COUNTRY, null, new VolleyCallback() {
+        GET(Urls.COUNTRY, new VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 callback.onSuccess(result);
@@ -386,11 +453,11 @@ public class Globals {
             public void onFail(String result) {
                 callback.onFail(result);
             }
-        });
+        }, null);
     }
 
     public static void getState(int id, final VolleyCallback callback) {
-        GET(Urls.STATE + id, null, new VolleyCallback() {
+        GET(Urls.STATE + id, new VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 callback.onSuccess(result);
@@ -400,11 +467,11 @@ public class Globals {
             public void onFail(String result) {
                 callback.onFail(result);
             }
-        });
+        }, null);
     }
 
     public static void getCity(int id, final VolleyCallback callback) {
-        GET(Urls.CITY + id, null, new VolleyCallback() {
+        GET(Urls.CITY + id, new VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 callback.onSuccess(result);
@@ -414,7 +481,7 @@ public class Globals {
             public void onFail(String result) {
                 callback.onFail(result);
             }
-        });
+        }, null);
     }
 
     public interface VolleyCallback {
@@ -429,7 +496,7 @@ public class Globals {
         void onFail(String result);
     }
     public static void getSpecialization(final VolleyCallback callback){
-        GET(Urls.GET_SPECIALLIZATION, null, new VolleyCallback() {
+        GET(Urls.GET_SPECIALLIZATION, new VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 callback.onSuccess(result);
@@ -441,10 +508,10 @@ public class Globals {
                 callback.onFail(result);
                 Log.v("FailSP===", result);
             }
-        });
+        }, null);
     }
     public static void getQualification(final VolleyCallback callback){
-        GET(Urls.GET_QUALIFICATION, null, new VolleyCallback() {
+        GET(Urls.GET_QUALIFICATION, new VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 callback.onSuccess(result);
@@ -456,7 +523,203 @@ public class Globals {
                 callback.onFail(result);
                 Log.v("FailQL===",result);
             }
-        });
+        }, null);
     }
 
+    public static int getHour(String time)
+    {
+        if(time == null)
+            return 12;
+        String hour = time.substring(0, 2);
+        return Integer.parseInt(hour);
+    }
+
+    public static int getMinute(String time)
+    {
+        if(time == null)
+            return 0;
+        String minute = time.substring(3, 5);
+        return Integer.parseInt(minute);
+    }
+
+    public static String getMeridian(String time)
+    {
+        if(time == null)
+            return "AM";
+        return time.substring(6, 8);
+    }
+
+    public static String getCurrentDayOfWeek()
+    {
+        return new SimpleDateFormat("EEEE").format(new Date());
+    }
+
+    static SimpleDateFormat format12Hour = new SimpleDateFormat("hh:mm a");
+    static SimpleDateFormat format24Hour = new SimpleDateFormat("kk:mm:ss");
+
+    public static String to12HourFormat(String time)
+    {
+        try {
+            Date date = format24Hour.parse(time);
+            return format12Hour.format(date);
+        } catch (Exception e) {}
+
+        return "00:00 AM";
+    }
+
+    public static String to24HourFormat(String time)
+    {
+        try {
+            Date date = format12Hour.parse(time);
+            return format24Hour.format(date);
+        } catch (Exception e) {}
+
+        return "00:00:00";
+    }
+
+    public static String requestMethod(RequestMethod method)
+    {
+        switch (method)
+        {
+            case GET:
+                return "GET";
+            case POST:
+                return "POST";
+            case PUT:
+                return "PUT";
+            case PATCH:
+                return "PATCH";
+            case DELETE:
+                return "DELETE";
+        }
+        return "INVALID";
+    }
+
+    public static class WebService extends AsyncTask<Void, Void, Boolean> {
+
+        RequestMethod method;
+        String url = null;
+        String body = null;
+        VolleyCallback callback = null;
+        String progressText = null;
+        String response = null;
+        ProgressDialog progress = null;
+
+        public WebService(RequestMethod method, String url, String body, VolleyCallback callback, String progressText) {
+            this.method = method;
+            this.url = url;
+            this.body = body;
+            this.callback = callback;
+            this.progressText = progressText;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            Log.d(VOLLEY_TAG, "WebService URL: " + method + " " + url);
+
+            if(mCookieManager == null)
+                mCookieManager = new CookieManager();
+
+            HttpURLConnection conn = null;
+            response = null;
+
+            try {
+                conn = (HttpURLConnection) new URL(url).openConnection();
+                conn.setReadTimeout(10000 * 60);
+                conn.setConnectTimeout(15000 * 60);
+                conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                if(mCookieManager.getCookieStore().getCookies().size() > 0) {
+                    //While joining the Cookies, use ',' or ';' as needed. Most of the server are using ';'
+                    conn.setRequestProperty("Cookie",
+                            TextUtils.join(";", mCookieManager.getCookieStore().getCookies()));
+                }
+                conn.setRequestMethod(requestMethod(method));
+                conn.setDoInput(true);
+                if(method == RequestMethod.GET || method == RequestMethod.DELETE)
+                    conn.setDoOutput(false);
+                else
+                    conn.setDoOutput(true);
+
+                if(body != null) {
+                    OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+                    writer.write(body);
+                    writer.flush();
+                    writer.close();
+                }
+                // Start the query
+                conn.connect();
+
+                //read output
+                InputStream stream = conn.getInputStream();
+
+                int statusCode = conn.getResponseCode();
+                if(statusCode != HttpURLConnection.HTTP_OK)
+                {
+                    Log.d(VOLLEY_TAG, "WebService ErrorCode: "+statusCode);
+                    conn.disconnect();
+                    return false;
+                }
+
+                InputStream errorStream = conn.getErrorStream();
+
+                Map<String, List<String>> headerFields = conn.getHeaderFields();
+                List<String> cookiesHeader = headerFields.get(COOKIES_HEADER);
+
+                if(cookiesHeader != null) {
+                    for (String cookie : cookiesHeader) {
+                        mCookieManager.getCookieStore().add(null, HttpCookie.parse(cookie).get(0));
+                    }
+                }
+
+                Scanner s = new Scanner(stream);
+                response = s.hasNextLine() ? s.nextLine() : "";
+                Log.d(VOLLEY_TAG, "WebService Response: "+response);
+            } catch (Exception e) {
+                Log.d(VOLLEY_TAG, "WebService Exception: "+e);
+                e.printStackTrace();
+            }
+
+            if (conn != null)
+                conn.disconnect();
+
+            if(response == null)
+                return false;
+
+            return true;
+        }
+
+        @Override
+        protected  void onPreExecute() {
+            progress = (progressText != null) ? ProgressDialog.show(mContext, progressText, "Please wait...", true) : null;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if(success)
+            {
+                callback.onSuccess(response);
+                try {
+                    JSONObject object = new JSONObject(stringResponse);
+                    if (!object.getBoolean("result"))
+                        Toast.makeText(mContext, object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                }
+            }
+            else {
+                Toast.makeText(mContext, "Error Occurred", Toast.LENGTH_SHORT).show();
+                callback.onFail("Error Occurred");
+            }
+
+            if(progress != null)
+                progress.dismiss();
+        }
+
+        @Override
+        protected void onCancelled() {
+            Toast.makeText(mContext, "Error Occurred", Toast.LENGTH_SHORT).show();
+            callback.onFail("Error Occurred");
+            if(progress != null)
+                progress.dismiss();
+        }
+    }
 }

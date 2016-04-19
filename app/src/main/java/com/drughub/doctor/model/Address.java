@@ -6,14 +6,20 @@ import io.realm.RealmObject;
 
 public class Address extends RealmObject {
     private String addressId ;
-    private String buildingName;
     private Country country = new Country();
-    private String colony;
     private City city = new City();
     private State state = new State();
     private String doorNumber;
+    private String buildingName;
+    private String streetName;
     private String postalCode;
     private String areaCode;
+    private String areaName;
+    private String addressType;
+    private String district;
+    private String landMark;
+    private double lng;
+    private double lat;
 
     public String getAreaName() {
         return areaName;
@@ -31,33 +37,12 @@ public class Address extends RealmObject {
         this.landMark = landMark;
     }
 
-    private String areaName;
-    private String addressType;
-    private String district;
-    private String tinno;
-    private String companyName;
-    private String colonyName;
-    private String streetName;
-    private String landMark;
-    private double lng;
-    private double lat;
-    private Integer dlno;
-
-
     public String getBuildingName() {
         return buildingName;
     }
 
     public void setBuildingName(String buildingName) {
         this.buildingName = buildingName;
-    }
-
-    public String getColony() {
-        return colony;
-    }
-
-    public void setColony(String colony) {
-        this.colony = colony;
     }
 
     public String getDoorNumber() {
@@ -92,30 +77,6 @@ public class Address extends RealmObject {
         this.district = district;
     }
 
-    public String getTinno() {
-        return tinno;
-    }
-
-    public void setTinno(String tinno) {
-        this.tinno = tinno;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getColonyName() {
-        return colonyName;
-    }
-
-    public void setColonyName(String colonyName) {
-        this.colonyName = colonyName;
-    }
-
     public String getStreetName() {
         return streetName;
     }
@@ -138,41 +99,6 @@ public class Address extends RealmObject {
 
     public void setLat(double lat) {
         this.lat = lat;
-    }
-
-    public Integer getDlno() {
-        return dlno;
-    }
-
-    public void setDlno(Integer dlno) {
-        this.dlno = dlno;
-    }
-
-    public JSONObject toServiceProvider() {
-        JSONObject addressObject = new JSONObject();
-        try {
-
-            addressObject.put("addressId", getAddressId());
-            addressObject.put("doorNumber", getDoorNumber());
-            addressObject.put("buildingName", getBuildingName());
-            addressObject.put("streetName", getStreetName());
-            addressObject.put("areaCode", getAreaCode());
-            addressObject.put("areaName",getAreaName());
-            addressObject.put("landMark", getLandmark());
-            addressObject.put("postalCode", getPostalCode());
-            addressObject.put("lat", getLat());
-            addressObject.put("lng", getLng());
-            addressObject.put("state", getState().getValueIds());
-            addressObject.put("country", getCountry().getValueIdsCode());
-            addressObject.put("city", getCity().getValueIds());
-            addressObject.put("colony", getColony());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return addressObject;
-
     }
 
     public String getAreaCode() {
@@ -222,4 +148,31 @@ public class Address extends RealmObject {
     public void setState(State state) {
         this.state = state;
     }
+
+    public JSONObject toServiceProvider() {
+        JSONObject addressObject = new JSONObject();
+        try {
+
+            addressObject.put("addressId", getAddressId());
+            addressObject.put("doorNumber", getDoorNumber());
+            addressObject.put("buildingName", getBuildingName());
+            addressObject.put("streetName", getStreetName());
+            addressObject.put("areaCode", getAreaCode());
+            addressObject.put("areaName",getAreaName());
+            addressObject.put("landMark", getLandmark());
+            addressObject.put("postalCode", getPostalCode());
+            addressObject.put("lat", getLat());
+            addressObject.put("lng", getLng());
+            addressObject.put("state", getState().getValueIds());
+            addressObject.put("country", getCountry().getValueIdsCode());
+            addressObject.put("city", getCity().getValueIds());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return addressObject;
+
+    }
+
 }

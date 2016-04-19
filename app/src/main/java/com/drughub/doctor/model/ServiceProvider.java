@@ -87,7 +87,7 @@ public class ServiceProvider extends RealmObject {
 
 
     public void UpdateServiceProvider(Context context, final Globals.VolleyCallback callback) {
-        Globals.PUT(Urls.SERVICE_PROVIDER+ PrefUtils.getUserName(context), null, null, toUpdateServiceProvider(), new Globals.VolleyCallback() {
+        Globals.PUT(Urls.SERVICE_PROVIDER+ PrefUtils.getUserName(context), toUpdateServiceProvider(), new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 callback.onSuccess(result);
@@ -97,12 +97,11 @@ public class ServiceProvider extends RealmObject {
             public void onFail(String result) {
                 callback.onFail(result);
             }
-        });
-
+        }, "");
     }
 
     public void GetServiceProvider() {
-        Globals.GET(Urls.SERVICE_PROVIDER, null, new Globals.VolleyCallback() {
+        Globals.GET(Urls.SERVICE_PROVIDER, new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
 
@@ -112,7 +111,7 @@ public class ServiceProvider extends RealmObject {
             public void onFail(String result) {
 
             }
-        });
+        }, "");
     }
 
     public String getMiddleName() {

@@ -1,6 +1,5 @@
 package com.drughub.doctor.MyProfile;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +22,8 @@ import android.widget.Toast;
 import com.drughub.doctor.MyProfile.adapters.SpinnerAdapter;
 import com.drughub.doctor.R;
 import com.drughub.doctor.model.Address;
+import com.drughub.doctor.model.AllCity;
+import com.drughub.doctor.model.AllState;
 import com.drughub.doctor.model.City;
 import com.drughub.doctor.model.Country;
 import com.drughub.doctor.model.DoctorClinic;
@@ -49,14 +50,13 @@ public class MyProfileAddClinicFragment extends DialogFragment {
     Spinner spinnerCountry, spinnerState, spinnerDistrict, spinnerCity;
     Button addClinic;
     RealmResults<Country> countries;
-    RealmResults<State> states;
-    RealmResults<City> cities;
+    RealmResults<AllState> states;
+    RealmResults<AllCity> cities;
     Realm realm;
-    ProgressDialog progress;
     EditText clinic_Name, building_name, doorNo, streetName, colonyName, landmark, Mobile, consultationFee, pincode;
     CheckBox consultationHome;
     String clinicString;
-
+    DoctorClinic selectedClinic = null;
 
     @Nullable
     @Override
@@ -82,16 +82,20 @@ public class MyProfileAddClinicFragment extends DialogFragment {
         // FrameLayout plusicon=(FrameLayout)view.findViewById(R.id.plusicon);
         image_urls = new ArrayList<>();
         image_urls.add(0, Uri.EMPTY);
+
+        selectedClinic = null;
+
         Bundle bundle = this.getArguments();
         clinicString = bundle.getString("doctorClinic");
         Log.i("Bundle_vales", bundle.toString());
         if (clinicString.equals("fromEdit")) {
             getActivity().setTitle(getString(R.string.editClinic));
+            selectedClinic = Globals.selectedDoctorClinic;
             clinic_Name.setText(Globals.selectedDoctorClinic.getClinicName());
             building_name.setText(Globals.selectedDoctorClinic.getAddress().getBuildingName());
             doorNo.setText(Globals.selectedDoctorClinic.getAddress().getDoorNumber());
             streetName.setText(Globals.selectedDoctorClinic.getAddress().getStreetName());
-            colonyName.setText(Globals.selectedDoctorClinic.getAddress().getColonyName());
+            colonyName.setText(Globals.selectedDoctorClinic.getAddress().getAreaName());
             // spinner1.set(bundle.getString("clinicName"));
             //clinic_Name.setText(bundle.getString("clinicName"));
             //clinic_Name.setText(bundle.getString("clinicName"));
@@ -127,107 +131,112 @@ public class MyProfileAddClinicFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 String clinicName = clinic_Name.getText().toString();
-                String buildingName = building_name.getText().toString();
-                String mobile = Mobile.getText().toString();
                 String con_fee = consultationFee.getText().toString();
-                String doorno = doorNo.getText().toString();
-                String streetname = streetName.getText().toString();
-                String colonyname = colonyName.getText().toString();
-                Country country = countries.get(spinnerCountry.getSelectedItemPosition());
-                State state = states.get(spinnerState.getSelectedItemPosition());
-                City city = cities.get(spinnerCity.getSelectedItemPosition());
-                String postalcode = pincode.getText().toString();
-                String landMark = landmark.getText().toString();
+                String mobile = Mobile.getText().toString();
 
-                if (!clinicName.isEmpty()) {
-                    if (mobile.length() >= 10) {
-                        if (!con_fee.isEmpty()) {
-                            progress = ProgressDialog.show(getActivity(), "Add Clinic", "Please wait...", true);
-                            DoctorClinic clinic = new DoctorClinic();
-                            clinic.setClinicName(clinicName);
-                            clinic.setPhoneNo(mobile);
-                            clinic.setConsultationFee(Integer.parseInt(con_fee));
-                            clinic.setYearOfEstablishment(2010);
-                            clinic.setWebsite("www.google.com");
-                            clinic.setIsConsultationAtHome(consultationHome.isChecked());
+                if (clinicName.isEmpty())
+                    Toast.makeText(getContext(), "Enter Clinic Name", Toast.LENGTH_SHORT).show();
+                else if (mobile.isEmpty())
+                    Toast.makeText(getContext(), "Enter Mobile", Toast.LENGTH_SHORT).show();
+                else if (con_fee.isEmpty())
+                    Toast.makeText(getContext(), "Enter Consultation Fee", Toast.LENGTH_SHORT).show();
+                else if (spinnerState.getSelectedItem() == null)
+                    Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
+                else if (spinnerCity.getSelectedItem() == null)
+                    Toast.makeText(getContext(), "Select City", Toast.LENGTH_SHORT).show();
+                else {
 
-                            if (clinic.getAddress() == null)
-                                clinic.setAddress(realm.createObject(Address.class));
+                    String buildingName = building_name.getText().toString();
+                    String doorno = doorNo.getText().toString();
+                    String streetname = streetName.getText().toString();
+                    String colonyname = colonyName.getText().toString();
+                    Country country = countries.get(spinnerCountry.getSelectedItemPosition());
+                    AllState state = states.get(spinnerState.getSelectedItemPosition());
+                    AllCity city = cities.get(spinnerCity.getSelectedItemPosition());
+                    String postalcode = pincode.getText().toString();
+                    String landMark = landmark.getText().toString();
 
-                            clinic.getAddress().setBuildingName(buildingName);
-                            clinic.getAddress().setDoorNumber(doorno);
-                            clinic.getAddress().setStreetName(streetname);
-                            clinic.getAddress().setColonyName(colonyname);
-                            clinic.getAddress().setCountry(country);
-                            clinic.getAddress().setState(state);
-                            clinic.getAddress().setCity(city);
-                            clinic.getAddress().setPostalCode(postalcode);
-                            clinic.getAddress().setLandmark(landMark);
-                            clinic.getAddress().setAreaCode("null");
-                            clinic.getAddress().setAreaName("SR Ngr");
-                            if (clinicString.equals("addClinic")) {
-                                clinic.AddClinic(new Globals.VolleyCallback() {
+                    DoctorClinic clinic = new DoctorClinic();
+                    clinic.setClinicName(clinicName);
+                    clinic.setPhoneNo(mobile);
+                    clinic.setConsultationFee(Integer.parseInt(con_fee));
+                    clinic.setYearOfEstablishment(2010);
+                    clinic.setWebsite("www.google.com");
+                    clinic.setIsConsultationAtHome(consultationHome.isChecked());
 
-                                    @Override
-                                    public void onSuccess(String result) {
-                                        progress.dismiss();
-                                        try {
-                                            JSONObject object = new JSONObject(result);
-                                            if (object.getBoolean("result")) {
-                                                Toast.makeText(getContext(), "Clinic Added Successfully", Toast.LENGTH_SHORT).show();
-                                                getFragmentManager().popBackStack();
-                                            } else {
-                                                Toast.makeText(getContext(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
-                                            }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                            Toast.makeText(getContext(), "Please try Again", Toast.LENGTH_SHORT).show();
+                    if (clinic.getAddress() == null)
+                        clinic.setAddress(new Address());
 
-                                        }
+                    clinic.getAddress().setBuildingName(buildingName);
+                    clinic.getAddress().setDoorNumber(doorno);
+                    clinic.getAddress().setStreetName(streetname);
+                    clinic.getAddress().setAreaName(colonyname);
+
+                    realm.beginTransaction();
+                    clinic.getAddress().setCountry(realm.createOrUpdateObjectFromJson(Country.class, country.getValueIdsCode()));
+                    clinic.getAddress().setState(realm.createOrUpdateObjectFromJson(State.class, state.getValueIds()));
+                    clinic.getAddress().setCity(realm.createOrUpdateObjectFromJson(City.class, city.getValueIds()));
+                    realm.commitTransaction();
+
+                    clinic.getAddress().setPostalCode(postalcode);
+                    clinic.getAddress().setLandmark(landMark);
+                    clinic.getAddress().setAreaCode("null");
+                    clinic.getAddress().setAreaName("SR Ngr");
+                    if (clinicString.equals("addClinic")) {
+                        clinic.AddClinic(new Globals.VolleyCallback() {
+
+                            @Override
+                            public void onSuccess(String result) {
+
+                                try {
+                                    JSONObject object = new JSONObject(result);
+                                    if (object.getBoolean("result")) {
+                                        Toast.makeText(getContext(), "Clinic Added Successfully", Toast.LENGTH_SHORT).show();
+                                        getFragmentManager().popBackStack();
+                                        ((MyClinicsFragment)getFragmentManager().findFragmentById(R.id.container2)).loadClinics();
+                                    } else {
+                                        Toast.makeText(getContext(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
                                     }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(getContext(), "Please try Again", Toast.LENGTH_SHORT).show();
 
-                                    @Override
-                                    public void onFail(String result) {
-                                        progress.dismiss();
-                                    }
-                                });
-
-                            } else {
-                                clinic.UpdateClinic(new Globals.VolleyCallback() {
-                                    @Override
-                                    public void onSuccess(String result) {
-                                        progress.dismiss();
-                                        try {
-                                            JSONObject object = new JSONObject(result);
-                                            if (object.getBoolean("result")) {
-                                                Toast.makeText(getContext(), "Clinic Updated Successfully", Toast.LENGTH_SHORT).show();
-                                                getFragmentManager().popBackStack();
-                                            } else {
-                                                Toast.makeText(getContext(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
-                                            }
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                            Toast.makeText(getContext(), "Please Try Again", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFail(String result) {
-
-                                    }
-                                });
+                                }
                             }
 
-                        } else {
-                            Toast.makeText(getContext(), "Enter Consultation Fee", Toast.LENGTH_SHORT).show();
-                        }
+                            @Override
+                            public void onFail(String result) {
+
+                            }
+                        });
 
                     } else {
-                        Toast.makeText(getContext(), "Enter Mobile", Toast.LENGTH_SHORT).show();
-                    }
+                        clinic.setClinicId(selectedClinic.getClinicId());
+                        clinic.UpdateClinic(new Globals.VolleyCallback() {
+                            @Override
+                            public void onSuccess(String result) {
 
-                } else {
-                    Toast.makeText(getContext(), "Enter Clinic Name", Toast.LENGTH_SHORT).show();
+                                try {
+                                    JSONObject object = new JSONObject(result);
+                                    if (object.getBoolean("result")) {
+                                        Toast.makeText(getContext(), "Clinic Updated Successfully", Toast.LENGTH_SHORT).show();
+                                        getFragmentManager().popBackStack();
+                                        ((MyClinicsFragment)getFragmentManager().findFragmentById(R.id.container2)).loadClinics();
+                                    } else {
+                                        Toast.makeText(getContext(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(getContext(), "Please Try Again", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(String result) {
+
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -248,6 +257,13 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                 values.add(country.getValue());
             }
             spinnerCountry.setAdapter(new SpinnerAdapter(getContext(), values));
+            if (selectedClinic != null && selectedClinic.getAddress().getCountry() != null) {
+                int pos = values.indexOf(selectedClinic.getAddress().getCountry().getValue());
+                if (pos > 0)
+                    spinnerCountry.setSelection(pos);
+                else
+                    spinnerCountry.setSelection(0);
+            }
             spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -270,15 +286,22 @@ public class MyProfileAddClinicFragment extends DialogFragment {
             public void onSuccess(String result) {
                 try {
                     realm.beginTransaction();
-                    realm.allObjects(State.class).clear();
-                    realm.createAllFromJson(State.class, (new JSONObject(result)).getJSONArray("response").toString());
+                    realm.allObjects(AllState.class).clear();
+                    realm.createAllFromJson(AllState.class, (new JSONObject(result)).getJSONArray("response").toString());
                     realm.commitTransaction();
-                    states = realm.where(State.class).findAllSorted("value");
+                    states = realm.where(AllState.class).findAllSorted("value");
                     ArrayList<String> values = new ArrayList<String>();
-                    for (State state : states) {
+                    for (AllState state : states) {
                         values.add(state.getValue());
                     }
                     spinnerState.setAdapter(new SpinnerAdapter(getContext(), values));
+                    if(selectedClinic != null) {
+                        int pos = values.indexOf(selectedClinic.getAddress().getState().getValue());
+                        if (pos > 0)
+                            spinnerState.setSelection(pos);
+                        else
+                            spinnerState.setSelection(0);
+                    }
                     spinnerState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -308,15 +331,22 @@ public class MyProfileAddClinicFragment extends DialogFragment {
             public void onSuccess(String result) {
                 try {
                     realm.beginTransaction();
-                    realm.allObjects(City.class).clear();
-                    realm.createAllFromJson(City.class, (new JSONObject(result)).getJSONArray("response").toString());
+                    realm.allObjects(AllCity.class).clear();
+                    realm.createAllFromJson(AllCity.class, (new JSONObject(result)).getJSONArray("response").toString());
                     realm.commitTransaction();
-                    cities = realm.where(City.class).findAllSorted("value");
+                    cities = realm.where(AllCity.class).findAllSorted("value");
                     ArrayList<String> values = new ArrayList<String>();
-                    for (City city : cities) {
+                    for (AllCity city : cities) {
                         values.add(city.getValue());
                     }
                     spinnerCity.setAdapter(new SpinnerAdapter(getContext(), values));
+                    if (selectedClinic != null) {
+                        int pos = values.indexOf(selectedClinic.getAddress().getCity().getValue());
+                        if (pos >= 0)
+                            spinnerCity.setSelection(pos);
+                        else
+                            spinnerCity.setSelection(0);
+                    }
                     spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

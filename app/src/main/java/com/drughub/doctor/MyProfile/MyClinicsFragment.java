@@ -1,7 +1,6 @@
 package com.drughub.doctor.MyProfile;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -38,7 +37,6 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter adapter;
     private Realm realm;
-    ProgressDialog progress;
     RealmResults<DoctorClinic> doctorClinics;
 
     @Override
@@ -198,12 +196,22 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
     @Override
     public void onStart() {
         realm = Realm.getDefaultInstance();
-        progress = ProgressDialog.show(getContext(), "", "Please wait...", true);
-        Globals.GET(Urls.CLINIC, null, new Globals.VolleyCallback() {
+
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
+
+        loadClinics();
+
+        super.onStart();
+    }
+
+    public void loadClinics()
+    {
+        Globals.GET(Urls.CLINIC, new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 try {
-                    progress.dismiss();
                     JSONObject object = new JSONObject(result);
                     if (object.getBoolean("result")) {
                         realm.beginTransaction();
@@ -232,20 +240,12 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
 
             @Override
             public void onFail(String result) {
-                progress.dismiss();
             }
-        });
-        super.onStart();
+        }, "");
     }
 
     private void addValuesToRecyclerView(RealmResults<DoctorClinic> doctorClinics) {
-
-
         MyClinicsListAdapter adapter = new MyClinicsListAdapter(this.getActivity(), doctorClinics);
         mRecyclerView.setAdapter(adapter);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
-
     }
 }

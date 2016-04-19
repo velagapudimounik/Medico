@@ -5,6 +5,12 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.drughub.doctor.model.Country;
+import com.drughub.doctor.network.Globals;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Map;
 
 import io.realm.Realm;
@@ -26,6 +32,8 @@ public class MyApplication extends Application {
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
         Realm.deleteRealm(realmConfiguration); // Clean slate
         Realm.setDefaultConfiguration(realmConfiguration); // Make this Realm the default
+
+        Globals.init(getApplicationContext());
     }
 
     public static MyApplication get() {
@@ -58,7 +66,7 @@ public class MyApplication extends Application {
      * @param headers
      */
     public final void addSessionCookie(Map<String, String> headers) {
-        String sessionId = _preferences.getString(SESSION_COOKIE, "");
+        String sessionId = _preferences.getString(SESSION_COOKIE, "");//"1eb5f011-2d63-4ef1-980d-79eb97c5418e";
         if (sessionId.length() > 0) {
             StringBuilder builder = new StringBuilder();
             builder.append(SESSION_COOKIE);

@@ -13,17 +13,11 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.drughub.doctor.model.Country;
 import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.utils.DrughubIcon;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import io.realm.Realm;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -31,9 +25,6 @@ public class BaseActivity extends AppCompatActivity {
     private TextView mTitleText;
     private Toolbar mToolbar;
     private List<View> actionBtns = new ArrayList<>();
-    private Globals globals;
-    private Realm realm;
-
 
     @Override
     public void setContentView(int layoutResID) {
@@ -41,28 +32,7 @@ public class BaseActivity extends AppCompatActivity {
         FrameLayout activityContainer = (FrameLayout) fullView.findViewById(R.id.activity_content);
         getLayoutInflater().inflate(layoutResID, activityContainer, true);
         super.setContentView(fullView);
-        globals = new Globals(getApplicationContext());
-
-        Globals.getCountries(new Globals.VolleyCallback() {
-            @Override
-            public void onSuccess(String result) {
-                try {
-                    realm = Realm.getDefaultInstance();
-                    realm.beginTransaction();
-                    realm.allObjects(Country.class).clear();
-                    realm.createAllFromJson(Country.class, (new JSONObject(result)).getJSONArray("response").toString());
-                    realm.commitTransaction();
-                    realm.close();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFail(String result) {
-
-            }
-        });
+        Globals.setContext(this);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -93,6 +63,12 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void setTitle(CharSequence title) {
         mTitleText.setText(title);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Globals.setContext(this);
     }
 
     public void setBackButton(boolean enable) {

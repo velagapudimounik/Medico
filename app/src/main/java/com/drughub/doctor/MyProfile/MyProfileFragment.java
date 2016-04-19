@@ -13,7 +13,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -28,22 +27,23 @@ import com.soundcloud.android.crop.Crop;
 import java.io.File;
 
 import io.realm.Realm;
-import io.realm.RealmObject;
 
 public class MyProfileFragment extends Fragment {
-    private ImageView profileimage;
+    private ImageView profileImage;
+    private TextView profileIcon;
+    View imageView;
     RadioButton myprofile;
     RadioGroup profile_radiogroup;
-    FrameLayout emptyimageview;
-    FrameLayout addimageIcon;
     DrughubIcon editicon,righticon;
-    TextView changetext,doctorName,doctorDHCode,doctorEmail;
-    boolean clickCount = false;
+    TextView doctorName,doctorDHCode,doctorEmail;
+    boolean editMode = false;
+
     private static final int SELECT_PICTURE = 120;
     public static final int PICK_IMAGE = 110;
     public static final  int CROP_IMAGE=200;
     String fileName ;
     Uri outputUri;
+
     Realm realm;
     ServiceProvider serviceProvider;
 
@@ -62,26 +62,20 @@ public class MyProfileFragment extends Fragment {
         doctorDHCode=(TextView)view.findViewById(R.id.doctorID);
         doctorEmail=(TextView)view.findViewById(R.id.doctorEmail);
         editicon = (DrughubIcon) view.findViewById(R.id.Editicon);
-        //editicon.setOnClickListener(this);
         righticon = (DrughubIcon) view.findViewById(R.id.rightmark);
-        //changetext=(TextView)view.findViewById(R.id.change_textview);
-        emptyimageview=(FrameLayout)view.findViewById(R.id.emptyimage);
-        //righticon.setOnClickListener(this);
-        //final TextView changetext=(TextView)view.findViewById(R.id.profile_changetextview);
-        addimageIcon = (FrameLayout) view.findViewById(R.id.add_image_view);
-        profileimage=(ImageView)view.findViewById(R.id.profile_image);
-        addimageIcon.setOnClickListener(new View.OnClickListener() {
+        imageView = view.findViewById(R.id.image_view);
+        profileIcon = (DrughubIcon)view.findViewById(R.id.profile_icon);
+        profileImage = (ImageView)view.findViewById(R.id.profile_image);
+        imageView.setEnabled(false);
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectImage();
-                addimageIcon.setVisibility(View.INVISIBLE);
-                emptyimageview.setVisibility(View.GONE);
-                profileimage.setEnabled(false);
-
+                profileIcon.setVisibility(View.INVISIBLE);
+                profileImage.setVisibility(View.VISIBLE);
             }
         });
-        //addimageIcon.setOnClickListener(this);
-        emptyimageview = (FrameLayout) view.findViewById(R.id.emptyimage);
+
         myprofile = (RadioButton) view.findViewById(R.id.myProfileButton);
         final RadioButton changepassword = (RadioButton) view.findViewById(R.id.changepasswordbutton);
         final RadioButton myclinic = (RadioButton) view.findViewById(R.id.Myclinic_button);
@@ -90,55 +84,51 @@ public class MyProfileFragment extends Fragment {
         righticon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((MyprofileEditFragment)getFragmentManager().findFragmentById(R.id.container2)).updateProfile();
                 getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).commit();
+                myprofile.setPressed(true);
+                editMode = false;
+
                 righticon.setVisibility(View.INVISIBLE);
                 editicon.setVisibility(View.VISIBLE);
-                addimageIcon.setVisibility(View.INVISIBLE);
-                emptyimageview.setVisibility(View.VISIBLE);
-                myprofile.setPressed(true);
+                profileIcon.setText(getResources().getText(R.string.icon_noimage));
             }
         });
         editicon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickCount = true;
                 getFragmentManager().beginTransaction().replace(R.id.container2, new MyprofileEditFragment()).commit();
-                myprofile.setChecked(true);
-                changepassword.setChecked(false);
-                myclinic.setChecked(false);
-                //System.out.println(clickCount + "clickCount");
-               // Toast.makeText(getActivity(), "Editmain", Toast.LENGTH_SHORT).show();
-                addimageIcon.setVisibility(View.VISIBLE);
+                if(!myprofile.isChecked())
+                {
+                    editMode = true;
+                    myprofile.setChecked(true);
+                    changepassword.setChecked(false);
+                    myclinic.setChecked(false);
+                }
+
+                profileIcon.setText(getResources().getText(R.string.icon_foradd_image));
                 righticon.setVisibility(View.VISIBLE);
                 editicon.setVisibility(View.INVISIBLE);
-                //changetext.setVisibility(View.VISIBLE);
-                emptyimageview.setVisibility(View.INVISIBLE);
-                //clickCount=false;
             }
         });
         profile_radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.myProfileButton) {
-                    getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).commit();
-                    if (clickCount) {
-                        //Toast.makeText(getContext(), "Edit", Toast.LENGTH_SHORT).show();
-                        getFragmentManager().beginTransaction().replace(R.id.container2, new MyprofileEditFragment()).commit();
-                    }
-                    clickCount = false;
+                    if (!editMode)
+                        getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).commit();
+                    editMode = false;
                 } else if (checkedId == R.id.Myclinic_button) {
                     myprofile.setChecked(false);
                     righticon.setVisibility(View.INVISIBLE);
-                    addimageIcon.setVisibility(View.INVISIBLE);
-                    emptyimageview.setVisibility(View.VISIBLE);
                     editicon.setVisibility(View.VISIBLE);
+                    profileIcon.setText(getResources().getText(R.string.icon_noimage));
                     getFragmentManager().beginTransaction().replace(R.id.container2, new MyClinicsFragment()).commit();
                 } else if (checkedId == R.id.changepasswordbutton) {
                     myprofile.setChecked(false);
                     righticon.setVisibility(View.INVISIBLE);
-                    addimageIcon.setVisibility(View.INVISIBLE);
-                    emptyimageview.setVisibility(View.VISIBLE);
                     editicon.setVisibility(View.VISIBLE);
+                    profileIcon.setText(getResources().getText(R.string.icon_noimage));
                     getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileChangePasswordFragment()).commit();
                 }
             }
@@ -172,8 +162,8 @@ public class MyProfileFragment extends Fragment {
         builder.show();
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println(requestCode+"====requestcode");
-        System.out.println(resultCode+"====resultcode");
+        System.out.println(requestCode + "====requestcode");
+        System.out.println(resultCode + "====resultcode");
         if (resultCode == getActivity().RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
@@ -198,32 +188,26 @@ public class MyProfileFragment extends Fragment {
             else if (requestCode==Crop.REQUEST_CROP){
                 System.out.println(requestCode+"=====requestcode2");
                 Toast.makeText(getActivity(), "Crop", Toast.LENGTH_SHORT).show();
-                profileimage.setImageURI(outputUri);
-                System.out.println(profileimage+"====p=====");
+                profileImage.setImageURI(outputUri);
+                System.out.println(profileImage +"====p=====");
             }
         }
     }
 
-
-    public void editIcon() {
-        righticon.setVisibility(View.INVISIBLE);
-        editicon.setVisibility(View.VISIBLE);
-        addimageIcon.setVisibility(View.INVISIBLE);
-        emptyimageview.setVisibility(View.VISIBLE);
-        myprofile.setChecked(true);
-
+    void updateDetails()
+    {
+        if (serviceProvider != null){
+            doctorName.setText("Dr."+serviceProvider.getFirstName());
+            doctorDHCode.setText(""+serviceProvider.getSpProfileId());
+            doctorEmail.setText(serviceProvider.getEmailId());
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        realm= Realm.getDefaultInstance();
-        serviceProvider=realm.where(ServiceProvider.class).findFirst();
-        if (serviceProvider!=null){
-            doctorName.setText("Dr."+serviceProvider.getFirstName());
-            doctorDHCode.setText(""+serviceProvider.getSpProfileId());
-            doctorEmail.setText(serviceProvider.getEmailId());
-        }
-
+        realm = Realm.getDefaultInstance();
+        serviceProvider = realm.where(ServiceProvider.class).findFirst();
+        updateDetails();
     }
 }

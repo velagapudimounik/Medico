@@ -22,17 +22,20 @@ import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.network.Urls;
 import com.drughub.doctor.utils.CustomDialog;
 import com.drughub.doctor.utils.SimpleDividerItemDecoration;
+import com.github.mikephil.charting.charts.LineChart;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class MyCalendarAvailabilityList extends Fragment {
-
 
     private Realm realm;
     View mView;
@@ -68,8 +71,17 @@ public class MyCalendarAvailabilityList extends Fragment {
         AvailabilityListAdapter mAdapter = new AvailabilityListAdapter(calendarList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
+        updateView();
+    }
+
+    public void updateView()
+    {
         if(calendarList.size() == 0)
             mView.setVisibility(View.GONE);
+        else
+            mView.setVisibility(View.VISIBLE);
+
+        mRecyclerView.getAdapter().notifyDataSetChanged();
     }
 
     public class AvailabilityListAdapter extends RecyclerSwipeAdapter<AvailabilityListAdapter.ViewHolder>
@@ -84,6 +96,8 @@ public class MyCalendarAvailabilityList extends Fragment {
             View rescheduleBtn;
             View deleteBtn;
             View settingsBtn;
+            View expandBtn;
+            TextView moreInfo;
 
             public ViewHolder(View v)
             {
@@ -109,21 +123,60 @@ public class MyCalendarAvailabilityList extends Fragment {
                 });
                 rescheduleBtn = v.findViewById(R.id.reschedule);
                 deleteBtn = v.findViewById(R.id.deleteCalendar);
+
+                expandBtn = v.findViewById(R.id.expandBtn);
+                expandBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (moreInfo.getVisibility() != View.VISIBLE) {
+                            moreInfo.setVisibility(View.VISIBLE);
+                            expandBtn.setRotation(180);
+                        } else {
+                            moreInfo.setVisibility(View.GONE);
+                            expandBtn.setRotation(0);
+                        }
+                    }
+                });
+
+                moreInfo = (TextView) v.findViewById(R.id.moreInfo);
             }
 
             public void setItemDetails(ClinicCalendar item)
             {
-                if(item.getClinic().getAddress() == null || item.getClinic().getAddress().getColonyName() == null)
+                if(item.getClinic().getAddress() == null || item.getClinic().getAddress().getStreetName() == null)
                     clinicDetails.setText(item.getClinic().getClinicName());
                 else
-                    clinicDetails.setText(item.getClinic().getClinicName() + " | " + item.getClinic().getAddress().getColonyName());
+                    clinicDetails.setText(item.getClinic().getClinicName() + " | " + item.getClinic().getAddress().getStreetName());
 
-                timeSlots.setText("");
+                Map<String, String> dayTimeMap = new HashMap<>();
                 for (ConsultationTiming timeSlot: item.getConsultationTimings()) {
-                    if(timeSlots.getText().length() > 0)
-                        timeSlots.append(" | ");
-                    timeSlots.append(timeSlot.getFromTime() + " to " + timeSlot.getToTime());
+                    String slot = Globals.to12HourFormat(timeSlot.getFromTime()) + " to " + Globals.to12HourFormat(timeSlot.getToTime());
+                    if (dayTimeMap.containsKey(timeSlot.getDayOfWeek()))
+                        slot = dayTimeMap.get(timeSlot.getDayOfWeek()) + " | " + slot;
+
+                    dayTimeMap.put(timeSlot.getDayOfWeek(), slot);
                 }
+
+                String currentDay = Globals.getCurrentDayOfWeek();
+                timeSlots.setText("Today : ");
+                if(dayTimeMap.containsKey(currentDay))
+                    timeSlots.append(dayTimeMap.get(currentDay));
+                else
+                    timeSlots.append("Not Available");
+
+                moreInfo.setText("");
+                for(Map.Entry<Integer, String> dayOfWeek : MyCalendarActivity.sDaysOfWeek.entrySet()) {
+                    if(moreInfo.getText().length() > 0)
+                        moreInfo.append("\n");
+
+                    if(dayTimeMap.containsKey(dayOfWeek.getValue()))
+                        moreInfo.append(dayOfWeek.getValue()+" : "+dayTimeMap.get(dayOfWeek.getValue()));
+                    else
+                        moreInfo.append(dayOfWeek.getValue()+" : Not Available");
+                }
+
+                 moreInfo.setVisibility(View.GONE);
+                expandBtn.setRotation(0);
             }
         }
 
@@ -149,6 +202,14 @@ public class MyCalendarAvailabilityList extends Fragment {
             // with that element
             viewHolder.setItemDetails(mDataSet.get(position));
 
+            viewHolder.rescheduleBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MyCalendarActivity) getActivity()).loadAndShowEditCalendarDialog(mDataSet.get(position).getClinicId());
+                    mItemManger.closeAllItems();
+                }
+            });
+
             viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -159,6 +220,7 @@ public class MyCalendarAvailabilityList extends Fragment {
                         @Override
                         public void onClick(View v) {
                             dialog.dismiss();
+                            mItemManger.closeAllItems();
                         }
                     });
 
@@ -168,7 +230,7 @@ public class MyCalendarAvailabilityList extends Fragment {
                         public void onClick(View v) {
                             dialog.dismiss();
 
-                            Globals.DELETE(Urls.CLINIC_CALENDAR + "/" + mDataSet.get(position).getClinic().getClinicId(), null, null, null, new Globals.VolleyCallback() {
+                            Globals.DELETE(Urls.CLINIC + "/" + mDataSet.get(position).getClinicId() + Urls.CALENDAR, null, new Globals.VolleyCallback() {
                                 @Override
                                 public void onSuccess(String result) {
                                     try {
@@ -195,7 +257,7 @@ public class MyCalendarAvailabilityList extends Fragment {
                                 @Override
                                 public void onFail(String result) {
                                 }
-                            });
+                            }, "");
                         }
                     });
                 }

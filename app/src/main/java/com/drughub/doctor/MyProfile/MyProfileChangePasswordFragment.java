@@ -1,6 +1,6 @@
 package com.drughub.doctor.MyProfile;
 
-import android.app.ProgressDialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -19,13 +19,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MyProfileChangePasswordFragment extends Fragment {
-    ProgressDialog progress;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.myprofile_changepassword_fragment, container, false);
 
         final EditText currentPassword = (EditText) view.findViewById(R.id.currentPassword);
+        currentPassword.setTypeface(Typeface.DEFAULT);
         final EditText newPassword = (EditText) view.findViewById(R.id.newPassword);
+        newPassword.setTypeface(Typeface.DEFAULT);
         final EditText confirmPassword = (EditText) view.findViewById(R.id.confirmPassword);
+        confirmPassword.setTypeface(Typeface.DEFAULT);
         Button submitbutton = (Button) view.findViewById(R.id.buttonSubmit);
         submitbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,11 +53,9 @@ public class MyProfileChangePasswordFragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Globals.POST(Urls.CHANGE_PASSWORD, null, object.toString(), new Globals.VolleyCallback() {
+                        Globals.POST(Urls.CHANGE_PASSWORD, object.toString(), new Globals.VolleyCallback() {
                             @Override
                             public void onSuccess(String result) {
-                                if (progress != null)
-                                    progress.dismiss();
                                     try {
                                         JSONObject object = new JSONObject(result);
                                         if (object.getBoolean("result"))
@@ -79,12 +79,10 @@ public class MyProfileChangePasswordFragment extends Fragment {
 
                             @Override
                             public void onFail(String result) {
-                                if (progress!=null)
-                                    progress.dismiss();
                                 Toast.makeText(getActivity(), "Unable to process your request,please try again", Toast.LENGTH_SHORT).show();
                                 Log.v("Result===", result);
                             }
-                        });
+                        }, "");
 
                     }
                 }

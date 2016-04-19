@@ -2,7 +2,7 @@ package com.drughub.doctor.network;
 
 public class Urls {
 
-    public static String BASE_URL = "http://dev.drughub.in:8080/vachub/service/";
+    public static String BASE_URL = "https://qa.drughub.in/vachub/service/";
 
     public static String SIGN_UP = BASE_URL + "serviceprovider/1.0/signup";
     public static String SIGN_IN = BASE_URL + "login/loginAuthentication";
@@ -15,7 +15,7 @@ public class Urls {
 
     public static String CLINIC = BASE_URL + "serviceprovider/1.0/clinics";
 
-    public static String CLINIC_CALENDAR = BASE_URL + "serviceprovider/1.0/clinicCalendars";
+    public static String CALENDAR = "/clinicCalendars";
     public static String CHANGE_PASSWORD = BASE_URL + "user/changePassword";
     public static String GET_SPECIALLIZATION=BASE_URL+"common/1.0/specialization";
     public static String GET_QUALIFICATION=BASE_URL+"common/1.0/qualification";

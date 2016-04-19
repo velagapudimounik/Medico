@@ -1,7 +1,5 @@
 package com.drughub.doctor.Login;
 
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -26,11 +24,7 @@ import org.json.JSONObject;
 public class SignUpFragment extends Fragment {
     TextView titleSignup = null;
     Fragment fragment = null;
-    ProgressDialog progress;
-
-    public SignUpFragment() {
-
-    }
+    public SignUpFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,7 +73,6 @@ public class SignUpFragment extends Fragment {
                     else if (password.length() < 8)
                         Toast.makeText(getActivity(), "Password should be in minimum 8 characters", Toast.LENGTH_SHORT).show();
                     else {
-                        progress = ProgressDialog.show(getActivity(), "SignUp", "Please wait...", true);
                         User user = new User();
                         user.setEmail(email);
                         user.setMobile(mobile);
@@ -88,8 +81,6 @@ public class SignUpFragment extends Fragment {
                         user.SignUp(getActivity(), new Globals.VolleyCallback() {
                             @Override
                             public void onSuccess(String result) {
-                                if (progress != null)
-                                    progress.dismiss();
                                 try {
                                     JSONObject object = new JSONObject(result);
                                     if (object.getBoolean("result")) {
@@ -107,13 +98,9 @@ public class SignUpFragment extends Fragment {
 
                             @Override
                             public void onFail(String result) {
-                                if (progress != null)
-                                    progress.dismiss();
                                 Toast.makeText(getActivity(), "Unable to process your request, please try again.", Toast.LENGTH_SHORT).show();
-
                             }
                         });
-
                     }
                 }
 

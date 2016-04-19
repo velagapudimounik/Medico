@@ -1,5 +1,8 @@
 package com.drughub.doctor.model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 
@@ -11,6 +14,14 @@ public class ConsultationTiming extends RealmObject {
     private String dayOfWeek;
     private String fromTime;
     private String toTime;
+
+    public void copy(ConsultationTiming timing){
+        this.calendarId = timing.getCalendarId();
+        this.clinicId = timing.getClinicId();
+        this.dayOfWeek = timing.getDayOfWeek();
+        this.fromTime = timing.getFromTime();
+        this.toTime = timing.getToTime();
+    }
 
     public Integer getCalendarId() {
         return calendarId;
@@ -52,4 +63,20 @@ public class ConsultationTiming extends RealmObject {
         this.toTime = toTime;
     }
 
+    public JSONObject getJSONObject()
+    {
+        JSONObject object = new JSONObject();
+        try {
+            //object.put("calendarId", getCalendarId());
+            object.put("clinicId", getClinicId());
+            object.put("dayOfWeek", getDayOfWeek());
+            object.put("fromTime", getFromTime());
+            object.put("toTime", getToTime());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return object;
+    }
 }

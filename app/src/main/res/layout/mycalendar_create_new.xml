@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
+        android:id="@+id/titleText"
         android:text="@string/create_new_calendar"
         android:textColor="@color/colorWhite"
         android:textSize="17sp" />
@@ -66,7 +67,7 @@
             android:textSize="15dp" />
 
         <TextView
-            android:id="@+id/working_days"
+            android:id="@+id/non_working_days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

@@ -260,7 +260,7 @@
     <string name="update">Update</string>
     <string name="currentPassword">Current Password</string>
     <string name="newPassword">New Password</string>
-    <string name="confirmPassword">Confirm Passowrd</string>
+    <string name="confirmPassword">Confirm Password</string>
     <string name="addClinic">Add Clinic</string>
     <string name="editClinic">Edit Clinic</string>
     <string name="deleteClinicMessage">Are you Sure?\nYou want to remove Clinic.</string>

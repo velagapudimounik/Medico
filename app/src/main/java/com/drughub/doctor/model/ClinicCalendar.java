@@ -13,12 +13,23 @@ import java.util.HashMap;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 
 public class ClinicCalendar extends RealmObject {
 
+    @PrimaryKey
+    private Integer clinicId = -1;
     private RealmList<ConsultationTiming> consultationTimings;
     private DoctorClinic clinic;
+
+    public Integer getClinicId() {
+        return clinicId;
+    }
+
+    public void setClinicId(Integer clinicId) {
+        this.clinicId = clinicId;
+    }
 
     public RealmList<ConsultationTiming> getConsultationTimings() {
         return consultationTimings;
@@ -36,6 +47,18 @@ public class ClinicCalendar extends RealmObject {
         this.clinic = clinic;
     }
 
+    public String toCreateClinicCalendar() {
+        JSONArray array = new JSONArray();
+        try {
+            for (ConsultationTiming consultationTiming : getConsultationTimings()) {
+                array.put(consultationTiming.getJSONObject());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return array.toString();
+    }
 
 //    public String toCreateClinicCalendar() {
 //        JSONObject object = new JSONObject();
