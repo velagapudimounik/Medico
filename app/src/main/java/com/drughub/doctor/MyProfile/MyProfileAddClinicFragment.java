@@ -136,8 +136,6 @@ public class MyProfileAddClinicFragment extends DialogFragment {
 
                 if (clinicName.isEmpty())
                     Toast.makeText(getContext(), "Enter Clinic Name", Toast.LENGTH_SHORT).show();
-                else if (mobile.isEmpty())
-                    Toast.makeText(getContext(), "Enter Mobile", Toast.LENGTH_SHORT).show();
                 else if (con_fee.isEmpty())
                     Toast.makeText(getContext(), "Enter Consultation Fee", Toast.LENGTH_SHORT).show();
                 else if (spinnerState.getSelectedItem() == null)
@@ -181,7 +179,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                     clinic.getAddress().setPostalCode(postalcode);
                     clinic.getAddress().setLandmark(landMark);
                     clinic.getAddress().setAreaCode("null");
-                    clinic.getAddress().setAreaName("SR Ngr");
+                    //clinic.getAddress().setAreaName("SR Ngr");
                     if (clinicString.equals("addClinic")) {
                         clinic.AddClinic(new Globals.VolleyCallback() {
 
@@ -295,7 +293,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                         values.add(state.getValue());
                     }
                     spinnerState.setAdapter(new SpinnerAdapter(getContext(), values));
-                    if(selectedClinic != null) {
+                    if (selectedClinic != null) {
                         int pos = values.indexOf(selectedClinic.getAddress().getState().getValue());
                         if (pos > 0)
                             spinnerState.setSelection(pos);

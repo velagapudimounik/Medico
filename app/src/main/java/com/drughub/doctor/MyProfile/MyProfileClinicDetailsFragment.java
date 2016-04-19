@@ -44,7 +44,7 @@ public class MyProfileClinicDetailsFragment extends Fragment {
 
         clinicName.setText(Globals.selectedDoctorClinic.getClinicName());
         clinicAddress.setText(Globals.selectedDoctorClinic.getAddress().getBuildingName()+", "+Globals.selectedDoctorClinic.getAddress().getDoorNumber()+
-                ", "+Globals.selectedDoctorClinic.getAddress().getLandMark()+" \n"+Globals.selectedDoctorClinic.getAddress().getCity().getValue().trim()+". Mobile Number : "+Globals.selectedDoctorClinic.getPhoneNo()+"");
+                ", "+Globals.selectedDoctorClinic.getAddress().getLandMark()+" \n"+Globals.selectedDoctorClinic.getAddress().getCity().getValue().trim());
         consultataionfee.setText(Globals.selectedDoctorClinic.getConsultationFee()+"");
 
         return view;
