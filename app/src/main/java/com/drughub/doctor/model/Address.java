@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import io.realm.RealmObject;
 
 public class Address extends RealmObject {
-    private String addressId ;
+    private String addressId;
     private Country country = new Country();
     private City city = new City();
     private State state = new State();
@@ -158,7 +158,7 @@ public class Address extends RealmObject {
             addressObject.put("buildingName", getBuildingName());
             addressObject.put("streetName", getStreetName());
             addressObject.put("areaCode", getAreaCode());
-            addressObject.put("areaName",getAreaName());
+            addressObject.put("areaName", getAreaName());
             addressObject.put("landMark", getLandmark());
             addressObject.put("postalCode", getPostalCode());
             addressObject.put("lat", getLat());
@@ -175,39 +175,45 @@ public class Address extends RealmObject {
 
     }
 
-    public String getAddressLine1(){
+    public String getAddressLine1() {
         // buildingName, doorNumber, streetName, areaName.
         StringBuffer s = new StringBuffer();
-        if(getBuildingName()!=null && !getBuildingName().isEmpty())
-        s.append(getBuildingName());
-        if(s.length()>0 && getDoorNumber()!=null && !getDoorNumber().isEmpty())
+        if (getBuildingName() != null && !getBuildingName().isEmpty())
+            s.append(getBuildingName());
+        if (s.length() > 0)
             s.append(", ");
+        if(getDoorNumber() != null && !getDoorNumber().isEmpty())
         s.append(getDoorNumber());
-        if(s.length()>0 && getStreetName()!=null &&  !getStreetName().isEmpty())
+        if (s.length() > 0)
             s.append(", ");
+        if(getStreetName() != null && !getStreetName().isEmpty())
         s.append(getStreetName());
-        if(s.length()>0 && getAreaName()!=null &&  !getAreaName().isEmpty())
+        if (s.length() > 0)
             s.append(", ");
+        if(getAreaName() != null && !getAreaName().isEmpty())
         s.append(getAreaName());
 
-        return s.toString().replaceAll("null","");
+        return s.toString().replaceAll("null", "");
     }
-public String getAddressLine2(){
+
+    public String getAddressLine2() {
         // city, state, country, postalCode.
         StringBuffer s = new StringBuffer();
-        if(getCity()!=null && getCity().getValue()!=null && !getCity().getValue().isEmpty())
-        s.append(getCity().getValue());
-        if(s.length()>0 && getState()!=null && getState().getValue()!=null &&  !getState().getValue().isEmpty())
+        if (getCity() != null && getCity().getValue() != null && !getCity().getValue().isEmpty())
+            s.append(getCity().getValue());
+        if (s.length() > 0)
             s.append(", ");
-        s.append(""+getState().getValue());
-        if(s.length()>0 && getCountry()!=null && getCountry().getValue()!=null && !getCountry().getValue().isEmpty())
+        if( getState() != null && getState().getValue() != null && !getState().getValue().isEmpty())
+        s.append("" + getState().getValue());
+        if (s.length() > 0)
             s.append(", ");
-        s.append(""+getCountry().getValue());
-        if(s.length()>0 && !getPostalCode().isEmpty())
+        if (getCountry() != null && getCountry().getValue() != null && !getCountry().getValue().isEmpty())
+            s.append("" + getCountry().getValue());
+        if (s.length() > 0 && !getPostalCode().isEmpty())
             s.append(", ");
         s.append(getPostalCode());
 
-        return s.toString().replaceAll("null","");
+        return s.toString().replaceAll("null", "").replaceAll(",,",",");
     }
 
 }
