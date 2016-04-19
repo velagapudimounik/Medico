@@ -178,15 +178,15 @@ public class Address extends RealmObject {
     public String getAddressLine1(){
         // buildingName, doorNumber, streetName, areaName.
         StringBuffer s = new StringBuffer();
-        if(!getBuildingName().isEmpty())
+        if(getBuildingName()!=null && !getBuildingName().isEmpty())
         s.append(getBuildingName());
-        if(s.length()>0 && !getDoorNumber().isEmpty())
+        if(s.length()>0 && getDoorNumber()!=null && !getDoorNumber().isEmpty())
             s.append(", ");
         s.append(getDoorNumber());
-        if(s.length()>0 && !getStreetName().isEmpty())
+        if(s.length()>0 && getStreetName()!=null &&  !getStreetName().isEmpty())
             s.append(", ");
         s.append(getStreetName());
-        if(s.length()>0 && !getAreaName().isEmpty())
+        if(s.length()>0 && getAreaName()!=null &&  !getAreaName().isEmpty())
             s.append(", ");
         s.append(getAreaName());
 
@@ -195,14 +195,14 @@ public class Address extends RealmObject {
 public String getAddressLine2(){
         // city, state, country, postalCode.
         StringBuffer s = new StringBuffer();
-        if(!getCity().getValue().isEmpty())
+        if(getCity()!=null && getCity().getValue()!=null && !getCity().getValue().isEmpty())
         s.append(getCity().getValue());
-        if(s.length()>0 && !getState().getValue().isEmpty())
+        if(s.length()>0 && getState()!=null && getState().getValue()!=null &&  !getState().getValue().isEmpty())
             s.append(", ");
-        s.append(getState().getValue());
-        if(s.length()>0 && !getCountry().getValue().isEmpty())
+        s.append(""+getState().getValue());
+        if(s.length()>0 && getCountry()!=null && getCountry().getValue()!=null && !getCountry().getValue().isEmpty())
             s.append(", ");
-        s.append(getCountry().getValue());
+        s.append(""+getCountry().getValue());
         if(s.length()>0 && !getPostalCode().isEmpty())
             s.append(", ");
         s.append(getPostalCode());
