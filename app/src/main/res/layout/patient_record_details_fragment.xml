@@ -56,7 +56,7 @@
                 android:id="@+id/Doctor_DHCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="| DH Code"
+                android:text=" | DH Code"
                 android:textColor="@color/colorText"
                 android:textSize="@dimen/text_medium" />
         </LinearLayout>

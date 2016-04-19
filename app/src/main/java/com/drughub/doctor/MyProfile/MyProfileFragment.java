@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,9 +90,7 @@ public class MyProfileFragment extends Fragment {
                 myprofile.setPressed(true);
                 editMode = false;
 
-                righticon.setVisibility(View.INVISIBLE);
-                editicon.setVisibility(View.VISIBLE);
-                profileIcon.setText(getResources().getText(R.string.icon_noimage));
+                onUpdateProfile();
             }
         });
         editicon.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +146,7 @@ public class MyProfileFragment extends Fragment {
             public void onClick(DialogInterface dialog, int item) {
                 if (items[item].equals("Take a photo")) {
                     Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    File file=new File(android.os.Environment.getExternalStorageDirectory(),fileName);
+                    File file = new File(android.os.Environment.getExternalStorageDirectory(), fileName);
                     camera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
                     startActivityForResult(camera, PICK_IMAGE);
                 } else if (items[item].equals("Select from Gallery")) {
@@ -164,7 +163,7 @@ public class MyProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         System.out.println(requestCode + "====requestcode");
         System.out.println(resultCode + "====resultcode");
-        if (resultCode == getActivity().RESULT_OK) {
+        if (resultCode == AppCompatActivity.RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
                 outputUri=selectedImageUri;
@@ -194,13 +193,17 @@ public class MyProfileFragment extends Fragment {
         }
     }
 
-    void updateDetails()
+    void onUpdateProfile()
     {
         if (serviceProvider != null){
             doctorName.setText("Dr."+serviceProvider.getFirstName());
             doctorDHCode.setText(""+serviceProvider.getSpProfileId());
             doctorEmail.setText(serviceProvider.getEmailId());
         }
+
+        righticon.setVisibility(View.INVISIBLE);
+        editicon.setVisibility(View.VISIBLE);
+        profileIcon.setText(getResources().getText(R.string.icon_noimage));
     }
 
     @Override
@@ -208,6 +211,6 @@ public class MyProfileFragment extends Fragment {
         super.onStart();
         realm = Realm.getDefaultInstance();
         serviceProvider = realm.where(ServiceProvider.class).findFirst();
-        updateDetails();
+        onUpdateProfile();
     }
 }
