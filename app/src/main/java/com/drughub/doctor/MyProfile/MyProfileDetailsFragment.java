@@ -99,6 +99,8 @@ public class MyProfileDetailsFragment extends Fragment {
                 adressline2.setText(serviceProvider.getAddress().getAddressLine2());
             } else {
                 realm.beginTransaction();
+                realm.allObjects(State.class).clear();
+                realm.allObjects(City.class).clear();
                 serviceProvider.setAddress(realm.createObject(Address.class));
                 serviceProvider.getAddress().setState(realm.createObject(State.class));
                 serviceProvider.getAddress().setCity(realm.createObject(City.class));
