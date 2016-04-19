@@ -23,9 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/nameSignup"
-                android:inputType="textCapWords"
                 android:hint="@string/Name"
-                style="@style/EditTextStyle"/>
+                style="@style/EditTextStyle" />
 
             <EditText
                 android:layout_width="match_parent"
