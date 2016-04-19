@@ -14,12 +14,13 @@ import java.util.ArrayList;
 
 public class SpinnerAdapter extends ArrayAdapter<String> {
     private Context context;
-    ArrayList<String> values;
+    ArrayList<String> values,statevalues;
 
     public SpinnerAdapter(Context context, ArrayList<String> values) {
         super(context, R.layout.myporfile_spinner_addclinic, values);
         this.context = context;
         this.values = values;
+        this.statevalues=statevalues;
     }
 
     @Override
@@ -34,7 +35,7 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
 
     @Override
     public int getCount() {
-        return super.getCount();
+        return values.size()-1;
     }
     View countrySet(int position)
     {

@@ -46,10 +46,15 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
     private RealmResults<AllCity> cities;
     private RealmResults<Specialization> specializations;
     private RealmResults<Qualification> qualifications;
+    final ArrayList<String> statevalues = new ArrayList<>();
+
+
 
     @Override
     public void onStart() {
         super.onStart();
+
+        //spinnerState.setSelection(0);
         // Create Realm instance for the UI thread
         realm = Realm.getDefaultInstance();
         serviceProvider = realm.where(ServiceProvider.class).findFirst();
@@ -73,21 +78,25 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 
         countries = realm.where(Country.class).findAllSorted("value");
         if (countries.size() > 0) {
-            ArrayList<String> values = new ArrayList<>();
+            final ArrayList<String> values = new ArrayList<>();
             for (Country country : countries) {
                 values.add(country.getValue());
             }
+            values.add("Select Country");
+//            statevalues.add("Select State");
+
             spinnerCountry.setAdapter(new SpinnerAdapter(getContext(), values));
+            spinnerCountry.setSelection(values.size() - 1);
             if (serviceProvider.getAddress().getCountry() != null) {
                 int pos = values.indexOf(serviceProvider.getAddress().getCountry().getValue());
-                if (pos > 0)
+                if (pos!=-1)
                     spinnerCountry.setSelection(pos);
-                else
-                    spinnerCountry.setSelection(0);
+
             }
             spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (position!=values.size()-1)
                     getStates(position);
                 }
 
@@ -169,7 +178,6 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
             }
         });
     }
-
     private void getStates(int position) {
         Globals.getState(countries.get(position).getId(), new Globals.VolleyCallback() {
             @Override
@@ -189,30 +197,34 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
                     realm.commitTransaction();
 
                     states = realm.where(AllState.class).findAllSorted("value");
-
-                    spinnerState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            getCities(position);
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });
                     if (states.size() > 0) {
-                        ArrayList<String> values = new ArrayList<>();
+
                         for (AllState state : states) {
-                            values.add(state.getValue());
+                            statevalues.add(state.getValue());
                         }
-                        spinnerState.setAdapter(new SpinnerAdapter(getContext(), values));
-                        int pos = values.indexOf(serviceProvider.getAddress().getState().getValue());
-                        if (pos > 0)
-                            spinnerState.setSelection(pos);
-                        else
-                            spinnerState.setSelection(0);
+//                        statevalues.add("Select State");
+                        spinnerState.setAdapter(new SpinnerAdapter(getContext(), statevalues));
+//                        spinnerState.setSelection(statevalues.size()-1);
+                        if (serviceProvider.getAddress().getState()!=null) {
+                            int pos = statevalues.indexOf(serviceProvider.getAddress().getState().getValue());
+                            if (pos >0)
+                                spinnerState.setSelection(pos);
+                        }
+                        spinnerState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                if (position!=0)
+                                getCities(position);
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
                     }
+
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -299,6 +311,10 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
         spinnerQualification = (Spinner) view.findViewById(R.id.spinnerQualification);
         spinnerSpecialization = (Spinner) view.findViewById(R.id.spinnerSpecialization);
         view.findViewById(R.id.buttonUpdate).setOnClickListener(this);
+        statevalues.add("Select State");
+        statevalues.add("Select State");
+        spinnerState.setAdapter(new SpinnerAdapter(getContext(), statevalues));
+
     }
 
     private EditText getEditFirstName() {

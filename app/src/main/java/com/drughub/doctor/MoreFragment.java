@@ -14,15 +14,23 @@ import com.drughub.doctor.Login.LoginActivity;
 import com.drughub.doctor.MyOrders.MyOrderContainer;
 import com.drughub.doctor.MyProfile.MyProfileActivity;
 import com.drughub.doctor.OrangeWallet.OrangeWalletActivity;
+import com.drughub.doctor.model.ServiceProvider;
+import com.drughub.doctor.model.User;
 import com.drughub.doctor.mycalendar.MyCalendarActivity;
+import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.orangeconnect.OrangeConnectActivity;
 import com.drughub.doctor.patientrecords.PatientRecordActivity;
 import com.drughub.doctor.utils.CustomDialog;
 
+import io.realm.Realm;
+
 public class MoreFragment extends Fragment {
 
-
+    private TextView profileDoctorname,profileDoctorcode;
     Fragment fragment = null;
+    ServiceProvider serviceProvider;
+    private Realm realm;
+    User user;
 
     @Nullable
     @Override
@@ -31,6 +39,8 @@ public class MoreFragment extends Fragment {
         View view = inflater.inflate(R.layout.more, container, false);
 
         LinearLayout my_orders = (LinearLayout) view.findViewById(R.id.my_orders);
+        profileDoctorname=(TextView)view.findViewById(R.id.profileDoctorName);
+        profileDoctorcode=(TextView)view.findViewById(R.id.profileDoctorCode);
         LinearLayout patient_records = (LinearLayout) view.findViewById(R.id.patient_records);
         LinearLayout orangeConnect = (LinearLayout) view.findViewById(R.id.orange_connect);
         LinearLayout about = (LinearLayout) view.findViewById(R.id.about);
@@ -118,5 +128,16 @@ public class MoreFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        realm=Realm.getDefaultInstance();
+        serviceProvider=realm.where(ServiceProvider.class).findFirst();
+        if (serviceProvider!=null){
+            profileDoctorname.setText("Hello");
+//            profileDoctorcode.setText(serviceProvider.getSpProfileId());
+        }
     }
 }
