@@ -175,4 +175,39 @@ public class Address extends RealmObject {
 
     }
 
+    public String getAddressLine1(){
+        // buildingName, doorNumber, streetName, areaName.
+        StringBuffer s = new StringBuffer();
+        if(!getBuildingName().isEmpty())
+        s.append(getBuildingName());
+        if(s.length()>0 && !getDoorNumber().isEmpty())
+            s.append(", ");
+        s.append(getDoorNumber());
+        if(s.length()>0 && !getStreetName().isEmpty())
+            s.append(", ");
+        s.append(getStreetName());
+        if(s.length()>0 && !getAreaName().isEmpty())
+            s.append(", ");
+        s.append(getAreaName());
+
+        return s.toString().replaceAll("null","");
+    }
+public String getAddressLine2(){
+        // city, state, country, postalCode.
+        StringBuffer s = new StringBuffer();
+        if(!getCity().getValue().isEmpty())
+        s.append(getCity().getValue());
+        if(s.length()>0 && !getState().getValue().isEmpty())
+            s.append(", ");
+        s.append(getState().getValue());
+        if(s.length()>0 && !getCountry().getValue().isEmpty())
+            s.append(", ");
+        s.append(getCountry().getValue());
+        if(s.length()>0 && !getPostalCode().isEmpty())
+            s.append(", ");
+        s.append(getPostalCode());
+
+        return s.toString().replaceAll("null","");
+    }
+
 }
