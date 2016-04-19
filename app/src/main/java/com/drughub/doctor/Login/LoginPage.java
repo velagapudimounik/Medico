@@ -64,10 +64,10 @@ public class LoginPage extends Fragment {
                 } else if (view == signUpButton) {
                     getFragmentManager().beginTransaction().replace(R.id.container1, new SignUpFragment()).addToBackStack(null).commit();
                 } else if (view == forgotPasswordTextView) {
-                    //getFragmentManager().beginTransaction().replace(R.id.container1, new ForgotPasswordFragment()).addToBackStack(null).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.container1, new ForgotPasswordFragment()).addToBackStack(null).commit();
 
-                    startActivity(new Intent(getActivity(), MainActivity.class));
-                    getActivity().finish();
+                    //startActivity(new Intent(getActivity(), ForgotPasswordFragment.class));
+                    //getActivity().finish();
                 }
             }
         };
