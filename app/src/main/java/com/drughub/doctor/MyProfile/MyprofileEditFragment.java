@@ -73,7 +73,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 
         countries = realm.where(Country.class).findAllSorted("value");
         if (countries.size() > 0) {
-            ArrayList<String> values = new ArrayList<String>();
+            ArrayList<String> values = new ArrayList<>();
             for (Country country : countries) {
                 values.add(country.getValue());
             }
@@ -113,7 +113,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
                     realm.createAllFromJson(Specialization.class, (new JSONObject(result)).getJSONArray("response").toString());
                     realm.commitTransaction();
                     specializations = realm.where(Specialization.class).findAllSorted("value");
-                    ArrayList<String> values = new ArrayList<String>();
+                    ArrayList<String> values = new ArrayList<>();
                     for (Specialization specialization : specializations) {
                         values.add(specialization.getValue());
                     }
@@ -146,7 +146,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
                     realm.createAllFromJson(Qualification.class, (new JSONObject(result)).getJSONArray("response").toString());
                     realm.commitTransaction();
                     qualifications = realm.where(Qualification.class).findAllSorted("value");
-                    ArrayList<String> values = new ArrayList<String>();
+                    ArrayList<String> values = new ArrayList<>();
                     for (Qualification qualification : qualifications) {
                         values.add(qualification.getValue());
                     }
@@ -202,7 +202,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
                         }
                     });
                     if (states.size() > 0) {
-                        ArrayList<String> values = new ArrayList<String>();
+                        ArrayList<String> values = new ArrayList<>();
                         for (AllState state : states) {
                             values.add(state.getValue());
                         }
@@ -242,7 +242,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 //                    serviceProvider.getAddress().setCity(city1);
                     realm.commitTransaction();
                     cities = realm.where(AllCity.class).findAllSorted("value");
-                    ArrayList<String> values = new ArrayList<String>();
+                    ArrayList<String> values = new ArrayList<>();
                     for (AllCity city : cities) {
                         values.add(city.getValue().trim());
                     }
@@ -415,7 +415,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
             }
         });
         getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).commit();
-        ((MyProfileFragment)getFragmentManager().findFragmentById(R.id.containeractivity)).updateDetails();
+        ((MyProfileFragment)getFragmentManager().findFragmentById(R.id.containeractivity)).onUpdateProfile();
     }
 
 }
