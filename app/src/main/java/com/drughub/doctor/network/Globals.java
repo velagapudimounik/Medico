@@ -34,10 +34,8 @@ import com.drughub.doctor.model.User;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.CookieManager;
 import java.net.HttpCookie;

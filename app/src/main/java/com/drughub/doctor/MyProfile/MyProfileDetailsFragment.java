@@ -24,7 +24,6 @@ public class MyProfileDetailsFragment extends Fragment {
 
     private TextView doctorName;
     private TextView qualification;
-    private TextView experience;
     private TextView adressline1;
     private TextView adressline2;
     private TextView email;
@@ -61,7 +60,6 @@ public class MyProfileDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         doctorName = (TextView) view.findViewById(R.id.doctor_name);
         qualification = (TextView) view.findViewById(R.id.qualification);
-        experience = (TextView) view.findViewById(R.id.experience);
         adressline1 = (TextView) view.findViewById(R.id.textadressLine1);
         adressline2 = (TextView) view.findViewById(R.id.textadressLine2);
         email = (TextView) view.findViewById(R.id.email);
@@ -97,10 +95,8 @@ public class MyProfileDetailsFragment extends Fragment {
                 qualification.append(", "+serviceProvider.getSpecializationList().get(0).getValue());
 
             if (serviceProvider.getAddress() != null) {
-                adressline1.setText(serviceProvider.getAddress().getBuildingName() + ", " + serviceProvider.getAddress().getDoorNumber()
-                        + ", " + serviceProvider.getAddress().getStreetName() + ", " + serviceProvider.getAddress().getAreaName());
-                adressline2.setText(serviceProvider.getAddress().getCity().getValue() + ", " + serviceProvider.getAddress().getState().getValue()
-                        + ", " + serviceProvider.getAddress().getPostalCode());
+                adressline1.setText(serviceProvider.getAddress().getAddressLine1());
+                adressline2.setText(serviceProvider.getAddress().getAddressLine2());
             } else {
                 realm.beginTransaction();
                 serviceProvider.setAddress(realm.createObject(Address.class));
