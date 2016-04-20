@@ -34,7 +34,7 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
 
     @Override
     public int getCount() {
-        return super.getCount();
+        return values.size()-1;
     }
     View countrySet(int position)
     {

@@ -104,6 +104,10 @@ public class MyProfileAddClinicFragment extends DialogFragment {
             Mobile.setText(Globals.selectedDoctorClinic.getPhoneNo());
             consultationFee.setText("" + Globals.selectedDoctorClinic.getConsultationFee());
             addClinic.setText("Save");
+            if (Globals.selectedDoctorClinic.getIsConsultationAtHome())
+                consultationHome.setChecked(true);
+            else
+                consultationHome.setChecked(false);
 
         }
 
@@ -133,28 +137,44 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                 String clinicName = clinic_Name.getText().toString();
                 String con_fee = consultationFee.getText().toString();
                 String mobile = Mobile.getText().toString();
+                String buildingName = building_name.getText().toString();
+                String doorno = doorNo.getText().toString();
+                String streetname = streetName.getText().toString();
+                String colonyname = colonyName.getText().toString();
+                String postalcode = pincode.getText().toString();
+                String landMark = landmark.getText().toString();
 
                 if (clinicName.isEmpty())
                     Toast.makeText(getContext(), "Enter Clinic Name", Toast.LENGTH_SHORT).show();
                 else if (con_fee.isEmpty())
                     Toast.makeText(getContext(), "Enter Consultation Fee", Toast.LENGTH_SHORT).show();
+                else if (buildingName.isEmpty())
+                    Toast.makeText(getContext(), "Enter Building Name", Toast.LENGTH_SHORT).show();
+                else if (doorno.isEmpty())
+                    Toast.makeText(getContext(), "Enter Door Number", Toast.LENGTH_SHORT).show();
+                else if (streetname.isEmpty())
+                    Toast.makeText(getContext(), "Enter Street Name", Toast.LENGTH_SHORT).show();
+                else if (colonyname.isEmpty())
+                    Toast.makeText(getContext(), "Enter Colony Name", Toast.LENGTH_SHORT).show();
                 else if (spinnerState.getSelectedItem() == null)
                     Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
                 else if (spinnerCity.getSelectedItem() == null)
                     Toast.makeText(getContext(), "Select City", Toast.LENGTH_SHORT).show();
+                else if (postalcode.isEmpty())
+                    Toast.makeText(getContext(), "Enter Postal Code", Toast.LENGTH_SHORT).show();
+                else if (landMark.isEmpty())
+                    Toast.makeText(getContext(), "Enter LandMark", Toast.LENGTH_SHORT).show();
                 else {
 
-                    String buildingName = building_name.getText().toString();
-                    String doorno = doorNo.getText().toString();
-                    String streetname = streetName.getText().toString();
-                    String colonyname = colonyName.getText().toString();
+
                     Country country = countries.get(spinnerCountry.getSelectedItemPosition());
                     AllState state = states.get(spinnerState.getSelectedItemPosition());
+                    Log.i("States", states.get(spinnerState.getSelectedItemPosition()) + "");
                     AllCity city = cities.get(spinnerCity.getSelectedItemPosition());
-                    String postalcode = pincode.getText().toString();
-                    String landMark = landmark.getText().toString();
+
 
                     DoctorClinic clinic = new DoctorClinic();
+                    Address address;
                     clinic.setClinicName(clinicName);
                     clinic.setPhoneNo(mobile);
                     clinic.setConsultationFee(Integer.parseInt(con_fee));
@@ -191,7 +211,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                                     if (object.getBoolean("result")) {
                                         Toast.makeText(getContext(), "Clinic Added Successfully", Toast.LENGTH_SHORT).show();
                                         getFragmentManager().popBackStack();
-                                        ((MyClinicsFragment)getFragmentManager().findFragmentById(R.id.container2)).loadClinics();
+                                        ((MyClinicsFragment) getFragmentManager().findFragmentById(R.id.container2)).loadClinics();
                                     } else {
                                         Toast.makeText(getContext(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
                                     }
@@ -210,6 +230,10 @@ public class MyProfileAddClinicFragment extends DialogFragment {
 
                     } else {
                         clinic.setClinicId(selectedClinic.getClinicId());
+
+                        address = new Address();
+                        Log.i("AddressID_from", selectedClinic.getAddress().getAddressId() + "");
+                        clinic.getAddress().setAddressId(selectedClinic.getAddress().getAddressId());
                         clinic.UpdateClinic(new Globals.VolleyCallback() {
                             @Override
                             public void onSuccess(String result) {
@@ -219,7 +243,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                                     if (object.getBoolean("result")) {
                                         Toast.makeText(getContext(), "Clinic Updated Successfully", Toast.LENGTH_SHORT).show();
                                         getFragmentManager().popBackStack();
-                                        ((MyClinicsFragment)getFragmentManager().findFragmentById(R.id.container2)).loadClinics();
+                                        ((MyClinicsFragment) getFragmentManager().findFragmentById(R.id.container2)).loadClinics();
                                     } else {
                                         Toast.makeText(getContext(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
                                     }
@@ -250,22 +274,23 @@ public class MyProfileAddClinicFragment extends DialogFragment {
         realm = Realm.getDefaultInstance();
         countries = realm.where(Country.class).findAllSorted("value");
         if (countries.size() > 0) {
-            ArrayList<String> values = new ArrayList<String>();
+            final ArrayList<String> values = new ArrayList<String>();
             for (Country country : countries) {
                 values.add(country.getValue());
             }
+            values.add("Country");
             spinnerCountry.setAdapter(new SpinnerAdapter(getContext(), values));
+            spinnerCountry.setSelection(values.size() - 1);
             if (selectedClinic != null && selectedClinic.getAddress().getCountry() != null) {
                 int pos = values.indexOf(selectedClinic.getAddress().getCountry().getValue());
                 if (pos > 0)
                     spinnerCountry.setSelection(pos);
-                else
-                    spinnerCountry.setSelection(0);
             }
             spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    getStates(position);
+                    if (position != values.size() - 1)
+                        getStates(position);
                 }
 
                 @Override
@@ -274,7 +299,14 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                 }
             });
         }
-
+        final ArrayList<String> statevalues = new ArrayList<String>();
+        statevalues.add("State");
+        statevalues.add("State");
+        spinnerState.setAdapter(new SpinnerAdapter(getContext(), statevalues));
+        final ArrayList<String> cityvalues = new ArrayList<String>();
+        cityvalues.add("City");
+        cityvalues.add("City");
+        spinnerCity.setAdapter(new SpinnerAdapter(getContext(), cityvalues));
 
     }
 
@@ -288,22 +320,24 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                     realm.createAllFromJson(AllState.class, (new JSONObject(result)).getJSONArray("response").toString());
                     realm.commitTransaction();
                     states = realm.where(AllState.class).findAllSorted("value");
-                    ArrayList<String> values = new ArrayList<String>();
+                    final ArrayList<String> values = new ArrayList<String>();
                     for (AllState state : states) {
                         values.add(state.getValue());
                     }
+                    values.add("State");
                     spinnerState.setAdapter(new SpinnerAdapter(getContext(), values));
+                    spinnerState.setSelection(values.size() - 1);
                     if (selectedClinic != null) {
                         int pos = values.indexOf(selectedClinic.getAddress().getState().getValue());
                         if (pos > 0)
                             spinnerState.setSelection(pos);
-                        else
-                            spinnerState.setSelection(0);
+
                     }
                     spinnerState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            getCities(position);
+                            if (position != values.size() - 1)
+                                getCities(position);
                         }
 
                         @Override
@@ -337,13 +371,13 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                     for (AllCity city : cities) {
                         values.add(city.getValue());
                     }
+                    values.add("City");
                     spinnerCity.setAdapter(new SpinnerAdapter(getContext(), values));
+                    spinnerCity.setSelection(values.size() - 1);
                     if (selectedClinic != null) {
                         int pos = values.indexOf(selectedClinic.getAddress().getCity().getValue());
                         if (pos >= 0)
                             spinnerCity.setSelection(pos);
-                        else
-                            spinnerCity.setSelection(0);
                     }
                     spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override

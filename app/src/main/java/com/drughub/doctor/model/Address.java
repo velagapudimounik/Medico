@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import io.realm.RealmObject;
 
 public class Address extends RealmObject {
-    private String addressId;
+    private int addressId ;
     private Country country = new Country();
     private City city = new City();
     private State state = new State();
@@ -117,11 +117,11 @@ public class Address extends RealmObject {
         this.landMark = landmark;
     }
 
-    public String getAddressId() {
+    public int getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(String addressId) {
+    public void setAddressId(int addressId) {
         this.addressId = addressId;
     }
 
@@ -153,12 +153,14 @@ public class Address extends RealmObject {
         JSONObject addressObject = new JSONObject();
         try {
 
+            if(getAddressId()>0)
             addressObject.put("addressId", getAddressId());
+
             addressObject.put("doorNumber", getDoorNumber());
             addressObject.put("buildingName", getBuildingName());
             addressObject.put("streetName", getStreetName());
             addressObject.put("areaCode", getAreaCode());
-            addressObject.put("areaName", getAreaName());
+            addressObject.put("areaName",getAreaName());
             addressObject.put("landMark", getLandmark());
             addressObject.put("postalCode", getPostalCode());
             addressObject.put("lat", getLat());
