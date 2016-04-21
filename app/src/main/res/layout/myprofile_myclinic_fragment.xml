@@ -1,47 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <Button
+        android:id="@+id/addclinic_button"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/addclinic_button"
         android:background="@color/colorPrimary"
         android:text="@string/addClinic"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite" />
 
     <LinearLayout
+        android:id="@+id/no_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/no_items"
         android:gravity="center"
-        android:visibility="gone">
+        android:orientation="vertical"
+        android:visibility="visible">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/noClinicsAdded"
-        android:textColor="@color/colorPrimary"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/noClinicsAdded"
+            android:textColor="@color/colorPrimary" />
+
         <com.drughub.doctor.utils.DrughubIcon
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/icon_hospitalization"
             android:layout_marginTop="20dp"
-            android:textSize="70dp"/>
+            android:text="@string/icon_hospitalization"
+            android:textSize="70dp" />
     </LinearLayout>
 
 
-
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/myclinic_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/myclinic_recyclerview"
-        android:layout_gravity="center_horizontal|top"/>
+        android:layout_gravity="center_horizontal|top" />
 
 </LinearLayout>

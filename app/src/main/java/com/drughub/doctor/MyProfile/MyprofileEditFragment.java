@@ -10,19 +10,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.drughub.doctor.MyProfile.adapters.SpinnerAdapter;
 import com.drughub.doctor.R;
-import com.drughub.doctor.model.Address;
 import com.drughub.doctor.model.AllCity;
 import com.drughub.doctor.model.AllState;
-import com.drughub.doctor.model.City;
 import com.drughub.doctor.model.Country;
 import com.drughub.doctor.model.Qualification;
 import com.drughub.doctor.model.ServiceProvider;
 import com.drughub.doctor.model.Specialization;
-import com.drughub.doctor.model.State;
 import com.drughub.doctor.network.Globals;
 
 import org.json.JSONObject;
@@ -30,7 +26,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class MyprofileEditFragment extends Fragment implements View.OnClickListener {
@@ -48,7 +43,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
     private RealmResults<AllCity> cities;
     private RealmResults<Specialization> specializations;
     private RealmResults<Qualification> qualifications;
-    EditText editfirstName, editmiddleName, editlastName, edityearsofexp, buildNumber, doorNumber, streetName, colonyName, pincode, landMark, emailID, mobile;
+    EditText editFirstName, editMiddleName, editLastName, editYearsOfExp, editBuildNumber, editDoorNumber, editStreetName, editColonyName, editPinCode, editLandMark, editEmailID, editMobile;
 
     @Override
     public void onStart() {
@@ -327,18 +322,18 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
         spinnerQualification = (Spinner) view.findViewById(R.id.spinnerQualification);
         spinnerSpecialization = (Spinner) view.findViewById(R.id.spinnerSpecialization);
 
-        editfirstName = (EditText) getView().findViewById(R.id.editFirstName);
-        editmiddleName = (EditText) getView().findViewById(R.id.editMiddleName);
-        editlastName = (EditText) getView().findViewById(R.id.editLastName);
-        buildNumber = (EditText) getView().findViewById(R.id.editBuildingName);
-        edityearsofexp = (EditText) getView().findViewById(R.id.editYearsofExperience);
-        doorNumber = (EditText) getView().findViewById(R.id.editDoorNo);
-        streetName = (EditText) getView().findViewById(R.id.editStreetName);
-        colonyName = (EditText) getView().findViewById(R.id.editColonyName);
-        pincode = (EditText) getView().findViewById(R.id.editPincode);
-        landMark = (EditText) getView().findViewById(R.id.editLandMark);
-        emailID = (EditText) getView().findViewById(R.id.editEmailAddress);
-        mobile = (EditText) getView().findViewById(R.id.editMobile);
+        editFirstName = (EditText) getView().findViewById(R.id.editFirstName);
+        editMiddleName = (EditText) getView().findViewById(R.id.editMiddleName);
+        editLastName = (EditText) getView().findViewById(R.id.editLastName);
+        editBuildNumber = (EditText) getView().findViewById(R.id.editBuildingName);
+        editYearsOfExp = (EditText) getView().findViewById(R.id.editYearsofExperience);
+        editDoorNumber = (EditText) getView().findViewById(R.id.editDoorNo);
+        editStreetName = (EditText) getView().findViewById(R.id.editStreetName);
+        editColonyName = (EditText) getView().findViewById(R.id.editColonyName);
+        editPinCode = (EditText) getView().findViewById(R.id.editPincode);
+        editLandMark = (EditText) getView().findViewById(R.id.editLandMark);
+        editEmailID = (EditText) getView().findViewById(R.id.editEmailAddress);
+        editMobile = (EditText) getView().findViewById(R.id.editMobile);
 
         view.findViewById(R.id.buttonUpdate).setOnClickListener(this);
     }
@@ -396,105 +391,105 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonUpdate:
-                updateProfile();
+//                updateProfile();
                 break;
         }
     }
 
-    public void updateProfile() {
-
-        if (editfirstName.getText().toString().isEmpty())
-            Toast.makeText(getContext(), "Enter First Name", Toast.LENGTH_SHORT).show();
-        else if (editmiddleName.getText().toString().isEmpty())
-            Toast.makeText(getContext(), "Enter Middle Name", Toast.LENGTH_SHORT).show();
-        else if (editlastName.getText().toString().isEmpty())
-            Toast.makeText(getContext(), "Enter Last Name", Toast.LENGTH_SHORT).show();
-        else if (buildNumber.getText().toString().isEmpty())
-            Toast.makeText(getContext(), "Enter Building Number", Toast.LENGTH_SHORT).show();
-        else if (edityearsofexp.getText().toString().isEmpty())
-            Toast.makeText(getContext(), "Enter Years of Experience", Toast.LENGTH_SHORT).show();
-        else if (doorNumber.getText().toString().isEmpty())
-            Toast.makeText(getContext(), "Enter Door Number", Toast.LENGTH_SHORT).show();
-        else if (streetName.getText().toString().isEmpty())
-            Toast.makeText(getContext(), "Enter Street Name", Toast.LENGTH_SHORT).show();
-        else if (colonyName.getText().toString().isEmpty())
-            Toast.makeText(getContext(), "Enter Colony Name", Toast.LENGTH_SHORT).show();
-        else if (spinnerCountry.getSelectedItem() == null)
-            Toast.makeText(getContext(), "Enter Country Name", Toast.LENGTH_SHORT).show();
-        else if (spinnerState.getSelectedItem() == null)
-            Toast.makeText(getContext(), "Enter State Name", Toast.LENGTH_SHORT).show();
-        else if (spinnerTownorCity.getSelectedItem() == null)
-            Toast.makeText(getContext(), "Enter City Name", Toast.LENGTH_SHORT).show();
-        else if (pincode.getText().toString().isEmpty())
-            Toast.makeText(getContext(), "Enter pincode", Toast.LENGTH_SHORT).show();
-        else if (landMark.getText().toString().isEmpty())
-            Toast.makeText(getContext(), "Enter landmark ", Toast.LENGTH_SHORT).show();
-        else if (emailID.getText().toString().isEmpty())
-            Toast.makeText(getContext(), "Enter Email ID", Toast.LENGTH_SHORT).show();
-        else if (mobile.getText().toString().isEmpty())
-            Toast.makeText(getContext(), "Enter Mobile Number", Toast.LENGTH_SHORT).show();
-        else {
-            realm.beginTransaction();
-            serviceProvider.setMobile(getEditMobile().getText().toString().trim());
-            serviceProvider.setFirstName(getEditFirstName().getText().toString().trim());
-            serviceProvider.setLastName(getEditLastName().getText().toString().trim());
-            serviceProvider.setEmailId(getEditEmailAddress().getText().toString().trim());
-            serviceProvider.setMiddleName(getEditMiddleName().getText().toString().trim());
-            RealmList<Qualification> qualificationsList = new RealmList<>();
-            qualificationsList.add(qualifications.get(spinnerQualification.getSelectedItemPosition()));
-            serviceProvider.setQualificationList(qualificationsList);
-            RealmList<Specialization> specializationList = new RealmList<>();
-            specializationList.add(specializations.get(spinnerSpecialization.getSelectedItemPosition()));
-            serviceProvider.setSpecializationList(specializationList);
-
-            if (serviceProvider.getAddress() == null) {
-                serviceProvider.setAddress(realm.createObject(Address.class));
-                serviceProvider.getAddress().setAddressId(-1);
-            }
-            serviceProvider.getAddress().setBuildingName(getEditBuildingName().getText().toString());
-            serviceProvider.getAddress().setDoorNumber(getEditDoorNo().getText().toString());
-            serviceProvider.getAddress().setStreetName(getEditStreetName().getText().toString());
-            serviceProvider.getAddress().setAreaName(getEditColonyName().getText().toString());
-            serviceProvider.getAddress().setPostalCode(getEditPincode().getText().toString());
-            serviceProvider.getAddress().setLandmark(getEditLandMark().getText().toString());
-            if (serviceProvider.getAddress().getCountry() == null) {
-                Country country = realm.createOrUpdateObjectFromJson(Country.class, countries.get(spinnerCountry.getSelectedItemPosition()).getValueIdsCode());
-                serviceProvider.getAddress().setCountry(country);
-            } else {
-                serviceProvider.getAddress().setCountry(countries.get(spinnerCountry.getSelectedItemPosition()));
-            }
-            if (serviceProvider.getAddress().getCity() == null) {
-                City city = realm.createOrUpdateObjectFromJson(City.class, cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds());
-
-                serviceProvider.getAddress().setCity(city);
-            } else {
-                serviceProvider.getAddress().setCity(realm.createOrUpdateObjectFromJson(City.class, cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds()));
-
-                Log.i("City_-", cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds() + "");
-            }
-            if (serviceProvider.getAddress().getState() == null) {
-                State state = realm.createOrUpdateObjectFromJson(State.class, states.get(spinnerState.getSelectedItemPosition()).getValueIds());
-                serviceProvider.getAddress().setState(state);
-            } else {
-                serviceProvider.getAddress().setState((realm.createOrUpdateObjectFromJson(State.class, states.get(spinnerState.getSelectedItemPosition()).getValueIds())));
-            }
-
-            realm.commitTransaction();
-
-            serviceProvider.UpdateServiceProvider(getActivity(), new Globals.VolleyCallback() {
-                @Override
-                public void onSuccess(String result) {
-                    Log.v("update SP response", result);
-                }
-
-                @Override
-                public void onFail(String result) {
-                    Log.v("update SP fail response", result);
-                }
-            });
-            getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).commit();
-            ((MyProfileFragment) getFragmentManager().findFragmentById(R.id.containeractivity)).onUpdateProfile();
-        }
-    }
+//    public void updateProfile() {
+//
+//        if (editfirstName.getText().toString().isEmpty())
+//            Toast.makeText(getContext(), "Enter First Name", Toast.LENGTH_SHORT).show();
+//        else if (editmiddleName.getText().toString().isEmpty())
+//            Toast.makeText(getContext(), "Enter Middle Name", Toast.LENGTH_SHORT).show();
+//        else if (editlastName.getText().toString().isEmpty())
+//            Toast.makeText(getContext(), "Enter Last Name", Toast.LENGTH_SHORT).show();
+//        else if (buildNumber.getText().toString().isEmpty())
+//            Toast.makeText(getContext(), "Enter Building Number", Toast.LENGTH_SHORT).show();
+//        else if (edityearsofexp.getText().toString().isEmpty())
+//            Toast.makeText(getContext(), "Enter Years of Experience", Toast.LENGTH_SHORT).show();
+//        else if (doorNumber.getText().toString().isEmpty())
+//            Toast.makeText(getContext(), "Enter Door Number", Toast.LENGTH_SHORT).show();
+//        else if (streetName.getText().toString().isEmpty())
+//            Toast.makeText(getContext(), "Enter Street Name", Toast.LENGTH_SHORT).show();
+//        else if (colonyName.getText().toString().isEmpty())
+//            Toast.makeText(getContext(), "Enter Colony Name", Toast.LENGTH_SHORT).show();
+//        else if (spinnerCountry.getSelectedItem() == null)
+//            Toast.makeText(getContext(), "Enter Country Name", Toast.LENGTH_SHORT).show();
+//        else if (spinnerState.getSelectedItem() == null)
+//            Toast.makeText(getContext(), "Enter State Name", Toast.LENGTH_SHORT).show();
+//        else if (spinnerTownorCity.getSelectedItem() == null)
+//            Toast.makeText(getContext(), "Enter City Name", Toast.LENGTH_SHORT).show();
+//        else if (pincode.getText().toString().isEmpty())
+//            Toast.makeText(getContext(), "Enter pincode", Toast.LENGTH_SHORT).show();
+//        else if (landMark.getText().toString().isEmpty())
+//            Toast.makeText(getContext(), "Enter landmark ", Toast.LENGTH_SHORT).show();
+//        else if (emailID.getText().toString().isEmpty())
+//            Toast.makeText(getContext(), "Enter Email ID", Toast.LENGTH_SHORT).show();
+//        else if (mobile.getText().toString().isEmpty())
+//            Toast.makeText(getContext(), "Enter Mobile Number", Toast.LENGTH_SHORT).show();
+//        else {
+//            realm.beginTransaction();
+//            serviceProvider.setMobile(getEditMobile().getText().toString().trim());
+//            serviceProvider.setFirstName(getEditFirstName().getText().toString().trim());
+//            serviceProvider.setLastName(getEditLastName().getText().toString().trim());
+//            serviceProvider.setEmailId(getEditEmailAddress().getText().toString().trim());
+//            serviceProvider.setMiddleName(getEditMiddleName().getText().toString().trim());
+//            RealmList<Qualification> qualificationsList = new RealmList<>();
+//            qualificationsList.add(qualifications.get(spinnerQualification.getSelectedItemPosition()));
+//            serviceProvider.setQualificationList(qualificationsList);
+//            RealmList<Specialization> specializationList = new RealmList<>();
+//            specializationList.add(specializations.get(spinnerSpecialization.getSelectedItemPosition()));
+//            serviceProvider.setSpecializationList(specializationList);
+//
+//            if (serviceProvider.getAddress() == null) {
+//                serviceProvider.setAddress(realm.createObject(Address.class));
+//                serviceProvider.getAddress().setAddressId(-1);
+//            }
+//            serviceProvider.getAddress().setBuildingName(getEditBuildingName().getText().toString());
+//            serviceProvider.getAddress().setDoorNumber(getEditDoorNo().getText().toString());
+//            serviceProvider.getAddress().setStreetName(getEditStreetName().getText().toString());
+//            serviceProvider.getAddress().setAreaName(getEditColonyName().getText().toString());
+//            serviceProvider.getAddress().setPostalCode(getEditPincode().getText().toString());
+//            serviceProvider.getAddress().setLandmark(getEditLandMark().getText().toString());
+//            if (serviceProvider.getAddress().getCountry() == null) {
+//                Country country = realm.createOrUpdateObjectFromJson(Country.class, countries.get(spinnerCountry.getSelectedItemPosition()).getValueIdsCode());
+//                serviceProvider.getAddress().setCountry(country);
+//            } else {
+//                serviceProvider.getAddress().setCountry(countries.get(spinnerCountry.getSelectedItemPosition()));
+//            }
+//            if (serviceProvider.getAddress().getCity() == null) {
+//                City city = realm.createOrUpdateObjectFromJson(City.class, cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds());
+//
+//                serviceProvider.getAddress().setCity(city);
+//            } else {
+//                serviceProvider.getAddress().setCity(realm.createOrUpdateObjectFromJson(City.class, cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds()));
+//
+//                Log.i("City_-", cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds() + "");
+//            }
+//            if (serviceProvider.getAddress().getState() == null) {
+//                State state = realm.createOrUpdateObjectFromJson(State.class, states.get(spinnerState.getSelectedItemPosition()).getValueIds());
+//                serviceProvider.getAddress().setState(state);
+//            } else {
+//                serviceProvider.getAddress().setState((realm.createOrUpdateObjectFromJson(State.class, states.get(spinnerState.getSelectedItemPosition()).getValueIds())));
+//            }
+//
+//            realm.commitTransaction();
+//
+//            serviceProvider.UpdateServiceProvider(getActivity(), new Globals.VolleyCallback() {
+//                @Override
+//                public void onSuccess(String result) {
+//                    Log.v("update SP response", result);
+//                }
+//
+//                @Override
+//                public void onFail(String result) {
+//                    Log.v("update SP fail response", result);
+//                }
+//            });
+//            getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).commit();
+//            ((MyProfileFragment) getFragmentManager().findFragmentById(R.id.containeractivity)).onUpdateProfile();
+//        }
+//    }
 }
 

@@ -199,7 +199,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                     realm.commitTransaction();
 
                     clinic.getAddress().setPostalCode(postalcode);
-                    clinic.getAddress().setLandmark(landMark);
+                    clinic.getAddress().setLandMark(landMark);
                     clinic.getAddress().setAreaCode("null");
                     //clinic.getAddress().setAreaName("SR Ngr");
                     if (clinicString.equals("addClinic")) {

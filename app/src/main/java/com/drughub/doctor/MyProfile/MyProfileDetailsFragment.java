@@ -22,29 +22,12 @@ public class MyProfileDetailsFragment extends Fragment {
     ServiceProvider serviceProvider;
     private Realm realm;
 
-    private TextView doctorName;
+    private TextView doctorNameDetails;
     private TextView qualification;
     private TextView adressline1;
     private TextView adressline2;
     private TextView email;
     private TextView mobile;
-
-    public TextView getSpecialization() {
-        return specialization;
-    }
-
-    public void setSpecialization(TextView specialization) {
-        this.specialization = specialization;
-    }
-
-    public TextView getYearsOfExperience() {
-        return yearsOfExperience;
-    }
-
-    public void setYearsOfExperience(TextView yearsOfExperience) {
-        this.yearsOfExperience = yearsOfExperience;
-    }
-
     private TextView specialization;
     private TextView yearsOfExperience;
 
@@ -58,7 +41,7 @@ public class MyProfileDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        doctorName = (TextView) view.findViewById(R.id.doctor_name);
+        doctorNameDetails = (TextView) view.findViewById(R.id.doctor_name);
         qualification = (TextView) view.findViewById(R.id.qualification);
         adressline1 = (TextView) view.findViewById(R.id.textadressLine1);
         adressline2 = (TextView) view.findViewById(R.id.textadressLine2);
@@ -75,16 +58,16 @@ public class MyProfileDetailsFragment extends Fragment {
         serviceProvider = realm.where(ServiceProvider.class).findFirst();
         if (serviceProvider != null) {
 
-            doctorName.setText("");
+            doctorNameDetails.setText("");
 
             if (serviceProvider.getFirstName() != null)
-                doctorName.setText(serviceProvider.getFirstName());
+                doctorNameDetails.setText(serviceProvider.getFirstName());
 
             if (serviceProvider.getMiddleName() != null)
-                doctorName.append(" "+serviceProvider.getMiddleName());
+                doctorNameDetails.append(" "+serviceProvider.getMiddleName());
 
             if (serviceProvider.getLastName()!=null)
-                doctorName.append(" "+serviceProvider.getLastName());
+                doctorNameDetails.append(" "+serviceProvider.getLastName());
 
             qualification.setText("");
 

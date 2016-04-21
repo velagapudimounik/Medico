@@ -1,108 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:background="@color/Color_grey">
+        android:background="@color/Color_grey"
+        android:padding="15dp">
 
         <FrameLayout
+            android:id="@+id/image_view"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@drawable/fill_circle_white"
-            android:id="@+id/image_view"
-            android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true">
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/fill_circle_white">
 
             <com.drughub.doctor.utils.DrughubIcon
+                android:id="@+id/profile_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/icon_noimage"
-                android:textSize="40sp"
                 android:textColor="@color/colorTextLight"
-                android:id="@+id/profile_icon"/>
+                android:textSize="40sp" />
 
             <ImageView
+                android:id="@+id/profile_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/profile_image"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
         </FrameLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/frameLayout"
+            android:layout_toRightOf="@+id/image_view"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/doctorName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/frameLayout"
-                android:layout_toRightOf="@+id/image_view"
-                android:id="@+id/linearLayout6">
+                android:inputType="textCapWords"
+                android:text="Doctor Name"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:inputType="textCapWords"
-                    android:text="Doctor Name"
-                    android:id="@+id/doctorName"/>
+            <TextView
+                android:id="@+id/doctorID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DoctorID"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="DoctorID"
-                    android:id="@+id/doctorID"
-                    android:textSize="18dp" />
+            <TextView
+                android:id="@+id/doctorEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="doctor@email.com"
+                android:textSize="12dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="doctor@email.com"
-                    android:textSize="12dp"
-                    android:id="@+id/doctorEmail" />
-
-            </LinearLayout>
+        </LinearLayout>
 
         <FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
-            android:id="@+id/frameLayout"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
             android:background="@drawable/draw_circle_dark_grey">
 
             <com.drughub.doctor.utils.DrughubIcon
+                android:id="@+id/Editicon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="true"
                 android:text="@string/iconEdit"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="30dp"
-                android:clickable="true"
-                android:layout_gravity="center"
-                android:id="@+id/Editicon" />
+                android:textSize="30dp" />
 
             <com.drughub.doctor.utils.DrughubIcon
+                android:id="@+id/rightmark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/icon_rightmark"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20dp"
-                android:id="@+id/rightmark"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
         </FrameLayout>
 
@@ -112,54 +112,97 @@
         android:id="@+id/myProfileRadiogroup"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
         android:background="@color/colorDecoration"
+        android:orientation="horizontal"
         android:paddingBottom="1dp">
 
         <RadioButton
+            android:id="@+id/myProfileButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
             android:button="@null"
             android:checked="true"
             android:gravity="center"
-            android:textColor="@drawable/tabs_text_selector_grey_orange"
-            android:id="@+id/myProfileButton"
-            android:background="@color/colorWhite"
-            android:textSize="12sp"
             android:text="@string/myProfile"
-            android:layout_weight="1"/>
+            android:textColor="@drawable/tabs_text_selector_grey_orange"
+            android:textSize="12sp" />
 
         <RadioButton
+            android:id="@+id/changepasswordbutton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:textColor="@drawable/tabs_text_selector_grey_orange"
-            android:button="@null"
-            android:layout_weight="1"
-            android:gravity="center"
             android:layout_marginLeft="1dp"
             android:layout_marginRight="1dp"
-            android:id="@+id/changepasswordbutton"
+            android:layout_weight="1"
             android:background="@color/colorWhite"
+            android:button="@null"
+            android:gravity="center"
             android:text="@string/changePassword"
-            android:textSize="12sp"/>
+            android:textColor="@drawable/tabs_text_selector_grey_orange"
+            android:textSize="12sp" />
 
         <RadioButton
+            android:id="@+id/Myclinic_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:id="@+id/Myclinic_button"
-            android:gravity="center"
             android:layout_weight="1"
-            android:button="@null"
             android:background="@color/colorWhite"
-            android:textColor="@drawable/tabs_text_selector_grey_orange"
+            android:button="@null"
+            android:gravity="center"
             android:text="@string/myClinic"
-            android:textSize="12sp"/>
+            android:textColor="@drawable/tabs_text_selector_grey_orange"
+            android:textSize="12sp" />
 
     </RadioGroup>
 
     <FrameLayout
+        android:id="@+id/container2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/container2"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/detailsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:orientation="vertical">
+
+            <include layout="@layout/myprofile_details_fragment" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/myProfileEditLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <include layout="@layout/myprofile_edit_fragment" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/changePasswordLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <include layout="@layout/myprofile_changepassword_fragment" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/myClinicsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <include layout="@layout/myprofile_myclinic_fragment" />
+        </RelativeLayout>
+
+
+    </FrameLayout>
 
 </LinearLayout>
