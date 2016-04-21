@@ -878,43 +878,50 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
     }
 
     public void loadClinics() {
-        Globals.GET(Urls.CLINIC, new Globals.VolleyCallback() {
-            @Override
-            public void onSuccess(String result) {
-                try {
-                    JSONObject object = new JSONObject(result);
-                    if (object.getBoolean("result")) {
-                        realm.beginTransaction();
-                        realm.allObjects(DoctorClinic.class).clear();
-                        realm.createOrUpdateAllFromJson(DoctorClinic.class, object.getJSONArray("response"));
-                        Log.i("Clinic_Response", object.getJSONArray("response").toString());
-                        realm.commitTransaction();
-                        doctorClinics = realm.allObjects(DoctorClinic.class);
-                        for (DoctorClinic doctorClinic : doctorClinics) {
-                            int id = doctorClinic.getClinicId();
-                            if (doctorClinic.getAddress() == null) {
-                                doctorClinic.setAddress(realm.createObject(Address.class));
-                                doctorClinic.getAddress().setState(realm.createObject(State.class));
-                                doctorClinic.getAddress().setCity(realm.createObject(City.class));
-                                doctorClinic.getAddress().setCountry(realm.createObject(Country.class));
-
-                            }
-
+        if (doctorClinics!=null && doctorClinics.size() > 0) {
+            getClinicsFromRealm();
+        } else {
+            Globals.GET(Urls.CLINIC, new Globals.VolleyCallback() {
+                @Override
+                public void onSuccess(String result) {
+                    try {
+                        JSONObject object = new JSONObject(result);
+                        if (object.getBoolean("result")) {
+                            realm.beginTransaction();
+                            realm.allObjects(DoctorClinic.class).clear();
+                            realm.createOrUpdateAllFromJson(DoctorClinic.class, object.getJSONArray("response"));
+                            Log.i("Clinic_Response", object.getJSONArray("response").toString());
+                            realm.commitTransaction();
+                            getClinicsFromRealm();
                         }
-                        addValuesToRecyclerView(doctorClinics);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-            }
 
-            @Override
-            public void onFail(String result) {
-            }
-        }, "");
+                @Override
+                public void onFail(String result) {
+                }
+            }, "");
+        }
+
     }
 
-    private void addValuesToRecyclerView(RealmResults<DoctorClinic> doctorClinics) {
+    public void getClinicsFromRealm() {
+        doctorClinics = realm.allObjects(DoctorClinic.class);
+        for (DoctorClinic doctorClinic : doctorClinics) {
+            if (doctorClinic.getAddress() == null) {
+                doctorClinic.setAddress(realm.createObject(Address.class));
+                doctorClinic.getAddress().setState(realm.createObject(State.class));
+                doctorClinic.getAddress().setCity(realm.createObject(City.class));
+                doctorClinic.getAddress().setCountry(realm.createObject(Country.class));
+            }
+        }
+        addValuesToRecyclerView();
+
+    }
+
+    private void addValuesToRecyclerView() {
         MyClinicsListAdapter adapter = new MyClinicsListAdapter(getApplicationContext(), doctorClinics);
         if (doctorClinics.size() > 0)
             itemView.setVisibility(View.GONE);
@@ -922,6 +929,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             itemView.setVisibility(View.VISIBLE);
         mRecyclerView.setAdapter(adapter);
     }
+
     public class MyClinicsListAdapter extends RecyclerSwipeAdapter<MyClinicsListAdapter.RecyclerViewHolder> {
 
         Context context = null;
@@ -949,7 +957,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final Dialog dialog = CustomDialog.showQuestionDialog((BaseActivity) context, context.getResources().getString(R.string.deleteClinicMessage));
+                    final Dialog dialog = CustomDialog.showQuestionDialog(MyProfileActivity.this, getResources().getString(R.string.deleteClinicMessage));
 
                     View noBtn = dialog.findViewById(R.id.dialogNoBtn);
                     noBtn.setOnClickListener(new View.OnClickListener() {
@@ -972,7 +980,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                                     realm.commitTransaction();
                                     notifyDataSetChanged();
                                     notifyItemRemoved(position);
-                                    if(doctorClinics.size() > 0)
+                                    if (doctorClinics.size() > 0)
                                         itemView.setVisibility(View.GONE);
                                     else
                                         itemView.setVisibility(View.VISIBLE);

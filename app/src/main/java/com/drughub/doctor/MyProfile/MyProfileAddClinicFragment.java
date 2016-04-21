@@ -211,9 +211,12 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                                 try {
                                     JSONObject object = new JSONObject(result);
                                     if (object.getBoolean("result")) {
+                                        realm.beginTransaction();
+                                        realm.createOrUpdateObjectFromJson(DoctorClinic.class, object.getJSONObject("response").toString());
+                                        realm.commitTransaction();
                                         Toast.makeText(getContext(), "Clinic Added Successfully", Toast.LENGTH_SHORT).show();
+                                        ((MyProfileActivity) getActivity()).getClinicsFromRealm();
                                         getFragmentManager().popBackStack();
-                                        ((MyClinicsFragment) getFragmentManager().findFragmentById(R.id.container2)).loadClinics();
                                     } else {
                                         Toast.makeText(getContext(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
                                     }
@@ -243,9 +246,12 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                                 try {
                                     JSONObject object = new JSONObject(result);
                                     if (object.getBoolean("result")) {
+                                        realm.beginTransaction();
+                                        realm.createOrUpdateObjectFromJson(DoctorClinic.class, object.getJSONObject("response").toString());
+                                        realm.commitTransaction();
                                         Toast.makeText(getContext(), "Clinic Updated Successfully", Toast.LENGTH_SHORT).show();
+                                        ((MyProfileActivity) getActivity()).getClinicsFromRealm();
                                         getFragmentManager().popBackStack();
-                                        ((MyClinicsFragment) getFragmentManager().findFragmentById(R.id.container2)).loadClinics();
                                     } else {
                                         Toast.makeText(getContext(), object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
                                     }
