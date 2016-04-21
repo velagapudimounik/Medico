@@ -38,7 +38,7 @@ import io.realm.RealmResults;
 public class MyCalendarAvailabilityList extends Fragment {
 
     private Realm realm;
-    View mView;
+    View mSearchGroup;
     RecyclerView mRecyclerView;
     EditText mCalendarSearch;
     private RealmResults<ClinicCalendar> calendarList;
@@ -53,8 +53,6 @@ public class MyCalendarAvailabilityList extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
-        mView = view;
-
         mCalendarSearch = (EditText) view.findViewById(R.id.myCalendarAvailabilitySearch);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_calendar_available_list);
@@ -71,15 +69,31 @@ public class MyCalendarAvailabilityList extends Fragment {
         AvailabilityListAdapter mAdapter = new AvailabilityListAdapter(calendarList, getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
+        mSearchGroup = view.findViewById(R.id.my_calendar_search_view);
+
         updateView();
+
+        View addCalendar = view.findViewById(R.id.addCalendar);
+        addCalendar.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                ((MyCalendarActivity) getActivity()).loadAndShowEditCalendarDialog(-1);
+            }
+
+        });
     }
 
     public void updateView()
     {
-        if(calendarList.size() == 0)
-            mView.setVisibility(View.GONE);
-        else
-            mView.setVisibility(View.VISIBLE);
+        if(calendarList.size() == 0) {
+            mSearchGroup.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.GONE);
+        }
+        else {
+            mSearchGroup.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
 
         mRecyclerView.getAdapter().notifyDataSetChanged();
     }
@@ -246,7 +260,7 @@ public class MyCalendarAvailabilityList extends Fragment {
                                             mItemManger.closeAllItems();
 
                                             if(mDataSet.size() == 0)
-                                                mView.setVisibility(View.GONE);
+                                                updateView();
                                         }
 
                                     } catch (Exception e) {

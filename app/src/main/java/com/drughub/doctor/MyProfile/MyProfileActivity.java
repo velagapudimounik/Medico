@@ -948,7 +948,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
         }
 
         @Override
-        public void onBindViewHolder(RecyclerViewHolder viewHolder, final int position) {
+        public void onBindViewHolder(final RecyclerViewHolder viewHolder, final int position) {
             final DoctorClinic doctorClinic = doctorClinics.get(position);
 
             viewHolder.hospitalName.setText(doctorClinic.getClinicName());
@@ -978,9 +978,14 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                                     realm.beginTransaction();
                                     doctorClinic.removeFromRealm();
                                     realm.commitTransaction();
-                                    notifyDataSetChanged();
+                                    //notifyDataSetChanged();
+
+                                    mItemManger.removeShownLayouts(viewHolder.swipeLayout);
                                     notifyItemRemoved(position);
-                                    if (doctorClinics.size() > 0)
+                                    notifyItemRangeChanged(position, doctorClinics.size());
+                                    mItemManger.closeAllItems();
+
+                                    if(doctorClinics.size() > 0)
                                         itemView.setVisibility(View.GONE);
                                     else
                                         itemView.setVisibility(View.VISIBLE);

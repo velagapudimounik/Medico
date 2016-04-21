@@ -311,6 +311,8 @@
     <string name="my_calendar">My Calendar</string>
     <string name="availability">Availability</string>
     <string name="booked">Booked</string>
+    <string name="myHolidays">My Holidays</string>
+    <string name="noCalendars">No Calendar Entries</string>
     <string name="hintLocation">Location</string>
     <string name="hintDateOrPatient">Date | Patient Name</string>
     <string name="icon_settings">\u007F</string>
