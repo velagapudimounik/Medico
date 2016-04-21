@@ -42,12 +42,13 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
     private Spinner spinnerTownorCity;
     private Spinner spinnerSpecialization;
     private Spinner spinnerQualification;
+    ArrayList<String> values;
     private RealmResults<Country> countries;
     private RealmResults<AllState> states;
     private RealmResults<AllCity> cities;
     private RealmResults<Specialization> specializations;
     private RealmResults<Qualification> qualifications;
-    EditText editfirstName , editmiddleName,editlastName, edityearsofexp, buildNumber, doorNumber, streetName,colonyName,pincode,landMark,emailID,mobile;
+    EditText editfirstName, editmiddleName, editlastName, edityearsofexp, buildNumber, doorNumber, streetName, colonyName, pincode, landMark, emailID, mobile;
 
     @Override
     public void onStart() {
@@ -81,13 +82,13 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
             }
             values.add("Country");
             spinnerCountry.setAdapter(new SpinnerAdapter(getContext(), values));
-            spinnerCountry.setSelection(values.size()-1);
+            spinnerCountry.setSelection(values.size() - 1);
 
             spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if(position != values.size()-1)
-                    getStates(position);
+                    if (position != values.size() - 1)
+                        getStates(position);
                 }
 
                 @Override
@@ -108,7 +109,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
         statevalues.add("State");
         statevalues.add("State");
         spinnerState.setAdapter(new SpinnerAdapter(getContext(), statevalues));
-        final  ArrayList<String> cityvalues = new ArrayList<>();
+        final ArrayList<String> cityvalues = new ArrayList<>();
         cityvalues.add("City");
         cityvalues.add("City");
         spinnerTownorCity.setAdapter(new SpinnerAdapter(getContext(), cityvalues));
@@ -204,19 +205,19 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 
 
                     if (states.size() > 0) {
-                        final ArrayList<String> values = new ArrayList<String>();
+
+                        values = new ArrayList<String>();
                         for (AllState state : states) {
                             values.add(state.getValue());
                         }
                         values.add("State");
+
                         spinnerState.setAdapter(new SpinnerAdapter(getContext(), values));
                         spinnerState.setSelection(values.size() - 1);
-
-
                         spinnerState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                if (position != values.size()-1)
+                                if (!spinnerState.getSelectedItem().toString().equalsIgnoreCase("state"))
                                     getCities(position);
                             }
 
@@ -228,6 +229,15 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
                         int pos = values.indexOf(serviceProvider.getAddress().getState().getValue());
                         if (pos > 0)
                             spinnerState.setSelection(pos);
+                    } else {
+                        final ArrayList<String> statevalues = new ArrayList<String>();
+                        statevalues.add("State");
+                        statevalues.add("State");
+                        spinnerState.setAdapter(new SpinnerAdapter(getContext(), statevalues));
+                        final ArrayList<String> cityvalues = new ArrayList<String>();
+                        cityvalues.add("City");
+                        cityvalues.add("City");
+                        spinnerTownorCity.setAdapter(new SpinnerAdapter(getContext(), cityvalues));
                     }
 
                 } catch (Exception e) {
@@ -263,8 +273,11 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
                         values.add(city.getValue());
                     }
                     values.add("City");
+                    if (values.size() == 1) {
+                        values.add("City");
+                    }
                     spinnerTownorCity.setAdapter(new SpinnerAdapter(getContext(), values));
-                    spinnerTownorCity.setSelection(values.size()-1);
+                    spinnerTownorCity.setSelection(values.size() - 1);
                     spinnerTownorCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -434,8 +447,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
             specializationList.add(specializations.get(spinnerSpecialization.getSelectedItemPosition()));
             serviceProvider.setSpecializationList(specializationList);
 
-            if (serviceProvider.getAddress() == null)
-            {
+            if (serviceProvider.getAddress() == null) {
                 serviceProvider.setAddress(realm.createObject(Address.class));
                 serviceProvider.getAddress().setAddressId(-1);
             }
@@ -458,7 +470,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
             } else {
                 serviceProvider.getAddress().setCity(realm.createOrUpdateObjectFromJson(City.class, cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds()));
 
-                Log.i("City_-",  cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds()+"");
+                Log.i("City_-", cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds() + "");
             }
             if (serviceProvider.getAddress().getState() == null) {
                 State state = realm.createOrUpdateObjectFromJson(State.class, states.get(spinnerState.getSelectedItemPosition()).getValueIds());

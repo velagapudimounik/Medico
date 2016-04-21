@@ -30,20 +30,26 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         return countrySet(position);
+
+
     }
 
     @Override
     public int getCount() {
-        return values.size()-1;
+        return values.size() - 1;
     }
-    View countrySet(int position)
-    {
+
+    View countrySet(int position) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View countrySpinner = inflater.inflate(R.layout.myporfile_spinner_addclinic, null);
+        String val = values.get(position);
         TextView countryTextview = (TextView) countrySpinner.findViewById(R.id.spinner_textview);
-        countryTextview.setText(values.get(position));
-        countryTextview.setTextColor(Color.DKGRAY);
-        return  countrySpinner;
+        countryTextview.setText(val);
+        if (val.equalsIgnoreCase("city") || val.equalsIgnoreCase("state")|| val.equalsIgnoreCase("country"))
+            countryTextview.setTextColor(Color.LTGRAY);
+        else
+            countryTextview.setTextColor(Color.DKGRAY);
+        return countrySpinner;
 
     }
 }

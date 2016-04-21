@@ -325,6 +325,15 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                         values.add(state.getValue());
                     }
                     values.add("State");
+                    if(values.size() ==1)
+                    {
+                        values.add("State");
+                        final ArrayList<String> cityvalues = new ArrayList<String>();
+                        cityvalues.add("City");
+                        cityvalues.add("City");
+                        spinnerCity.setAdapter(new SpinnerAdapter(getContext(), cityvalues));
+
+                    }
                     spinnerState.setAdapter(new SpinnerAdapter(getContext(), values));
                     spinnerState.setSelection(values.size() - 1);
                     if (selectedClinic != null) {
@@ -372,6 +381,10 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                         values.add(city.getValue());
                     }
                     values.add("City");
+                    if(values.size() ==1)
+                    {
+                        values.add("City");
+                    }
                     spinnerCity.setAdapter(new SpinnerAdapter(getContext(), values));
                     spinnerCity.setSelection(values.size() - 1);
                     if (selectedClinic != null) {
