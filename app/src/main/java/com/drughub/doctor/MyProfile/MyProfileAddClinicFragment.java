@@ -162,6 +162,8 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                     Toast.makeText(getContext(), "Select City", Toast.LENGTH_SHORT).show();
                 else if (postalcode.isEmpty())
                     Toast.makeText(getContext(), "Enter Postal Code", Toast.LENGTH_SHORT).show();
+                else if (postalcode.length() < 6 || postalcode.equalsIgnoreCase("000000"))
+                    Toast.makeText(getContext(), "Enter Valid Postal Code", Toast.LENGTH_SHORT).show();
                 else if (landMark.isEmpty())
                     Toast.makeText(getContext(), "Enter LandMark", Toast.LENGTH_SHORT).show();
                 else {
@@ -325,8 +327,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                         values.add(state.getValue());
                     }
                     values.add("State");
-                    if(values.size() ==1)
-                    {
+                    if (values.size() == 1) {
                         values.add("State");
                         final ArrayList<String> cityvalues = new ArrayList<String>();
                         cityvalues.add("City");
@@ -381,8 +382,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                         values.add(city.getValue());
                     }
                     values.add("City");
-                    if(values.size() ==1)
-                    {
+                    if (values.size() == 1) {
                         values.add("City");
                     }
                     spinnerCity.setAdapter(new SpinnerAdapter(getContext(), values));
