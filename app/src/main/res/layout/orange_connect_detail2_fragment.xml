@@ -73,7 +73,7 @@
                 android:id="@+id/administered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Administred at 3\u00B0C"
+                android:text="Administered at 3\u00B0C"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_small" />
         </LinearLayout>
