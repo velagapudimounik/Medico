@@ -40,7 +40,6 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +64,7 @@ public class MyCalendarActivity extends BaseActivity {
     //private CheckBox monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     private CalenderAdapter calenderAdapter;
     private ClinicCalendar mClinicCalendar;
+    private ClinicCalendar mClinicCalendarBkp;
     private List<DoctorClinic> clinicList;
     private MyCalendarAvailabilityList myCalendarAvailabilityList = null;
     private boolean clinicsLoaded = false;
@@ -208,17 +208,9 @@ public class MyCalendarActivity extends BaseActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.my_calendar_container, myCalendarAvailabilityList).commit();
                 else if (checkedId == R.id.booked)
                     getSupportFragmentManager().beginTransaction().replace(R.id.my_calendar_container, new MyCalendarBookedList()).commit();
+                else if (checkedId == R.id.myHolidays)
+                    getSupportFragmentManager().beginTransaction().replace(R.id.my_calendar_container, new MyCalendarHolidays()).commit();
             }
-        });
-
-        View addCalendar = findViewById(R.id.addCalendar);
-        addCalendar.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                loadAndShowEditCalendarDialog(-1);
-            }
-
         });
     }
 
@@ -273,10 +265,7 @@ public class MyCalendarActivity extends BaseActivity {
 
         selectedClinic = clinic;
         selectedDay = "Monday";
-        if(selectedClinic == -1)
-            addClinicCalendar = true;
-        else
-            addClinicCalendar = false;
+        addClinicCalendar = (selectedClinic == -1);
 
         prevPosition = -1;
 
@@ -295,22 +284,17 @@ public class MyCalendarActivity extends BaseActivity {
 
         Button addBtn = (Button)dialog.findViewById(R.id.addBtn);
 
-        if(!addClinicCalendar)
-        {
-            titleText.setText("Edit Calendar");
-            addBtn.setText("Edit");
-            day_wise.setChecked(true);
-            day_wise.setVisibility(View.GONE);
-            non_working_days_txt.setVisibility(View.GONE);
-            ((CheckBox) dialog.findViewById(R.id.monday)).setChecked(true);
-        }
-
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
                 if (addClinicCalendar) {
                     realm.beginTransaction();
                     mClinicCalendar.removeFromRealm();
+                    realm.commitTransaction();
+                }
+                else {
+                    realm.beginTransaction();
+                    realm.copyToRealmOrUpdate(mClinicCalendarBkp);
                     realm.commitTransaction();
                 }
             }
@@ -382,7 +366,71 @@ public class MyCalendarActivity extends BaseActivity {
             realm.commitTransaction();
         }
         else
+        {
             mClinicCalendar = realm.where(ClinicCalendar.class).equalTo("clinicId", selectedClinic).findFirst();
+
+            mClinicCalendarBkp = realm.copyFromRealm(mClinicCalendar);
+
+            RealmResults<ConsultationTiming> timingList = null;
+            boolean dayWise = false;
+            for(Map.Entry<Integer, String> dayOfWeek : sDaysOfWeek.entrySet()) {
+                RealmResults<ConsultationTiming> nextList = mClinicCalendar.getConsultationTimings().where().equalTo("dayOfWeek", dayOfWeek.getValue()).findAll();
+                if(timingList != null && timingList.size() > 0 && nextList.size() > 0) {
+                    if(timingList.size() != nextList.size()) {
+                        dayWise = true;
+                        break;
+                    }
+                    for(ConsultationTiming timeSlot : timingList) {
+                        ConsultationTiming slot = nextList.where().equalTo("fromTime", timeSlot.getFromTime()).equalTo("toTime", timeSlot.getToTime()).findFirst();
+                        if(slot == null) {
+                            dayWise = true;
+                            break;
+                        }
+                    }
+                    if(!dayWise)
+                    for(ConsultationTiming timeSlot : nextList) {
+                        ConsultationTiming slot = timingList.where().equalTo("fromTime", timeSlot.getFromTime()).equalTo("toTime", timeSlot.getToTime()).findFirst();
+                        if(slot == null) {
+                            dayWise = true;
+                            break;
+                        }
+                    }
+                    if(dayWise)
+                        break;
+                } else if(nextList.size() > 0)
+                    timingList = nextList;
+            }
+
+            titleText.setText("Edit Calendar");
+            addBtn.setText("Edit");
+            if(dayWise) {
+                day_wise.setChecked(true);
+                day_wise.setVisibility(View.GONE);
+                non_working_days_txt.setVisibility(View.GONE);
+                ((CheckBox) dialog.findViewById(R.id.monday)).setChecked(true);
+            }
+            else {
+                for (Map.Entry<Integer, String> dayOfWeek : sDaysOfWeek.entrySet()) {
+                    timingList = mClinicCalendar.getConsultationTimings().where().equalTo("dayOfWeek", dayOfWeek.getValue()).findAll();
+                    if (timingList.size() == 0)
+                        ((CheckBox) dialog.findViewById(dayOfWeek.getKey())).setChecked(true);
+                    else
+                        selectedDay = dayOfWeek.getValue();
+                }
+                timingList = mClinicCalendar.getConsultationTimings().where().equalTo("dayOfWeek", selectedDay).findAll();
+
+                selectedDay = "Monday";
+
+                List<ConsultationTiming> list = realm.copyFromRealm(timingList);
+                for(ConsultationTiming timing:list)
+                    timing.setDayOfWeek(selectedDay);
+
+                realm.beginTransaction();
+                mClinicCalendar.getConsultationTimings().clear();
+                mClinicCalendar.getConsultationTimings().addAll(list);
+                realm.commitTransaction();
+            }
+        }
 
         RealmResults<ConsultationTiming> timingList = mClinicCalendar.getConsultationTimings().where().equalTo("dayOfWeek", selectedDay).findAll();
 
@@ -394,19 +442,24 @@ public class MyCalendarActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (((CheckBox) v).isChecked()) {
-                    for(Map.Entry<Integer, String> dayOfWeek : MyCalendarActivity.sDaysOfWeek.entrySet())
+                    for(Map.Entry<Integer, String> dayOfWeek : sDaysOfWeek.entrySet()) {
                         ((CheckBox) dialog.findViewById(dayOfWeek.getKey())).setChecked(false);
+                        dialog.findViewById(dayOfWeek.getKey()).setEnabled(true);
+                    }
                     non_working_days_txt.setVisibility(View.GONE);
                     mRecyclerView.setVisibility(View.GONE);
                     selectedDay = "Monday";
                     ((CheckBox) dialog.findViewById(R.id.monday)).setChecked(true);
+                    dialog.findViewById(R.id.monday).setEnabled(false);
 
                     realm.beginTransaction();
                     mClinicCalendar.getConsultationTimings().clear();
                     realm.commitTransaction();
                 } else {
-                    for(Map.Entry<Integer, String> dayOfWeek : MyCalendarActivity.sDaysOfWeek.entrySet())
+                    for(Map.Entry<Integer, String> dayOfWeek : sDaysOfWeek.entrySet()) {
                         ((CheckBox) dialog.findViewById(dayOfWeek.getKey())).setChecked(false);
+                        dialog.findViewById(dayOfWeek.getKey()).setEnabled(true);
+                    }
                     non_working_days_txt.setVisibility(View.VISIBLE);
                     selectedDay = "Monday";
 
@@ -425,10 +478,14 @@ public class MyCalendarActivity extends BaseActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (day_wise.isChecked() && isChecked) {
 
-                    for(Map.Entry<Integer, String> dayOfWeek : MyCalendarActivity.sDaysOfWeek.entrySet()) {
-                        if(buttonView.getId() != dayOfWeek.getKey())
+                    for(Map.Entry<Integer, String> dayOfWeek : sDaysOfWeek.entrySet()) {
+                        if(buttonView.getId() != dayOfWeek.getKey()) {
                             ((CheckBox) dialog.findViewById(dayOfWeek.getKey())).setChecked(false);
+                            dialog.findViewById(dayOfWeek.getKey()).setEnabled(true);
+                        }
                     }
+
+                    buttonView.setEnabled(false);
 
                     if(sDaysOfWeek.containsKey(buttonView.getId())) {
                         selectedDay = sDaysOfWeek.get(buttonView.getId());
@@ -436,12 +493,10 @@ public class MyCalendarActivity extends BaseActivity {
                         calenderAdapter.setDataSet(timingList);
                     }
                 }
-                else if (day_wise.isChecked() && isChecked)
-                    buttonView.setChecked(true);
             }
         };
 
-        for(Map.Entry<Integer, String> dayOfWeek : MyCalendarActivity.sDaysOfWeek.entrySet()) {
+        for(Map.Entry<Integer, String> dayOfWeek : sDaysOfWeek.entrySet()) {
             ((CheckBox) dialog.findViewById(dayOfWeek.getKey())).setOnCheckedChangeListener(listener);
         }
 
@@ -468,12 +523,22 @@ public class MyCalendarActivity extends BaseActivity {
                     Toast.makeText(MyCalendarActivity.this, "Add at least one time slot", Toast.LENGTH_SHORT).show();
                 else
                 {
+                    RealmList<ConsultationTiming> timeSlots = mClinicCalendar.getConsultationTimings();
                     if (!day_wise.isChecked())
                     {
-                        realm.beginTransaction();
-                        RealmList<ConsultationTiming> timeSlots = mClinicCalendar.getConsultationTimings();
+                        int nonWorkingDays = 0;
+                        for(Map.Entry<Integer, String> dayOfWeek : sDaysOfWeek.entrySet()) {
+                            if (((CheckBox) dialog.findViewById(dayOfWeek.getKey())).isChecked())
+                                nonWorkingDays++;
+                        }
+
+                        if(nonWorkingDays == sDaysOfWeek.size()) {
+                            Toast.makeText(MyCalendarActivity.this, "Select at least one working day", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         List<ConsultationTiming> newList = new ArrayList<>();
-                        for(Map.Entry<Integer, String> dayOfWeek : MyCalendarActivity.sDaysOfWeek.entrySet()){
+                        for(Map.Entry<Integer, String> dayOfWeek : sDaysOfWeek.entrySet()){
                             boolean isChecked = ((CheckBox) dialog.findViewById(dayOfWeek.getKey())).isChecked();
                             if(dayOfWeek.getKey() == R.id.monday || isChecked)
                                 continue;
@@ -486,6 +551,8 @@ public class MyCalendarActivity extends BaseActivity {
                             }
                         }
 
+                        realm.beginTransaction();
+
                         if(((CheckBox) dialog.findViewById(R.id.monday)).isChecked())
                             timeSlots.clear();
 
@@ -497,6 +564,7 @@ public class MyCalendarActivity extends BaseActivity {
 
                         realm.commitTransaction();
                     }
+
                     Globals.VolleyCallback listener = new Globals.VolleyCallback() {
                         @Override
                         public void onSuccess(String result) {
@@ -517,7 +585,7 @@ public class MyCalendarActivity extends BaseActivity {
                         }
                     };
 
-                    if(addClinicCalendar)
+                    if (addClinicCalendar)
                         Globals.POST(Urls.CLINIC + "/" + mClinicCalendar.getClinicId() + Urls.CALENDAR, mClinicCalendar.toCreateClinicCalendar(), listener, "");
                     else
                         Globals.PUT(Urls.CLINIC + "/" + mClinicCalendar.getClinicId() + Urls.CALENDAR, mClinicCalendar.toCreateClinicCalendar(), listener, "");

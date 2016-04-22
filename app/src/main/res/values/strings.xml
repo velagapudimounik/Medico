@@ -187,7 +187,7 @@
     <string name="coupon">Coupons</string>
     <string name="buttonwallet">Redeem</string>
     <string name="card_save">Saved card</string>
-    <string name="card_add">Add card</string>
+    <string name="card_add">Add Card</string>
     <string name="Add_wallet">Add</string>
     <string name="hint_orangecode">Enter orange code</string>
     <string name="offers">Available offers</string>
@@ -274,7 +274,7 @@
     <string name="Saturday_text">Sat</string>
     <string name="Sunday_text">Sun</string>
     <string name="consultationAtHomeText">Consultation at Home</string>
-    <string name="noClinicsAdded">No Clinics Added</string>
+    <string name="noClinicsAdded">No clinics Added</string>
     <string name="txtChange">change</string>
     <string name="firstName">First name</string>
     <string name="middleName">Middle name</string>
@@ -311,6 +311,8 @@
     <string name="my_calendar">My Calendar</string>
     <string name="availability">Availability</string>
     <string name="booked">Booked</string>
+    <string name="myHolidays">My Holidays</string>
+    <string name="noCalendars">No Calendar Entries</string>
     <string name="hintLocation">Location</string>
     <string name="hintDateOrPatient">Date | Patient Name</string>
     <string name="icon_settings">\u007F</string>

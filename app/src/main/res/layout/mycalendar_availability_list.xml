@@ -3,10 +3,21 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.drughub.doctor.utils.DrughubIcon
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/icon_add_consultation"
+        android:textSize="55sp"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/addCalendar"
+        android:layout_gravity="center_horizontal"/>
+
     <RelativeLayout
+        android:id="@+id/my_calendar_search_view"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:layout_marginTop="-10dp"
         android:padding="@dimen/margin_small">
 
         <EditText

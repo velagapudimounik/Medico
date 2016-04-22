@@ -23,5 +23,6 @@
     <color name="ColorBlack">#000000</color>
     <color name="translucent_background">#DD000000</color>
     <color name="actionBtnBG">#17000000</color>
+    <color name="weekColor">#22000000</color>
 
 </resources>

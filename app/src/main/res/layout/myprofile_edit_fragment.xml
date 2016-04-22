@@ -30,6 +30,7 @@
                     android:inputType="textCapWords"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:nextFocusDown="@+id/editMiddleName"
                     android:hint="@string/firstName" />
 
                 <EditText
@@ -39,6 +40,7 @@
                     android:inputType="textCapWords"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:nextFocusDown="@+id/editLastName"
                     android:layout_weight="1"
                     android:hint="@string/middleName" />
 
@@ -47,6 +49,7 @@
                     style="@style/EditTextStyleTransparent1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:nextFocusDown="@+id/editYearsofExperience"
                     android:inputType="textCapWords"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
@@ -122,6 +125,7 @@
                 android:layout_height="@dimen/edit_text_height"
                 android:layout_marginTop="10dp"
                 android:hint="@string/hintYearsOfExperience"
+                android:nextFocusDown="@+id/editBuildingName"
                 android:inputType="number" />
 
             <LinearLayout
@@ -138,6 +142,7 @@
                     android:singleLine="true"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:nextFocusDown="@+id/editDoorNo"
                     android:hint="@string/buildingName" />
 
                 <EditText
@@ -147,6 +152,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:nextFocusDown="@+id/editStreetName"
                     android:singleLine="true"
                     android:hint="@string/doorNo" />
             </LinearLayout>
@@ -163,6 +169,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
+                    android:nextFocusDown="@+id/editColonyName"
                     android:layout_weight="1"
                     android:singleLine="true"
                     android:hint="@string/streetName" />
@@ -174,6 +181,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
                     android:layout_marginLeft="10dp"
+                    android:nextFocusDown="@+id/editPincode"
                     android:singleLine="true"
                     android:layout_weight="1"
                     android:hint="@string/colonyName" />
@@ -315,8 +323,9 @@
                     android:id="@+id/editPincode"
                     style="@style/EditTextStyleTransparent1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
+                    android:nextFocusDown="@+id/editLandMark"
                     android:singleLine="true"
                     android:hint="@string/pincode" />
 
@@ -324,9 +333,10 @@
                     android:id="@+id/editLandMark"
                     style="@style/EditTextStyleTransparent1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:singleLine="true"
                     android:hint="@string/landmark" />
             </LinearLayout>
 

@@ -28,7 +28,8 @@
             android:textColor="@drawable/tabs_text_selector_grey_orange"
             android:layout_weight="1"
             android:layout_marginBottom="@dimen/margin_slim"
-            android:layout_marginRight="@dimen/margin_slim" />
+            android:layout_marginRight="@dimen/margin_slim"
+            android:layout_marginEnd="@dimen/margin_slim" />
 
         <RadioButton
             android:id="@+id/booked"
@@ -41,41 +42,53 @@
             android:text="@string/booked"
             android:textColor="@drawable/tabs_text_selector_grey_orange"
             android:layout_weight="1"
+            android:layout_marginBottom="@dimen/margin_slim"
+            android:layout_marginRight="@dimen/margin_slim"
+            android:layout_marginEnd="@dimen/margin_slim" />
+
+        <RadioButton
+            android:id="@+id/myHolidays"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            android:text="@string/myHolidays"
+            android:textColor="@drawable/tabs_text_selector_grey_orange"
+            android:layout_weight="1"
             android:layout_marginBottom="@dimen/margin_slim" />
 
     </RadioGroup>
-
-    <View
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="@android:color/white"
-        android:layout_marginTop="35dp"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/view" />
-
-    <com.drughub.doctor.utils.DrughubIcon
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/icon_add_consultation"
-        android:textSize="65dp"
-        android:textColor="@color/colorPrimary"
-        android:id="@+id/addCalendar"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/my_calendar_container"
-        android:layout_below="@+id/view"
-        android:layout_marginTop="10dp">
+        android:layout_below="@+id/radioGroup">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/noAppointments"
-            android:textColor="@color/colorPrimary" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/noCalendars"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginBottom="20dp"/>
+
+            <com.drughub.doctor.utils.DrughubIcon
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/icon_calendar"
+                android:textSize="70sp"
+                android:textColor="@color/colorDecoration"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
 
     </FrameLayout>
 

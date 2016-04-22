@@ -98,6 +98,14 @@
         <item name="android:background">@null</item>
     </style>
 
+    <style name="CalendarHeaderText">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
 
+    <style name="CalendarWeekdayText">
+        <item name="android:textSize">@dimen/text_teen</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
 
 </resources>

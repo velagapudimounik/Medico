@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
@@ -35,6 +36,7 @@ import io.realm.RealmResults;
 
 public class MyClinicsFragment extends android.support.v4.app.Fragment {
     private RecyclerView mRecyclerView;
+    View itemView;
     private RecyclerView.Adapter adapter;
     private Realm realm;
     RealmResults<DoctorClinic> doctorClinics;
@@ -49,12 +51,14 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.myprofile_myclinic_fragment, container, false);
-        mRecyclerView=(RecyclerView)view.findViewById(R.id.myclinic_recyclerview);
 
-        View.OnClickListener listener=new View.OnClickListener() {
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.myclinic_recyclerview);
+        itemView = (LinearLayout) view.findViewById(R.id.no_items);
+
+        View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v==view.findViewById(R.id.addclinic_button)){
+                if (v == view.findViewById(R.id.addclinic_button)) {
                     MyProfileAddClinicFragment fragment = new MyProfileAddClinicFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("doctorClinic", "addClinic");
@@ -86,6 +90,7 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
         @Override
         public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(context).inflate(R.layout.myprofile_clinic_item, parent, false);
+
             return new RecyclerViewHolder(v);
         }
 
@@ -122,7 +127,10 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
                                     realm.commitTransaction();
                                     notifyDataSetChanged();
                                     notifyItemRemoved(position);
-
+                                    if(doctorClinics.size() > 0)
+                                        itemView.setVisibility(View.GONE);
+                                    else
+                                        itemView.setVisibility(View.VISIBLE);
                                 }
 
                                 @Override
@@ -206,8 +214,7 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
         super.onStart();
     }
 
-    public void loadClinics()
-    {
+    public void loadClinics() {
         Globals.GET(Urls.CLINIC, new Globals.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
@@ -246,6 +253,10 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
 
     private void addValuesToRecyclerView(RealmResults<DoctorClinic> doctorClinics) {
         MyClinicsListAdapter adapter = new MyClinicsListAdapter(this.getActivity(), doctorClinics);
+        if (doctorClinics.size() > 0)
+            itemView.setVisibility(View.GONE);
+        else
+            itemView.setVisibility(View.VISIBLE);
         mRecyclerView.setAdapter(adapter);
     }
 }

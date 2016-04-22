@@ -67,7 +67,7 @@ public class MyProfileFragment extends Fragment {
         imageView = view.findViewById(R.id.image_view);
         profileIcon = (DrughubIcon)view.findViewById(R.id.profile_icon);
         profileImage = (ImageView)view.findViewById(R.id.profile_image);
-        imageView.setEnabled(false);
+//        imageView.setEnabled(false);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +85,7 @@ public class MyProfileFragment extends Fragment {
         righticon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MyprofileEditFragment)getFragmentManager().findFragmentById(R.id.container2)).updateProfile();
+//                ((MyprofileEditFragment)getFragmentManager().findFragmentById(R.id.container2)).updateProfile();
                 getFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).commit();
                 myprofile.setPressed(true);
                 editMode = false;

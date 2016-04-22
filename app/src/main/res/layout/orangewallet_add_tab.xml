@@ -19,24 +19,26 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/editText"
-                    android:layout_gravity="center"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
                     style = "@style/EditTextStyleTransparent"
+                    android:paddingLeft="0dp"
                     android:hint="@string/hint_amount"
                     android:inputType="number"
-                    android:ems="15"
                     android:textSize="15dp"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+
                     android:layout_gravity="center">
 
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="50dp"
                         android:layout_height="40dp"
                         android:text="200"
                         android:gravity="center"
@@ -44,7 +46,7 @@
                         android:background="@drawable/round_rect_fill_white"/>
 
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="50dp"
                         android:layout_height="40dp"
                         android:text="500"
                         android:background="@drawable/round_rect_fill_white"
@@ -53,7 +55,7 @@
                         android:id="@+id/textView2"/>
 
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="50dp"
                         android:layout_height="40dp"
                         android:text="900"
                         android:background="@drawable/round_rect_fill_white"
