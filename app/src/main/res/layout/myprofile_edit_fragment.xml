@@ -49,7 +49,7 @@
                     style="@style/EditTextStyleTransparent1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:nextFocusDown="@+id/editYearsOfExperience"
+                    android:nextFocusDown="@+id/editPracticeStartDate"
                     android:inputType="textCapWords"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
@@ -119,13 +119,12 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/editYearsOfExperience"
+                android:id="@+id/editPracticeStartDate"
                 style="@style/EditTextStyleTransparent1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edit_text_height"
                 android:layout_marginTop="10dp"
-                android:hint="@string/hintYearsOfExperience"
-                android:nextFocusDown="@+id/editBuildingName"
+                android:hint="@string/practiceStartDate"
                 android:inputType="date" />
 
             <LinearLayout

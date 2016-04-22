@@ -1,10 +1,12 @@
 package com.drughub.doctor.MyProfile;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -56,7 +59,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -78,6 +84,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
     public static final int CROP_IMAGE = 200;
     private String fileName;
     private Uri outputUri;
+    int day = -1, month = -1, year = -1;
 
 
     // ProfileDetails
@@ -102,7 +109,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
     private RealmResults<AllCity> cities;
     private RealmResults<Specialization> specializations;
     private RealmResults<Qualification> qualifications;
-    private EditText editFirstName, editMiddleName, editLastName, editYearsOfExp, editBuildNumber, editDoorNumber, editStreetName, editAreaName, editPinCode, editLandMark, editEmailID, editMobile;
+    private EditText editFirstName, editMiddleName, editLastName, editBuildNumber, editDoorNumber, editStreetName, editAreaName, editPinCode, editLandMark, editEmailID, editMobile, editPractiseStartDate;
     private ArrayList<String> stateValues, cityValues;
     private final String HINT_COUNTRY = "Country";
     private final String HINT_STATE = "State";
@@ -178,7 +185,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
         editMiddleName = (EditText) findViewById(R.id.editMiddleName);
         editLastName = (EditText) findViewById(R.id.editLastName);
         editBuildNumber = (EditText) findViewById(R.id.editBuildingName);
-        editYearsOfExp = (EditText) findViewById(R.id.editYearsOfExperience);
+        // editYearsOfExp = (EditText) findViewById(R.id.editYearsOfExperience);
         editDoorNumber = (EditText) findViewById(R.id.editDoorNo);
         editStreetName = (EditText) findViewById(R.id.editStreetName);
         editAreaName = (EditText) findViewById(R.id.editAreaName);
@@ -186,6 +193,25 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
         editLandMark = (EditText) findViewById(R.id.editLandMark);
         editEmailID = (EditText) findViewById(R.id.editEmailAddress);
         editMobile = (EditText) findViewById(R.id.editMobile);
+        editPractiseStartDate = (EditText) findViewById(R.id.editPracticeStartDate);
+        editPractiseStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int local_year, int monthOfYear, int dayOfMonth) {
+                        editPractiseStartDate.setText(local_year+ "-" + String.format("%02d", (monthOfYear + 1)) + "-" + String.format("%02d", dayOfMonth) );
+                        editPractiseStartDate.setTextColor(Color.GRAY);
+                        day = dayOfMonth;
+                        month = monthOfYear;
+                        year = local_year;
+                    }
+                };
+                CustomDialog.showDatePicker(MyProfileActivity.this, onDateSetListener, day, month, year);
+
+            }
+        });
 
         findViewById(R.id.buttonUpdate).setOnClickListener(this);
 
@@ -230,7 +256,9 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                 serviceProvider.getAddress().setCity(realm.createObject(City.class));
                 realm.commitTransaction();
             }
-            yearsOfExperience.setText(serviceProvider.getPractiseStartDate());
+//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//            yearsOfExperience.setText(simpleDateFormat.format(serviceProvider.getPractiseStartDate()));
+            yearsOfExperience.setText((serviceProvider.getPractiseStartDate()));
         }
 
     }
@@ -334,7 +362,10 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             editEmailID.setEnabled(false);
             editMobile.setText(serviceProvider.getMobile());
             editMobile.setEnabled(false);
-            editYearsOfExp.setText(serviceProvider.getPractiseStartDate());
+            if (serviceProvider.getPractiseStartDate() != null) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                editPractiseStartDate.setText(simpleDateFormat.format(serviceProvider.getPractiseStartDate()));
+            }
             if (serviceProvider.getAddress() != null) {
                 editBuildNumber.setText(serviceProvider.getAddress().getBuildingName());
                 editDoorNumber.setText(serviceProvider.getAddress().getDoorNumber());
@@ -616,7 +647,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             Toast.makeText(getApplicationContext(), "Enter Last Name", Toast.LENGTH_SHORT).show();
         else if (editBuildNumber.getText().toString().isEmpty())
             Toast.makeText(getApplicationContext(), "Enter Building Number", Toast.LENGTH_SHORT).show();
-        else if (editYearsOfExp.getText().toString().isEmpty())
+        else if (editPractiseStartDate.getText().toString().isEmpty())
             Toast.makeText(getApplicationContext(), "Enter Years of Experience", Toast.LENGTH_SHORT).show();
         else if (editDoorNumber.getText().toString().isEmpty())
             Toast.makeText(getApplicationContext(), "Enter Door Number", Toast.LENGTH_SHORT).show();
@@ -651,7 +682,8 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             RealmList<Specialization> specializationList = new RealmList<>();
             specializationList.add(specializations.get(spinnerSpecialization.getSelectedItemPosition()));
             serviceProvider.setSpecializationList(specializationList);
-            serviceProvider.setPractiseStartDate(editYearsOfExp.getText().toString().trim());
+            //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("");
+            serviceProvider.setPractiseStartDate(editPractiseStartDate.getText().toString());
 
             if (serviceProvider.getAddress() == null) {
                 serviceProvider.setAddress(realm.createObject(Address.class));
@@ -880,7 +912,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
     }
 
     public void loadClinics() {
-        if (doctorClinics!=null && doctorClinics.size() > 0) {
+        if (doctorClinics != null && doctorClinics.size() > 0) {
             getClinicsFromRealm();
         } else {
             Globals.GET(Urls.CLINIC, new Globals.VolleyCallback() {
@@ -987,7 +1019,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                                     notifyItemRangeChanged(position, doctorClinics.size());
                                     mItemManger.closeAllItems();
 
-                                    if(doctorClinics.size() > 0)
+                                    if (doctorClinics.size() > 0)
                                         itemView.setVisibility(View.GONE);
                                     else
                                         itemView.setVisibility(View.VISIBLE);
