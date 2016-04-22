@@ -308,7 +308,7 @@
                 android:layout_height="35dp"
                 android:layout_marginTop="10dp"
                 android:hint="@string/hintConsultationFee"
-                android:inputType="numberDecimal" />
+                android:inputType="number" />
 
             <CheckBox
                 style="@style/check_box_style"
