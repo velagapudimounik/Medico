@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSecondaryDark">
+    android:background="@color/colorSecondaryDark"
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -11,8 +12,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:padding="1dp">
 
             <LinearLayout
@@ -25,35 +26,37 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp "
                     android:scaleType="fitXY"
-                    android:src="@drawable/mahesh"/>
+                    android:src="@drawable/mahesh" />
 
                 <TextView
+                    android:id="@+id/profileDoctorName"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Dr. Sandeep"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
-                    android:textColor="@color/colorDecoration"
                     android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical" />
+                    android:text="Dr. Sandeep"
+                    android:textColor="@color/colorDecoration" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
                     android:text="|"
-                    android:textColor="@color/colorDecoration"
-                    android:layout_marginLeft="5dp"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical" />
+                    android:textColor="@color/colorDecoration" />
 
 
                 <TextView
+                    android:id="@+id/profileDoctorCode"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="DH 45256"
-                    android:textColor="@color/colorDecoration"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
                     android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical" />
+                    android:text="DH 45256"
+                    android:textColor="@color/colorDecoration" />
 
 
             </LinearLayout>
@@ -61,273 +64,273 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorSecondaryLight"/>
+                android:background="@color/colorSecondaryLight" />
 
             <LinearLayout
+                android:id="@+id/my_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:id="@+id/my_home"
-                android:layout_gravity="center_vertical">
+                android:layout_gravity="center_vertical"
+                android:padding="20dp">
 
                 <com.drughub.doctor.utils.DrughubIcon
                     android:layout_width="wrap_content"
                     android:layout_height="40dp "
+                    android:layout_gravity="center_vertical"
                     android:text="@string/my_home"
                     android:textColor="@color/colorDecoration"
-                    android:textSize="25dp"
-                    android:layout_gravity="center_vertical" />
+                    android:textSize="25dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
                     android:text="@string/myhome"
-                    android:textColor="@color/colorDecoration"
-                    android:layout_marginLeft="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical" />
+                    android:textColor="@color/colorDecoration" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorSecondaryLight"/>
+                android:background="@color/colorSecondaryLight" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
                 android:id="@+id/my_profile"
-                android:layout_gravity="center_vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="20dp">
 
                 <com.drughub.doctor.utils.DrughubIcon
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:foregroundGravity="center_vertical"
                     android:text="@string/icon_my_profile"
-                    android:textSize="25dp"
                     android:textColor="@color/colorDecoration"
-                    android:foregroundGravity="center_vertical" />
+                    android:textSize="25dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
                     android:text="@string/myProfile"
-                    android:layout_marginLeft="30dp"
-                    android:textColor="@color/colorDecoration"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical" />
+                    android:textColor="@color/colorDecoration" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorSecondaryLight"/>
+                android:background="@color/colorSecondaryLight" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
                 android:id="@+id/my_calender"
-                android:layout_gravity="center_vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="20dp">
 
                 <com.drughub.doctor.utils.DrughubIcon
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:foregroundGravity="center_vertical"
                     android:text="@string/icon_my_calender"
-                    android:textSize="25dp"
                     android:textColor="@color/colorDecoration"
-                    android:foregroundGravity="center_vertical" />
+                    android:textSize="25dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
                     android:text="@string/my_calendar"
-                    android:textColor="@color/colorDecoration"
-                    android:layout_marginLeft="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical" />
+                    android:textColor="@color/colorDecoration" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorSecondaryLight"/>
+                android:background="@color/colorSecondaryLight" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
                 android:id="@+id/my_orders"
-                android:layout_gravity="center_vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="20dp">
 
                 <com.drughub.doctor.utils.DrughubIcon
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:foregroundGravity="center_vertical"
                     android:text="@string/icon_my_orders"
-                    android:textSize="25dp"
                     android:textColor="@color/colorDecoration"
-                    android:foregroundGravity="center_vertical" />
+                    android:textSize="25dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
                     android:text="@string/myorders"
-                    android:textColor="@color/colorDecoration"
-                    android:layout_marginLeft="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical" />
+                    android:textColor="@color/colorDecoration" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorSecondaryLight"/>
+                android:background="@color/colorSecondaryLight" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
                 android:id="@+id/patient_records"
-                android:layout_gravity="center_vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="20dp">
 
                 <com.drughub.doctor.utils.DrughubIcon
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:foregroundGravity="center_vertical"
                     android:text="@string/icon_patient_records"
-                    android:textSize="25dp"
                     android:textColor="@color/colorDecoration"
-                    android:foregroundGravity="center_vertical" />
+                    android:textSize="25dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
                     android:text="@string/patientrecords"
-                    android:textColor="@color/colorDecoration"
-                    android:layout_marginLeft="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical" />
+                    android:textColor="@color/colorDecoration" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorSecondaryLight"/>
+                android:background="@color/colorSecondaryLight" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
                 android:id="@+id/orange_connect"
-                android:layout_gravity="center_vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="20dp">
 
                 <com.drughub.doctor.utils.DrughubIcon
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:foregroundGravity="center_vertical"
                     android:text="@string/orange_connect"
-                    android:textSize="25dp"
                     android:textColor="@color/colorDecoration"
-                    android:foregroundGravity="center_vertical" />
+                    android:textSize="25dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
                     android:text="@string/orangeconnect"
-                    android:textColor="@color/colorDecoration"
-                    android:layout_marginLeft="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical" />
+                    android:textColor="@color/colorDecoration" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorSecondaryLight"/>
+                android:background="@color/colorSecondaryLight" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
                 android:id="@+id/orange_wallet"
-                android:layout_gravity="center_vertical">
-
-                <com.drughub.doctor.utils.DrughubIcon
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/icon_orange_wallet"
-                    android:textSize="25dp"
-                    android:textColor="@color/colorDecoration"
-                    android:foregroundGravity="center_vertical" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/orangewallet"
-                    android:textColor="@color/colorDecoration"
-                    android:layout_marginLeft="30dp"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorSecondaryLight"/>
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:id="@+id/about"
-                android:layout_gravity="center_vertical">
+                android:layout_gravity="center_vertical"
+                android:padding="20dp">
 
                 <com.drughub.doctor.utils.DrughubIcon
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/about"
-                    android:textSize="25dp"
+                    android:foregroundGravity="center_vertical"
+                    android:text="@string/icon_orange_wallet"
                     android:textColor="@color/colorDecoration"
-                    android:foregroundGravity="center_vertical" />
+                    android:textSize="25dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/about_info"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="30dp"
-                    android:textColor="@color/colorDecoration"
                     android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical" />
+                    android:text="@string/orangewallet"
+                    android:textColor="@color/colorDecoration" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorSecondaryLight"/>
+                android:background="@color/colorSecondaryLight" />
+
+            <LinearLayout
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="20dp">
+
+                <com.drughub.doctor.utils.DrughubIcon
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:foregroundGravity="center_vertical"
+                    android:text="@string/about"
+                    android:textColor="@color/colorDecoration"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/about_info"
+                    android:textColor="@color/colorDecoration" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorSecondaryLight" />
 
             <TextView
+                android:id="@+id/shareapp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/share_app"
-                android:textColor="@color/colorDecoration"
-                android:gravity="center"
                 android:layout_marginTop="20dp"
-                android:id="@+id/shareapp"/>
+                android:gravity="center"
+                android:text="@string/share_app"
+                android:textColor="@color/colorDecoration" />
 
-              <Button
-                  android:layout_width="wrap_content"
-                  android:layout_height="30dp"
-                  android:gravity="center"
-                  android:layout_margin="10dp"
-                  android:text="@string/logout_button"
-                  android:id="@+id/logoutBtn"
-                  style="@style/ButtonStyle"/>
+            <Button
+                android:id="@+id/logoutBtn"
+                style="@style/ButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="@string/logout_button" />
 
         </LinearLayout>
 
