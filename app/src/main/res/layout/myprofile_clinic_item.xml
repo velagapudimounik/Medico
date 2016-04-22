@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/hospitalName"
             android:textSize="15sp"
+            android:textColor="@color/colorText"
             android:text="Hospital Name"/>
 
         <TextView

@@ -185,10 +185,9 @@ public class MyCalendarActivity extends BaseActivity {
                         realm.beginTransaction();
                         realm.createOrUpdateAllFromJson(ClinicCalendar.class, object.getJSONArray("response"));
                         realm.commitTransaction();
+
+                        getSupportFragmentManager().beginTransaction().replace(R.id.my_calendar_container, myCalendarAvailabilityList).commit();
                     }
-
-                    getSupportFragmentManager().beginTransaction().replace(R.id.my_calendar_container, myCalendarAvailabilityList).commit();
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -196,7 +195,6 @@ public class MyCalendarActivity extends BaseActivity {
 
             @Override
             public void onFail(String result) {
-
             }
         }, "");
 

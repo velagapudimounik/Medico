@@ -53,7 +53,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
     RealmResults<AllState> states;
     RealmResults<AllCity> cities;
     Realm realm;
-    EditText clinic_Name, building_name, doorNo, streetName, colonyName, landmark, Mobile, consultationFee, pincode;
+    EditText clinic_Name, building_name, doorNo, streetName, areaName, landmark, Mobile, consultationFee, pincode;
     CheckBox consultationHome;
     String clinicString;
     DoctorClinic selectedClinic = null;
@@ -72,7 +72,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
         building_name = (EditText) view.findViewById(R.id.building_name);
         doorNo = (EditText) view.findViewById(R.id.door_no);
         streetName = (EditText) view.findViewById(R.id.street_name);
-        colonyName = (EditText) view.findViewById(R.id.colony_name);
+        areaName = (EditText) view.findViewById(R.id.area_name);
         Mobile = (EditText) view.findViewById(R.id.mobile);
         consultationFee = (EditText) view.findViewById(R.id.consultation_fee);
         pincode = (EditText) view.findViewById(R.id.pincode);
@@ -95,7 +95,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
             building_name.setText(Globals.selectedDoctorClinic.getAddress().getBuildingName());
             doorNo.setText(Globals.selectedDoctorClinic.getAddress().getDoorNumber());
             streetName.setText(Globals.selectedDoctorClinic.getAddress().getStreetName());
-            colonyName.setText(Globals.selectedDoctorClinic.getAddress().getAreaName());
+            areaName.setText(Globals.selectedDoctorClinic.getAddress().getAreaName());
             // spinner1.set(bundle.getString("clinicName"));
             //clinic_Name.setText(bundle.getString("clinicName"));
             //clinic_Name.setText(bundle.getString("clinicName"));
@@ -122,7 +122,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        imagelayout = (LinearLayout) view.findViewById(R.id.mainimagelayout);
+        imagelayout = (LinearLayout) view.findViewById(R.id.mainImageLayout);
         FrameLayout iconplus = (FrameLayout) view.findViewById(R.id.icon_plus);
         iconplus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +140,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                 String buildingName = building_name.getText().toString();
                 String doorno = doorNo.getText().toString();
                 String streetname = streetName.getText().toString();
-                String colonyname = colonyName.getText().toString();
+                String areaName = MyProfileAddClinicFragment.this.areaName.getText().toString();
                 String postalcode = pincode.getText().toString();
                 String landMark = landmark.getText().toString();
 
@@ -154,8 +154,8 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                     Toast.makeText(getContext(), "Enter Door Number", Toast.LENGTH_SHORT).show();
                 else if (streetname.isEmpty())
                     Toast.makeText(getContext(), "Enter Street Name", Toast.LENGTH_SHORT).show();
-                else if (colonyname.isEmpty())
-                    Toast.makeText(getContext(), "Enter Colony Name", Toast.LENGTH_SHORT).show();
+                else if (areaName.isEmpty())
+                    Toast.makeText(getContext(), "Enter Area Name", Toast.LENGTH_SHORT).show();
                 else if (spinnerState.getSelectedItem() == null)
                     Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
                 else if (spinnerCity.getSelectedItem() == null)
@@ -190,7 +190,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                     clinic.getAddress().setBuildingName(buildingName);
                     clinic.getAddress().setDoorNumber(doorno);
                     clinic.getAddress().setStreetName(streetname);
-                    clinic.getAddress().setAreaName(colonyname);
+                    clinic.getAddress().setAreaName(areaName);
 
                     realm.beginTransaction();
                     clinic.getAddress().setCountry(realm.createOrUpdateObjectFromJson(Country.class, country.getValueIdsCode()));
