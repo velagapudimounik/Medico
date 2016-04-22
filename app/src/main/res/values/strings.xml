@@ -282,7 +282,7 @@
     <string name="buildingName">Building Name</string>
     <string name="doorNo">Door no</string>
     <string name="streetName">Street Name</string>
-    <string name="colonyName">Colony Name</string>
+    <string name="areaName">Area Name</string>
     <string name="country">Country</string>
     <string name="state">State</string>
     <string name="district">District</string>

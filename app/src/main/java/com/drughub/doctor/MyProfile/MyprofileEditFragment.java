@@ -64,7 +64,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
                 getEditBuildingName().setText(serviceProvider.getAddress().getBuildingName());
                 getEditDoorNo().setText(serviceProvider.getAddress().getDoorNumber());
                 getEditStreetName().setText(serviceProvider.getAddress().getStreetName());
-                getEditColonyName().setText(serviceProvider.getAddress().getAreaName());
+                getEditAreaName().setText(serviceProvider.getAddress().getAreaName());
                 getEditPincode().setText(serviceProvider.getAddress().getPostalCode());
             }
         }
@@ -326,10 +326,10 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
         editMiddleName = (EditText) getView().findViewById(R.id.editMiddleName);
         editLastName = (EditText) getView().findViewById(R.id.editLastName);
         editBuildNumber = (EditText) getView().findViewById(R.id.editBuildingName);
-        editYearsOfExp = (EditText) getView().findViewById(R.id.editYearsofExperience);
+        editYearsOfExp = (EditText) getView().findViewById(R.id.editYearsOfExperience);
         editDoorNumber = (EditText) getView().findViewById(R.id.editDoorNo);
         editStreetName = (EditText) getView().findViewById(R.id.editStreetName);
-        editColonyName = (EditText) getView().findViewById(R.id.editColonyName);
+        editColonyName = (EditText) getView().findViewById(R.id.editAreaName);
         editPinCode = (EditText) getView().findViewById(R.id.editPincode);
         editLandMark = (EditText) getView().findViewById(R.id.editLandMark);
         editEmailID = (EditText) getView().findViewById(R.id.editEmailAddress);
@@ -352,7 +352,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 
 
     private EditText getEditYearsofExperience() {
-        return (EditText) getView().findViewById(R.id.editYearsofExperience);
+        return (EditText) getView().findViewById(R.id.editYearsOfExperience);
     }
 
     private EditText getEditBuildingName() {
@@ -367,8 +367,8 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
         return (EditText) getView().findViewById(R.id.editStreetName);
     }
 
-    private EditText getEditColonyName() {
-        return (EditText) getView().findViewById(R.id.editColonyName);
+    private EditText getEditAreaName() {
+        return (EditText) getView().findViewById(R.id.editAreaName);
     }
 
     private EditText getEditPincode() {
@@ -412,7 +412,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 //            Toast.makeText(getContext(), "Enter Door Number", Toast.LENGTH_SHORT).show();
 //        else if (streetName.getText().toString().isEmpty())
 //            Toast.makeText(getContext(), "Enter Street Name", Toast.LENGTH_SHORT).show();
-//        else if (colonyName.getText().toString().isEmpty())
+//        else if (areaName.getText().toString().isEmpty())
 //            Toast.makeText(getContext(), "Enter Colony Name", Toast.LENGTH_SHORT).show();
 //        else if (spinnerCountry.getSelectedItem() == null)
 //            Toast.makeText(getContext(), "Enter Country Name", Toast.LENGTH_SHORT).show();
@@ -449,7 +449,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 //            serviceProvider.getAddress().setBuildingName(getEditBuildingName().getText().toString());
 //            serviceProvider.getAddress().setDoorNumber(getEditDoorNo().getText().toString());
 //            serviceProvider.getAddress().setStreetName(getEditStreetName().getText().toString());
-//            serviceProvider.getAddress().setAreaName(getEditColonyName().getText().toString());
+//            serviceProvider.getAddress().setAreaName(getEditAreaName().getText().toString());
 //            serviceProvider.getAddress().setPostalCode(getEditPincode().getText().toString());
 //            serviceProvider.getAddress().setLandmark(getEditLandMark().getText().toString());
 //            if (serviceProvider.getAddress().getCountry() == null) {

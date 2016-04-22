@@ -157,6 +157,9 @@ public class MyCalendarAvailabilityList extends Fragment {
 
             public void setItemDetails(ClinicCalendar item)
             {
+                if(item.getClinic() == null)
+                    return;
+
                 if(item.getClinic().getAddress() == null || item.getClinic().getAddress().getStreetName() == null)
                     clinicDetails.setText(item.getClinic().getClinicName());
                 else
@@ -212,8 +215,9 @@ public class MyCalendarAvailabilityList extends Fragment {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int position)
         {
-            // Get element from your dataset at this position and replace the contents of the view
-            // with that element
+            if(mDataSet.get(position).getClinic() == null)
+                return;
+
             viewHolder.setItemDetails(mDataSet.get(position));
 
             viewHolder.rescheduleBtn.setOnClickListener(new View.OnClickListener() {

@@ -6,44 +6,6 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
-
-        <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/mainimagelayout"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-
-                android:layout_marginLeft="30dp"
-                android:orientation="horizontal"></LinearLayout>
-
-            <FrameLayout
-                android:id="@+id/icon_plus"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/fill_round_rect_grey">
-
-                <com.drughub.doctor.utils.DrughubIcon
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/margin_large"
-                    android:gravity="center"
-                    android:text="@string/icon_plus"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_large" />
-            </FrameLayout>
-        </LinearLayout>
-    </HorizontalScrollView>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,11 +14,49 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
+
+        <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:id="@+id/mainImageLayout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"></LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/icon_plus"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@color/colorDecoration">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="+"
+                    android:textColor="@color/colorDecorationLight"
+                    android:textSize="@dimen/text_large" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
 
             <EditText
                 android:id="@+id/clinic_name"
@@ -107,13 +107,13 @@
                     android:hint="@string/streetName" />
 
                 <EditText
-                    android:id="@+id/colony_name"
+                    android:id="@+id/area_name"
                     style="@style/EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:hint="@string/colonyName" />
+                    android:hint="@string/areaName" />
             </LinearLayout>
 
             <LinearLayout

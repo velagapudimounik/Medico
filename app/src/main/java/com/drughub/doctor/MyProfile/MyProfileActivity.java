@@ -102,7 +102,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
     private RealmResults<AllCity> cities;
     private RealmResults<Specialization> specializations;
     private RealmResults<Qualification> qualifications;
-    private EditText editFirstName, editMiddleName, editLastName, editYearsOfExp, editBuildNumber, editDoorNumber, editStreetName, editColonyName, editPinCode, editLandMark, editEmailID, editMobile;
+    private EditText editFirstName, editMiddleName, editLastName, editYearsOfExp, editBuildNumber, editDoorNumber, editStreetName, editAreaName, editPinCode, editLandMark, editEmailID, editMobile;
     private ArrayList<String> stateValues, cityValues;
     private final String HINT_COUNTRY = "Country";
     private final String HINT_STATE = "State";
@@ -152,7 +152,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
     private void initMyClinics() {
         mRecyclerView = (RecyclerView) findViewById(R.id.myclinic_recyclerview);
         itemView = (LinearLayout) findViewById(R.id.no_items);
-        findViewById(R.id.addclinic_button).setOnClickListener(this);
+        findViewById(R.id.addClinicButton).setOnClickListener(this);
     }
 
     private void initChangePassword() {
@@ -178,10 +178,10 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
         editMiddleName = (EditText) findViewById(R.id.editMiddleName);
         editLastName = (EditText) findViewById(R.id.editLastName);
         editBuildNumber = (EditText) findViewById(R.id.editBuildingName);
-        editYearsOfExp = (EditText) findViewById(R.id.editYearsofExperience);
+        editYearsOfExp = (EditText) findViewById(R.id.editYearsOfExperience);
         editDoorNumber = (EditText) findViewById(R.id.editDoorNo);
         editStreetName = (EditText) findViewById(R.id.editStreetName);
-        editColonyName = (EditText) findViewById(R.id.editColonyName);
+        editAreaName = (EditText) findViewById(R.id.editAreaName);
         editPinCode = (EditText) findViewById(R.id.editPincode);
         editLandMark = (EditText) findViewById(R.id.editLandMark);
         editEmailID = (EditText) findViewById(R.id.editEmailAddress);
@@ -230,6 +230,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                 serviceProvider.getAddress().setCity(realm.createObject(City.class));
                 realm.commitTransaction();
             }
+            yearsOfExperience.setText(serviceProvider.getPractiseStartDate());
         }
 
     }
@@ -333,12 +334,12 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             editEmailID.setEnabled(false);
             editMobile.setText(serviceProvider.getMobile());
             editMobile.setEnabled(false);
-            //getEditYearsofExperience().setText(serviceProvider.get);
+            editYearsOfExp.setText(serviceProvider.getPractiseStartDate());
             if (serviceProvider.getAddress() != null) {
                 editBuildNumber.setText(serviceProvider.getAddress().getBuildingName());
                 editDoorNumber.setText(serviceProvider.getAddress().getDoorNumber());
                 editStreetName.setText(serviceProvider.getAddress().getStreetName());
-                editColonyName.setText(serviceProvider.getAddress().getAreaName());
+                editAreaName.setText(serviceProvider.getAddress().getAreaName());
                 editPinCode.setText(serviceProvider.getAddress().getPostalCode());
                 editLandMark.setText(serviceProvider.getAddress().getLandMark());
             }
@@ -536,7 +537,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             case R.id.buttonSubmit:
                 changePassword();
                 break;
-            case R.id.addclinic_button:
+            case R.id.addClinicButton:
                 addClinic();
                 break;
         }
@@ -621,8 +622,8 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             Toast.makeText(getApplicationContext(), "Enter Door Number", Toast.LENGTH_SHORT).show();
         else if (editStreetName.getText().toString().isEmpty())
             Toast.makeText(getApplicationContext(), "Enter Street Name", Toast.LENGTH_SHORT).show();
-        else if (editColonyName.getText().toString().isEmpty())
-            Toast.makeText(getApplicationContext(), "Enter Colony Name", Toast.LENGTH_SHORT).show();
+        else if (editAreaName.getText().toString().isEmpty())
+            Toast.makeText(getApplicationContext(), "Enter Area Name", Toast.LENGTH_SHORT).show();
         else if (spinnerCountry.getSelectedItem().toString().equalsIgnoreCase(HINT_COUNTRY))
             Toast.makeText(getApplicationContext(), "Enter Country Name", Toast.LENGTH_SHORT).show();
         else if (spinnerState.getSelectedItem().toString().equalsIgnoreCase(HINT_STATE))
@@ -650,6 +651,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             RealmList<Specialization> specializationList = new RealmList<>();
             specializationList.add(specializations.get(spinnerSpecialization.getSelectedItemPosition()));
             serviceProvider.setSpecializationList(specializationList);
+            serviceProvider.setPractiseStartDate(editYearsOfExp.getText().toString().trim());
 
             if (serviceProvider.getAddress() == null) {
                 serviceProvider.setAddress(realm.createObject(Address.class));
@@ -658,7 +660,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             serviceProvider.getAddress().setBuildingName(editBuildNumber.getText().toString());
             serviceProvider.getAddress().setDoorNumber(editDoorNumber.getText().toString());
             serviceProvider.getAddress().setStreetName(editStreetName.getText().toString());
-            serviceProvider.getAddress().setAreaName(editColonyName.getText().toString());
+            serviceProvider.getAddress().setAreaName(editAreaName.getText().toString());
             serviceProvider.getAddress().setPostalCode(editPinCode.getText().toString());
             serviceProvider.getAddress().setLandMark(editLandMark.getText().toString());
             if (serviceProvider.getAddress().getCountry() == null) {
@@ -952,7 +954,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             final DoctorClinic doctorClinic = doctorClinics.get(position);
 
             viewHolder.hospitalName.setText(doctorClinic.getClinicName());
-            viewHolder.hospitalAddress.setText(doctorClinic.getAddress().getStreetName() + "," + doctorClinic.getAddress().getBuildingName());
+            viewHolder.hospitalAddress.setText(doctorClinic.getAddress().getStreetName() + ", " + doctorClinic.getAddress().getBuildingName());
 
             viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override

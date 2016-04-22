@@ -58,7 +58,7 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v == view.findViewById(R.id.addclinic_button)) {
+                if (v == view.findViewById(R.id.addClinicButton)) {
                     MyProfileAddClinicFragment fragment = new MyProfileAddClinicFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("doctorClinic", "addClinic");
@@ -69,7 +69,7 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
         };
 
 
-        Button addClinic = (Button) view.findViewById(R.id.addclinic_button);
+        Button addClinic = (Button) view.findViewById(R.id.addClinicButton);
         addClinic.setOnClickListener(listener);
 
 
