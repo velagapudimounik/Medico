@@ -85,7 +85,9 @@ public class Globals {
     public static void init(Context context) {
         mContext = context;
         mRequestQueue = getRequestQueue();
+
     }
+
 
     public static void setContext(Context context) {
         mContext = context;
@@ -94,6 +96,7 @@ public class Globals {
     public static void startStringRequest(RequestMethod method, final String url, final Map<String, String> headers, final Map<String, String> params,
                                           final String body, final String progressText, final VolleyCallback callback) {
         if(USE_VOLLEY) {
+//
 
             final ProgressDialog progress = (progressText != null) ? ProgressDialog.show(mContext, progressText, "Please wait...", true) : null;
 
@@ -132,18 +135,9 @@ public class Globals {
 
                         if (volleyError.networkResponse == null)
                             stringResponse = "Error Occurred";
-                        else if (volleyError.networkResponse.statusCode == 400)
-                            stringResponse = "Bad Request";
-                        else if (volleyError.networkResponse.statusCode == 401)
-                            stringResponse = "Session Timed Out";
-                        else if (volleyError.networkResponse.statusCode == 403)
-                            stringResponse = "Forbidden Request";
-                        else if (volleyError.networkResponse.statusCode == 404)
-                            stringResponse = "URL Not Found";
-                        else if (volleyError.networkResponse.statusCode == 500)
-                            stringResponse = "Internal Server Error";
                         else
-                            stringResponse = "Error Occurred";
+                            stringResponse = getResponseCodeError(volleyError.networkResponse.statusCode);
+
 
                         Toast.makeText(mContext, stringResponse, Toast.LENGTH_SHORT).show();
 
@@ -271,18 +265,7 @@ public class Globals {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 try {
-                    if (volleyError.networkResponse.statusCode == 404) {
-                        Log.v("statusCode", "" + volleyError.networkResponse.statusCode);
-                        stringResponse = "URL Not Found";
-                        Log.v("stringResponse", stringResponse);
-                    } else if (volleyError.networkResponse.statusCode == 400) {
-                        stringResponse = "Bad Request";
-                    } else if (volleyError.networkResponse.statusCode == 500) {
-                        stringResponse = "Internal Server Error";
-                    } else {
-                        stringResponse = "error occured";
-                    }
-
+                    stringResponse = getResponseCodeError(volleyError.networkResponse.statusCode);
                     callback.onFail(stringResponse);
                 } catch (Exception e) {
                     stringResponse = "error occured";
@@ -655,6 +638,7 @@ public class Globals {
                 {
                     Log.d(VOLLEY_TAG, "WebService ErrorCode: "+statusCode);
                     conn.disconnect();
+                    getResponseCodeError(statusCode);
                     return false;
                 }
 
@@ -714,10 +698,30 @@ public class Globals {
 
         @Override
         protected void onCancelled() {
-            Toast.makeText(mContext, "Error Occurred", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, stringResponse, Toast.LENGTH_SHORT).show();
             callback.onFail("Error Occurred");
             if(progress != null)
                 progress.dismiss();
         }
+    }
+
+    public static String getResponseCodeError(int errorCode){
+        String stringResponse = "";
+        if (errorCode == 0)
+            stringResponse = "Error Occurred";
+        else if (errorCode == 400)
+            stringResponse = "Bad Request";
+        else if (errorCode == 401)
+            stringResponse = "Session Timed Out";
+        else if (errorCode == 403)
+            stringResponse = "Forbidden Request";
+        else if (errorCode == 404)
+            stringResponse = "URL Not Found";
+        else if (errorCode == 500)
+            stringResponse = "Internal Server Error";
+        else
+            stringResponse = "Error Occurred";
+
+        return stringResponse;
     }
 }
