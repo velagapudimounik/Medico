@@ -13,6 +13,7 @@ import android.os.Build;
 import android.support.v4.util.LruCache;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -391,6 +392,8 @@ public class Globals {
         return false;
     }
 
+
+
 //    public static void addDevice(Context context){
 //        HashMap<String, String> postParams = new HashMap<>();
 //        HashMap<String, String> postHeaders = new HashMap<>();
@@ -737,4 +740,10 @@ public class Globals {
 
         return stringResponse;
     }
+    public final static boolean isValidPhoneNumber(String mobile ){
+        if (mobile!=null && Patterns.PHONE.matcher(mobile).matches())
+            return true;
+        return false;
+    }
+
 }

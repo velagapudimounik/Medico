@@ -62,6 +62,8 @@ public class SignUpFragment extends Fragment {
                         Toast.makeText(getActivity(), getString(R.string.EnterName), Toast.LENGTH_SHORT).show();
                     else if (mobile.isEmpty())
                         Toast.makeText(getActivity(),getString(R.string.EnterMobile) , Toast.LENGTH_SHORT).show();
+                    else if (!Globals.isValidPhoneNumber(mobile))
+                        Toast.makeText(getActivity(),getString(R.string.EnterValidMobile),Toast.LENGTH_SHORT).show();
                     else if ( mobile.length()<10)
                         Toast.makeText(getActivity(),getString(R.string.EnterValidMobile), Toast.LENGTH_SHORT).show();
                     else if (email.isEmpty())
