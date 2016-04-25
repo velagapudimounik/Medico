@@ -59,19 +59,19 @@ public class SignUpFragment extends Fragment {
                     String mobile = editMobile.getText().toString().trim();
                     final String password = editPassword.getText().toString();
                     if (name.isEmpty())
-                        Toast.makeText(getActivity(), "Please enter your Name", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getString(R.string.EnterName), Toast.LENGTH_SHORT).show();
                     else if (mobile.isEmpty())
-                        Toast.makeText(getActivity(), "Please enter your Mobile Number", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),getString(R.string.EnterMobile) , Toast.LENGTH_SHORT).show();
                     else if ( mobile.length()<10)
-                        Toast.makeText(getActivity(), "Please enter valid Mobile Number", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),getString(R.string.EnterValidMobile), Toast.LENGTH_SHORT).show();
                     else if (email.isEmpty())
-                        Toast.makeText(getActivity(), "Please enter Email ID", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),getString(R.string.EnterEmail), Toast.LENGTH_SHORT).show();
                     else if (!Globals.isValidEmail(email))
-                        Toast.makeText(getActivity(), "Please enter valid Email ID", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),getString(R.string.EnterValidEmail), Toast.LENGTH_SHORT).show();
                     else if (password.isEmpty())
-                        Toast.makeText(getActivity(), "Please enter the Password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),getString(R.string.EnterPassword), Toast.LENGTH_SHORT).show();
                     else if (password.length() < 8)
-                        Toast.makeText(getActivity(), "Password should be in minimum 8 characters", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),getString(R.string.PasswordValidation), Toast.LENGTH_SHORT).show();
                     else {
                         User user = new User();
                         user.setEmail(email);

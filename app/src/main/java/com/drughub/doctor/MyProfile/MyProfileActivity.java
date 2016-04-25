@@ -384,7 +384,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                         if (!spinnerCountry.getSelectedItem().toString().equalsIgnoreCase(HINT_COUNTRY))
                             getStates(position);
                     }
-
+   
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
                     }
@@ -619,11 +619,11 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
         String newPwd = newPassword.getText().toString();
         String confirmPwd = confirmPassword.getText().toString();
         if (currentPwd.isEmpty())
-            Toast.makeText(getApplicationContext(), "Please enter current password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.passwordValidation), Toast.LENGTH_SHORT).show();
         else if (newPwd.isEmpty())
-            Toast.makeText(getApplicationContext(), "Please enter your new password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.newPasswordValidation), Toast.LENGTH_SHORT).show();
         else if (confirmPwd.isEmpty())
-            Toast.makeText(getApplicationContext(), "Please confirm your new password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.ValidNewPassword), Toast.LENGTH_SHORT).show();
         else {
             if (newPwd.equals(confirmPwd)) {
                 JSONObject object = new JSONObject();
@@ -644,7 +644,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                                 currentPassword.setText("");
                                 newPassword.setText("");
                                 confirmPassword.setText("");
-                                Toast.makeText(getApplicationContext(), "Your password changed successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getString(R.string.passwordAdded), Toast.LENGTH_SHORT).show();
                                 Log.v("result==change", result);
                             } else {
                                 Toast.makeText(getApplicationContext(), "" + object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
@@ -664,35 +664,35 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
     public void updateProfile() {
 
         if (editFirstName.getText().toString().isEmpty())
-            Toast.makeText(getApplicationContext(), "Enter First Name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.firstNameValidation), Toast.LENGTH_SHORT).show();
         else if (editMiddleName.getText().toString().isEmpty())
-            Toast.makeText(getApplicationContext(), "Enter Middle Name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.middleNameValidation), Toast.LENGTH_SHORT).show();
         else if (editLastName.getText().toString().isEmpty())
-            Toast.makeText(getApplicationContext(), "Enter Last Name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.lastNameValidation), Toast.LENGTH_SHORT).show();
         else if (editBuildNumber.getText().toString().isEmpty())
-            Toast.makeText(getApplicationContext(), "Enter Building Number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.buildingNumberValidation), Toast.LENGTH_SHORT).show();
         else if (editPractiseStartDate.getText().toString().isEmpty())
-            Toast.makeText(getApplicationContext(), "Enter Practice Start Date", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.practiceValidation), Toast.LENGTH_SHORT).show();
         else if (editDoorNumber.getText().toString().isEmpty())
-            Toast.makeText(getApplicationContext(), "Enter Door Number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),getString(R.string.doorNumberValidation), Toast.LENGTH_SHORT).show();
         else if (editStreetName.getText().toString().isEmpty())
-            Toast.makeText(getApplicationContext(), "Enter Street Name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),getString(R.string.streetNameValidation), Toast.LENGTH_SHORT).show();
         else if (editAreaName.getText().toString().isEmpty())
-            Toast.makeText(getApplicationContext(), "Enter Area Name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.areaNameValidation), Toast.LENGTH_SHORT).show();
         else if (spinnerCountry.getSelectedItem().toString().equalsIgnoreCase(HINT_COUNTRY))
-            Toast.makeText(getApplicationContext(), "Enter Country Name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.countryValidation), Toast.LENGTH_SHORT).show();
         else if (spinnerState.getSelectedItem().toString().equalsIgnoreCase(HINT_STATE))
-            Toast.makeText(getApplicationContext(), "Select State Name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.stateValidation), Toast.LENGTH_SHORT).show();
         else if (spinnerCity.getSelectedItem().toString().equalsIgnoreCase(HINT_CITY))
-            Toast.makeText(getApplicationContext(), "Select City Name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.cityValidation), Toast.LENGTH_SHORT).show();
         else if (editPinCode.getText().toString().isEmpty())
-            Toast.makeText(getApplicationContext(), "Enter pincode", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.postalCodeValidation), Toast.LENGTH_SHORT).show();
         else if (editLandMark.getText().toString().isEmpty())
-            Toast.makeText(getApplicationContext(), "Enter landmark ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.landmarkValidation), Toast.LENGTH_SHORT).show();
         else if (editEmailID.getText().toString().isEmpty())
-            Toast.makeText(getApplicationContext(), "Enter Email ID", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.emialIdValidation), Toast.LENGTH_SHORT).show();
         else if (mobile.getText().toString().isEmpty())
-            Toast.makeText(getApplicationContext(), "Enter Mobile Number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.mobileValidation), Toast.LENGTH_SHORT).show();
         else {
             realm.beginTransaction();
             serviceProvider.setMobile(editMobile.getText().toString().trim());
@@ -746,7 +746,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                 @Override
                 public void onSuccess(String result) {
                     onUpdateProfile();
-                    Toast.makeText(getApplicationContext(), "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.profileUpdated), Toast.LENGTH_SHORT).show();
                     Log.v("update SP response", result);
                 }
 

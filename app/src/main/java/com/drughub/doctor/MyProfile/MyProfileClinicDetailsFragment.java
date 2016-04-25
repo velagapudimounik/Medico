@@ -53,7 +53,7 @@ public class MyProfileClinicDetailsFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        getActivity().setTitle("My Profile");
+        getActivity().setTitle(getString(R.string.myProfile));
     }
 
     public class ClinicDetailsAdapter extends RecyclerView.Adapter<ClinicDetailsAdapter.RecyclerViewHolder> {
