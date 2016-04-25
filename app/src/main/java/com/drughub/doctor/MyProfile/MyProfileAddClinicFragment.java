@@ -138,27 +138,27 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                 String landMark = landmark.getText().toString();
 
                 if (clinicName.isEmpty())
-                    Toast.makeText(getContext(), "Enter Clinic Name", Toast.LENGTH_SHORT).show();
-                else if (con_fee.isEmpty())
-                    Toast.makeText(getContext(), "Enter Consultation Fee", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),getString(R.string.clinicNameValidation) , Toast.LENGTH_SHORT).show();
                 else if (buildingName.isEmpty())
-                    Toast.makeText(getContext(), "Enter Building Name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.buildingNumberValidation), Toast.LENGTH_SHORT).show();
                 else if (doorno.isEmpty())
-                    Toast.makeText(getContext(), "Enter Door Number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.doorNumberValidation), Toast.LENGTH_SHORT).show();
                 else if (streetname.isEmpty())
-                    Toast.makeText(getContext(), "Enter Street Name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.streetNameValidation), Toast.LENGTH_SHORT).show();
                 else if (areaName.isEmpty())
-                    Toast.makeText(getContext(), "Enter Area Name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.areaNameValidation), Toast.LENGTH_SHORT).show();
                 else if (spinnerState.getSelectedItem() == null)
-                    Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.stateValidation), Toast.LENGTH_SHORT).show();
                 else if (spinnerCity.getSelectedItem() == null)
-                    Toast.makeText(getContext(), "Select City", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),  getString(R.string.cityValidation), Toast.LENGTH_SHORT).show();
                 else if (postalcode.isEmpty())
-                    Toast.makeText(getContext(), "Enter Postal Code", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),  getString(R.string.postalCodeValidation), Toast.LENGTH_SHORT).show();
                 else if (postalcode.length() < 6 || postalcode.equalsIgnoreCase("000000"))
-                    Toast.makeText(getContext(), "Enter Valid Postal Code", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),  getString(R.string.validpostalCode), Toast.LENGTH_SHORT).show();
                 else if (landMark.isEmpty())
-                    Toast.makeText(getContext(), "Enter LandMark", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.landmarkValidation), Toast.LENGTH_SHORT).show();
+                else if (con_fee.isEmpty())
+                    Toast.makeText(getContext(),  getString(R.string.consultaionFeeValidation), Toast.LENGTH_SHORT).show();
                 else {
                     Country country = countries.get(spinnerCountry.getSelectedItemPosition());
                     AllState state = states.get(spinnerState.getSelectedItemPosition());
@@ -199,7 +199,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                                         realm.beginTransaction();
                                         realm.createOrUpdateObjectFromJson(DoctorClinic.class, object.getJSONObject("response").toString());
                                         realm.commitTransaction();
-                                        Toast.makeText(getContext(), "Clinic Added Successfully", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), getString(R.string.clinicAdded), Toast.LENGTH_SHORT).show();
                                         ((MyProfileActivity) getActivity()).getClinicsFromRealm();
                                         getFragmentManager().popBackStack();
                                     } else {
@@ -207,7 +207,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
-                                    Toast.makeText(getContext(), "Please try Again", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), getString(R.string.clinicAddedError), Toast.LENGTH_SHORT).show();
 
                                 }
                             }
@@ -229,7 +229,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                                         realm.beginTransaction();
                                         realm.createOrUpdateObjectFromJson(DoctorClinic.class, object.getJSONObject("response").toString());
                                         realm.commitTransaction();
-                                        Toast.makeText(getContext(), "Clinic Updated Successfully", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), getString(R.string.clinicUpdated), Toast.LENGTH_SHORT).show();
                                         ((MyProfileActivity) getActivity()).getClinicsFromRealm();
                                         getFragmentManager().popBackStack();
                                     } else {
@@ -237,7 +237,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
-                                    Toast.makeText(getContext(), "Please Try Again", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), getString(R.string.clinicAddedError), Toast.LENGTH_SHORT).show();
                                 }
                             }
 
