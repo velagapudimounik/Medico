@@ -419,29 +419,29 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             getSpecializations();
             getQualifications();
             stateValues = new ArrayList<>();
-//            stateValues.add(HINT_STATE);
-//            stateValues.add(HINT_STATE);
-//            spinnerState.setAdapter(new SpinnerAdapter(getApplicationContext(), stateValues));
-            HintSpinner<String> hintSpinner = new HintSpinner<>(
-                    spinnerState,
-                    // Default layout - You don't need to pass in any layout id, just your hint text and
-                    // your list data
-                    new HintAdapter<>(this, HINT_STATE, stateValues, new HintAdapter.Callback<String>() {
-                        @Override
-                        public void setItemDetails(View view, int position, String itemAtPosition) {
-                            TextView textView = (TextView) view.findViewById(android.R.id.text1);
-                            textView.setText(itemAtPosition);
-                            textView.setTextColor(Color.BLUE);
-                        }
-                    }),
-                    new HintSpinner.Callback<String>() {
-                        @Override
-                        public void onItemSelected(int position, String itemAtPosition) {
-                            // Here you handle the on item selected event (this skips the hint selected event)
-                            getCities(position);
-                        }
-                    });
-            hintSpinner.init();
+            stateValues.add(HINT_STATE);
+            stateValues.add(HINT_STATE);
+            spinnerState.setAdapter(new SpinnerAdapter(getApplicationContext(), stateValues));
+//            HintSpinner<String> hintSpinner = new HintSpinner<>(
+//                    spinnerState,
+//                    // Default layout - You don't need to pass in any layout id, just your hint text and
+//                    // your list data
+//                    new HintAdapter<>(this, HINT_STATE, stateValues, new HintAdapter.Callback<String>() {
+//                        @Override
+//                        public void setItemDetails(View view, int position, String itemAtPosition) {
+//                            TextView textView = (TextView) view.findViewById(android.R.id.text1);
+//                            textView.setText(itemAtPosition);
+//                            textView.setTextColor(Color.BLUE);
+//                        }
+//                    }),
+//                    new HintSpinner.Callback<String>() {
+//                        @Override
+//                        public void onItemSelected(int position, String itemAtPosition) {
+//                            // Here you handle the on item selected event (this skips the hint selected event)
+//                            getCities(position);
+//                        }
+//                    });
+//            hintSpinner.init();
             cityValues = new ArrayList<>();
             cityValues.add(HINT_CITY);
             cityValues.add(HINT_CITY);
@@ -729,12 +729,9 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             }
             if (serviceProvider.getAddress().getCity() == null) {
                 City city = realm.createOrUpdateObjectFromJson(City.class, cities.get(spinnerCity.getSelectedItemPosition()).getValueIds());
-
                 serviceProvider.getAddress().setCity(city);
             } else {
                 serviceProvider.getAddress().setCity(realm.createOrUpdateObjectFromJson(City.class, cities.get(spinnerCity.getSelectedItemPosition()).getValueIds()));
-
-                Log.i("City_-", cities.get(spinnerCity.getSelectedItemPosition()).getValueIds() + "");
             }
             if (serviceProvider.getAddress().getState() == null) {
                 State state = realm.createOrUpdateObjectFromJson(State.class, states.get(spinnerState.getSelectedItemPosition()).getValueIds());
