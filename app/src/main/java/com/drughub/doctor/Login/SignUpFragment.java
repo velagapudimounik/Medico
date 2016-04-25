@@ -98,7 +98,6 @@ public class SignUpFragment extends Fragment {
 
                             @Override
                             public void onFail(String result) {
-                                Toast.makeText(getActivity(), "Unable to process your request, please try again.", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

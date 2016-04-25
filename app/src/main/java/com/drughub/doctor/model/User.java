@@ -3,7 +3,6 @@ package com.drughub.doctor.model;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 
-import com.drughub.doctor.MyProfile.MyProfileChangePasswordFragment;
 import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.network.Urls;
 

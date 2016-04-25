@@ -1,4 +1,4 @@
-package com.drughub.doctor.MyProfile;
+package com.drughub.doctor.MyProfile.unused;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.drughub.doctor.BaseActivity;
+import com.drughub.doctor.MyProfile.MyProfileAddClinicFragment;
+import com.drughub.doctor.MyProfile.MyProfileClinicDetailsFragment;
 import com.drughub.doctor.R;
 import com.drughub.doctor.model.Address;
 import com.drughub.doctor.model.City;
@@ -53,7 +55,7 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
         final View view = inflater.inflate(R.layout.myprofile_myclinic_fragment, container, false);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.myclinic_recyclerview);
-        itemView = (LinearLayout) view.findViewById(R.id.no_items);
+        itemView = view.findViewById(R.id.no_items);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -135,7 +137,6 @@ public class MyClinicsFragment extends android.support.v4.app.Fragment {
 
                                 @Override
                                 public void onFail(String result) {
-
                                 }
                             });
                             dialog.dismiss();

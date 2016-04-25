@@ -2,130 +2,148 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    android:orientation="vertical">
+    android:background="@color/colorWhite">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/editFirstName"
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:layout_weight="1"
+                    android:hint="@string/firstName"
+                    android:inputType="textCapWords"
+                    android:nextFocusDown="@+id/editMiddleName" />
+
+                <EditText
+                    android:id="@+id/editMiddleName"
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:hint="@string/middleName"
+                    android:inputType="textCapWords"
+                    android:nextFocusDown="@+id/editLastName" />
+
+                <EditText
+                    android:id="@+id/editLastName"
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:hint="@string/lastName"
+                    android:inputType="textCapWords"
+                    android:nextFocusDown="@+id/editPracticeStartDate" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
-                <EditText
-                    android:id="@+id/editFirstName"
-                    style="@style/EditTextStyleTransparent1"
-                    android:layout_width="wrap_content"
-                    android:inputType="textCapWords"
+                <FrameLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:nextFocusDown="@+id/editMiddleName"
-                    android:hint="@string/firstName" />
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1">
 
-                <EditText
-                    android:id="@+id/editMiddleName"
-                    style="@style/EditTextStyleTransparent1"
-                    android:layout_width="wrap_content"
-                    android:inputType="textCapWords"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:nextFocusDown="@+id/editLastName"
-                    android:layout_weight="1"
-                    android:hint="@string/middleName" />
+                    <Spinner
+                        android:id="@+id/spinnerQualification"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/edit_text_height"
+                        style="@style/SpinnerStyleTransparent" />
 
-                <EditText
-                    android:id="@+id/editLastName"
-                    style="@style/EditTextStyleTransparent1"
-                    android:layout_width="wrap_content"
+                    <com.drughub.doctor.utils.DrughubIcon
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:text="@string/icon_down_arrow"
+                        android:textColor="@color/colorHint"
+                        android:textSize="15sp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:nextFocusDown="@+id/editPracticeStartDate"
-                    android:inputType="textCapWords"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:hint="@string/lastName" />
+                    android:layout_weight="1">
+
+                    <Spinner
+                        android:id="@+id/spinnerSpecialization"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/edit_text_height"
+                        style="@style/SpinnerStyleTransparent" />
+
+                    <com.drughub.doctor.utils.DrughubIcon
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:text="@string/icon_down_arrow"
+                        android:textColor="@color/colorHint"
+                        android:textSize="15sp" />
+
+                </FrameLayout>
 
             </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-            <FrameLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1">
+                android:layout_height="wrap_content">
 
-                <Spinner
-                    android:id="@+id/spinnerQualification"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/underline_light_grey"
-                    android:dropDownVerticalOffset="37dp"
-                    android:popupBackground="@drawable/round_rect_fill_white"
-                    android:spinnerMode="dropdown"
-                    android:textSize="13sp" />
-
-                <com.drughub.doctor.utils.DrughubIcon
-                    android:layout_width="40dp"
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|right"
-                    android:gravity="center"
-                    android:text="@string/icon_down_arrow"
-                    android:textColor="@color/colorHint"
-                    android:textSize="15sp" />
+                    android:layout_weight="1"
+                    android:text="Practice Start Date"
+                    android:paddingBottom="@dimen/margin_tiny"
+                    android:layout_gravity="bottom"/>
 
-            </FrameLayout>
+                <EditText
+                    android:id="@+id/editPracticeStartDate"
+                    style="@style/EditTextStyleTransparent1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="DD-MM-YYYY"
+                    android:focusable="false"
+                    android:inputType="date" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1">
-
-                <Spinner
-                    android:id="@+id/spinnerSpecialization"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/underline_light_grey"
-                    android:dropDownVerticalOffset="37dp"
-                    android:popupBackground="@drawable/round_rect_fill_white"
-                    android:spinnerMode="dropdown"
-                    android:textSize="13sp" />
-
-                <com.drughub.doctor.utils.DrughubIcon
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|right"
-                    android:gravity="center"
-                    android:text="@string/icon_down_arrow"
-                    android:textColor="@color/colorHint"
-                    android:textSize="15sp" />
-
-            </FrameLayout>
             </LinearLayout>
-
-            <EditText
-                android:id="@+id/editPracticeStartDate"
-                style="@style/EditTextStyleTransparent1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/edit_text_height"
-                android:layout_marginTop="10dp"
-                android:hint="@string/practiceStartDate"
-                android:inputType="date" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -136,24 +154,25 @@
                 <EditText
                     android:id="@+id/editBuildingName"
                     style="@style/EditTextStyleTransparent1"
-                    android:layout_width="match_parent"
-                    android:inputType="textCapWords"
-                    android:singleLine="true"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/edit_text_height"
                     android:layout_weight="1"
+                    android:hint="@string/buildingName"
+                    android:inputType="textCapWords"
                     android:nextFocusDown="@+id/editDoorNo"
-                    android:hint="@string/buildingName" />
+                    android:singleLine="true" />
 
                 <EditText
                     android:id="@+id/editDoorNo"
                     style="@style/EditTextStyleTransparent1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/edit_text_height"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
+                    android:hint="@string/doorNo"
                     android:nextFocusDown="@+id/editStreetName"
-                    android:singleLine="true"
-                    android:hint="@string/doorNo" />
+                    android:singleLine="true" />
             </LinearLayout>
 
             <LinearLayout
@@ -165,54 +184,55 @@
                 <EditText
                     android:id="@+id/editStreetName"
                     style="@style/EditTextStyleTransparent1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:layout_weight="1"
+                    android:hint="@string/streetName"
                     android:inputType="textCapWords"
                     android:nextFocusDown="@+id/editAreaName"
-                    android:layout_weight="1"
-                    android:singleLine="true"
-                    android:hint="@string/streetName" />
+                    android:singleLine="true" />
 
                 <EditText
                     android:id="@+id/editAreaName"
                     style="@style/EditTextStyleTransparent1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/edit_text_height"
                     android:layout_marginLeft="10dp"
-                    android:nextFocusDown="@+id/editPincode"
-                    android:singleLine="true"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:hint="@string/areaName" />
+                    android:hint="@string/areaName"
+                    android:inputType="textCapWords"
+                    android:nextFocusDown="@+id/editPinCode"
+                    android:singleLine="true" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
                 <FrameLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1">
 
                     <Spinner
                         android:id="@+id/spinnerCountry"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/underline_light_grey"
-                        android:dropDownVerticalOffset="37dp"
-                        android:popupBackground="@drawable/round_rect_fill_white"
-                        android:spinnerMode="dropdown"
-                        android:textSize="13sp" />
+                        android:layout_height="@dimen/edit_text_height"
+                        style="@style/SpinnerStyleTransparent"/>
 
                     <com.drughub.doctor.utils.DrughubIcon
-                        android:layout_width="40dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|right"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         android:gravity="center"
                         android:text="@string/icon_down_arrow"
                         android:textColor="@color/colorHint"
@@ -221,61 +241,57 @@
                 </FrameLayout>
 
                 <FrameLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
                     android:layout_weight="1">
 
                     <Spinner
                         android:id="@+id/spinnerState"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/underline_light_grey"
-                        android:dropDownVerticalOffset="37dp"
-                        android:popupBackground="@drawable/round_rect_fill_white"
-                        android:spinnerMode="dropdown"
-                        android:textSize="13sp" />
+                        android:layout_height="@dimen/edit_text_height"
+                        style="@style/SpinnerStyleTransparent"/>
 
                     <com.drughub.doctor.utils.DrughubIcon
-                        android:layout_width="40dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|right"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         android:gravity="center"
                         android:text="@string/icon_down_arrow"
                         android:textColor="@color/colorHint"
                         android:textSize="15sp" />
 
                 </FrameLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
                 <FrameLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1">
 
                     <Spinner
                         android:id="@+id/spinnerDistrict"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/underline_light_grey"
-                        android:dropDownVerticalOffset="37dp"
-                        android:popupBackground="@drawable/round_rect_fill_white"
-                        android:spinnerMode="dropdown"
-                        android:textSize="13sp" />
+                        android:layout_height="@dimen/edit_text_height"
+                        style="@style/SpinnerStyleTransparent"/>
 
                     <com.drughub.doctor.utils.DrughubIcon
-                        android:layout_width="40dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|right"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         android:gravity="center"
                         android:text="@string/icon_down_arrow"
                         android:textColor="@color/colorHint"
@@ -284,32 +300,29 @@
                 </FrameLayout>
 
                 <FrameLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
                     android:layout_weight="1">
 
                     <Spinner
-                        android:id="@+id/spinnerTownorCity"
+                        android:id="@+id/spinnerCity"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/underline_light_grey"
-                        android:dropDownVerticalOffset="37dp"
-                        android:popupBackground="@drawable/round_rect_fill_white"
-                        android:spinnerMode="dropdown"
-                        android:textSize="13sp" />
+                        android:layout_height="@dimen/edit_text_height"
+                        style="@style/SpinnerStyleTransparent"/>
 
                     <com.drughub.doctor.utils.DrughubIcon
-                        android:layout_width="40dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|right"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         android:gravity="center"
                         android:text="@string/icon_down_arrow"
                         android:textColor="@color/colorHint"
                         android:textSize="15sp" />
 
                 </FrameLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -319,24 +332,25 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/editPincode"
+                    android:id="@+id/editPinCode"
                     style="@style/EditTextStyleTransparent1"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/edit_text_height"
                     android:layout_weight="1"
+                    android:hint="@string/pincode"
                     android:nextFocusDown="@+id/editLandMark"
-                    android:singleLine="true"
-                    android:hint="@string/pincode" />
+                    android:singleLine="true" />
 
                 <EditText
                     android:id="@+id/editLandMark"
                     style="@style/EditTextStyleTransparent1"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/edit_text_height"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:singleLine="true"
-                    android:hint="@string/landmark" />
+                    android:hint="@string/landmark"
+                    android:singleLine="true" />
             </LinearLayout>
 
             <EditText
@@ -362,7 +376,6 @@
                 style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="25dp"
                 android:text="@string/update" />

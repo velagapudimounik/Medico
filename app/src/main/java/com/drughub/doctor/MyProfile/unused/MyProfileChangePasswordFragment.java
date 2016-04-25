@@ -1,4 +1,4 @@
-package com.drughub.doctor.MyProfile;
+package com.drughub.doctor.MyProfile.unused;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -79,8 +79,6 @@ public class MyProfileChangePasswordFragment extends Fragment {
 
                             @Override
                             public void onFail(String result) {
-                                Toast.makeText(getActivity(), "Unable to process your request,please try again", Toast.LENGTH_SHORT).show();
-                                Log.v("Result===", result);
                             }
                         }, "");
 

@@ -36,7 +36,6 @@ public class ServiceProvider extends RealmObject {
         this.firstName = firstName;
     }
 
-
     public String getFirstName() {
         return firstName;
     }
@@ -85,7 +84,6 @@ public class ServiceProvider extends RealmObject {
         return object.toString();
     }
 
-
     public void UpdateServiceProvider(Context context, final Globals.VolleyCallback callback) {
         Globals.PUT(Urls.SERVICE_PROVIDER+ PrefUtils.getUserName(context), toUpdateServiceProvider(), new Globals.VolleyCallback() {
             @Override
@@ -96,20 +94,6 @@ public class ServiceProvider extends RealmObject {
             @Override
             public void onFail(String result) {
                 callback.onFail(result);
-            }
-        }, "");
-    }
-
-    public void GetServiceProvider() {
-        Globals.GET(Urls.SERVICE_PROVIDER, new Globals.VolleyCallback() {
-            @Override
-            public void onSuccess(String result) {
-
-            }
-
-            @Override
-            public void onFail(String result) {
-
             }
         }, "");
     }
@@ -153,8 +137,6 @@ public class ServiceProvider extends RealmObject {
     public void setGender(ValueIds gender) {
         this.gender = gender;
     }
-
-
 
     public String getPractiseStartDate() {
         return practiseStartDate;

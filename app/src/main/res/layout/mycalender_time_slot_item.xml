@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    android:padding="3dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@drawable/fill_round_rect_dark_blue">
+
+        <TextView
+            android:id="@+id/from_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:text="09:00 AM"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="to"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/to_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:text="11:00 AM"
+            android:textColor="@color/colorWhite" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/remove_item"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:layout_weight="1"
+        android:textColor="@color/colorWhite"
+        android:layout_marginLeft="3dp"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:background="@drawable/fill_round_rect_dark_blue"/>
+
+</LinearLayout>

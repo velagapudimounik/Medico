@@ -41,6 +41,7 @@ import java.net.CookieManager;
 import java.net.HttpCookie;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -48,6 +49,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -85,9 +87,7 @@ public class Globals {
     public static void init(Context context) {
         mContext = context;
         mRequestQueue = getRequestQueue();
-
     }
-
 
     public static void setContext(Context context) {
         mContext = context;
@@ -95,9 +95,9 @@ public class Globals {
 
     public static void startStringRequest(RequestMethod method, final String url, final Map<String, String> headers, final Map<String, String> params,
                                           final String body, final String progressText, final VolleyCallback callback) {
-        if(USE_VOLLEY) {
-//
+        Log.d(VOLLEY_TAG, "WebService URL: " + method + " " + url);
 
+        if(USE_VOLLEY) {
             final ProgressDialog progress = (progressText != null) ? ProgressDialog.show(mContext, progressText, "Please wait...", true) : null;
 
             StringRequest stringRequest = new StringRequest(method.ordinal(), url, new Response.Listener<String>() {
@@ -134,7 +134,7 @@ public class Globals {
                             Log.v(VOLLEY_TAG, "onErrorResponse(): StatusCode: " + volleyError.networkResponse.statusCode);
 
                         if (volleyError.networkResponse == null)
-                            stringResponse = "Error Occurred";
+                            stringResponse = "Unable to process your request, please try again.";
                         else
                             stringResponse = getResponseCodeError(volleyError.networkResponse.statusCode);
 
@@ -142,7 +142,7 @@ public class Globals {
                         Toast.makeText(mContext, stringResponse, Toast.LENGTH_SHORT).show();
 
                     } catch (Exception e) {
-                        stringResponse = "Error Occurred";
+                        stringResponse = "Unable to process your request, please try again.";
                         Log.v(VOLLEY_TAG, "onErrorResponse(): Exception: " + e);
                         e.printStackTrace();
                     }
@@ -224,19 +224,16 @@ public class Globals {
 
     /*GET METHOD REQUEST FOR API*/
     public static void GET(String url, VolleyCallback callback, String progressText) {
-        Log.v(VOLLEY_TAG, "GET URL: " + url);
         startStringRequest(RequestMethod.GET, url, null, null, null, progressText, callback);
     }
 
     /*POST METHOD REQUEST FOR API*/
     public static void POST(String url, String body, VolleyCallback callback, String progressText) {
-        Log.v(VOLLEY_TAG, "POST URL: " + url);
         startStringRequest(RequestMethod.POST, url, null, null, body, progressText, callback);
     }
 
     /*PUT METHOD REQUEST FOR API*/
     public static void PUT(String url, String body, VolleyCallback callback, String progressText) {
-        Log.v(VOLLEY_TAG, "PUT URL: " + url);
         startStringRequest(RequestMethod.PUT, url, null, null, body, progressText, callback);
     }
 
@@ -247,7 +244,6 @@ public class Globals {
 
     /*PUT METHOD REQUEST FOR API*/
     public static void DELETE(String url, String body, VolleyCallback callback, String progressText) {
-        Log.v(VOLLEY_TAG, "DELETE URL: " + url);
         startStringRequest(RequestMethod.DELETE, url, null, null, body, progressText, callback);
     }
 
@@ -326,11 +322,10 @@ public class Globals {
         return point;
     }
 
-    public static boolean isOnline(Context contex) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) contex.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean isOnline(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
-
             return true;
         }
 
@@ -390,11 +385,10 @@ public class Globals {
 //        }
 //    }
     public final static boolean isValidEmail(String email) {
-        if (email == null) {
-            return false;
-        } else {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-        }
+        if (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
+            return true;
+
+        return false;
     }
 
 //    public static void addDevice(Context context){
@@ -434,7 +428,7 @@ public class Globals {
             public void onFail(String result) {
                 callback.onFail(result);
             }
-        }, null);
+        }, "");
     }
 
     public static void getState(int id, final VolleyCallback callback) {
@@ -448,7 +442,7 @@ public class Globals {
             public void onFail(String result) {
                 callback.onFail(result);
             }
-        }, null);
+        }, "");
     }
 
     public static void getCity(int id, final VolleyCallback callback) {
@@ -462,7 +456,7 @@ public class Globals {
             public void onFail(String result) {
                 callback.onFail(result);
             }
-        }, null);
+        }, "");
     }
 
     public interface VolleyCallback {
@@ -477,7 +471,7 @@ public class Globals {
         void onFail(String result);
     }
     public static void getSpecialization(final VolleyCallback callback){
-        GET(Urls.GET_SPECIALLIZATION, new VolleyCallback() {
+        GET(Urls.GET_SPECIALIZATION, new VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 callback.onSuccess(result);
@@ -487,9 +481,8 @@ public class Globals {
             @Override
             public void onFail(String result) {
                 callback.onFail(result);
-                Log.v("FailSP===", result);
             }
-        }, null);
+        }, "");
     }
     public static void getQualification(final VolleyCallback callback){
         GET(Urls.GET_QUALIFICATION, new VolleyCallback() {
@@ -502,9 +495,8 @@ public class Globals {
             @Override
             public void onFail(String result) {
                 callback.onFail(result);
-                Log.v("FailQL===",result);
             }
-        }, null);
+        }, "");
     }
 
     public static int getHour(String time)
@@ -535,8 +527,21 @@ public class Globals {
         return new SimpleDateFormat("EEEE").format(new Date());
     }
 
-    static SimpleDateFormat format12Hour = new SimpleDateFormat("hh:mm a");
-    static SimpleDateFormat format24Hour = new SimpleDateFormat("kk:mm:ss");
+    public static String convertDateFormat(String dateStr, String fromFormatStr, String toFormatStr)
+    {
+        SimpleDateFormat fromFormat = new SimpleDateFormat(fromFormatStr, Locale.getDefault());
+        SimpleDateFormat toFormat = new SimpleDateFormat(toFormatStr, Locale.getDefault());
+
+        try {
+            Date date = fromFormat.parse(dateStr);
+            return toFormat.format(date);
+        } catch (Exception e) {}
+
+        return toFormatStr;
+    }
+
+    static SimpleDateFormat format12Hour = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+    static SimpleDateFormat format24Hour = new SimpleDateFormat("kk:mm:ss", Locale.getDefault());
 
     public static String to12HourFormat(String time)
     {
@@ -544,6 +549,7 @@ public class Globals {
             Date date = format24Hour.parse(time);
             return format12Hour.format(date);
         } catch (Exception e) {}
+
 
         return "00:00 AM";
     }
@@ -596,7 +602,11 @@ public class Globals {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            Log.d(VOLLEY_TAG, "WebService URL: " + method + " " + url);
+
+            if(!isOnline(mContext)) {
+                response = "No Internet Connectivity";
+                return false;
+            }
 
             if(mCookieManager == null)
                 mCookieManager = new CookieManager();
@@ -622,6 +632,7 @@ public class Globals {
                     conn.setDoOutput(true);
 
                 if(body != null) {
+                    Log.d(VOLLEY_TAG, "WebService Request: " + body);
                     OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
                     writer.write(body);
                     writer.flush();
@@ -634,15 +645,14 @@ public class Globals {
                 InputStream stream = conn.getInputStream();
 
                 int statusCode = conn.getResponseCode();
-                if(statusCode != HttpURLConnection.HTTP_OK)
-                {
+                if(statusCode != HttpURLConnection.HTTP_OK) {
                     Log.d(VOLLEY_TAG, "WebService ErrorCode: "+statusCode);
                     conn.disconnect();
-                    getResponseCodeError(statusCode);
+                    response = getResponseCodeError(statusCode);
                     return false;
                 }
 
-                InputStream errorStream = conn.getErrorStream();
+                //InputStream errorStream = conn.getErrorStream();
 
                 Map<String, List<String>> headerFields = conn.getHeaderFields();
                 List<String> cookiesHeader = headerFields.get(COOKIES_HEADER);
@@ -656,6 +666,7 @@ public class Globals {
                 Scanner s = new Scanner(stream);
                 response = s.hasNextLine() ? s.nextLine() : "";
                 Log.d(VOLLEY_TAG, "WebService Response: "+response);
+
             } catch (Exception e) {
                 Log.d(VOLLEY_TAG, "WebService Exception: "+e);
                 e.printStackTrace();
@@ -664,8 +675,10 @@ public class Globals {
             if (conn != null)
                 conn.disconnect();
 
-            if(response == null)
+            if(response == null) {
+                response = "Unable to process your request, please try again.";
                 return false;
+            }
 
             return true;
         }
@@ -683,13 +696,13 @@ public class Globals {
                 try {
                     JSONObject object = new JSONObject(stringResponse);
                     if (!object.getBoolean("result"))
-                        Toast.makeText(mContext, object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, object.getString("errorCode") + ": " + object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                 }
             }
             else {
-                Toast.makeText(mContext, "Error Occurred", Toast.LENGTH_SHORT).show();
-                callback.onFail("Error Occurred");
+                Toast.makeText(mContext, response, Toast.LENGTH_SHORT).show();
+                callback.onFail(response);
             }
 
             if(progress != null)
@@ -698,17 +711,17 @@ public class Globals {
 
         @Override
         protected void onCancelled() {
-            Toast.makeText(mContext, stringResponse, Toast.LENGTH_SHORT).show();
-            callback.onFail("Error Occurred");
+            Toast.makeText(mContext, response, Toast.LENGTH_SHORT).show();
+            callback.onFail(response);
             if(progress != null)
                 progress.dismiss();
         }
     }
 
     public static String getResponseCodeError(int errorCode){
-        String stringResponse = "";
+        String stringResponse;
         if (errorCode == 0)
-            stringResponse = "Error Occurred";
+            stringResponse = "Unable to process your request, please try again.";
         else if (errorCode == 400)
             stringResponse = "Bad Request";
         else if (errorCode == 401)
@@ -720,7 +733,7 @@ public class Globals {
         else if (errorCode == 500)
             stringResponse = "Internal Server Error";
         else
-            stringResponse = "Error Occurred";
+            stringResponse = "Unable to process your request, please try again.";
 
         return stringResponse;
     }

@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -51,6 +50,8 @@ import com.drughub.doctor.network.Globals;
 import com.drughub.doctor.network.Urls;
 import com.drughub.doctor.utils.CustomDialog;
 import com.drughub.doctor.utils.DrughubIcon;
+import com.drughub.doctor.utils.HintAdapter;
+import com.drughub.doctor.utils.HintSpinner;
 import com.drughub.doctor.utils.PrefUtils;
 import com.drughub.doctor.utils.SimpleDividerItemDecoration;
 import com.soundcloud.android.crop.Crop;
@@ -59,10 +60,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -70,23 +69,31 @@ import io.realm.RealmResults;
 
 public class MyProfileActivity extends BaseActivity implements View.OnClickListener {
 
+    public static final int PICK_IMAGE = 110;
+    public static final int CROP_IMAGE = 200;
+    private static final int SELECT_PICTURE = 120;
+    private final String HINT_COUNTRY = "Country";
+    private final String HINT_STATE = "State";
+    private final String HINT_CITY = "City";
+    int day = -1, month = -1, year = -1;
+    // ChangePassword
+    EditText currentPassword, newPassword, confirmPassword;
+    Realm realm;
+    LinearLayout detailsLayout;
+    LinearLayout changePasswordLayout;
+    RelativeLayout myClinicsLayout;
+    LinearLayout editLayout;
     // My Profile Objects
     private ImageView profileImage;
     private TextView profileIcon;
     private View imageView;
     private RadioButton myProfile;
-    private RadioGroup profile_radiogroup;
-    private DrughubIcon editicon, righticon;
+    private RadioGroup mProfileRadiogroup;
+    private DrughubIcon editIcon, rightIcon;
     private TextView doctorName, doctorDHCode, doctorEmail;
     private boolean editMode = false;
-    private static final int SELECT_PICTURE = 120;
-    public static final int PICK_IMAGE = 110;
-    public static final int CROP_IMAGE = 200;
     private String fileName;
     private Uri outputUri;
-    int day = -1, month = -1, year = -1;
-
-
     // ProfileDetails
     private TextView doctorNameDetails;
     private TextView qualification;
@@ -94,45 +101,28 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
     private TextView adressline2;
     private TextView email;
     private TextView mobile;
-    private TextView yearsOfExperience;
-
-
+    private TextView practiceStartDate;
     // ProfileEditDetails
     private Spinner spinnerCountry;
     private Spinner spinnerState;
     private Spinner spinnerDistrict;
-    private Spinner spinnerTownorCity;
+    private Spinner spinnerCity;
     private Spinner spinnerSpecialization;
     private Spinner spinnerQualification;
     private RealmResults<Country> countries;
+
+    // MyClinics
     private RealmResults<AllState> states;
     private RealmResults<AllCity> cities;
     private RealmResults<Specialization> specializations;
     private RealmResults<Qualification> qualifications;
     private EditText editFirstName, editMiddleName, editLastName, editBuildNumber, editDoorNumber, editStreetName, editAreaName, editPinCode, editLandMark, editEmailID, editMobile, editPractiseStartDate;
     private ArrayList<String> stateValues, cityValues;
-    private final String HINT_COUNTRY = "Country";
-    private final String HINT_STATE = "State";
-    private final String HINT_CITY = "City";
-
-    // ChangePassword
-    EditText currentPassword, newPassword, confirmPassword;
-
-    // MyClinics
-
     private View itemView;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter adapter;
     private RealmResults<DoctorClinic> doctorClinics;
-
-
-    Fragment fragment = null;
-    Realm realm;
     private ServiceProvider serviceProvider;
-    LinearLayout detailsLayout;
-    LinearLayout changePasswordLayout;
-    RelativeLayout myClinicsLayout;
-    LinearLayout editLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -177,7 +167,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
         spinnerCountry = (Spinner) findViewById(R.id.spinnerCountry);
         spinnerState = (Spinner) findViewById(R.id.spinnerState);
         spinnerDistrict = (Spinner) findViewById(R.id.spinnerDistrict);
-        spinnerTownorCity = (Spinner) findViewById(R.id.spinnerTownorCity);
+        spinnerCity = (Spinner) findViewById(R.id.spinnerCity);
         spinnerQualification = (Spinner) findViewById(R.id.spinnerQualification);
         spinnerSpecialization = (Spinner) findViewById(R.id.spinnerSpecialization);
 
@@ -189,7 +179,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
         editDoorNumber = (EditText) findViewById(R.id.editDoorNo);
         editStreetName = (EditText) findViewById(R.id.editStreetName);
         editAreaName = (EditText) findViewById(R.id.editAreaName);
-        editPinCode = (EditText) findViewById(R.id.editPincode);
+        editPinCode = (EditText) findViewById(R.id.editPinCode);
         editLandMark = (EditText) findViewById(R.id.editLandMark);
         editEmailID = (EditText) findViewById(R.id.editEmailAddress);
         editMobile = (EditText) findViewById(R.id.editMobile);
@@ -201,7 +191,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                 DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int local_year, int monthOfYear, int dayOfMonth) {
-                        editPractiseStartDate.setText(local_year+ "-" + String.format("%02d", (monthOfYear + 1)) + "-" + String.format("%02d", dayOfMonth) );
+                        editPractiseStartDate.setText(String.format("%02d", dayOfMonth) + "-" + String.format("%02d", (monthOfYear + 1)) + "-" + local_year);
                         editPractiseStartDate.setTextColor(Color.GRAY);
                         day = dayOfMonth;
                         month = monthOfYear;
@@ -220,10 +210,10 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
     private void initProfileDetails() {
         doctorNameDetails = (TextView) findViewById(R.id.doctor_name);
         qualification = (TextView) findViewById(R.id.qualification);
-        adressline1 = (TextView) findViewById(R.id.textadressLine1);
-        adressline2 = (TextView) findViewById(R.id.textadressLine2);
+        adressline1 = (TextView) findViewById(R.id.textAddressLine1);
+        adressline2 = (TextView) findViewById(R.id.textAddressLine2);
         email = (TextView) findViewById(R.id.email);
-        yearsOfExperience = (TextView) findViewById(R.id.experience);
+        practiceStartDate = (TextView) findViewById(R.id.practiceStartDate);
         mobile = (TextView) findViewById(R.id.mobile);
         setDetails();
     }
@@ -239,11 +229,15 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                 doctorNameDetails.append(" " + serviceProvider.getMiddleName());
             if (serviceProvider.getLastName() != null)
                 doctorNameDetails.append(" " + serviceProvider.getLastName());
-            qualification.setText("");
+
+            String qualificationStr = "";
             if (serviceProvider.getQualificationList() != null && serviceProvider.getQualificationList().size() > 0)
-                qualification.setText(serviceProvider.getQualificationList().get(0).getValue());
+                qualificationStr += serviceProvider.getQualificationList().get(0).getValue();
             if (serviceProvider.getSpecializationList() != null && serviceProvider.getSpecializationList().size() > 0)
-                qualification.append(", " + serviceProvider.getSpecializationList().get(0).getValue());
+                qualificationStr += (", " + serviceProvider.getSpecializationList().get(0).getValue());
+            if(!qualificationStr.isEmpty())
+                qualification.setText(qualificationStr);
+
             if (serviceProvider.getAddress() != null) {
                 adressline1.setText(serviceProvider.getAddress().getAddressLine1());
                 adressline2.setText(serviceProvider.getAddress().getAddressLine2());
@@ -256,20 +250,22 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                 serviceProvider.getAddress().setCity(realm.createObject(City.class));
                 realm.commitTransaction();
             }
-//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-//            yearsOfExperience.setText(simpleDateFormat.format(serviceProvider.getPractiseStartDate()));
-            yearsOfExperience.setText((serviceProvider.getPractiseStartDate()));
+
+            if(serviceProvider.getPractiseStartDate() != null && !serviceProvider.getPractiseStartDate().isEmpty()) {
+                String dateStr = Globals.convertDateFormat(serviceProvider.getPractiseStartDate(), "yyyy-MM-dd", "dd-MM-yyyy");
+                practiceStartDate.setText(dateStr);
+            }
         }
 
     }
 
     private void initMyProfile() {
-        profile_radiogroup = (RadioGroup) findViewById(R.id.myProfileRadiogroup);
+        mProfileRadiogroup = (RadioGroup) findViewById(R.id.myProfileRadiogroup);
         doctorName = (TextView) findViewById(R.id.doctorName);
         doctorDHCode = (TextView) findViewById(R.id.doctorID);
         doctorEmail = (TextView) findViewById(R.id.doctorEmail);
-        editicon = (DrughubIcon) findViewById(R.id.Editicon);
-        righticon = (DrughubIcon) findViewById(R.id.rightmark);
+        editIcon = (DrughubIcon) findViewById(R.id.Editicon);
+        rightIcon = (DrughubIcon) findViewById(R.id.rightmark);
         imageView = findViewById(R.id.image_view);
         profileIcon = (DrughubIcon) findViewById(R.id.profile_icon);
         profileImage = (ImageView) findViewById(R.id.profile_image);
@@ -288,19 +284,17 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
         final RadioButton myclinic = (RadioButton) findViewById(R.id.Myclinic_button);
 //        getSupportFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileDetailsFragment()).commit();
         myProfile.setChecked(true);
-        righticon.setOnClickListener(new View.OnClickListener() {
+        rightIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateProfile();
             }
         });
-        editicon.setOnClickListener(new View.OnClickListener() {
+        editIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hideAllViews();
 
-
-//                getSupportFragmentManager().beginTransaction().replace(R.id.container2, new MyprofileEditFragment()).commit();
                 if (!myProfile.isChecked()) {
                     editMode = true;
                     myProfile.setChecked(true);
@@ -311,11 +305,11 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                 setEditDetails();
                 editLayout.setVisibility(View.VISIBLE);
                 profileIcon.setText(getResources().getText(R.string.icon_foradd_image));
-                righticon.setVisibility(View.VISIBLE);
-                editicon.setVisibility(View.INVISIBLE);
+                rightIcon.setVisibility(View.VISIBLE);
+                editIcon.setVisibility(View.INVISIBLE);
             }
         });
-        profile_radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        mProfileRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 hideAllViews();
@@ -329,16 +323,16 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                         break;
                     case R.id.changepasswordbutton:
                         myProfile.setChecked(false);
-                        righticon.setVisibility(View.INVISIBLE);
-                        editicon.setVisibility(View.VISIBLE);
+                        rightIcon.setVisibility(View.INVISIBLE);
+                        editIcon.setVisibility(View.VISIBLE);
                         profileIcon.setText(getResources().getText(R.string.icon_noimage));
 //                        getSupportFragmentManager().beginTransaction().replace(R.id.container2, new MyProfileChangePasswordFragment()).commit();
                         changePasswordLayout.setVisibility(View.VISIBLE);
                         break;
                     case R.id.Myclinic_button:
                         myProfile.setChecked(false);
-                        righticon.setVisibility(View.INVISIBLE);
-                        editicon.setVisibility(View.VISIBLE);
+                        rightIcon.setVisibility(View.INVISIBLE);
+                        editIcon.setVisibility(View.VISIBLE);
                         profileIcon.setText(getResources().getText(R.string.icon_noimage));
 //                        getSupportFragmentManager().beginTransaction().replace(R.id.container2, new MyClinicsFragment()).commit();
                         myClinicsLayout.setVisibility(View.VISIBLE);
@@ -362,9 +356,9 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             editEmailID.setEnabled(false);
             editMobile.setText(serviceProvider.getMobile());
             editMobile.setEnabled(false);
-            if (serviceProvider.getPractiseStartDate() != null) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                editPractiseStartDate.setText(simpleDateFormat.format(serviceProvider.getPractiseStartDate()));
+            if (serviceProvider.getPractiseStartDate() != null && !serviceProvider.getPractiseStartDate().isEmpty()) {
+                String dateStr = Globals.convertDateFormat(serviceProvider.getPractiseStartDate(), "yyyy-MM-dd", "dd-MM-yyyy");
+                editPractiseStartDate.setText(dateStr);
             }
             if (serviceProvider.getAddress() != null) {
                 editBuildNumber.setText(serviceProvider.getAddress().getBuildingName());
@@ -376,7 +370,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             }
             countries = realm.where(Country.class).findAllSorted("value");
             if (countries.size() > 0) {
-                final ArrayList<String> values = new ArrayList<String>();
+                final ArrayList<String> values = new ArrayList<>();
                 for (Country country : countries) {
                     values.add(country.getValue());
                 }
@@ -393,9 +387,28 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
 
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
-
                     }
                 });
+//                HintSpinner<String> hintSpinner = new HintSpinner<>(
+//                        spinnerCountry,
+//                        // Default layout - You don't need to pass in any layout id, just your hint text and
+//                        // your list data
+//                        new HintAdapter<>(this, "Country", values, new HintAdapter.Callback<String>() {
+//                            @Override
+//                            public void setItemDetails(View view, int position, String itemAtPosition) {
+//                                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+//                                textView.setText(itemAtPosition);
+//                                textView.setTextColor(Color.BLUE);
+//                            }
+//                        }),
+//                        new HintSpinner.Callback<String>() {
+//                            @Override
+//                            public void onItemSelected(int position, String itemAtPosition) {
+//                                // Here you handle the on item selected event (this skips the hint selected event)
+//                                getStates(position);
+//                            }
+//                        });
+//                hintSpinner.init();
                 if (serviceProvider.getAddress().getCountry() != null) {
                     int pos = values.indexOf(serviceProvider.getAddress().getCountry().getValue());
                     if (pos > 0)
@@ -405,14 +418,34 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
 
             getSpecializations();
             getQualifications();
-            stateValues = new ArrayList<String>();
-            stateValues.add(HINT_STATE);
-            stateValues.add(HINT_STATE);
-            spinnerState.setAdapter(new SpinnerAdapter(getApplicationContext(), stateValues));
+            stateValues = new ArrayList<>();
+//            stateValues.add(HINT_STATE);
+//            stateValues.add(HINT_STATE);
+//            spinnerState.setAdapter(new SpinnerAdapter(getApplicationContext(), stateValues));
+            HintSpinner<String> hintSpinner = new HintSpinner<>(
+                    spinnerState,
+                    // Default layout - You don't need to pass in any layout id, just your hint text and
+                    // your list data
+                    new HintAdapter<>(this, HINT_STATE, stateValues, new HintAdapter.Callback<String>() {
+                        @Override
+                        public void setItemDetails(View view, int position, String itemAtPosition) {
+                            TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                            textView.setText(itemAtPosition);
+                            textView.setTextColor(Color.BLUE);
+                        }
+                    }),
+                    new HintSpinner.Callback<String>() {
+                        @Override
+                        public void onItemSelected(int position, String itemAtPosition) {
+                            // Here you handle the on item selected event (this skips the hint selected event)
+                            getCities(position);
+                        }
+                    });
+            hintSpinner.init();
             cityValues = new ArrayList<>();
             cityValues.add(HINT_CITY);
             cityValues.add(HINT_CITY);
-            spinnerTownorCity.setAdapter(new SpinnerAdapter(getApplicationContext(), cityValues));
+            spinnerCity.setAdapter(new SpinnerAdapter(getApplicationContext(), cityValues));
         }
     }
 
@@ -440,7 +473,6 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onFail(String result) {
-
             }
         });
 
@@ -542,8 +574,8 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             setDetails();
         }
         detailsLayout.setVisibility(View.VISIBLE);
-        righticon.setVisibility(View.INVISIBLE);
-        editicon.setVisibility(View.VISIBLE);
+        rightIcon.setVisibility(View.INVISIBLE);
+        editIcon.setVisibility(View.VISIBLE);
         profileIcon.setText(getResources().getText(R.string.icon_noimage));
     }
 
@@ -583,24 +615,23 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void changePassword() {
-        String currentpwd = currentPassword.getText().toString();
+        String currentPwd = currentPassword.getText().toString();
         String newPwd = newPassword.getText().toString();
-        String confirmpwd = confirmPassword.getText().toString();
-        if (currentpwd.isEmpty())
+        String confirmPwd = confirmPassword.getText().toString();
+        if (currentPwd.isEmpty())
             Toast.makeText(getApplicationContext(), "Please enter current password", Toast.LENGTH_SHORT).show();
         else if (newPwd.isEmpty())
             Toast.makeText(getApplicationContext(), "Please enter your new password", Toast.LENGTH_SHORT).show();
-        else if (confirmpwd.isEmpty())
+        else if (confirmPwd.isEmpty())
             Toast.makeText(getApplicationContext(), "Please confirm your new password", Toast.LENGTH_SHORT).show();
         else {
-            if (newPwd.equals(confirmpwd)) {
+            if (newPwd.equals(confirmPwd)) {
                 JSONObject object = new JSONObject();
                 try {
                     String newPass = Globals.encryptString(newPwd);
                     object.put("oldpassword", Globals.encryptString(currentPassword.getText().toString().trim()));
                     object.put("newpassword", newPass);
                     object.put("confirmpassword", newPass);
-                    //object.put("email", PrefUtils.getUserName(getActivity()));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -618,21 +649,14 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                             } else {
                                 Toast.makeText(getApplicationContext(), "" + object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
                             }
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
-
                     @Override
                     public void onFail(String result) {
-                        Toast.makeText(getApplicationContext(), "Unable to process your request, please try again", Toast.LENGTH_SHORT).show();
-                        Log.v("Result===", result);
                     }
                 }, "");
-
             }
         }
     }
@@ -648,7 +672,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
         else if (editBuildNumber.getText().toString().isEmpty())
             Toast.makeText(getApplicationContext(), "Enter Building Number", Toast.LENGTH_SHORT).show();
         else if (editPractiseStartDate.getText().toString().isEmpty())
-            Toast.makeText(getApplicationContext(), "Enter Years of Experience", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Enter Practice Start Date", Toast.LENGTH_SHORT).show();
         else if (editDoorNumber.getText().toString().isEmpty())
             Toast.makeText(getApplicationContext(), "Enter Door Number", Toast.LENGTH_SHORT).show();
         else if (editStreetName.getText().toString().isEmpty())
@@ -659,7 +683,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             Toast.makeText(getApplicationContext(), "Enter Country Name", Toast.LENGTH_SHORT).show();
         else if (spinnerState.getSelectedItem().toString().equalsIgnoreCase(HINT_STATE))
             Toast.makeText(getApplicationContext(), "Select State Name", Toast.LENGTH_SHORT).show();
-        else if (spinnerTownorCity.getSelectedItem().toString().equalsIgnoreCase(HINT_CITY))
+        else if (spinnerCity.getSelectedItem().toString().equalsIgnoreCase(HINT_CITY))
             Toast.makeText(getApplicationContext(), "Select City Name", Toast.LENGTH_SHORT).show();
         else if (editPinCode.getText().toString().isEmpty())
             Toast.makeText(getApplicationContext(), "Enter pincode", Toast.LENGTH_SHORT).show();
@@ -682,8 +706,10 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             RealmList<Specialization> specializationList = new RealmList<>();
             specializationList.add(specializations.get(spinnerSpecialization.getSelectedItemPosition()));
             serviceProvider.setSpecializationList(specializationList);
-            //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("");
-            serviceProvider.setPractiseStartDate(editPractiseStartDate.getText().toString());
+            if(!editPractiseStartDate.getText().toString().isEmpty()) {
+                String dateStr = Globals.convertDateFormat(editPractiseStartDate.getText().toString(), "dd-MM-yyyy", "yyyy-MM-dd");
+                serviceProvider.setPractiseStartDate(dateStr);
+            }
 
             if (serviceProvider.getAddress() == null) {
                 serviceProvider.setAddress(realm.createObject(Address.class));
@@ -702,13 +728,13 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                 serviceProvider.getAddress().setCountry(countries.get(spinnerCountry.getSelectedItemPosition()));
             }
             if (serviceProvider.getAddress().getCity() == null) {
-                City city = realm.createOrUpdateObjectFromJson(City.class, cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds());
+                City city = realm.createOrUpdateObjectFromJson(City.class, cities.get(spinnerCity.getSelectedItemPosition()).getValueIds());
 
                 serviceProvider.getAddress().setCity(city);
             } else {
-                serviceProvider.getAddress().setCity(realm.createOrUpdateObjectFromJson(City.class, cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds()));
+                serviceProvider.getAddress().setCity(realm.createOrUpdateObjectFromJson(City.class, cities.get(spinnerCity.getSelectedItemPosition()).getValueIds()));
 
-                Log.i("City_-", cities.get(spinnerTownorCity.getSelectedItemPosition()).getValueIds() + "");
+                Log.i("City_-", cities.get(spinnerCity.getSelectedItemPosition()).getValueIds() + "");
             }
             if (serviceProvider.getAddress().getState() == null) {
                 State state = realm.createOrUpdateObjectFromJson(State.class, states.get(spinnerState.getSelectedItemPosition()).getValueIds());
@@ -734,7 +760,6 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             });
         }
     }
-
 
     private void getSpecializations() {
         Globals.getSpecialization(new Globals.VolleyCallback() {
@@ -763,7 +788,6 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onFail(String result) {
-
             }
         });
     }
@@ -797,8 +821,6 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onFail(String result) {
-                Log.v("FailQl=", result);
-
             }
         });
     }
@@ -834,7 +856,6 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
 
                             @Override
                             public void onNothingSelected(AdapterView<?> parent) {
-
                             }
                         });
                         int pos = stateValues.indexOf(serviceProvider.getAddress().getState().getValue());
@@ -848,7 +869,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                         cityValues = new ArrayList<String>();
                         cityValues.add(HINT_CITY);
                         cityValues.add(HINT_CITY);
-                        spinnerTownorCity.setAdapter(new SpinnerAdapter(getApplicationContext(), cityValues));
+                        spinnerCity.setAdapter(new SpinnerAdapter(getApplicationContext(), cityValues));
                     }
 
                 } catch (Exception e) {
@@ -858,7 +879,6 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onFail(String result) {
-
             }
         });
     }
@@ -883,22 +903,20 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                     if (cityValues.size() == 1) {
                         cityValues.add(HINT_CITY);
                     }
-                    spinnerTownorCity.setAdapter(new SpinnerAdapter(getApplicationContext(), cityValues));
-                    spinnerTownorCity.setSelection(cityValues.size() - 1);
-                    spinnerTownorCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    spinnerCity.setAdapter(new SpinnerAdapter(getApplicationContext(), cityValues));
+                    spinnerCity.setSelection(cityValues.size() - 1);
+                    spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                         }
 
                         @Override
                         public void onNothingSelected(AdapterView<?> parent) {
-
                         }
                     });
                     int pos = cityValues.indexOf(serviceProvider.getAddress().getCity().getValue());
                     if (pos >= 0)
-                        spinnerTownorCity.setSelection(pos);
+                        spinnerCity.setSelection(pos);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -906,7 +924,6 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onFail(String result) {
-
             }
         });
     }
@@ -938,7 +955,6 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
                 }
             }, "");
         }
-
     }
 
     public void getClinicsFromRealm() {
@@ -1027,7 +1043,6 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
 
                                 @Override
                                 public void onFail(String result) {
-
                                 }
                             });
                             dialog.dismiss();
@@ -1079,11 +1094,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
 
             public RecyclerViewHolder(View itemView) {
                 super(itemView);
-
-
                 myClinicItem = itemView.findViewById(R.id.myClinicItem);
-
-
                 deleteBtn = itemView.findViewById(R.id.deleteClinic);
                 updatebtn = itemView.findViewById(R.id.editClinic);
                 hospitalName = (TextView) itemView.findViewById(R.id.hospitalName);

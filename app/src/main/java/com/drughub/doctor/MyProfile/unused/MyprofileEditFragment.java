@@ -1,4 +1,4 @@
-package com.drughub.doctor.MyProfile;
+package com.drughub.doctor.MyProfile.unused;
 
 
 import android.os.Bundle;
@@ -138,7 +138,6 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 
             @Override
             public void onFail(String result) {
-
             }
         });
     }
@@ -172,8 +171,6 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 
             @Override
             public void onFail(String result) {
-                Log.v("FailQl=", result);
-
             }
         });
     }
@@ -242,7 +239,6 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 
             @Override
             public void onFail(String result) {
-
             }
         });
     }
@@ -294,7 +290,6 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 
             @Override
             public void onFail(String result) {
-
             }
         });
     }
@@ -318,7 +313,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
         spinnerCountry = (Spinner) view.findViewById(R.id.spinnerCountry);
         spinnerState = (Spinner) view.findViewById(R.id.spinnerState);
         spinnerDistrict = (Spinner) view.findViewById(R.id.spinnerDistrict);
-        spinnerTownorCity = (Spinner) view.findViewById(R.id.spinnerTownorCity);
+        spinnerTownorCity = (Spinner) view.findViewById(R.id.spinnerCity);
         spinnerQualification = (Spinner) view.findViewById(R.id.spinnerQualification);
         spinnerSpecialization = (Spinner) view.findViewById(R.id.spinnerSpecialization);
 
@@ -326,11 +321,11 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
         editMiddleName = (EditText) getView().findViewById(R.id.editMiddleName);
         editLastName = (EditText) getView().findViewById(R.id.editLastName);
         editBuildNumber = (EditText) getView().findViewById(R.id.editBuildingName);
-        editYearsOfExp = (EditText) getView().findViewById(R.id.editYearsOfExperience);
+        editYearsOfExp = (EditText) getView().findViewById(R.id.editPracticeStartDate);
         editDoorNumber = (EditText) getView().findViewById(R.id.editDoorNo);
         editStreetName = (EditText) getView().findViewById(R.id.editStreetName);
         editColonyName = (EditText) getView().findViewById(R.id.editAreaName);
-        editPinCode = (EditText) getView().findViewById(R.id.editPincode);
+        editPinCode = (EditText) getView().findViewById(R.id.editPinCode);
         editLandMark = (EditText) getView().findViewById(R.id.editLandMark);
         editEmailID = (EditText) getView().findViewById(R.id.editEmailAddress);
         editMobile = (EditText) getView().findViewById(R.id.editMobile);
@@ -352,7 +347,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
 
 
     private EditText getEditYearsofExperience() {
-        return (EditText) getView().findViewById(R.id.editYearsOfExperience);
+        return (EditText) getView().findViewById(R.id.editPracticeStartDate);
     }
 
     private EditText getEditBuildingName() {
@@ -372,7 +367,7 @@ public class MyprofileEditFragment extends Fragment implements View.OnClickListe
     }
 
     private EditText getEditPincode() {
-        return (EditText) getView().findViewById(R.id.editPincode);
+        return (EditText) getView().findViewById(R.id.editPinCode);
     }
 
     private EditText getEditLandMark() {

@@ -1,4 +1,4 @@
-package com.drughub.doctor.MyProfile;
+package com.drughub.doctor.MyProfile.unused;
 
 
 import android.app.AlertDialog;

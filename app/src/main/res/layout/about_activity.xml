@@ -8,7 +8,7 @@
     <ImageView
         android:layout_width="200dp"
         android:layout_height="57dp"
-        android:padding="10dp"
+        android:padding="@dimen/margin_small"
         android:scaleType="fitXY"
         android:src="@drawable/drughub_logo" />
 

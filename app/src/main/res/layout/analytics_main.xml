@@ -70,7 +70,7 @@
             android:gravity="center"
             android:text="@string/consumption"
             android:textColor="@color/colorDecoration"
-            android:textSize="@dimen/text_teen" />
+            android:textSize="@dimen/text_tiny" />
 
         <TextView
             android:layout_width="0dp"
@@ -79,7 +79,7 @@
             android:gravity="center"
             android:text="@string/fmp"
             android:textColor="@color/colorDecoration"
-            android:textSize="@dimen/text_teen" />
+            android:textSize="@dimen/text_tiny" />
 
         <TextView
             android:layout_width="0dp"
@@ -88,7 +88,7 @@
             android:gravity="center"
             android:text="@string/profitability"
             android:textColor="@color/colorDecoration"
-            android:textSize="@dimen/text_teen" />
+            android:textSize="@dimen/text_tiny" />
 
         <TextView
             android:layout_width="0dp"
@@ -97,7 +97,7 @@
             android:gravity="center"
             android:text="@string/coldhub"
             android:textColor="@color/colorDecoration"
-            android:textSize="@dimen/text_teen" />
+            android:textSize="@dimen/text_tiny" />
 
     </LinearLayout>
 
@@ -120,7 +120,7 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin_small"
+                android:padding="@dimen/margin_small"
                 android:text="@string/consumption"
                 android:textColor="@color/colorDecoration"
                 android:textSize="@dimen/text_teen" />
@@ -129,7 +129,8 @@
                 android:id="@+id/forecastGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
                 android:background="@drawable/draw_rect_orange"
                 android:orientation="horizontal">
 
@@ -142,8 +143,9 @@
                     android:button="@null"
                     android:checked="true"
                     android:gravity="center"
-                    android:padding="@dimen/margin_small"
+                    android:padding="@dimen/margin_tiny"
                     android:text="@string/weekly"
+                    android:textSize="@dimen/text_teen"
                     android:textColor="@color/colorWhite" />
 
                 <View
@@ -158,8 +160,9 @@
                     android:layout_weight="1"
                     android:button="@null"
                     android:gravity="center"
-                    android:padding="@dimen/margin_small"
+                    android:padding="@dimen/margin_tiny"
                     android:text="@string/monthly"
+                    android:textSize="@dimen/text_teen"
                     android:textColor="@color/colorDecoration" />
 
                 <View
@@ -174,8 +177,9 @@
                     android:layout_weight="1"
                     android:button="@null"
                     android:gravity="center"
-                    android:padding="@dimen/margin_small"
+                    android:padding="@dimen/margin_tiny"
                     android:text="@string/yearly"
+                    android:textSize="@dimen/text_teen"
                     android:textColor="@color/colorDecoration" />
 
 
@@ -186,8 +190,9 @@
                 android:id="@+id/forecast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin_tiny"
                 android:text="@string/forecast"
+                android:textSize="@dimen/text_teen"
+                android:padding="@dimen/margin_small"
                 android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
@@ -291,7 +296,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_margin="@dimen/margin_tiny"
             android:background="@color/colorPrimary" />
 
         <TextView
@@ -308,7 +312,9 @@
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_marginTop="-20dp"
+            android:layout_marginBottom="10dp"/>
 
         <com.github.mikephil.charting.charts.HorizontalBarChart
             android:id="@+id/chart_horizontal"

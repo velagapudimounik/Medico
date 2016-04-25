@@ -46,7 +46,7 @@ public class ForgotPasswordFragment extends Fragment {
                         @Override
                         public void onSuccess(String result) {
                             Log.v("forget response", result);
-                            JSONObject object = null;
+                            JSONObject object;
                             try {
                                 object = new JSONObject(result);
                                 if (object.getBoolean("result")) {
@@ -62,7 +62,6 @@ public class ForgotPasswordFragment extends Fragment {
 
                         @Override
                         public void onFail(String result) {
-                            Toast.makeText(getActivity(), "Unable to process your request, please try again.", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

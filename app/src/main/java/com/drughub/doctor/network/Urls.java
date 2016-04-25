@@ -17,6 +17,6 @@ public class Urls {
 
     public static String CALENDAR = "/clinicCalendars";
     public static String CHANGE_PASSWORD = BASE_URL + "user/changePassword";
-    public static String GET_SPECIALLIZATION=BASE_URL+"common/1.0/specialization";
-    public static String GET_QUALIFICATION=BASE_URL+"common/1.0/qualification";
+    public static String GET_SPECIALIZATION = BASE_URL+"common/1.0/specialization";
+    public static String GET_QUALIFICATION = BASE_URL+"common/1.0/qualification";
 }

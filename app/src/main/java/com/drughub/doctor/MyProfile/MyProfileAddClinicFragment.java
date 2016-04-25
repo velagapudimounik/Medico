@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,10 +44,7 @@ import io.realm.RealmResults;
 public class MyProfileAddClinicFragment extends DialogFragment {
     private static final int SELECT_PICTURE = 12;
     ArrayList<Uri> image_urls;
-    EditText from_date_picker_edt, to_date_picker_edt;
-    int from_year = -1, from_month = -1, from_day = -1;
-    int to_year = -1, to_month = -1, to_day = -1;
-    LinearLayout imagelayout;
+    LinearLayout imageLayout;
     Spinner spinnerCountry, spinnerState, spinnerDistrict, spinnerCity;
     Button addClinic;
     RealmResults<Country> countries;
@@ -63,7 +61,6 @@ public class MyProfileAddClinicFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle(getString(R.string.addClinic));
         View view = inflater.inflate(R.layout.myprofile_addclinic_dailogbox, container, false);
-        String myString = "Country";
         spinnerCountry = (Spinner) view.findViewById(R.id.country_spinner);
         spinnerState = (Spinner) view.findViewById(R.id.state_spinner);
         spinnerDistrict = (Spinner) view.findViewById(R.id.district_spinner);
@@ -96,9 +93,6 @@ public class MyProfileAddClinicFragment extends DialogFragment {
             doorNo.setText(Globals.selectedDoctorClinic.getAddress().getDoorNumber());
             streetName.setText(Globals.selectedDoctorClinic.getAddress().getStreetName());
             areaName.setText(Globals.selectedDoctorClinic.getAddress().getAreaName());
-            // spinner1.set(bundle.getString("clinicName"));
-            //clinic_Name.setText(bundle.getString("clinicName"));
-            //clinic_Name.setText(bundle.getString("clinicName"));
             pincode.setText(Globals.selectedDoctorClinic.getAddress().getPostalCode());
             landmark.setText(Globals.selectedDoctorClinic.getAddress().getLandMark());
             Mobile.setText(Globals.selectedDoctorClinic.getPhoneNo());
@@ -108,7 +102,6 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                 consultationHome.setChecked(true);
             else
                 consultationHome.setChecked(false);
-
         }
 
         return view;
@@ -122,9 +115,9 @@ public class MyProfileAddClinicFragment extends DialogFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        imagelayout = (LinearLayout) view.findViewById(R.id.mainImageLayout);
-        FrameLayout iconplus = (FrameLayout) view.findViewById(R.id.icon_plus);
-        iconplus.setOnClickListener(new View.OnClickListener() {
+        imageLayout = (LinearLayout) view.findViewById(R.id.mainImageLayout);
+        FrameLayout iconPlus = (FrameLayout) view.findViewById(R.id.icon_plus);
+        iconPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ImagePickerActivity.class);
@@ -167,16 +160,11 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                 else if (landMark.isEmpty())
                     Toast.makeText(getContext(), "Enter LandMark", Toast.LENGTH_SHORT).show();
                 else {
-
-
                     Country country = countries.get(spinnerCountry.getSelectedItemPosition());
                     AllState state = states.get(spinnerState.getSelectedItemPosition());
-                    Log.i("States", states.get(spinnerState.getSelectedItemPosition()) + "");
                     AllCity city = cities.get(spinnerCity.getSelectedItemPosition());
 
-
                     DoctorClinic clinic = new DoctorClinic();
-                    Address address;
                     clinic.setClinicName(clinicName);
                     clinic.setPhoneNo(mobile);
                     clinic.setConsultationFee(Integer.parseInt(con_fee));
@@ -201,13 +189,10 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                     clinic.getAddress().setPostalCode(postalcode);
                     clinic.getAddress().setLandMark(landMark);
                     clinic.getAddress().setAreaCode("null");
-                    //clinic.getAddress().setAreaName("SR Ngr");
                     if (clinicString.equals("addClinic")) {
                         clinic.AddClinic(new Globals.VolleyCallback() {
-
                             @Override
                             public void onSuccess(String result) {
-
                                 try {
                                     JSONObject object = new JSONObject(result);
                                     if (object.getBoolean("result")) {
@@ -229,20 +214,15 @@ public class MyProfileAddClinicFragment extends DialogFragment {
 
                             @Override
                             public void onFail(String result) {
-
                             }
                         });
 
                     } else {
                         clinic.setClinicId(selectedClinic.getClinicId());
-
-                        address = new Address();
-                        Log.i("AddressID_from", selectedClinic.getAddress().getAddressId() + "");
                         clinic.getAddress().setAddressId(selectedClinic.getAddress().getAddressId());
                         clinic.UpdateClinic(new Globals.VolleyCallback() {
                             @Override
                             public void onSuccess(String result) {
-
                                 try {
                                     JSONObject object = new JSONObject(result);
                                     if (object.getBoolean("result")) {
@@ -263,14 +243,12 @@ public class MyProfileAddClinicFragment extends DialogFragment {
 
                             @Override
                             public void onFail(String result) {
-
                             }
                         });
                     }
                 }
             }
         });
-
 
         super.onViewCreated(view, savedInstanceState);
     }
@@ -282,7 +260,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
         realm = Realm.getDefaultInstance();
         countries = realm.where(Country.class).findAllSorted("value");
         if (countries.size() > 0) {
-            final ArrayList<String> values = new ArrayList<String>();
+            final ArrayList<String> values = new ArrayList<>();
             for (Country country : countries) {
                 values.add(country.getValue());
             }
@@ -307,15 +285,15 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                 }
             });
         }
-        final ArrayList<String> statevalues = new ArrayList<String>();
-        statevalues.add("State");
-        statevalues.add("State");
-        spinnerState.setAdapter(new SpinnerAdapter(getContext(), statevalues));
-        final ArrayList<String> cityvalues = new ArrayList<String>();
-        cityvalues.add("City");
-        cityvalues.add("City");
-        spinnerCity.setAdapter(new SpinnerAdapter(getContext(), cityvalues));
 
+        ArrayList<String> stateValues = new ArrayList<>();
+        stateValues.add("State");
+        stateValues.add("State");
+        spinnerState.setAdapter(new SpinnerAdapter(getContext(), stateValues));
+        final ArrayList<String> cityValues = new ArrayList<>();
+        cityValues.add("City");
+        cityValues.add("City");
+        spinnerCity.setAdapter(new SpinnerAdapter(getContext(), cityValues));
     }
 
     private void getStates(int position) {
@@ -328,17 +306,17 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                     realm.createAllFromJson(AllState.class, (new JSONObject(result)).getJSONArray("response").toString());
                     realm.commitTransaction();
                     states = realm.where(AllState.class).findAllSorted("value");
-                    final ArrayList<String> values = new ArrayList<String>();
+                    final ArrayList<String> values = new ArrayList<>();
                     for (AllState state : states) {
                         values.add(state.getValue());
                     }
                     values.add("State");
                     if (values.size() == 1) {
                         values.add("State");
-                        final ArrayList<String> cityvalues = new ArrayList<String>();
-                        cityvalues.add("City");
-                        cityvalues.add("City");
-                        spinnerCity.setAdapter(new SpinnerAdapter(getContext(), cityvalues));
+                        final ArrayList<String> cityValues = new ArrayList<>();
+                        cityValues.add("City");
+                        cityValues.add("City");
+                        spinnerCity.setAdapter(new SpinnerAdapter(getContext(), cityValues));
 
                     }
                     spinnerState.setAdapter(new SpinnerAdapter(getContext(), values));
@@ -368,7 +346,6 @@ public class MyProfileAddClinicFragment extends DialogFragment {
 
             @Override
             public void onFail(String result) {
-
             }
         });
     }
@@ -383,7 +360,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                     realm.createAllFromJson(AllCity.class, (new JSONObject(result)).getJSONArray("response").toString());
                     realm.commitTransaction();
                     cities = realm.where(AllCity.class).findAllSorted("value");
-                    ArrayList<String> values = new ArrayList<String>();
+                    ArrayList<String> values = new ArrayList<>();
                     for (AllCity city : cities) {
                         values.add(city.getValue());
                     }
@@ -416,7 +393,6 @@ public class MyProfileAddClinicFragment extends DialogFragment {
 
             @Override
             public void onFail(String result) {
-
             }
         });
     }
@@ -428,7 +404,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == getActivity().RESULT_OK) {
+        if (resultCode == FragmentActivity.RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
                 image_urls = data.getParcelableArrayListExtra(ImagePickerActivity.EXTRA_IMAGE_URIS);
                 // image_urls.add(Uri.EMPTY);
@@ -441,7 +417,7 @@ public class MyProfileAddClinicFragment extends DialogFragment {
                     imageView.setLayoutParams(layoutParams);
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     //System.out.println(i+"========i");
-                    imagelayout.addView(imageView);
+                    imageLayout.addView(imageView);
 
                 }
             }

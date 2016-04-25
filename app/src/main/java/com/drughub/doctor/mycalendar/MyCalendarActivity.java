@@ -254,7 +254,6 @@ public class MyCalendarActivity extends BaseActivity {
 
                 @Override
                 public void onFail(String result) {
-
                 }
             }, "");
     }
@@ -640,7 +639,7 @@ public class MyCalendarActivity extends BaseActivity {
 
     void showEditTimeSlotDialog(String fromTime, String toTime, final AddTimeSlotListener callback)
     {
-        final Dialog dialog = CustomDialog.showCustomDialog(this, R.layout.calender_time_picker,
+        final Dialog dialog = CustomDialog.showCustomDialog(this, R.layout.mycalender_time_picker,
                 Gravity.BOTTOM, true, true, false);
 
         final NumberPicker hourPickerFrom = (NumberPicker) dialog.findViewById(R.id.hourPickerFrom);
@@ -737,7 +736,7 @@ public class MyCalendarActivity extends BaseActivity {
         @Override
         public CalenderAdapter.DataHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_calender_show_date, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mycalender_time_slot_item, parent, false);
             return new DataHolder(view);
         }
 
@@ -753,6 +752,7 @@ public class MyCalendarActivity extends BaseActivity {
                     timingList.remove(position);
                     realm.commitTransaction();
                     notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, timingList.size());
                     if (timingList.size() == 0)
                         mRecyclerView.setVisibility(View.GONE);
                 }

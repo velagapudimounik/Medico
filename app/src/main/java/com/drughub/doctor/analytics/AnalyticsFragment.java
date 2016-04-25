@@ -100,9 +100,13 @@ public class AnalyticsFragment extends Fragment implements RadioGroup.OnCheckedC
         chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         chart.getXAxis().setDrawAxisLine(false);
         chart.getXAxis().setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+        chart.getXAxis().setSpaceBetweenLabels(0);
+        chart.getXAxis().setTextSize(13);
         chart.getAxisLeft().setEnabled(false);
         chart.getAxisRight().setEnabled(false);
         chart.getLegend().setEnabled(false);
+        chart.fitScreen();
+        chart.setVisibleXRangeMaximum(7);
         chart.invalidate();
     }
 

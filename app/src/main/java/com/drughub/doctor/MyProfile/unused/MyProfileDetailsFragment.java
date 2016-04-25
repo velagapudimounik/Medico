@@ -1,4 +1,4 @@
-package com.drughub.doctor.MyProfile;
+package com.drughub.doctor.MyProfile.unused;
 
 
 import android.os.Bundle;
@@ -43,10 +43,10 @@ public class MyProfileDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         doctorNameDetails = (TextView) view.findViewById(R.id.doctor_name);
         qualification = (TextView) view.findViewById(R.id.qualification);
-        adressline1 = (TextView) view.findViewById(R.id.textadressLine1);
-        adressline2 = (TextView) view.findViewById(R.id.textadressLine2);
+        adressline1 = (TextView) view.findViewById(R.id.textAddressLine1);
+        adressline2 = (TextView) view.findViewById(R.id.textAddressLine2);
         email = (TextView) view.findViewById(R.id.email);
-        yearsOfExperience=(TextView)view.findViewById(R.id.experience);
+        yearsOfExperience=(TextView)view.findViewById(R.id.practiceStartDate);
         mobile = (TextView) view.findViewById(R.id.mobile);
     }
 

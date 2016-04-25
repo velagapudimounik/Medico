@@ -15,23 +15,29 @@ import java.util.ArrayList;
 public class SpinnerAdapter extends ArrayAdapter<String> {
     private Context context;
     ArrayList<String> values;
+    String hintText;
+
+    public SpinnerAdapter(Context context, ArrayList<String> values, String hintText) {
+        super(context, R.layout.myporfile_spinner_item, values);
+        this.context = context;
+        this.values = values;
+        this.hintText = hintText;
+    }
 
     public SpinnerAdapter(Context context, ArrayList<String> values) {
-        super(context, R.layout.myporfile_spinner_addclinic, values);
+        super(context, R.layout.myporfile_spinner_item, values);
         this.context = context;
         this.values = values;
     }
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        return countrySet(position);
+        return createItem(position);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return countrySet(position);
-
-
+        return createItem(position);
     }
 
     @Override
@@ -39,17 +45,22 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
         return values.size() - 1;
     }
 
-    View countrySet(int position) {
+    View createItem(int position) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View countrySpinner = inflater.inflate(R.layout.myporfile_spinner_addclinic, null);
+        View countrySpinner = inflater.inflate(R.layout.myporfile_spinner_item, null);
         String val = values.get(position);
-        TextView countryTextview = (TextView) countrySpinner.findViewById(R.id.spinner_textview);
-        countryTextview.setText(val);
+        TextView textView = (TextView) countrySpinner.findViewById(R.id.spinner_text_view);
+        textView.setText(val);
         if (val.equalsIgnoreCase("city") || val.equalsIgnoreCase("state")|| val.equalsIgnoreCase("country"))
-            countryTextview.setTextColor(Color.LTGRAY);
+            textView.setTextColor(Color.LTGRAY);
         else
-            countryTextview.setTextColor(Color.DKGRAY);
+            textView.setTextColor(Color.DKGRAY);
         return countrySpinner;
 
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
     }
 }
