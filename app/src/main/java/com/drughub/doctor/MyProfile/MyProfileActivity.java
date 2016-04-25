@@ -359,36 +359,39 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
             if (serviceProvider.getPractiseStartDate() != null && !serviceProvider.getPractiseStartDate().isEmpty()) {
                 String dateStr = Globals.convertDateFormat(serviceProvider.getPractiseStartDate(), "yyyy-MM-dd", "dd-MM-yyyy");
                 editPractiseStartDate.setText(dateStr);
-            }
-            if (serviceProvider.getAddress() != null) {
-                editBuildNumber.setText(serviceProvider.getAddress().getBuildingName());
-                editDoorNumber.setText(serviceProvider.getAddress().getDoorNumber());
-                editStreetName.setText(serviceProvider.getAddress().getStreetName());
-                editAreaName.setText(serviceProvider.getAddress().getAreaName());
-                editPinCode.setText(serviceProvider.getAddress().getPostalCode());
-                editLandMark.setText(serviceProvider.getAddress().getLandMark());
-            }
-            countries = realm.where(Country.class).findAllSorted("value");
-            if (countries.size() > 0) {
-                final ArrayList<String> values = new ArrayList<>();
-                for (Country country : countries) {
-                    values.add(country.getValue());
+                if (serviceProvider.getPractiseStartDate() != null) {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    editPractiseStartDate.setText(serviceProvider.getPractiseStartDate());
                 }
-                values.add(HINT_COUNTRY);
-                spinnerCountry.setAdapter(new SpinnerAdapter(getApplicationContext(), values));
-                spinnerCountry.setSelection(values.size() - 1);
-
-                spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if (!spinnerCountry.getSelectedItem().toString().equalsIgnoreCase(HINT_COUNTRY))
-                            getStates(position);
+                if (serviceProvider.getAddress() != null) {
+                    editBuildNumber.setText(serviceProvider.getAddress().getBuildingName());
+                    editDoorNumber.setText(serviceProvider.getAddress().getDoorNumber());
+                    editStreetName.setText(serviceProvider.getAddress().getStreetName());
+                    editAreaName.setText(serviceProvider.getAddress().getAreaName());
+                    editPinCode.setText(serviceProvider.getAddress().getPostalCode());
+                    editLandMark.setText(serviceProvider.getAddress().getLandMark());
+                }
+                countries = realm.where(Country.class).findAllSorted("value");
+                if (countries.size() > 0) {
+                    final ArrayList<String> values = new ArrayList<>();
+                    for (Country country : countries) {
+                        values.add(country.getValue());
                     }
+                    values.add(HINT_COUNTRY);
+                    spinnerCountry.setAdapter(new SpinnerAdapter(getApplicationContext(), values));
+                    spinnerCountry.setSelection(values.size() - 1);
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-                    }
-                });
+                    spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            if (!spinnerCountry.getSelectedItem().toString().equalsIgnoreCase(HINT_COUNTRY))
+                                getStates(position);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                        }
+                    });
 //                HintSpinner<String> hintSpinner = new HintSpinner<>(
 //                        spinnerCountry,
 //                        // Default layout - You don't need to pass in any layout id, just your hint text and
@@ -409,43 +412,44 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
 //                            }
 //                        });
 //                hintSpinner.init();
-                if (serviceProvider.getAddress().getCountry() != null) {
-                    int pos = values.indexOf(serviceProvider.getAddress().getCountry().getValue());
-                    if (pos > 0)
-                        spinnerCountry.setSelection(pos);
+                    if (serviceProvider.getAddress().getCountry() != null) {
+                        int pos = values.indexOf(serviceProvider.getAddress().getCountry().getValue());
+                        if (pos > 0)
+                            spinnerCountry.setSelection(pos);
+                    }
                 }
-            }
 
-            getSpecializations();
-            getQualifications();
-            stateValues = new ArrayList<>();
+                getSpecializations();
+                getQualifications();
+                stateValues = new ArrayList<>();
 //            stateValues.add(HINT_STATE);
 //            stateValues.add(HINT_STATE);
 //            spinnerState.setAdapter(new SpinnerAdapter(getApplicationContext(), stateValues));
-            HintSpinner<String> hintSpinner = new HintSpinner<>(
-                    spinnerState,
-                    // Default layout - You don't need to pass in any layout id, just your hint text and
-                    // your list data
-                    new HintAdapter<>(this, HINT_STATE, stateValues, new HintAdapter.Callback<String>() {
-                        @Override
-                        public void setItemDetails(View view, int position, String itemAtPosition) {
-                            TextView textView = (TextView) view.findViewById(android.R.id.text1);
-                            textView.setText(itemAtPosition);
-                            textView.setTextColor(Color.BLUE);
-                        }
-                    }),
-                    new HintSpinner.Callback<String>() {
-                        @Override
-                        public void onItemSelected(int position, String itemAtPosition) {
-                            // Here you handle the on item selected event (this skips the hint selected event)
-                            getCities(position);
-                        }
-                    });
-            hintSpinner.init();
-            cityValues = new ArrayList<>();
-            cityValues.add(HINT_CITY);
-            cityValues.add(HINT_CITY);
-            spinnerCity.setAdapter(new SpinnerAdapter(getApplicationContext(), cityValues));
+                HintSpinner<String> hintSpinner = new HintSpinner<>(
+                        spinnerState,
+                        // Default layout - You don't need to pass in any layout id, just your hint text and
+                        // your list data
+                        new HintAdapter<>(this, HINT_STATE, stateValues, new HintAdapter.Callback<String>() {
+                            @Override
+                            public void setItemDetails(View view, int position, String itemAtPosition) {
+                                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                                textView.setText(itemAtPosition);
+                                textView.setTextColor(Color.BLUE);
+                            }
+                        }),
+                        new HintSpinner.Callback<String>() {
+                            @Override
+                            public void onItemSelected(int position, String itemAtPosition) {
+                                // Here you handle the on item selected event (this skips the hint selected event)
+                                getCities(position);
+                            }
+                        });
+                hintSpinner.init();
+                cityValues = new ArrayList<>();
+                cityValues.add(HINT_CITY);
+                cityValues.add(HINT_CITY);
+                spinnerCity.setAdapter(new SpinnerAdapter(getApplicationContext(), cityValues));
+            }
         }
     }
 
@@ -531,8 +535,6 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println(requestCode + "====requestcode");
-        System.out.println(resultCode + "====resultcode");
         if (resultCode == AppCompatActivity.RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
