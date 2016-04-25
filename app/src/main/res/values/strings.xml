@@ -124,6 +124,16 @@
     <string name="signup">Signup</string>
     <string name="forgotPassword">Forgot Password</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <!-- Login validations -->
+    <string name="EnterEmail">Please enter your Email ID</string>
+    <string name="EnterValidEmail">Please enter valid Email ID</string>
+    <string name="EnterPassword">Please enter your password</string>
+    <string name="EnterName">Please enter your Name</string>
+    <string name="EnterMobile">Please enter your Mobile Number</string>
+    <string name="EnterValidMobile">Please enter valid Mobile Number</string>
+    <string name="PasswordValidation">Password should be in minimum 8 characters</string>
+
+
 
     <!-- Cart -->
     <string name="cart_button">Place Order</string>

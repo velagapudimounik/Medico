@@ -51,11 +51,11 @@ public class LoginPage extends Fragment {
                     String password = editTextPassword.getText().toString();
 
                     if (username.isEmpty())
-                        Toast.makeText(getActivity(), "Please enter your Email ID", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),getString(R.string.EnterEmail) , Toast.LENGTH_SHORT).show();
                     else if (!Globals.isValidEmail(username))
-                        Toast.makeText(getActivity(), "Please enter valid Email ID", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),getString(R.string.EnterValidEmail) , Toast.LENGTH_SHORT).show();
                     else if (password.isEmpty())
-                        Toast.makeText(getActivity(), "Please enter your password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getString(R.string.EnterPassword), Toast.LENGTH_SHORT).show();
                     //else if (password.length() < MIN_PASSWORD_LENGTH)
                     //    Toast.makeText(getActivity(), "Password should be minimum "+MIN_PASSWORD_LENGTH+" characters", Toast.LENGTH_SHORT).show();
                     else
