@@ -30,87 +30,27 @@
                 app:mcv_weekDayTextAppearance="@style/CalendarWeekdayText"
                 app:mcv_firstDayOfWeek="monday"/>
 
-            <!--<com.imanoweb.calendarview.CustomCalendarView-->
-                <!--android:layout_marginTop="15dp"-->
-                <!--android:id="@+id/calendar_view"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="@color/colorDecorationLight"-->
-                <!--app:calendarBackgroundColor="@color/colorDecorationLight"-->
-                <!--app:calendarTitleTextColor="@color/colorWhite"-->
-                <!--app:currentDayOfMonthColor="@color/black"-->
-                <!--app:dayOfMonthTextColor="@color/colorPrimary"-->
-                <!--app:dayOfWeekTextColor="@color/black"-->
-                <!--app:disabledDayBackgroundColor="@color/colorDecorationLight"-->
-                <!--app:disabledDayTextColor="@color/colorTextLight"-->
-                <!--app:selectedDayBackgroundColor="@color/colorPrimary"-->
-                <!--app:titleLayoutBackgroundColor="@color/colorPrimary"-->
-                <!--app:weekLayoutBackgroundColor="@color/colorDecorationLight">-->
-            <!--</com.imanoweb.calendarview.CustomCalendarView>-->
-
-            <LinearLayout
-                android:id="@+id/myHolidaysClinicsView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Applicable Clinics"
-                android:padding="5dp"
-                android:textColor="@color/colorPrimary"
-                android:background="@color/colorDecoration"
-                android:layout_marginTop="15dp"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/myHolidaysClinicList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/margin_baby"
-                android:background="@color/colorDecorationLight"/>
-
-            </LinearLayout>
-
             <Button
-                android:id="@+id/submitButton"
+                android:id="@+id/markAsHoliday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:text="Submit"
+                android:text="Mark as Holiday"
                 style="@style/ButtonStyle"
-                android:layout_margin="15dp"/>
+                android:layout_margin="20dp"/>
 
-            <LinearLayout
-                android:id="@+id/myHolidaysEditView"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/markAsWorkingDay"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="10dp"
-                android:visibility="gone">
-
-                <Button
-                    android:id="@+id/deleteButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_margin="5dp"
-                    android:text="Delete"
-                    style="@style/ButtonStyle"
-                    android:background="@color/colorAccent"/>
-
-                <Button
-                    android:id="@+id/saveButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_margin="5dp"
-                    android:text="Save"
-                    style="@style/ButtonStyle"/>
-
-            </LinearLayout>
+                android:visibility="gone"
+                android:text="Mark as Working Day"
+                style="@style/ButtonStyle"
+                android:background="@color/colorDecoration"
+                android:layout_margin="20dp"/>
 
         </LinearLayout>
+
     </ScrollView>
+
 </LinearLayout>

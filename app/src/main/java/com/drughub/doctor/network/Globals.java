@@ -543,6 +543,28 @@ public class Globals {
         return toFormatStr;
     }
 
+    public static Date getDateFromString(String dateStr, String dateFormatStr)
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatStr, Locale.getDefault());
+
+        try {
+            return dateFormat.parse(dateStr);
+        } catch (Exception e) {}
+
+        return null;
+    }
+
+    public static String getStringFromDate(Date date, String dateFormatStr)
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatStr, Locale.getDefault());
+
+        try {
+            return dateFormat.format(date);
+        } catch (Exception e) {}
+
+        return null;
+    }
+
     static SimpleDateFormat format12Hour = new SimpleDateFormat("hh:mm a", Locale.getDefault());
     static SimpleDateFormat format24Hour = new SimpleDateFormat("kk:mm:ss", Locale.getDefault());
 
@@ -627,9 +649,17 @@ public class Globals {
                     conn.setRequestProperty("Cookie",
                             TextUtils.join(";", mCookieManager.getCookieStore().getCookies()));
                 }
-                conn.setRequestMethod(requestMethod(method));
+
+//                if(method == RequestMethod.DELETE && body != null) {
+//                    conn.setRequestProperty("X-HTTP-Method-Override", "DELETE");
+//                    conn.setRequestMethod("POST");
+//                }
+//                else
+                    conn.setRequestMethod(requestMethod(method));
+
                 conn.setDoInput(true);
-                if(method == RequestMethod.GET || method == RequestMethod.DELETE)
+
+                if(method == RequestMethod.GET || method == RequestMethod.DELETE)//(method == RequestMethod.DELETE && body == null))
                     conn.setDoOutput(false);
                 else
                     conn.setDoOutput(true);
@@ -693,15 +723,17 @@ public class Globals {
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            if(success)
-            {
-                callback.onSuccess(response);
+            if(success) {
                 try {
-                    JSONObject object = new JSONObject(stringResponse);
-                    if (!object.getBoolean("result"))
+                    JSONObject object = new JSONObject(response);
+                    if (object.getBoolean("result"))
+                        callback.onSuccess(response);
+                    else {
                         Toast.makeText(mContext, object.getString("errorCode") + ": " + object.getString("errorMessage"), Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                }
+                        callback.onFail(response);
+                    }
+
+                } catch (Exception e) { e.printStackTrace(); }
             }
             else {
                 Toast.makeText(mContext, response, Toast.LENGTH_SHORT).show();

@@ -50,8 +50,7 @@ public class HintSpinner<T> {
             }
         });
         selectHint();
-        if(!adapter.hasItems())
-            spinner.setEnabled(false);
+        notifyDataSetChanged();
     }
 
     private boolean isHintPosition(int position) {
@@ -78,6 +77,13 @@ public class HintSpinner<T> {
          * @param itemAtPosition Item selected
          */
         void onItemSelected(int position, T itemAtPosition);
+    }
+
+    public void notifyDataSetChanged()
+    {
+        adapter.notifyDataSetChanged();
+
+        spinner.setEnabled(adapter.hasItems());
     }
 }
 
