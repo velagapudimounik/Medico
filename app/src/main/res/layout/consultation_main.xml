@@ -33,30 +33,43 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/margin_slim"
+            android:layout_marginRight="@dimen/margin_slim"
             android:layout_weight="1"
+            android:paddingBottom="@dimen/margin_medium"
+            android:paddingTop="@dimen/margin_medium"
             android:background="@android:color/white"
             android:button="@null"
             android:checked="false"
             android:gravity="center"
             android:text="@string/upcoming"
             android:textColor="@drawable/tabs_text_selector_grey_orange" />
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/completedConsultations"
+            android:layout_marginBottom="@dimen/margin_slim"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="end"
+            android:text="completed"
+            android:textAlignment="center"
+            android:paddingBottom="@dimen/margin_medium"
+            android:paddingTop="@dimen/margin_medium"
+            android:textColor="@drawable/tabs_text_selector_grey_orange"/>
     </RadioGroup>
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:background="@android:color/white" />
+
 
     <com.drughub.doctor.utils.DrughubIcon
         android:id="@+id/addConsultationBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_below="@id/radioGroupConsultation"
         android:text="@string/icon_add_consultation"
+        android:visibility="invisible"
         android:textColor="@color/colorPrimary"
         android:textSize="65dp" />
 
@@ -65,6 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:layout_below="@id/addConsultationBtn"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -91,10 +105,10 @@
         android:id="@+id/editLayout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_below="@+id/view"
-        android:layout_marginTop="@dimen/margin_large"
+        android:layout_below="@+id/addConsultationBtn"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
         android:paddingRight="@dimen/margin_small">
 
         <EditText

@@ -31,6 +31,7 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.drughub.doctor.BaseActivity;
 import com.drughub.doctor.R;
 import com.drughub.doctor.utils.CustomDialog;
+import com.drughub.doctor.utils.DrughubIcon;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -68,7 +69,6 @@ public class ConsultationFragment extends DialogFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         getActivity().setTitle(getString(R.string.consultations));
-
         final TextView addBtn = (TextView) view.findViewById(R.id.addConsultationBtn);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,7 +178,9 @@ public class ConsultationFragment extends DialogFragment {
         final View editLayout = view.findViewById(R.id.editLayout);
 
         RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radioGroupConsultation);
-
+        final DrughubIcon addConsultationBtn=(DrughubIcon)view.findViewById(R.id.addConsultationBtn);
+        addConsultationBtn.setVisibility(View.VISIBLE);
+        addConsultationBtn.setEnabled(true);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -187,8 +189,16 @@ public class ConsultationFragment extends DialogFragment {
                 if (checkedId == R.id.todaysConsultations) {
                     dataSet = mDataSet;
                     searchView.setHint(getResources().getString(R.string.hintPatientName));
+                    addConsultationBtn.setVisibility(View.VISIBLE);
+                    addConsultationBtn.setEnabled(true);
                 } else if (checkedId == R.id.upcomingConsultations) {
                     dataSet = mDataSet1;
+                    searchView.setHint(getResources().getString(R.string.hintDateOrPatient));
+                    addConsultationBtn.setVisibility(View.GONE);
+                }
+                else if (checkedId==R.id.completedConsultations){
+                    dataSet=mDataSet1;
+                    addConsultationBtn.setVisibility(View.GONE);
                     searchView.setHint(getResources().getString(R.string.hintDateOrPatient));
                 }
 
